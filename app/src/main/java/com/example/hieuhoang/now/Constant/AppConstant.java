@@ -17,6 +17,8 @@ public class AppConstant {
     public static final String CHECK_EMAIL_EXISTS = "checkEmailExists";
     public static final String CHECK_LOGIN = "checkLogin";
     public static final String FULL_NAME = "fullname";
+    public static final String ID_ACCOUNT = "id_account";
+    public static final int DEFAULT_ID_ACCOUNT = -1;
     public static final String ACCOUNT_TYPE = "account_type";
     public static final String ID_STORE = "id_store";
     public static final String ID_ACCOUNT_ORDER = "ID_khachhang";

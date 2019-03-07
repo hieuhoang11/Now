@@ -30,6 +30,7 @@ import com.example.hieuhoang.now.Model.ObjectClass.Store;
 import com.example.hieuhoang.now.Presenter.Store.IPresenterStore;
 import com.example.hieuhoang.now.Presenter.Store.PresenterLogicStore;
 import com.example.hieuhoang.now.R;
+import com.example.hieuhoang.now.View.LoginRegister.LoginRegisterActivity;
 
 import java.util.List;
 
@@ -150,9 +151,45 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
 
     @Override
     public void addToCartSuccess () {
-
+        presenterStore.addProductsToCart();
     }
 
+    @Override
+    public void showBottomSheet() {
+        sheetBehavior.setPeekHeight(900);
+
+        //sheetBehaviorAddToCart.setPeekHeight(peekHeight);
+        bottom_sheet_add_to_cart.setVisibility(View.VISIBLE);
+        bottom_sheet.setVisibility(View.VISIBLE);
+        content.animate().alpha((float) 0.3).start();
+        appBarLayout.animate().alpha((float) 0.3).start();
+
+        tvQuality.setText(String.valueOf(1));
+        Common.loadImageFromInternet(AppConstant.SERVER_NAME_IMG + product.getImage().trim(), getApplicationContext(), imgProductBottomSheet);
+        tvNameProductBottomSheet.setText(product.getNameProduct());
+        String oldPriceStr = Common.formatNumber(product.getPrice());
+        if (product.getDiscount() != 0) {
+            tvNewPriceBottomSheet.setVisibility(View.VISIBLE);
+            String disCount = Common.formatNumber(product.getDiscount());
+            tvNewPriceBottomSheet.setText(disCount);
+            tvOldPriceBottomSheet.setText(Common.oldPriceFormat(oldPriceStr));
+            imgBottomSheet.setVisibility(View.VISIBLE);
+            tvTotal.setText(disCount);
+        } else {
+            tvTotal.setText(oldPriceStr);
+            tvOldPriceBottomSheet.setText(oldPriceStr);
+            imgBottomSheet.setVisibility(View.GONE);
+            tvNewPriceBottomSheet.setVisibility(View.GONE);
+        }
+
+        tvQuantityPurchasedBottomSheet.setText(Common.qualityPurchased(product.getQualityPurchase()));
+    }
+
+    @Override
+    public void startLoginActivity() {
+        Intent iLogin = new Intent(StoreActivity.this, LoginRegisterActivity.class) ;
+        startActivity(iLogin);
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -224,36 +261,8 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
     }
 
     public void showBottomSheet(Product product) {
-
-        sheetBehavior.setPeekHeight(900);
-
-        //sheetBehaviorAddToCart.setPeekHeight(peekHeight);
-        bottom_sheet_add_to_cart.setVisibility(View.VISIBLE);
-        bottom_sheet.setVisibility(View.VISIBLE);
-        content.animate().alpha((float) 0.3).start();
-        appBarLayout.animate().alpha((float) 0.3).start();
-
-        tvQuality.setText(String.valueOf(1));
-        Common.loadImageFromInternet(AppConstant.SERVER_NAME_IMG + product.getImage().trim(), getApplicationContext(), imgProductBottomSheet);
-        tvNameProductBottomSheet.setText(product.getNameProduct());
-        String oldPriceStr = Common.formatNumber(product.getPrice());
-        if (product.getDiscount() != 0) {
-            tvNewPriceBottomSheet.setVisibility(View.VISIBLE);
-            String disCount = Common.formatNumber(product.getDiscount());
-            tvNewPriceBottomSheet.setText(disCount);
-            tvOldPriceBottomSheet.setText(Common.oldPriceFormat(oldPriceStr));
-            imgBottomSheet.setVisibility(View.VISIBLE);
-            tvTotal.setText(disCount);
-        } else {
-            tvTotal.setText(oldPriceStr);
-            tvOldPriceBottomSheet.setText(oldPriceStr);
-            imgBottomSheet.setVisibility(View.GONE);
-            tvNewPriceBottomSheet.setVisibility(View.GONE);
-        }
-
-        tvQuantityPurchasedBottomSheet.setText(Common.qualityPurchased(product.getQualityPurchase()));
-
         this.product = product;
+        presenterStore.showBottomSheet();
     }
 
     @Override

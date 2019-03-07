@@ -3,7 +3,7 @@ package com.example.hieuhoang.now.Presenter.Register;
 import android.content.Context;
 
 import com.example.hieuhoang.now.Model.ObjectClass.Account;
-import com.example.hieuhoang.now.Model.Register.ModelRegister;
+import com.example.hieuhoang.now.Model.LoginRegister.ModelRegister;
 import com.example.hieuhoang.now.View.LoginRegister.ViewRegister;
 
 

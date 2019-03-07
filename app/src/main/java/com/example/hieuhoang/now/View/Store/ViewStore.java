@@ -14,4 +14,6 @@ public interface ViewStore {
     void loadInformationStore (Store store) ;
     void loadListProduct (List<GroupProduct> mProducts,boolean isGrid) ;
     void addToCartSuccess () ;
+    void showBottomSheet() ;
+    void startLoginActivity() ;
 }

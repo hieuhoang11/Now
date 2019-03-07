@@ -2,7 +2,11 @@ package com.example.hieuhoang.now.Presenter.Store;
 
 import android.content.Context;
 
+import com.example.hieuhoang.now.Constant.AppConstant;
+import com.example.hieuhoang.now.Model.LoginRegister.ModelLogin;
+import com.example.hieuhoang.now.Model.ObjectClass.Account;
 import com.example.hieuhoang.now.Model.ObjectClass.GroupProduct;
+import com.example.hieuhoang.now.Model.ObjectClass.Product;
 import com.example.hieuhoang.now.Model.ObjectClass.Store;
 import com.example.hieuhoang.now.Model.Store.ModelStore;
 import com.example.hieuhoang.now.Presenter.Service.IPresenterService;
@@ -16,11 +20,13 @@ import java.util.List;
 
 public class PresenterLogicStore implements IPresenterStore {
     ModelStore modelStore ;
+    ModelLogin modelLogin ;
     ViewStore viewStore ;
     Context context ;
     public PresenterLogicStore (ViewStore viewStore , Context context) {
         this.viewStore = viewStore;
         modelStore = new ModelStore();
+        modelLogin = new ModelLogin(context);
         this.context = context ;
     }
     @Override
@@ -46,5 +52,15 @@ public class PresenterLogicStore implements IPresenterStore {
 
     public void setIsGrid (boolean b) {
         modelStore.setIsGrid(context , b);
+    }
+
+    @Override
+    public void showBottomSheet() {
+        Account account = modelLogin.getAccountInformation(context) ;
+        if(account.getID_Account() != AppConstant.DEFAULT_ID_ACCOUNT) {
+            viewStore.showBottomSheet();
+        }else {
+            viewStore.startLoginActivity();
+        }
     }
 }

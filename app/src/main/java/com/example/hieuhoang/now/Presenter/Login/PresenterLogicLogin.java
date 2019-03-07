@@ -2,7 +2,7 @@ package com.example.hieuhoang.now.Presenter.Login;
 
 import android.content.Context;
 
-import com.example.hieuhoang.now.Model.Login.ModelLogin;
+import com.example.hieuhoang.now.Model.LoginRegister.ModelLogin;
 import com.example.hieuhoang.now.View.LoginRegister.ViewLogin;
 import com.facebook.AccessToken;
 

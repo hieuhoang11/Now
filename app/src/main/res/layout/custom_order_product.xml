@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:elevation="14dp"
     android:id="@+id/bottom_sheet"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_weight="1"
     android:background="@color/colorGray"
-    android:orientation="vertical"
+    android:elevation="14dp"
     android:fitsSystemWindows="true"
+    android:orientation="vertical"
     app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
 
@@ -32,25 +31,25 @@
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:background="@color/colorTransparent"
-                android:src="@drawable/icon_x_36dp"
-                android:scaleType="centerCrop"/>
+                android:scaleType="centerCrop"
+                android:src="@drawable/icon_x_36dp" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/add_item"
-                android:textStyle="bold"
-                android:textColor="@color/colorWhite" />
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorBGSearch"
             android:orientation="horizontal"
-            android:padding="10dp"
-            android:background="@color/colorBGSearch">
+            android:padding="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -68,9 +67,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:orientation="vertical"
-                    android:padding="10dp"
-                    android:layout_gravity="center_vertical">
+                    android:padding="10dp">
 
                     <TextView
                         android:id="@+id/tvNameProductBottomSheet"
@@ -95,12 +94,9 @@
 
                         <ImageView
                             android:id="@+id/imgBottomSheet"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
                             android:layout_marginLeft="2dp"
                             android:layout_marginRight="2dp"
-                            android:src="@drawable/icon_arrow_point_to_right" />
+                            style="@style/image_view_point_to_right" />
 
                         <TextView
                             android:id="@+id/tvNewPriceBottomSheet"
@@ -113,18 +109,13 @@
                     </LinearLayout>
 
 
-
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal">
 
                         <ImageView
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_gravity="center_vertical"
-                            android:scaleType="centerCrop"
-                            android:src="@drawable/icon_cart" />
+                            style="@style/image_view_cart" />
 
                         <TextView
                             android:id="@+id/tvQuantityPurchasedBottomSheet"
@@ -146,17 +137,12 @@
 
                 <ImageButton
                     android:id="@+id/btnSubtract"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:background="@drawable/custom_btn_subtract_circle"
-                    android:src="@drawable/icon_red_subtract_24dp"
-
-                    />
+                    style="@style/button_circle_subtract" />
 
                 <TextView
                     android:id="@+id/tvQuality"
                     android:layout_width="wrap_content"
-                    android:layout_height="25dp"
+                    android:layout_height="30dp"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
                     android:background="@color/colorGray"
@@ -166,11 +152,7 @@
 
                 <ImageButton
                     android:id="@+id/btnAdd"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:background="@drawable/custom_button_circle"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/icon_add_white_36dp" />
+                    style="@style/button_circle_plus" />
 
             </LinearLayout>
 

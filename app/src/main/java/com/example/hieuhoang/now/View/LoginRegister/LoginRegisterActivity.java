@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.hieuhoang.now.Constant.AppConstant;
-import com.example.hieuhoang.now.Model.Login.ModelLogin;
+import com.example.hieuhoang.now.Model.LoginRegister.ModelLogin;
 import com.example.hieuhoang.now.R;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;

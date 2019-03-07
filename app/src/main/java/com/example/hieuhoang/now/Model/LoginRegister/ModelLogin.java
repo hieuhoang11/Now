@@ -1,4 +1,4 @@
-package com.example.hieuhoang.now.Model.Login;
+package com.example.hieuhoang.now.Model.LoginRegister;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -34,6 +34,7 @@ public class ModelLogin {
     }
 
     public Boolean checkLogin(String email, String password) {
+        boolean b = false ;
         String path = AppConstant.SERVER_NAME;
         List<HashMap<String, String>> attrs = new ArrayList<>();
         HashMap<String, String> hsFunction = new HashMap<>();
@@ -51,11 +52,15 @@ public class ModelLogin {
             String dataJSON = downloadJSON.get();
             JSONObject jsonObject = new JSONObject(dataJSON);
             String result = jsonObject.getString("result");
+            Log.i("kiemtra", "checkLogin: " + dataJSON);
             if (result.equals("true")) {
+                b = true ;
+                Account account = new Account();
                 String fullName = jsonObject.getString(AppConstant.FULL_NAME);
-                Log.i("kiemtra", fullName);
-                setCacheLogin(context, fullName);
-                return true;
+                int id = jsonObject.getInt(AppConstant.ID_ACCOUNT);
+                account.setFullName(fullName);
+                account.setID_Account(id);
+                setCacheLogin(context, account);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -64,7 +69,7 @@ public class ModelLogin {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return false;
+        return b;
     }
 
     public AccessToken getAccessTokenFacebook() {
@@ -104,12 +109,12 @@ public class ModelLogin {
         return null;
     }
 
-    public void setCacheLogin(Context context, String str) {
+    public void setCacheLogin(Context context, Account account) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(AppConstant.LOGIN_SHAREDPREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(AppConstant.FULL_NAME, str);
+        editor.putString(AppConstant.FULL_NAME, account.getFullName());
+        editor.putInt(AppConstant.ID_ACCOUNT, account.getID_Account());
         editor.apply();
-
     }
 
     public Account getAccountInformation(Context context) {
@@ -120,15 +125,16 @@ public class ModelLogin {
         }
         Account account = new Account();
         String fullName = sharedPreferences.getString(AppConstant.FULL_NAME, "");
+        int id = sharedPreferences.getInt(AppConstant.ID_ACCOUNT,AppConstant.DEFAULT_ID_ACCOUNT) ;
         account.setFullName(fullName);
+        account.setID_Account(id);
         return account;
     }
 
     public void logoutAccount (Context context) {
-        setCacheLogin (context ,"") ;
-//        SharedPreferences sharedPreferences = context.getSharedPreferences(AppConstant.LOGIN_SHAREDPREFERENCES, Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.putString(AppConstant.FULL_NAME, "");
-//        editor.apply();
+        Account account = new Account();
+        account.setFullName("");
+        account.setID_Account(AppConstant.DEFAULT_ID_ACCOUNT);
+        setCacheLogin (context ,account) ;
     }
 }

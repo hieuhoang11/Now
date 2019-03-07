@@ -13,6 +13,52 @@
         <item name="android:textColor">@color/colorTextAppearance</item>
     </style>
 
+    <style name="text_view_out_of_stock" parent="@android:style/Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:background">@drawable/bg_out_of_stock</item>
+        <item name="android:text">@string/out_of_stock</item>
+    </style>
+
+    <style name="button_circle_plus" parent="@android:style/Widget.ImageButton">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:background">@drawable/custom_button_circle</item>
+        <item name="android:src">@drawable/icon_add_white_36dp</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="button_circle_subtract" parent="@android:style/Widget.ImageButton">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:background">@drawable/custom_btn_subtract_circle</item>
+        <item name="android:src">@drawable/icon_red_subtract_24dp</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="image_view_cart" parent="@android:style/Widget">
+        <item name="android:layout_width">15dp</item>
+        <item name="android:layout_height">15dp</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:src">@drawable/icon_cart</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="image_view_point_to_right" parent="@android:style/Widget">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_vertical</item>
+        <item name="android:src">@drawable/icon_arrow_point_to_right</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
     <!--<style name="TextAppearance.App.TabLayout" parent="@android:style/TextAppearance">-->
         <!--<item name="android:textColor">@color/colorTextTabAppearance</item>-->
     <!--</style>-->

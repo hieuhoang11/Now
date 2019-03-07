@@ -1,11 +1,10 @@
-package com.example.hieuhoang.now.Model.Register;
+package com.example.hieuhoang.now.Model.LoginRegister;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.example.hieuhoang.now.ConnectInternet.DownloadJSON;
 import com.example.hieuhoang.now.Constant.AppConstant;
-import com.example.hieuhoang.now.Model.Login.ModelLogin;
+import com.example.hieuhoang.now.Model.LoginRegister.ModelLogin;
 import com.example.hieuhoang.now.Model.ObjectClass.Account;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -92,7 +91,9 @@ public class ModelRegister {
             JSONObject jsonObject = new JSONObject(dataJSON);
             String result = jsonObject.getString("result");
             if (result.equals("true")) {
-                modelLogin.setCacheLogin(context,account.getFullName());
+                int id = jsonObject.getInt(AppConstant.ID_ACCOUNT);
+                account.setID_Account(id);
+                modelLogin.setCacheLogin(context,account);
                 return true;
             }
 

@@ -1,5 +1,9 @@
 package com.example.hieuhoang.now.Model.ObjectClass;
 
+import android.support.v7.app.AppCompatActivity;
+
+import com.example.hieuhoang.now.Constant.AppConstant;
+
 /**
  * Created by Hieu Hoang on 19/02/2019.
  */
@@ -8,11 +12,12 @@ public class Account {
 
     private int ID_Account ;
     private String fullName ;
-    private  String email;
+    private String email;
     private String password;
     private int accountType ;
 
     public Account() {
+        ID_Account = AppConstant.DEFAULT_ID_ACCOUNT;
     }
 
     public Account(int ID_Account, String fullName, String email, String password , int accountType) {
