@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#2c39b6</color>
+    <color name="colorTransparent">#00c640ff</color>
+    <color name="colorWhite">#FFF</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorRed">#ec2327</color>
+    <color name="colorText">#4b4242</color>
+    <color name="colorGray">#CCC</color>
+    <color name="colorTextHint">#555558</color>
+    <color name="colorBGSearch" >#f4f4f4</color>
+    <color name="colorTextSearch" >#979797</color>
+    <color name="colorApp" >#efeeee</color>
+    <color name="colorFacebook" >#4a6ea9</color>
+    <color name="colorGoogle" >#da4835</color>
+    <color name="colorStartButton" >#ec9668</color>
+    <color name="colorEndButton" >#5c1302</color>
+    <color name="colorTextAppearance" >#262424</color>
+    <color name="colorTextTabSelected" >#fd53bdf5</color>
+    <color name="colorOldPrice" >#959595</color>
+    <color name="colorNewPrice" >#6088a7</color>
+    <color name="colorTextRecommend">#73484444</color>
+    <color name="colorMenuItem">#f3f7fb</color>
+    <color name="colorGridView">#dddddd</color>
+    <color name="colorBottomCircle">#49739d</color>
+    <color name="colorMenu">#f9f9f9</color>
+    <color name="colorTopOfBottomSheet">#0288ff</color>
+    <color name="colorBottomOfBottomSheet">#49739d</color>
+    <color name="colorTotalMoneyCart">#ecd876</color>
+   <!--// 183651-->
+</resources>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorApp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Tài khoản"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/colorWhite"
+            android:src="@drawable/baseline_search_black_24dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLogIn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBlack"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:layout_marginBottom="15dp"
+        android:gravity="center_vertical"
+        android:clickable="true"
+        >
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/btnImgAccount"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:src="@drawable/icon_add_user_32dp"
+            app:border_color="@color/colorWhite"
+            app:border_width="2dp"
+            />
+
+        <Button
+            android:id="@+id/btnLoginAccount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBlack"
+            android:text="@string/login_account"
+            android:textAlignment="textStart"
+            android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
+            android:paddingLeft="15dp"
+            android:textStyle="bold"
+            />
+    </LinearLayout>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lịch sử"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:background="@color/colorWhite"
+        android:textColor="@color/colorBlack"
+        android:drawableRight="@drawable/icon_arrow_point_to_right"
+        />
+
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Lịch sử"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:background="@color/colorWhite"
+        android:textColor="@color/colorBlack"
+        android:layout_marginTop="1dp"
+        />
+
+    <Button
+        android:id="@+id/btnLogoutAccount"
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Đăng xuất"
+        android:textAllCaps="false"
+        android:textColor="@color/colorRed"
+        android:background="@color/colorWhite"
+        />
+
+</LinearLayout>

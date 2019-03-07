@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:elevation="14dp"
+    android:id="@+id/bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_weight="1"
+    android:background="@color/colorGray"
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/colorTopOfBottomSheet"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp">
+
+            <ImageButton
+                android:id="@+id/btnCloseBottomSheet"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:background="@color/colorTransparent"
+                android:src="@drawable/icon_x_36dp"
+                android:scaleType="centerCrop"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/add_item"
+                android:textStyle="bold"
+                android:textColor="@color/colorWhite" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="10dp"
+            android:background="@color/colorBGSearch">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/imgProductBottomSheet"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/test_img" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp"
+                    android:layout_gravity="center_vertical">
+
+                    <TextView
+                        android:id="@+id/tvNameProductBottomSheet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ten san pham"
+                        android:textColor="@color/colorBlack"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvOldPriceBottomSheet"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="gia cu"
+                            android:textColor="@color/colorText"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:id="@+id/imgBottomSheet"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:src="@drawable/icon_arrow_point_to_right" />
+
+                        <TextView
+                            android:id="@+id/tvNewPriceBottomSheet"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="gia moi"
+                            android:textColor="@color/colorNewPrice"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_gravity="center_vertical"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/icon_cart" />
+
+                        <TextView
+                            android:id="@+id/tvQuantityPurchasedBottomSheet"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="sl ban"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+
+                </LinearLayout>
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right|bottom">
+
+                <ImageButton
+                    android:id="@+id/btnSubtract"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/custom_btn_subtract_circle"
+                    android:src="@drawable/icon_red_subtract_24dp"
+
+                    />
+
+                <TextView
+                    android:id="@+id/tvQuality"
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@color/colorGray"
+                    android:text="1"
+                    android:textColor="@color/colorBlack"
+                    android:textSize="20sp" />
+
+                <ImageButton
+                    android:id="@+id/btnAdd"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:background="@drawable/custom_button_circle"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/icon_add_white_36dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/colorWhite"
+                android:gravity="top|left"
+                android:hint="@string/add_note"
+                android:lines="3"
+                android:maxLines="6"
+                android:scrollbars="vertical"
+                android:textColor="@color/colorBlack"
+                android:textColorHint="@color/colorGray" />
+        </LinearLayout>
+
+        <!--<include layout="@layout/custom_order_product" />-->
+    </LinearLayout>
+</LinearLayout>

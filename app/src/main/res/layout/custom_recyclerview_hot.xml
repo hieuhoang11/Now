@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="150dp"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginRight="13dp"
+    android:id="@+id/viewHotProduct"
+    >
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        app:cardCornerRadius="5dp"
+        >
+
+        <ImageView
+            android:id="@+id/imgHotProduct"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/test_img" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:orientation="vertical"
+            android:paddingLeft="5dp"
+            android:background="@drawable/bg_hot_price"
+            >
+
+            <TextView
+                android:id="@+id/hotStoreName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tên cửa hàng"
+                android:textSize="14dp"
+                 />
+
+            <TextView
+                android:id="@+id/hotQuality"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="13 giảm giá"
+                android:textSize="10dp" />
+        </LinearLayout>
+
+
+    </android.support.v7.widget.CardView>
+
+    <TextView
+        android:id="@+id/hotProductName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Tên sản phẩm"
+        android:textColor="@color/colorBlack"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/hotNewPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="20,000đ"
+            android:textStyle="bold"
+            android:textColor="@color/colorNewPrice"/>
+
+        <TextView
+            android:id="@+id/hotOldPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="7dp"
+            android:text="old Price"
+            android:textColor="@color/colorOldPrice" />
+    </LinearLayout>
+
+
+</LinearLayout>

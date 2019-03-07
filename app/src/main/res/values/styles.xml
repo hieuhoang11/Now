@@ -1,0 +1,30 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorWhite</item>
+        <item name="colorPrimaryDark">@color/colorBlack</item>
+        <item name="colorAccent">@color/colorGray</item>
+        <item name="colorControlNormal">@color/colorGray</item>
+    </style>
+
+    <style name="TextAppearance.App.TextInputLayout" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@color/colorTextAppearance</item>
+    </style>
+
+    <!--<style name="TextAppearance.App.TabLayout" parent="@android:style/TextAppearance">-->
+        <!--<item name="android:textColor">@color/colorTextTabAppearance</item>-->
+    <!--</style>-->
+
+
+    <!--<style name="android.support.design.widget.TabLayout" parent="">-->
+        <!--<item name="android:colorAccent">@color/colorPrimary</item>-->
+    <!--</style>-->
+
+    <declare-styleable name="PasswordEditText" >
+        <attr name="useStrike" format="boolean"></attr>
+        <attr name="useValidate" format="boolean"></attr>
+    </declare-styleable>
+
+</resources>
