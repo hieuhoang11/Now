@@ -47,7 +47,7 @@ public class ProductsInStoreAdapter extends RecyclerView.Adapter<ProductsInStore
     public void onBindViewHolder(ProductsViewHolder holder, int position) {
         final Product product = mProducts.get(position);
         holder.tvNameProduct.setText(product.getNameProduct());
-        holder.tvNumberOfPurchases.setText(Common.qualityPurchased(product.getQualityPurchase()));
+        holder.tvNumberOfPurchases.setText(Common.qualityPurchased(product.getQuantityPurchase()));
         Common.loadImageFromInternet(AppConstant.SERVER_NAME_IMG + product.getImage(), context, holder.imgProduct);
         final String price = Common.formatNumber(product.getPrice());
         if (product.getDiscount() == 0) {
@@ -61,7 +61,7 @@ public class ProductsInStoreAdapter extends RecyclerView.Adapter<ProductsInStore
         }
 
 
-        if(product.getQuality() > 0 ) {
+        if(product.getQuantity() > 0 ) {
             holder.tvOutOfStock.setVisibility(View.GONE);
             holder.viewProductInStore.setOnClickListener(new View.OnClickListener() {
                 @Override

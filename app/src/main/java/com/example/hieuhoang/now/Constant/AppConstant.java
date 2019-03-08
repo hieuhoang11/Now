@@ -1,7 +1,7 @@
 package com.example.hieuhoang.now.Constant;
 
 public class AppConstant {
-    public static final String LOCAL = "http://192.168.1.14:8080";
+    public static final String LOCAL = "http://192.168.0.104:8080";
     public static final String SERVER_NAME = LOCAL + "/webnow/getJSONData.php";
     public static final String SERVER_NAME_IMG = LOCAL + "/webnow/";
     public static final String EMAIL = "email";
@@ -13,15 +13,21 @@ public class AppConstant {
     public static final String GET_ALL_STORE_HAS_PROMO_PRODUCT= "getAllStoreHasPromoProduct";
     public static final String GET_PRODUCTS_BY_ID_STORE = "getProductsInStore";
     public static final String ADD_NEW_ORDER = "addNewOrder";
+    public static final String ADD_DETAIL_ORDER = "addDetailOrder";
+    public static final String GET_SUM_QUALITY_PRODUCT_IN_ORDER = "getSumQuantityProductInOrder";
     public static final String REGISTER_ACCOUNT = "registerAccount";
     public static final String CHECK_EMAIL_EXISTS = "checkEmailExists";
     public static final String CHECK_LOGIN = "checkLogin";
     public static final String FULL_NAME = "fullname";
     public static final String ID_ACCOUNT = "id_account";
     public static final int DEFAULT_ID_ACCOUNT = -1;
+    public static final String DEFAULT_ID_ORDER = "-1";
     public static final String ACCOUNT_TYPE = "account_type";
     public static final String ID_STORE = "id_store";
-    public static final String ID_ACCOUNT_ORDER = "ID_khachhang";
+    public static final String ID_PRODUCT = "id_product";
+    public static final String ID_ORDER = "id_order";
+    public static final String QUANTITY = "quantity";
+    public static final String RESULT = "result";
     public static final String LOGIN_SHAREDPREFERENCES = "login_information";
     public static final String IS_GRID_IN_STORE = "is_grid";
     public static final String IS_GRID = "isGrid";

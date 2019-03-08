@@ -16,4 +16,5 @@ public interface ViewStore {
     void addToCartSuccess () ;
     void showBottomSheet() ;
     void startLoginActivity() ;
+    void showCart(int quality);
 }

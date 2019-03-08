@@ -140,7 +140,7 @@
                     style="@style/button_circle_subtract" />
 
                 <TextView
-                    android:id="@+id/tvQuality"
+                    android:id="@+id/tvQuantity"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_marginLeft="5dp"

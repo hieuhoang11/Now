@@ -29,5 +29,6 @@
     <color name="colorTopOfBottomSheet">#0288ff</color>
     <color name="colorBottomOfBottomSheet">#49739d</color>
     <color name="colorTotalMoneyCart">#ecd876</color>
+    <color name="bgLogoItemInCart">#f67122</color>
    <!--// 183651-->
 </resources>

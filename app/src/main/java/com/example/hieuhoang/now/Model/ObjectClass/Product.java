@@ -5,27 +5,20 @@ package com.example.hieuhoang.now.Model.ObjectClass;
  */
 
 public class Product {
+    String id ;
     String image;
     String nameProduct ;
-    int quality ;
+    int quantity ;
     float price ;
     float discount ;
-    long qualityPurchase ;
+    long quantityPurchase ;
 
-    public float getPrice() {
-        return price;
+    public String getId() {
+        return id;
     }
 
-    public void setPrice(float price) {
-        this.price = price;
-    }
-
-    public float getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(float discount) {
-        this.discount = discount;
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getImage() {
@@ -44,19 +37,35 @@ public class Product {
         this.nameProduct = nameProduct;
     }
 
-    public int getQuality() {
-        return quality;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setQuality(int quality) {
-        this.quality = quality;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
-    public long getQualityPurchase() {
-        return qualityPurchase;
+    public float getPrice() {
+        return price;
     }
 
-    public void setQualityPurchase(long qualityPurchase) {
-        this.qualityPurchase = qualityPurchase;
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
+    public float getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(float discount) {
+        this.discount = discount;
+    }
+
+    public long getQuantityPurchase() {
+        return quantityPurchase;
+    }
+
+    public void setQuantityPurchase(long quantityPurchase) {
+        this.quantityPurchase = quantityPurchase;
     }
 }

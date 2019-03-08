@@ -39,21 +39,20 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
     TextView tvNameOfStore, tvAddressOfStore, tvNameProductBottomSheet, tvOldPriceBottomSheet, tvNewPriceBottomSheet, tvQuantityPurchasedBottomSheet;
     ImageView imgStore, imgProductBottomSheet, imgBottomSheet;
     ImageButton btnSearchStore, btnShowGrid, btnShowList, btnSubtract, btnAdd;
-    TextView tvQuality, tvTotal;
+    TextView tvQuantity, tvTotal, tvItemInCart;
     RecyclerView rvStore;
     LinearLayout linearSearch;
     EditText edtSearchInStore;
-    View bottom_sheet_add_to_cart, content, bottom_sheet;
+    View bottom_sheet_add_to_cart, content, bottom_sheet, bottom_sheet_cart_in_store;
     AppBarLayout appBarLayout;
     private boolean isSearch = false;
     private StoreAdapter adapter;
-    public BottomSheetBehavior sheetBehavior, sheetBehaviorAddToCart;
+    private BottomSheetBehavior sheetBehavior, sheetBehaviorAddToCart, sheetCart;
 
     ImageButton btnCloseBottomSheet;
-    private int peekHeight = 0;
-    // private int qualityProduct = 0;
     private Product product;
     private Store store;
+    private String idStore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,29 +60,28 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
         setContentView(R.layout.activity_store);
         Mapping();
         Intent intent = getIntent();
-        String idStore = intent.getStringExtra(AppConstant.ID_STORE);
-        presenterStore = new PresenterLogicStore(this,getApplicationContext());
+        idStore = intent.getStringExtra(AppConstant.ID_STORE);
+        presenterStore = new PresenterLogicStore(this, getApplicationContext());
         presenterStore.getStoreByID(idStore);
         presenterStore.getListProduct(idStore);
 
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        if(getSupportActionBar() != null) {
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             toolbar.setTitle(store.getStoreName());
         }
 
         // bottom sheet
-        bottom_sheet = findViewById(R.id.bottom_sheet);
         sheetBehavior = BottomSheetBehavior.from(bottom_sheet);
-        //sheetBehavior.setPeekHeight(0);
         bottom_sheet.setVisibility(View.GONE);
 
         sheetBehaviorAddToCart = BottomSheetBehavior.from(bottom_sheet_add_to_cart);
-        peekHeight = sheetBehaviorAddToCart.getPeekHeight();
-        //sheetBehaviorAddToCart.setPeekHeight(0);
         bottom_sheet_add_to_cart.setVisibility(View.GONE);
+
+        sheetCart = BottomSheetBehavior.from(bottom_sheet_cart_in_store);
+        bottom_sheet_cart_in_store.setVisibility(View.GONE);
 
     }
 
@@ -115,15 +113,18 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
         tvQuantityPurchasedBottomSheet = findViewById(R.id.tvQuantityPurchasedBottomSheet);
         btnAdd = findViewById(R.id.btnAdd);
         btnSubtract = findViewById(R.id.btnSubtract);
-        tvQuality = findViewById(R.id.tvQuality);
+        tvQuantity = findViewById(R.id.tvQuantity);
         bottom_sheet_add_to_cart = findViewById(R.id.bottom_sheet_add_to_cart);
         tvTotal = findViewById(R.id.tvTotal);
         bottom_sheet = findViewById(R.id.bottom_sheet);
 
+        bottom_sheet_cart_in_store = findViewById(R.id.bottom_sheet_cart_in_store);
+        tvItemInCart = findViewById(R.id.tvItemInCart);
+
         btnCloseBottomSheet.setOnClickListener(this);
         btnAdd.setOnClickListener(this);
         btnSubtract.setOnClickListener(this);
-        tvQuality.setOnClickListener(this);
+        tvQuantity.setOnClickListener(this);
         bottom_sheet_add_to_cart.setOnClickListener(this);
 
         //
@@ -134,14 +135,14 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
 
     @Override
     public void loadInformationStore(Store store) {
-        this.store = store ;
+        this.store = store;
         tvNameOfStore.setText(store.getStoreName());
         tvAddressOfStore.setText(store.getStoreAddress());
         Common.loadImageFromInternet(AppConstant.SERVER_NAME_IMG + store.getImage(), getApplicationContext(), imgStore);
     }
 
     @Override
-    public void loadListProduct(List<GroupProduct> mGroupProducts , boolean isGrid) {
+    public void loadListProduct(List<GroupProduct> mGroupProducts, boolean isGrid) {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         adapter = new StoreAdapter(mGroupProducts, getApplicationContext(), this, isGrid);
@@ -150,21 +151,21 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
     }
 
     @Override
-    public void addToCartSuccess () {
-        presenterStore.addProductsToCart();
+    public void addToCartSuccess() {
+        presenterStore.getSumQuantityProduct(this.idStore);
+        this.closeBottomSheet();
     }
 
     @Override
     public void showBottomSheet() {
         sheetBehavior.setPeekHeight(900);
 
-        //sheetBehaviorAddToCart.setPeekHeight(peekHeight);
         bottom_sheet_add_to_cart.setVisibility(View.VISIBLE);
         bottom_sheet.setVisibility(View.VISIBLE);
         content.animate().alpha((float) 0.3).start();
         appBarLayout.animate().alpha((float) 0.3).start();
 
-        tvQuality.setText(String.valueOf(1));
+        tvQuantity.setText(String.valueOf(1));
         Common.loadImageFromInternet(AppConstant.SERVER_NAME_IMG + product.getImage().trim(), getApplicationContext(), imgProductBottomSheet);
         tvNameProductBottomSheet.setText(product.getNameProduct());
         String oldPriceStr = Common.formatNumber(product.getPrice());
@@ -182,14 +183,21 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
             tvNewPriceBottomSheet.setVisibility(View.GONE);
         }
 
-        tvQuantityPurchasedBottomSheet.setText(Common.qualityPurchased(product.getQualityPurchase()));
+        tvQuantityPurchasedBottomSheet.setText(Common.qualityPurchased(product.getQuantityPurchase()));
     }
 
     @Override
     public void startLoginActivity() {
-        Intent iLogin = new Intent(StoreActivity.this, LoginRegisterActivity.class) ;
+        Intent iLogin = new Intent(StoreActivity.this, LoginRegisterActivity.class);
         startActivity(iLogin);
     }
+
+    @Override
+    public void showCart(int quantity) {
+        bottom_sheet_cart_in_store.setVisibility(View.VISIBLE);
+        tvItemInCart.setText(String.valueOf(quantity));
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -201,12 +209,12 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
                 isSearch = !isSearch;
                 break;
             case R.id.btnShowGrid:
-                presenterStore.setIsGrid(true) ;
+                presenterStore.setIsGrid(true);
                 adapter.setIsGrid(true);
                 adapter.notifyDataSetChanged();
                 break;
             case R.id.btnShowList:
-                presenterStore.setIsGrid(false) ;
+                presenterStore.setIsGrid(false);
                 adapter.setIsGrid(false);
                 adapter.notifyDataSetChanged();
                 break;
@@ -214,18 +222,18 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
                 closeBottomSheet();
                 break;
             case R.id.btnAdd:
-                int a = Integer.parseInt(tvQuality.getText().toString()) + 1;
-                if (a > this.product.getQuality()) {
+                int a = Integer.parseInt(tvQuantity.getText().toString()) + 1;
+                if (a > this.product.getQuantity()) {
                     Toast.makeText(this.getApplicationContext(), R.string.msg_out_of_stock, Toast.LENGTH_SHORT).show();
                 } else {
-                    tvQuality.setText(String.valueOf(a));
+                    tvQuantity.setText(String.valueOf(a));
                     tvTotal.setText(Common.formatNumber(totalMoney(a)));
                 }
                 break;
             case R.id.btnSubtract:
-                int s = Integer.parseInt(tvQuality.getText().toString()) - 1;
+                int s = Integer.parseInt(tvQuantity.getText().toString()) - 1;
                 if (s >= 1) {
-                    tvQuality.setText(String.valueOf(s));
+                    tvQuantity.setText(String.valueOf(s));
                     tvTotal.setText(Common.formatNumber(totalMoney(s)));
                 }
                 break;
@@ -240,16 +248,15 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
         }
     }
 
-    private float totalMoney(int quality) {
-        return product.getDiscount() == 0 ? quality * product.getPrice() : quality * product.getDiscount();
+    private float totalMoney(int quantity) {
+        return product.getDiscount() == 0 ? quantity * product.getPrice() : quantity * product.getDiscount();
     }
 
     private void addToCart() {
-        this.presenterStore.addProductsToCart();
+        this.presenterStore.addProductsToCart(this.idStore, this.product.getId(), Integer.parseInt(tvQuantity.getText().toString().trim()));
     }
 
     private void closeBottomSheet() {
-        Log.i("kiemtra", "closeBottomSheet: ");
         sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
 //        sheetBehavior.setPeekHeight(0);
 //        sheetBehaviorAddToCart.setPeekHeight(0);
@@ -259,6 +266,13 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
         content.animate().alpha((float) 1.0).start();
         appBarLayout.animate().alpha((float) 1.0).start();
     }
+
+//    private void showCart() {
+//        bottom_sheet_cart_in_store.setVisibility(View.VISIBLE);
+//        int c = Integer.parseInt(tvItemInCart.getText().toString().trim());
+//        c += Integer.parseInt(tvQuality.getText().toString().trim());
+//        tvItemInCart.setText(String.valueOf(c));
+//    }
 
     public void showBottomSheet(Product product) {
         this.product = product;
@@ -270,7 +284,6 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
         switch (v.getId()) {
             case R.id.content:
             case R.id.appBar:
-                Log.i("kiemtra", "onClick: ");
                 closeBottomSheet();
                 break;
         }

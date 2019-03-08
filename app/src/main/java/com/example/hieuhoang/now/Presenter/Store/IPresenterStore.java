@@ -9,7 +9,8 @@ import com.example.hieuhoang.now.Model.ObjectClass.Product;
 public interface IPresenterStore {
     void getStoreByID(String idStore);
     void getListProduct(String idStore);
-    void addProductsToCart();
+    void addProductsToCart(String idStore,String idProduct , int quantity);
     void setIsGrid(boolean b);
     void showBottomSheet () ;
+    void getSumQuantityProduct(String idStore) ;
 }

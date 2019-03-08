@@ -181,4 +181,6 @@
 
     <include layout="@layout/custom_bottom_sheet_add_to_cart" />
 
+    <include layout="@layout/custom_bottom_sheet_cart_in_store" />
+
 </android.support.design.widget.CoordinatorLayout>
