@@ -1,5 +1,6 @@
 package com.example.hieuhoang.now.Presenter.Store;
 
+import com.example.hieuhoang.now.Model.ObjectClass.Order;
 import com.example.hieuhoang.now.Model.ObjectClass.Product;
 
 /**
@@ -8,9 +9,9 @@ import com.example.hieuhoang.now.Model.ObjectClass.Product;
 
 public interface IPresenterStore {
     void getStoreByID(String idStore);
-    void getListProduct(String idStore);
-    void addProductsToCart(String idStore,String idProduct , int quantity);
-    void setIsGrid(boolean b);
-    void showBottomSheet () ;
-    void getSumQuantityProduct(String idStore) ;
+    void addProductsToCart(Order order ,String idStore,String idProduct , int quantity,String note);
+    void checkLogin () ;
+    void getDraftOrder(String idStore) ;
+    void getOrderDetail(String idOrder);
+    void resetOrder(String idOrder);
 }

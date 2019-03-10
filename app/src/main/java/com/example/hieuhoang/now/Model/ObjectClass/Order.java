@@ -8,6 +8,8 @@ public class Order {
     String idOrder;
     String idStore;
     String idCustomer;
+    String quantityProduct ;
+    float totalMoney ;
 
     public Order() {
     }
@@ -34,5 +36,21 @@ public class Order {
 
     public void setIdCustomer(String idCustomer) {
         this.idCustomer = idCustomer;
+    }
+
+    public String getQuantityProduct() {
+        return quantityProduct;
+    }
+
+    public void setQuantityProduct(String quantityProduct) {
+        this.quantityProduct = quantityProduct;
+    }
+
+    public float getTotalMoney() {
+        return totalMoney;
+    }
+
+    public void setTotalMoney(float totalMoney) {
+        this.totalMoney = totalMoney;
     }
 }

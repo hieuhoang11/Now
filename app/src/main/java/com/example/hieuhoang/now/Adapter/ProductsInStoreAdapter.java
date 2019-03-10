@@ -46,7 +46,7 @@ public class ProductsInStoreAdapter extends RecyclerView.Adapter<ProductsInStore
     @Override
     public void onBindViewHolder(ProductsViewHolder holder, int position) {
         final Product product = mProducts.get(position);
-        holder.tvNameProduct.setText(product.getNameProduct());
+        holder.tvNameProduct.setText(product.getProductName());
         holder.tvNumberOfPurchases.setText(Common.qualityPurchased(product.getQuantityPurchase()));
         Common.loadImageFromInternet(AppConstant.SERVER_NAME_IMG + product.getImage(), context, holder.imgProduct);
         final String price = Common.formatNumber(product.getPrice());

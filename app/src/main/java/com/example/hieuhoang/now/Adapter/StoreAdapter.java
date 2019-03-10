@@ -55,7 +55,7 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
     public void onBindViewHolder(final StoreViewHolder holder, final int position) {
         GroupProduct groupProduct = mGroupProducts.get(position);
         holder.tvDanhMuc.setText(groupProduct.getNameGroup());
-        holder.tvQualityProduct.setText(String.valueOf(groupProduct.getListProducts().size()) + " Món");
+        holder.tvQualityProduct.setText(String.valueOf(groupProduct.getListProducts().size())+ " " + context.getResources().getString(R.string.item));
 
         ProductsInStoreAdapter adapter;
         LinearLayoutManager layoutManager;

@@ -5,13 +5,13 @@ package com.example.hieuhoang.now.Model.ObjectClass;
  */
 
 public class Product {
-    String id ;
-    String image;
-    String nameProduct ;
-    int quantity ;
-    float price ;
-    float discount ;
-    long quantityPurchase ;
+    private String id ;
+    private String image;
+    private String productName ;
+    private int quantity ;
+    private float price ;
+    private float discount ;
+    private long quantityPurchase ;
 
     public String getId() {
         return id;
@@ -29,12 +29,12 @@ public class Product {
         this.image = image;
     }
 
-    public String getNameProduct() {
-        return nameProduct;
+    public String getProductName() {
+        return productName;
     }
 
-    public void setNameProduct(String nameProduct) {
-        this.nameProduct = nameProduct;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public int getQuantity() {

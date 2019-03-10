@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/bottom_sheet_cart"
+    android:id="@+id/bottom_sheet_cart_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_weight="1"
     android:background="@color/colorGray"
-    android:elevation="10dp"
+    android:elevation="12dp"
     android:orientation="vertical"
+    android:paddingBottom="?attr/actionBarSize"
+    android:fitsSystemWindows="true"
     app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
 
@@ -21,7 +23,7 @@
         android:paddingRight="10dp">
 
         <ImageButton
-            android:id="@+id/btnCloseBottomSheet"
+            android:id="@+id/btnCloseSheetDetail"
             android:layout_width="25dp"
             android:layout_height="25dp"
             android:background="@color/colorTransparent"
@@ -38,10 +40,12 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/tvResetDetail"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@color/colorTransparent"
             android:text="@string/restart"
+            android:gravity="center"
             android:textAllCaps="false"
             android:textColor="@color/colorWhite"
             android:textStyle="bold"/>
@@ -58,6 +62,7 @@
         >
         
         <TextView
+            android:id="@+id/tvTotalItemsInCartDetail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="3"
@@ -72,6 +77,13 @@
             android:layout_marginLeft="3dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:text="-"
+            android:textColor="@color/colorBlack"/>
+        <TextView
+            android:id="@+id/tvTotalMoneyOfCartDetail"
+            android:layout_marginLeft="3dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:text="67,000d"
             android:textColor="@color/colorBlack"
             android:textStyle="bold"/>
@@ -83,8 +95,9 @@
         android:layout_height="wrap_content">
 
         <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvProductsInCartDetail"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
 
         </android.support.v7.widget.RecyclerView>

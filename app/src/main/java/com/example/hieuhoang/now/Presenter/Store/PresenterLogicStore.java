@@ -1,11 +1,15 @@
 package com.example.hieuhoang.now.Presenter.Store;
 
 import android.content.Context;
+import android.util.Log;
 
+import com.example.hieuhoang.now.Common.Common;
 import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.LoginRegister.ModelLogin;
 import com.example.hieuhoang.now.Model.ObjectClass.Account;
 import com.example.hieuhoang.now.Model.ObjectClass.GroupProduct;
+import com.example.hieuhoang.now.Model.ObjectClass.Order;
+import com.example.hieuhoang.now.Model.ObjectClass.OrderDetail;
 import com.example.hieuhoang.now.Model.ObjectClass.Product;
 import com.example.hieuhoang.now.Model.ObjectClass.Store;
 import com.example.hieuhoang.now.Model.Store.ModelStore;
@@ -40,28 +44,25 @@ public class PresenterLogicStore implements IPresenterStore {
     }
 
     @Override
-    public void getListProduct(String idStore) {
-        List<GroupProduct> list = modelStore.getListGroupProductByIDStore(idStore);
-        if (list.size() > 0) {
-            viewStore.loadListProduct(list, modelStore.getIsGrid(context));
+    public void addProductsToCart(Order order , String idStore, String idProduct, int quantity, String note) {
+        if(order == null) {
+            String idAccount = String.valueOf(modelLogin.getAccountInformation(context).getID_Account());
+            order = modelStore.addOrder(idAccount, idStore);
         }
+        if (order == null) {
+            return;
+        }
+        boolean b = modelStore.addDetailOrder(order.getIdOrder(), idProduct, quantity, note);
+        if (!b) return;
+
+        order = modelStore.getOrderInformation(order.getIdOrder());
+        if (order == null) return;
+
+        viewStore.showCart(order);
     }
 
     @Override
-    public void addProductsToCart(String idStore, String idProduct, int quantity) {
-        int idAccount = modelLogin.getAccountInformation(context).getID_Account();
-        boolean b = modelStore.addProductsToCart(String.valueOf(idAccount), idStore, idProduct, quantity);
-        if (b) {
-            viewStore.addToCartSuccess();
-        }
-    }
-
-    public void setIsGrid(boolean b) {
-        modelStore.setIsGrid(context, b);
-    }
-
-    @Override
-    public void showBottomSheet() {
+    public void checkLogin() {
         Account account = modelLogin.getAccountInformation(context);
         if (account.getID_Account() != AppConstant.DEFAULT_ID_ACCOUNT) {
             viewStore.showBottomSheet();
@@ -71,11 +72,34 @@ public class PresenterLogicStore implements IPresenterStore {
     }
 
     @Override
-    public void getSumQuantityProduct(String idStore) {
+    public void getDraftOrder(String idStore) {
         int idAccount = modelLogin.getAccountInformation(context).getID_Account();
-        int quantity = modelStore.getSumQuantityProduct(idStore,String.valueOf(idAccount)) ;
-        if(quantity > 0) {
-            viewStore.showCart(quantity);
+        Order order = modelStore.getDraftOrder(idStore, String.valueOf(idAccount));
+        if (order != null) {
+            viewStore.showCart(order);
         }
+    }
+
+    @Override
+    public void getOrderDetail(String idOrder) {
+        List<OrderDetail> list = modelStore.getListOrderDetail(idOrder);
+        int s = list.size();
+        if (s > 0) {
+//            int items = 0 ;
+//            float money = 0;
+//            for(OrderDetail detail : list) {
+//                items += detail.getQuantity() ;
+//                money += detail.getQuantity() * (detail.getDisCount() == 0 ? detail.getProductPrice() : detail.getDisCount()) ;
+//            }
+            viewStore.showCartDetail(list);
+        }
+
+    }
+
+    @Override
+    public void resetOrder(String idOrder) {
+        boolean b = modelStore.deleteDraftOrder(idOrder);
+        if(b)
+            viewStore.onResetDraftOrderSuccess();
     }
 }

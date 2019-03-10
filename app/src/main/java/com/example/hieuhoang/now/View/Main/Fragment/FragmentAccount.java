@@ -191,15 +191,15 @@ public class FragmentAccount extends Fragment implements View.OnClickListener, G
     public void showAlertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
-        builder.setMessage("Bạn có muốn đăng xuất không?");
+        builder.setMessage(getResources().getString(R.string.confirm_logout));
         builder.setCancelable(false);
-        builder.setPositiveButton("Không", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getResources().getString(R.string.option_no), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 dialogInterface.dismiss();
             }
         });
-        builder.setNegativeButton("Có", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(getResources().getString(R.string.option_yes), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 logoutAccount();

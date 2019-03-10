@@ -12,6 +12,7 @@
     >
 
     <LinearLayout
+        android:id="@+id/viewCart"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -27,15 +28,16 @@
             android:orientation="horizontal"
             >
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 android:paddingTop="5dp"
                 android:paddingRight="5dp"
                 android:src="@drawable/icon_giftbox"/>
             <TextView
-                android:id="@+id/tvItemInCart"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/tvNumberItemInCart"
+                android:padding="3dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:background="@drawable/circle"
                 android:layout_gravity="right"
                 android:text="0"
@@ -45,6 +47,7 @@
         </FrameLayout>
 
         <TextView
+            android:id="@+id/tvTotalMoneyOfCart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"

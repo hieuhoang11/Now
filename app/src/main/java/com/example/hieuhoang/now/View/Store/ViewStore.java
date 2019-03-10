@@ -1,7 +1,7 @@
 package com.example.hieuhoang.now.View.Store;
 
-import com.example.hieuhoang.now.Model.ObjectClass.GroupProduct;
-import com.example.hieuhoang.now.Model.ObjectClass.Product;
+import com.example.hieuhoang.now.Model.ObjectClass.OrderDetail;
+import com.example.hieuhoang.now.Model.ObjectClass.Order;
 import com.example.hieuhoang.now.Model.ObjectClass.Store;
 
 import java.util.List;
@@ -11,10 +11,15 @@ import java.util.List;
  */
 
 public interface ViewStore {
-    void loadInformationStore (Store store) ;
-    void loadListProduct (List<GroupProduct> mProducts,boolean isGrid) ;
-    void addToCartSuccess () ;
-    void showBottomSheet() ;
-    void startLoginActivity() ;
-    void showCart(int quality);
+    void loadInformationStore(Store store);
+
+    void showCartDetail(List<OrderDetail> orderDetailList);
+
+    void showBottomSheet();
+
+    void startLoginActivity();
+
+    void showCart(Order order);
+
+    void onResetDraftOrderSuccess () ;
 }
