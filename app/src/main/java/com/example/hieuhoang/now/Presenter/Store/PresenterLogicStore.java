@@ -16,7 +16,9 @@ import com.example.hieuhoang.now.Model.Store.ModelStore;
 import com.example.hieuhoang.now.Presenter.Service.IPresenterService;
 import com.example.hieuhoang.now.View.Store.ViewStore;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Hieu Hoang on 27/02/2019.
@@ -44,8 +46,8 @@ public class PresenterLogicStore implements IPresenterStore {
     }
 
     @Override
-    public void addProductsToCart(Order order , String idStore, String idProduct, int quantity, String note) {
-        if(order == null) {
+    public void addProductsToCart(Order order, String idStore, String idProduct, int quantity, String note) {
+        if (order == null) {
             String idAccount = String.valueOf(modelLogin.getAccountInformation(context).getID_Account());
             order = modelStore.addOrder(idAccount, idStore);
         }
@@ -59,13 +61,23 @@ public class PresenterLogicStore implements IPresenterStore {
         if (order == null) return;
 
         viewStore.showCart(order);
+
+        List<OrderDetail> mList = modelStore.getListOrderDetail(order.getIdOrder()) ;
+        Map<String,Integer> map = null ;
+        if(mList.size() > 0) {
+            map = new HashMap<>();
+            for(OrderDetail detail : mList) {
+                map.put(detail.getIdProduct(),detail.getQuantity()) ;
+            }
+        }
+        viewStore.showQuantityProductInCraftOrder(map);
     }
 
     @Override
-    public void checkLogin() {
+    public void showSheetAddToCart(Product product) {
         Account account = modelLogin.getAccountInformation(context);
         if (account.getID_Account() != AppConstant.DEFAULT_ID_ACCOUNT) {
-            viewStore.showBottomSheet();
+            viewStore.showBottomSheetAddToCart(product);
         } else {
             viewStore.startLoginActivity();
         }
@@ -75,9 +87,9 @@ public class PresenterLogicStore implements IPresenterStore {
     public void getDraftOrder(String idStore) {
         int idAccount = modelLogin.getAccountInformation(context).getID_Account();
         Order order = modelStore.getDraftOrder(idStore, String.valueOf(idAccount));
-        if (order != null) {
-            viewStore.showCart(order);
-        }
+        if (order == null) return;
+        viewStore.showCart(order);
+
     }
 
     @Override
@@ -92,14 +104,26 @@ public class PresenterLogicStore implements IPresenterStore {
 //                money += detail.getQuantity() * (detail.getDisCount() == 0 ? detail.getProductPrice() : detail.getDisCount()) ;
 //            }
             viewStore.showCartDetail(list);
-        }
+        } else viewStore.closeCartDetail();
 
     }
 
     @Override
     public void resetOrder(String idOrder) {
         boolean b = modelStore.deleteDraftOrder(idOrder);
-        if(b)
+        if (b)
             viewStore.onResetDraftOrderSuccess();
+    }
+
+    @Override
+    public void updateQuantityProductInOrderDetail(String idOrder, String idProduct, int quantity) {
+        boolean b = modelStore.updateQuantityProductInOrderDetail(idOrder, idProduct, quantity);
+        if (b) {
+            getOrderDetail(idOrder);
+            Order order = modelStore.getDraftOrderByIdOrder(idOrder);
+            if (order != null) {
+                viewStore.showCart(order);
+            }
+        }
     }
 }

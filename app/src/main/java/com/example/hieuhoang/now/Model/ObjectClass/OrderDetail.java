@@ -3,7 +3,7 @@ package com.example.hieuhoang.now.Model.ObjectClass;
 
 public class OrderDetail {
 
-    private String idDetailOrder;
+    private String idOrder ;
     private String idProduct;
     private String productName;
     private float productPrice;
@@ -13,12 +13,12 @@ public class OrderDetail {
 
     public OrderDetail(){}
 
-    public String getIdDetailOrder() {
-        return idDetailOrder;
+    public String getIdOrder() {
+        return idOrder;
     }
 
-    public void setIdDetailOrder(String idDetailOrder) {
-        this.idDetailOrder = idDetailOrder;
+    public void setIdOrder(String idOrder) {
+        this.idOrder = idOrder;
     }
 
     public String getIdProduct() {

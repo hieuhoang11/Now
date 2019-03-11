@@ -15,27 +15,33 @@ import android.widget.TextView;
 
 import com.example.hieuhoang.now.Model.ObjectClass.GroupProduct;
 import com.example.hieuhoang.now.Model.ObjectClass.Store;
+import com.example.hieuhoang.now.Presenter.Store.IPresenterStore;
 import com.example.hieuhoang.now.R;
 import com.example.hieuhoang.now.View.Store.StoreActivity;
 
 import java.util.List;
+import java.util.Map;
 
 
 public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHolder> {
     private List<GroupProduct> mGroupProducts;
     private LayoutInflater mLayoutInflater;
-    private StoreActivity activity ;
+    private IPresenterStore presenterLogicStore ;
     private Context context;
     private int visible[];
     private int visibleText[];
     private boolean isGrid;
+    private Map<String,Integer> map =null;
+    private ProductsInStoreAdapter adapter;
+    private StoreActivity storeActivity ;
 
-    public StoreAdapter(List<GroupProduct> mGroupProducts, Context context,StoreActivity activity, boolean isGrid) {
+    public StoreAdapter(List<GroupProduct> mGroupProducts, Context context,StoreActivity storeActivity,IPresenterStore presenterLogicStore, boolean isGrid) {
         this.mGroupProducts = mGroupProducts;
         this.mLayoutInflater = LayoutInflater.from(context);
         this.context = context;
         this.isGrid = isGrid;
-        this.activity = activity ;
+        this.presenterLogicStore = presenterLogicStore ;
+        this.storeActivity = storeActivity;
         visible = new int[mGroupProducts.size()];
         visibleText = new int[mGroupProducts.size()];
         int l = visible.length;
@@ -56,19 +62,15 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
         GroupProduct groupProduct = mGroupProducts.get(position);
         holder.tvDanhMuc.setText(groupProduct.getNameGroup());
         holder.tvQualityProduct.setText(String.valueOf(groupProduct.getListProducts().size())+ " " + context.getResources().getString(R.string.item));
-
-        ProductsInStoreAdapter adapter;
         LinearLayoutManager layoutManager;
         if (isGrid) {
-            adapter = new ProductsInStoreAdapter(groupProduct.getListProducts(), context,activity ,isGrid);
             layoutManager = new GridLayoutManager(context, 2);
             holder.rvProductsInStore.setBackgroundColor(context.getResources().getColor(R.color.colorGridView));
         } else {
-            holder.rvProductsInStore.setBackgroundColor(context.getResources().getColor(R.color.colorWhite));
-            adapter = new ProductsInStoreAdapter(groupProduct.getListProducts(), context, activity,isGrid);
             layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
+            holder.rvProductsInStore.setBackgroundColor(context.getResources().getColor(R.color.colorWhite));
         }
-
+        adapter = new ProductsInStoreAdapter(groupProduct.getListProducts(), context, storeActivity,presenterLogicStore,isGrid,map);
         holder.rvProductsInStore.setAdapter(adapter);
         holder.rvProductsInStore.setLayoutManager(layoutManager);
 
@@ -125,6 +127,10 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
 
     public void setIsGrid(boolean b) {
         this.isGrid = b;
+    }
+
+    public void setHashMap(Map<String,Integer> map) {
+        this.map = map ;
     }
 
 }

@@ -1,5 +1,6 @@
 package com.example.hieuhoang.now.View.Store;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
@@ -37,6 +38,7 @@ import com.example.hieuhoang.now.View.Store.Fragment.ListProductInStoreFragment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class StoreActivity extends AppCompatActivity implements ViewStore, View.OnClickListener, View.OnLongClickListener {
     IPresenterStore presenterStore;
@@ -48,7 +50,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
     private TabLayout tabLayout;
     private Product product;
     private Store store;
-    Order order ;
+    private Order order ;
     //sheet
     private ImageView imgBottomSheet, imgProductBottomSheet;
     private ImageButton btnSubtract, btnAdd, btnCloseBottomSheet;
@@ -71,6 +73,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
     private RecyclerView rvProductsInCartDetail;
 
     private BottomSheetBehavior sheetBehavior, sheetBehaviorAddToCart, sheetCart, sheetCartDetail;
+    private ViewPagerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,7 +165,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
         fragmentTitleList.add(getResources().getString(R.string.delivery));
         fragmentTitleList.add(getResources().getString(R.string.information));
 
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentList, fragmentTitleList);
+         adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentList, fragmentTitleList);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
 
@@ -174,7 +177,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
                         super.onTabSelected(tab);
 
                         if (tab.getPosition() != 0) {
-                            closeCart();
+                            closeCartDetail();
                         } else showCart(order);
                     }
 
@@ -214,17 +217,17 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
     }
 
     @Override
-    public void showCartDetail(List<OrderDetail> orderDetailList ) {
+    public void showCartDetail(List<OrderDetail> orderDetailList) {
 
         bottom_sheet_cart_detail.setVisibility(View.VISIBLE);
-        rvCartDetailAdapter adapter = new rvCartDetailAdapter(orderDetailList,getApplicationContext()) ;
+        rvCartDetailAdapter adapter = new rvCartDetailAdapter(orderDetailList,getApplicationContext(),presenterStore) ;
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         rvProductsInCartDetail.setAdapter(adapter);
         rvProductsInCartDetail.setLayoutManager(layoutManager);
     }
 
     @Override
-    public void showBottomSheet() {
+    public void showBottomSheetAddToCart(Product product) {
         sheetBehavior.setPeekHeight(900);
         sheetBehaviorAddToCart.setPeekHeight(this.peekHeight);
 
@@ -251,6 +254,8 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
         }
 
         tvQuantityPurchasedBottomSheet.setText(Common.qualityPurchased(product.getQuantityPurchase()));
+
+        this.product = product ;
     }
 
     @Override
@@ -261,7 +266,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
 
     @Override
     public void showCart( Order order) {
-        this.closeBottomSheet();
+        this.closeBottomSheetAddToCart();
         bottom_sheet_cart_in_store.setVisibility(View.VISIBLE);
 
         String quantity = order.getQuantityProduct() ;
@@ -279,14 +284,20 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
 
     @Override
     public void onResetDraftOrderSuccess() {
-        this.closeCart();
+        this.closeCartDetail();
+    }
+
+    @Override
+    public void showQuantityProductInCraftOrder(Map<String, Integer> map) {
+       ListProductInStoreFragment fragment = (ListProductInStoreFragment) adapter.getItem(0);
+       fragment.showQuantityInCraftOrder(map);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnCloseBottomSheet:
-                closeBottomSheet();
+                closeBottomSheetAddToCart();
                 break;
             case R.id.btnAdd:
                 int a = Integer.parseInt(tvQuantity.getText().toString()) + 1;
@@ -324,16 +335,33 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
             case R.id.content:
             case R.id.appBar:
                 Log.i("kiemtra", "onClick: ");
-                closeBottomSheet();
+                closeBottomSheetAddToCart();
                 break;
         }
+    }
+
+    @Override
+    public void closeCartDetail() {
+        bottom_sheet_cart_in_store.setVisibility(View.INVISIBLE);
+        bottom_sheet_cart_detail.setVisibility(View.INVISIBLE);
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        switch (v.getId()) {
+            case R.id.content:
+            case R.id.appBar:
+                closeBottomSheetAddToCart();
+                break;
+        }
+        return true;
     }
 
     private float totalMoney(int quantity) {
         return product.getDiscount() == 0 ? quantity * product.getPrice() : quantity * product.getDiscount();
     }
 
-    private void closeBottomSheet() {
+    private void closeBottomSheetAddToCart() {
         sheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
         sheetBehavior.setPeekHeight(0);
         sheetBehaviorAddToCart.setPeekHeight(0);
@@ -343,29 +371,16 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
         appBarLayout.animate().alpha((float) 1.0).start();
     }
 
-    private void closeCart() {
-        bottom_sheet_cart_in_store.setVisibility(View.INVISIBLE);
-        bottom_sheet_cart_detail.setVisibility(View.INVISIBLE);
-    }
-
-    public void showBottomSheet(Product product) {
-        this.product = product;
-        presenterStore.checkLogin();
-    }
-
-    @Override
-    public boolean onLongClick(View v) {
-        switch (v.getId()) {
-            case R.id.content:
-            case R.id.appBar:
-                closeBottomSheet();
-                break;
-        }
-        return true;
-    }
-
     public Store getStore() {
         return store;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public IPresenterStore getPresenterStore() {
+        return presenterStore;
     }
 
     public void showAlertDialog() {

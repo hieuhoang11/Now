@@ -36,6 +36,7 @@
                 android:layout_height="wrap_content"
                 android:text="Tên cửa hàng"
                 android:textSize="14dp"
+                android:maxLines="1"
                  />
 
             <TextView

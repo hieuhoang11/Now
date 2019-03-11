@@ -94,11 +94,11 @@
 
         </android.support.v4.view.ViewPager>
 
-    <include layout="@layout/custom_order_product" />
+    <include layout="@layout/custom_bottom_sheet_order_product" />
 
     <include layout="@layout/custom_bottom_sheet_add_to_cart" />
 
-    <include layout="@layout/custom_cart_detail" />
+    <include layout="@layout/custom_bottom_sheet_cart_detail" />
 
     <include layout="@layout/custom_bottom_sheet_cart_in_store" />
 

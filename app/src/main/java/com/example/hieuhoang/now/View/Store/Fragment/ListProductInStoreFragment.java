@@ -23,21 +23,18 @@ import com.example.hieuhoang.now.R;
 import com.example.hieuhoang.now.View.Store.StoreActivity;
 
 import java.util.List;
-
-/**
- * Created by Hieu Hoang on 08/03/2019.
- */
+import java.util.Map;
 
 public class ListProductInStoreFragment extends Fragment implements ViewListProductInStore, View.OnClickListener {
 
-    ImageButton btnSearchStore, btnShowGrid, btnShowList;
-    RecyclerView rvStore;
-    LinearLayout linearSearch;
-    EditText edtSearchInStore;
+    private ImageButton btnSearchStore, btnShowGrid, btnShowList;
+    private RecyclerView rvStore;
+    private LinearLayout linearSearch;
+    private EditText edtSearchInStore;
     private boolean isSearch = false;
     private StoreAdapter adapter;
-    StoreActivity activity;
-    IPresenterListProductInStore presenterListProductInStore;
+    private StoreActivity activity;
+    private IPresenterListProductInStore presenterListProductInStore;
 
     @Nullable
     @Override
@@ -48,6 +45,7 @@ public class ListProductInStoreFragment extends Fragment implements ViewListProd
         activity = (StoreActivity) getActivity();
         presenterListProductInStore = new PresenterLogicListProductInStore(this, getActivity().getApplicationContext());
         presenterListProductInStore.getListProduct(String.valueOf(activity.getStore().getID_Store()));
+        presenterListProductInStore.showQuantityProductInCraftOrder(activity.getOrder());
         return view;
     }
 
@@ -70,10 +68,16 @@ public class ListProductInStoreFragment extends Fragment implements ViewListProd
     @Override
     public void loadListProductInStore(List<GroupProduct> mGroupProducts, boolean isGrid) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-        adapter = new StoreAdapter(mGroupProducts, getActivity().getApplicationContext(), activity, isGrid);
+        adapter = new StoreAdapter(mGroupProducts, getActivity().getApplicationContext(), activity,activity.getPresenterStore(), isGrid);
         rvStore.setAdapter(adapter);
         rvStore.setLayoutManager(layoutManager);
 
+    }
+
+    @Override
+    public void showQuantityInCraftOrder(Map<String, Integer> map) {
+        this.adapter.setHashMap(map);
+        this.adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -97,8 +101,9 @@ public class ListProductInStoreFragment extends Fragment implements ViewListProd
         }
     }
 
-    void dataSetChanged(boolean isGrid) {
+    private void dataSetChanged(boolean isGrid) {
         this.adapter.setIsGrid(isGrid);
         this.adapter.notifyDataSetChanged();
     }
+
 }

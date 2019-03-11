@@ -2,6 +2,7 @@ package com.example.hieuhoang.now.Adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,26 +13,33 @@ import android.widget.TextView;
 import com.example.hieuhoang.now.Common.Common;
 import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.ObjectClass.Product;
+import com.example.hieuhoang.now.Model.ObjectClass.Store;
+import com.example.hieuhoang.now.Presenter.Store.IPresenterStore;
 import com.example.hieuhoang.now.R;
 import com.example.hieuhoang.now.View.Store.StoreActivity;
 
 import java.util.List;
+import java.util.Map;
 
 public class ProductsInStoreAdapter extends RecyclerView.Adapter<ProductsInStoreAdapter.ProductsViewHolder> {
     private List<Product> mProducts;
     private LayoutInflater mLayoutInflater;
     private Context context;
-    private StoreActivity activity;
+    private IPresenterStore presenterLogicStore;
     private boolean isGrid;
+    private StoreActivity storeActivity ;
+    private Map<String,Integer> map ;
     private final int LAYOUT_LIST_PRODUCT = R.layout.custom_list_product_store;
     private final int LAYOUT_GRID_PRODUCT = R.layout.custom_grid_product_store;
 
-    public ProductsInStoreAdapter(List<Product> mProducts, Context context, StoreActivity activity, boolean isGrid) {
+    public ProductsInStoreAdapter(List<Product> mProducts, Context context, StoreActivity storeActivity, IPresenterStore presenterLogicStore, boolean isGrid, Map<String,Integer> map) {
         this.mProducts = mProducts;
         this.mLayoutInflater = LayoutInflater.from(context);
         this.context = context;
         this.isGrid = isGrid;
-        this.activity = activity ;
+        this.presenterLogicStore = presenterLogicStore ;
+        this.map = map ;
+        this.storeActivity =storeActivity ;
     }
 
     @Override
@@ -60,15 +68,38 @@ public class ProductsInStoreAdapter extends RecyclerView.Adapter<ProductsInStore
             holder.tvProductPrice.setTextColor(context.getResources().getColor(R.color.colorOldPrice));
         }
 
+        holder.btnSubtract.setVisibility(View.GONE);
+        holder.tvQualityProductInCraftOrder.setVisibility(View.GONE);
 
         if(product.getQuantity() > 0 ) {
             holder.tvOutOfStock.setVisibility(View.GONE);
             holder.viewProductInStore.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    activity.showBottomSheet(product);
+                    presenterLogicStore.showSheetAddToCart(product);
                 }
             });
+            holder.btnSubtract.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    presenterLogicStore.getOrderDetail(storeActivity.getOrder().getIdOrder());
+                }
+            });
+
+            holder.btnPlus.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    presenterLogicStore.showSheetAddToCart(product);
+                }
+            });
+            if(map != null) {
+                if(map.get(product.getId()) != null){
+                    int value = map.get(product.getId()) ;
+                    holder.btnSubtract.setVisibility(View.VISIBLE);
+                    holder.tvQualityProductInCraftOrder.setVisibility(View.VISIBLE);
+                    holder.tvQualityProductInCraftOrder.setText(String.valueOf(value));
+                }
+            }
         } else {
             holder.btnPlus.setVisibility(View.GONE);
         }
@@ -81,10 +112,10 @@ public class ProductsInStoreAdapter extends RecyclerView.Adapter<ProductsInStore
     }
 
     public class ProductsViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNameProduct, tvProductPrice, tvNumberOfPurchases, tvDisCount , tvOutOfStock ;
+        TextView tvNameProduct, tvProductPrice, tvNumberOfPurchases, tvDisCount , tvOutOfStock , tvQualityProductInCraftOrder;
         ImageView imgProduct, imgDisCount;
         View viewProductInStore;
-        ImageButton btnPlus;
+        ImageButton btnPlus,btnSubtract;
 
 
         public ProductsViewHolder(View itemView) {
@@ -97,8 +128,11 @@ public class ProductsInStoreAdapter extends RecyclerView.Adapter<ProductsInStore
             viewProductInStore = itemView.findViewById(R.id.viewProductInStore);
             btnPlus = itemView.findViewById(R.id.btnPlus);
             tvOutOfStock = itemView.findViewById(R.id.tvOutOfStock);
+            tvQualityProductInCraftOrder = itemView.findViewById(R.id.tvQualityProductInCraftOrder);
+            btnSubtract = itemView.findViewById(R.id.btnSubtract);
             if (!isGrid)
                 imgDisCount = itemView.findViewById(R.id.imgDisCount);
         }
     }
+
 }

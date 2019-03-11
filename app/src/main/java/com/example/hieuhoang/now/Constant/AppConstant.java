@@ -14,10 +14,12 @@ public class AppConstant {
     public static final String GET_PRODUCTS_BY_ID_STORE = "getProductsInStore";
     public static final String ADD_ORDER = "addOrder";
     public static final String GET_DRAFT_ORDER = "getDraftOrder";
+    public static final String GET_DRAFT_ORDER_BY_ID_ORDER = "getDraftOrderByIdOrder";
     public static final String ADD_DETAIL_ORDER = "addDetailOrder";
     public static final String GET_ORDER_DETAIL = "getDetailOrder";
-    public static final String GET_ORDER_INFORMATION = "getOrderInformation";
+    public static final String GET_ORDER_INFORMATION_BY_ID = "getOrderInformationByIdOrder";
     public static final String DELETE_DRAFT_ORDER = "deleteDraftOrder";
+    public static final String UPDATE_QUANTITY_PRODUCT_ORDER = "updateQuantityProductInOrderDetail";
     public static final String REGISTER_ACCOUNT = "registerAccount";
     public static final String CHECK_EMAIL_EXISTS = "checkEmailExists";
     public static final String CHECK_LOGIN = "checkLogin";

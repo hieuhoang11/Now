@@ -66,6 +66,16 @@
         <item name="android:scaleType">centerCrop</item>
     </style>
 
+    <style name="text_view_quantity_product" parent="@android:style/Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:background">@drawable/bg_text_quantity</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:paddingLeft">3dp</item>
+        <item name="android:paddingRight">3dp</item>
+    </style>
+
     <!--<style name="TextAppearance.App.TabLayout" parent="@android:style/TextAppearance">-->
         <!--<item name="android:textColor">@color/colorTextTabAppearance</item>-->
     <!--</style>-->

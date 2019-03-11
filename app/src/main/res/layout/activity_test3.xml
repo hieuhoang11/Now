@@ -56,7 +56,7 @@
     </LinearLayout>
 
     <!-- Adding bottom sheet after main content -->
-    <include layout="@layout/custom_order_product" />
+    <include layout="@layout/custom_bottom_sheet_order_product" />
     <include layout="@layout/custom_bottom_sheet_add_to_cart" />
 
 </android.support.design.widget.CoordinatorLayout>

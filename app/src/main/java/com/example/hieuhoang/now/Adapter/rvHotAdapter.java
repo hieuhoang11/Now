@@ -3,9 +3,6 @@ package com.example.hieuhoang.now.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.text.SpannableStringBuilder;
-import android.text.Spanned;
-import android.text.style.StrikethroughSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +28,7 @@ public class rvHotAdapter extends RecyclerView.Adapter<rvHotAdapter.HotProductVi
     public rvHotAdapter(List<HotProduct> hotProducts, Context context) {
         this.mHotProducts = hotProducts;
         this.mLayoutInflater = LayoutInflater.from(context);
-        this.layout = R.layout.custom_recyclerview_hot;
+        this.layout = R.layout.custom_hot_product;
         this.context = context;
     }
 

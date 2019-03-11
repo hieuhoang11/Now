@@ -89,6 +89,20 @@
                 </LinearLayout>
 
                 <ImageButton
+                    android:id="@+id/btnSubtract"
+                    style="@style/button_circle_subtract"
+                    android:layout_gravity="bottom"
+                    android:layout_marginRight="5dp"
+                    />
+
+                <TextView
+                    android:id="@+id/tvQualityProductInCraftOrder"
+                    android:text="1"
+                    style="@style/text_view_quantity_product"
+                    android:layout_gravity="bottom"
+                    android:layout_marginRight="5dp"/>
+
+                <ImageButton
                     android:id="@+id/btnPlus"
                     style="@style/button_circle_plus"
                     android:layout_gravity="bottom"

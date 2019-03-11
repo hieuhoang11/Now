@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.hieuhoang.now.Common.Common;
 import com.example.hieuhoang.now.Model.ObjectClass.OrderDetail;
+import com.example.hieuhoang.now.Presenter.Store.IPresenterStore;
 import com.example.hieuhoang.now.R;
 
 import java.util.List;
@@ -19,11 +20,13 @@ public class rvCartDetailAdapter extends RecyclerView.Adapter<rvCartDetailAdapte
     private List<OrderDetail> mOrderDetails;
     private LayoutInflater mLayoutInflater;
     private Context context;
+    private IPresenterStore presenterLogicStore ;
 
-    public rvCartDetailAdapter(List<OrderDetail> mOrderDetails, Context context) {
+    public rvCartDetailAdapter(List<OrderDetail> mOrderDetails, Context context,IPresenterStore presenterLogicStore) {
         this.mOrderDetails = mOrderDetails;
         this.mLayoutInflater = LayoutInflater.from(context);
         this.context = context;
+        this.presenterLogicStore = presenterLogicStore ;
     }
 
     @Override
@@ -33,8 +36,8 @@ public class rvCartDetailAdapter extends RecyclerView.Adapter<rvCartDetailAdapte
     }
 
     @Override
-    public void onBindViewHolder(DetailViewHolder holder, int position) {
-        OrderDetail detail = mOrderDetails.get(position);
+    public void onBindViewHolder(final DetailViewHolder holder, int position) {
+        final OrderDetail detail = mOrderDetails.get(position);
         holder.tvProductNameInCartDetail.setText(detail.getProductName());
         String price = Common.formatNumber(detail.getProductPrice());
         float totalMoney = detail.getQuantity() ;
@@ -55,6 +58,25 @@ public class rvCartDetailAdapter extends RecyclerView.Adapter<rvCartDetailAdapte
         holder.tvNoteInCartDetail.setText(note);
         holder.tvTotalMoneyInCartDetail.setText(Common.formatNumber(totalMoney));
         holder.tvQualityProductInCartDetail.setText(String.valueOf(detail.getQuantity()));
+
+        holder.btnSubtractInCartDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int q = Integer.parseInt(holder.tvQualityProductInCartDetail.getText().toString()) -1;
+            //if(q > 0 ) {
+                presenterLogicStore.updateQuantityProductInOrderDetail(detail.getIdOrder(),detail.getIdProduct() , q);
+                //holder.tvQualityProductInCartDetail.setText(String.valueOf(q));
+                //holder.tvQuantityInCartDetail.setText(String.valueOf(q));
+            //}
+            }
+        });
+
+        holder.btnAddInCartDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int q = Integer.parseInt(holder.tvQualityProductInCartDetail.getText().toString()) +1;
+            }
+        });
 
     }
 
