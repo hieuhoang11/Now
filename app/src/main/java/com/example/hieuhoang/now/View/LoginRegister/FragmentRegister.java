@@ -99,7 +99,7 @@ public class FragmentRegister extends Fragment implements ViewRegister , View.On
         account.setFullName(edtFullName.getText().toString());
         account.setEmail(edtEmail.getText().toString());
         account.setPassword(edtPassword.getText().toString());
-        account.setAccountType(AppConstant.ACCOUNT_TYPE_GUEST);
+        account.setAccountType(AppConstant.ACCOUNT_TYPE_CUSTOMER);
         presenterLogicRegisterAccount.RegisterAccount(account);
     }
 

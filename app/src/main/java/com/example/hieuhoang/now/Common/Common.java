@@ -59,4 +59,28 @@ public class Common {
             return " 1+" ;
         return " 0";
     }
+
+    public static String createKey (String prefix) {
+//        String key = prefix;
+//        String[] partsDay;
+//            partsDay = DateTime.Now.ToShortDateString().Split('/');
+////Ví dụ 07/08/2009
+//        String d = String.Format("{0}{1}{2}", partsDay[0], partsDay[1], partsDay[2]);
+//            key = key + d;
+//        String[] partsTime;
+//            partsTime = DateTime.Now.ToLongTimeString().Split(':');
+////Ví dụ 7:08:03 PM hoặc 7:08:03 AM
+//            if( partsTime[2].Substring(3, 2) == "PM" )
+//                partsTime[0] = ConvertTimeTo24(partsTime[0]);
+//            if( partsTime[2].Substring(3, 2) == "AM" )
+//                if( partsTime[0].Length == 1 )
+//                    partsTime[0] = "0" + partsTime[0];
+////Xóa ký t trắng và PM hoặc AM
+//            partsTime[2] = partsTime[2].Remove(2, 3);
+//        String t;
+//            t= String.Format("_{0}{1}{2}", partsTime[0], partsTime[1], partsTime[2]);
+//            key = key + t;
+//            return key;
+return "";
+    }
 }

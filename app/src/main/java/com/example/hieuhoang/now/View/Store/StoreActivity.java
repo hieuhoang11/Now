@@ -177,7 +177,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
                         super.onTabSelected(tab);
 
                         if (tab.getPosition() != 0) {
-                            closeCartDetail();
+                            closeCartAndCartDetail();
                         } else showCart(order);
                     }
 
@@ -284,11 +284,12 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
 
     @Override
     public void onResetDraftOrderSuccess() {
-        this.closeCartDetail();
+        this.closeCartAndCartDetail();
+        this.order = null;
     }
 
     @Override
-    public void showQuantityProductInCraftOrder(Map<String, Integer> map) {
+    public void disPlayQuantityOfProductInCraftOrder(Map<String, Integer> map) {
        ListProductInStoreFragment fragment = (ListProductInStoreFragment) adapter.getItem(0);
        fragment.showQuantityInCraftOrder(map);
     }
@@ -300,12 +301,17 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
                 closeBottomSheetAddToCart();
                 break;
             case R.id.btnAdd:
+                String id = null;
+                if(this.order != null) {
+                    id = this.order.getIdOrder() ;
+                }
                 int a = Integer.parseInt(tvQuantity.getText().toString()) + 1;
-                if (a > this.product.getQuantity()) {
-                    Toast.makeText(this.getApplicationContext(), R.string.msg_out_of_stock, Toast.LENGTH_SHORT).show();
-                } else {
+                if(presenterStore.isEnoughItems(id,this.product.getId(),a)) {
                     tvQuantity.setText(String.valueOf(a));
                     tvTotal.setText(Common.formatNumber(totalMoney(a)));
+                }
+                else {
+                    Toast.makeText(this.getApplicationContext(), R.string.msg_out_of_stock, Toast.LENGTH_SHORT).show();
                 }
                 break;
             case R.id.btnSubtract:
@@ -316,6 +322,14 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
                 }
                 break;
             case R.id.bottom_sheet_add_to_cart:
+                String id1 = null;
+                if(this.order != null) {
+                    id1 = this.order.getIdOrder() ;
+                }
+                if(!presenterStore.isEnoughItems(id1,this.product.getId(),Integer.parseInt(tvQuantity.getText().toString()))) {
+                    Toast.makeText(this.getApplicationContext(), R.string.msg_out_of_stock, Toast.LENGTH_SHORT).show();
+                    break;
+                }
                 String idStore = String.valueOf(this.store.getID_Store());
                 String idProduct = this.product.getId();
                 int quantity = Integer.parseInt(tvQuantity.getText().toString().trim());
@@ -341,7 +355,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
     }
 
     @Override
-    public void closeCartDetail() {
+    public void closeCartAndCartDetail() {
         bottom_sheet_cart_in_store.setVisibility(View.INVISIBLE);
         bottom_sheet_cart_detail.setVisibility(View.INVISIBLE);
     }

@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hieuhoang.now.Common.Common;
 import com.example.hieuhoang.now.Model.ObjectClass.OrderDetail;
@@ -63,11 +64,7 @@ public class rvCartDetailAdapter extends RecyclerView.Adapter<rvCartDetailAdapte
             @Override
             public void onClick(View v) {
                 int q = Integer.parseInt(holder.tvQualityProductInCartDetail.getText().toString()) -1;
-            //if(q > 0 ) {
                 presenterLogicStore.updateQuantityProductInOrderDetail(detail.getIdOrder(),detail.getIdProduct() , q);
-                //holder.tvQualityProductInCartDetail.setText(String.valueOf(q));
-                //holder.tvQuantityInCartDetail.setText(String.valueOf(q));
-            //}
             }
         });
 
@@ -75,6 +72,12 @@ public class rvCartDetailAdapter extends RecyclerView.Adapter<rvCartDetailAdapte
             @Override
             public void onClick(View v) {
                 int q = Integer.parseInt(holder.tvQualityProductInCartDetail.getText().toString()) +1;
+                if(presenterLogicStore.isEnoughItems(detail.getIdOrder() , detail.getIdProduct(),q)) {
+                    presenterLogicStore.updateQuantityProductInOrderDetail(detail.getIdOrder(),detail.getIdProduct() , q);
+                }
+                else {
+                    Toast.makeText(context, R.string.msg_out_of_stock, Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

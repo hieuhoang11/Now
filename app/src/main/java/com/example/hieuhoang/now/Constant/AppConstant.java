@@ -1,7 +1,7 @@
 package com.example.hieuhoang.now.Constant;
 
 public class AppConstant {
-    public static final String LOCAL = "http://192.168.0.104:8080";
+    public static final String LOCAL = "http://192.168.0.101:8080";
     public static final String SERVER_NAME = LOCAL + "/webnow/getJSONData.php";
     public static final String SERVER_NAME_IMG = LOCAL + "/webnow/";
     public static final String EMAIL = "email";
@@ -14,12 +14,14 @@ public class AppConstant {
     public static final String GET_PRODUCTS_BY_ID_STORE = "getProductsInStore";
     public static final String ADD_ORDER = "addOrder";
     public static final String GET_DRAFT_ORDER = "getDraftOrder";
-    public static final String GET_DRAFT_ORDER_BY_ID_ORDER = "getDraftOrderByIdOrder";
     public static final String ADD_DETAIL_ORDER = "addDetailOrder";
-    public static final String GET_ORDER_DETAIL = "getDetailOrder";
+    public static final String DELETE_DETAIL_ORDER = "deleteDetailOrder";
+    public static final String GET_LIST_ORDER_DETAIL = "getListDetailOrder";
     public static final String GET_ORDER_INFORMATION_BY_ID = "getOrderInformationByIdOrder";
     public static final String DELETE_DRAFT_ORDER = "deleteDraftOrder";
     public static final String UPDATE_QUANTITY_PRODUCT_ORDER = "updateQuantityProductInOrderDetail";
+    public static final String GET_QUANTITY_PRODUCT_IN_DRAFT_ORDER = "getQuantityProductInDraftOrder";
+    public static final String GET_QUANTITY_PRODUCT = "getQuantityProduct";
     public static final String REGISTER_ACCOUNT = "registerAccount";
     public static final String CHECK_EMAIL_EXISTS = "checkEmailExists";
     public static final String CHECK_LOGIN = "checkLogin";
@@ -34,7 +36,6 @@ public class AppConstant {
     public static final String ACCOUNT_TYPE = "account_type";
     public static final String ID_STORE = "id_store";
     public static final String ID_PRODUCT = "id_product";
-    public static final String ID_DETAIL_ORDER = "id_detail_order";
     public static final String ID_ORDER = "id_order";
     public static final String ORDER_STATUS = "order_status";
     public static final String DRAFT_ORDER = "1";
@@ -45,5 +46,5 @@ public class AppConstant {
     public static final String LOGIN_SHAREDPREFERENCES = "login_information";
     public static final String IS_GRID_IN_STORE = "is_grid";
     public static final String IS_GRID = "isGrid";
-    public static final int ACCOUNT_TYPE_GUEST = 1;
+    public static final int ACCOUNT_TYPE_CUSTOMER = 1;
 }

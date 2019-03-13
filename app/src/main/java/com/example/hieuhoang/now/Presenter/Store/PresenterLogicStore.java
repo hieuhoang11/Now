@@ -49,7 +49,7 @@ public class PresenterLogicStore implements IPresenterStore {
     public void addProductsToCart(Order order, String idStore, String idProduct, int quantity, String note) {
         if (order == null) {
             String idAccount = String.valueOf(modelLogin.getAccountInformation(context).getID_Account());
-            order = modelStore.addOrder(idAccount, idStore);
+            order = modelStore.addNewOrder(idAccount, idStore);
         }
         if (order == null) {
             return;
@@ -62,15 +62,7 @@ public class PresenterLogicStore implements IPresenterStore {
 
         viewStore.showCart(order);
 
-        List<OrderDetail> mList = modelStore.getListOrderDetail(order.getIdOrder()) ;
-        Map<String,Integer> map = null ;
-        if(mList.size() > 0) {
-            map = new HashMap<>();
-            for(OrderDetail detail : mList) {
-                map.put(detail.getIdProduct(),detail.getQuantity()) ;
-            }
-        }
-        viewStore.showQuantityProductInCraftOrder(map);
+        disPlayQuantityOfProductInCraftOrder(order.getIdOrder());
     }
 
     @Override
@@ -89,7 +81,6 @@ public class PresenterLogicStore implements IPresenterStore {
         Order order = modelStore.getDraftOrder(idStore, String.valueOf(idAccount));
         if (order == null) return;
         viewStore.showCart(order);
-
     }
 
     @Override
@@ -97,14 +88,8 @@ public class PresenterLogicStore implements IPresenterStore {
         List<OrderDetail> list = modelStore.getListOrderDetail(idOrder);
         int s = list.size();
         if (s > 0) {
-//            int items = 0 ;
-//            float money = 0;
-//            for(OrderDetail detail : list) {
-//                items += detail.getQuantity() ;
-//                money += detail.getQuantity() * (detail.getDisCount() == 0 ? detail.getProductPrice() : detail.getDisCount()) ;
-//            }
             viewStore.showCartDetail(list);
-        } else viewStore.closeCartDetail();
+        } else viewStore.closeCartAndCartDetail();
 
     }
 
@@ -117,13 +102,49 @@ public class PresenterLogicStore implements IPresenterStore {
 
     @Override
     public void updateQuantityProductInOrderDetail(String idOrder, String idProduct, int quantity) {
-        boolean b = modelStore.updateQuantityProductInOrderDetail(idOrder, idProduct, quantity);
+        boolean b;
+        if (quantity == 0)
+            b = modelStore.deleteDetailOrder(idOrder, idProduct);
+        else b = modelStore.updateQuantityProductInOrderDetail(idOrder, idProduct, quantity);
         if (b) {
-            getOrderDetail(idOrder);
-            Order order = modelStore.getDraftOrderByIdOrder(idOrder);
+            List<OrderDetail> list = modelStore.getListOrderDetail(idOrder);
+            int s = list.size();
+            if (s == 0) {
+                if (modelStore.deleteDraftOrder(idOrder)) {
+                    viewStore.onResetDraftOrderSuccess();
+                    viewStore.disPlayQuantityOfProductInCraftOrder(null);
+                }
+                return;
+            }
+
+            viewStore.showCartDetail(list);
+
+            Order order = modelStore.getOrderInformation(idOrder);
             if (order != null) {
                 viewStore.showCart(order);
+
+                disPlayQuantityOfProductInCraftOrder(order.getIdOrder());
             }
         }
+    }
+
+    @Override
+    public boolean isEnoughItems(String idOrder, String idProduct, int quantity) {
+        int q = modelStore.getQuantityProduct(idProduct);
+        if (idOrder == null) return q >= quantity ;
+        int q2 = modelStore.getQuantityProductInDraftOrder(idOrder, idProduct);
+        return (q - q2) >= quantity ;
+    }
+
+    public void disPlayQuantityOfProductInCraftOrder(String idOrder) {
+        List<OrderDetail> mList = modelStore.getListOrderDetail(idOrder);
+        Map<String, Integer> map = null;
+        if (mList.size() > 0) {
+            map = new HashMap<>();
+            for (OrderDetail detail : mList) {
+                map.put(detail.getIdProduct(), detail.getQuantity());
+            }
+        }
+        viewStore.disPlayQuantityOfProductInCraftOrder(map);
     }
 }

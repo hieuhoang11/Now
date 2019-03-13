@@ -17,7 +17,7 @@ public interface ViewStore {
 
     void showCartDetail(List<OrderDetail> orderDetailList);
 
-    void closeCartDetail();
+    void closeCartAndCartDetail();
 
     void showBottomSheetAddToCart(Product product);
 
@@ -27,5 +27,5 @@ public interface ViewStore {
 
     void onResetDraftOrderSuccess();
 
-    void showQuantityProductInCraftOrder (Map<String,Integer> map) ;
+    void disPlayQuantityOfProductInCraftOrder (Map<String,Integer> map) ;
 }

@@ -14,166 +14,160 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="45dp"
+        android:background="@color/colorTopOfBottomSheet"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
 
-        <LinearLayout
+        <ImageButton
+            android:id="@+id/btnCloseBottomSheet"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@color/colorTransparent"
+            android:scaleType="centerCrop"
+            android:src="@drawable/icon_x_36dp" />
+
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="@color/colorTopOfBottomSheet"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp">
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/add_item"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold" />
 
-            <ImageButton
-                android:id="@+id/btnCloseBottomSheet"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
-                android:background="@color/colorTransparent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/icon_x_36dp" />
+    </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/add_item"
-                android:textColor="@color/colorWhite"
-                android:textStyle="bold" />
-
-        </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorBGSearch"
+        android:orientation="horizontal"
+        android:padding="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorBGSearch"
-            android:orientation="horizontal"
-            android:padding="10dp">
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imgProductBottomSheet"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/test_img" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal">
+                android:layout_gravity="center_vertical"
+                android:orientation="vertical"
+                android:padding="10dp">
 
-                <ImageView
-                    android:id="@+id/imgProductBottomSheet"
-                    android:layout_width="90dp"
-                    android:layout_height="90dp"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/test_img" />
+                <TextView
+                    android:id="@+id/tvNameProductBottomSheet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ten san pham"
+                    android:textColor="@color/colorBlack"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:orientation="vertical"
-                    android:padding="10dp">
+                    android:orientation="horizontal">
 
                     <TextView
-                        android:id="@+id/tvNameProductBottomSheet"
+                        android:id="@+id/tvOldPriceBottomSheet"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="ten san pham"
-                        android:textColor="@color/colorBlack"
+                        android:text="gia cu"
+                        android:textColor="@color/colorText"
                         android:textStyle="bold" />
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <ImageView
+                        android:id="@+id/imgBottomSheet"
+                        style="@style/image_view_point_to_right"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp" />
+
+                    <TextView
+                        android:id="@+id/tvNewPriceBottomSheet"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/tvOldPriceBottomSheet"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="gia cu"
-                            android:textColor="@color/colorText"
-                            android:textStyle="bold" />
-
-                        <ImageView
-                            android:id="@+id/imgBottomSheet"
-                            android:layout_marginLeft="2dp"
-                            android:layout_marginRight="2dp"
-                            style="@style/image_view_point_to_right" />
-
-                        <TextView
-                            android:id="@+id/tvNewPriceBottomSheet"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="gia moi"
-                            android:textColor="@color/colorNewPrice"
-                            android:textStyle="bold" />
-
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <ImageView
-                            style="@style/image_view_cart" />
-
-                        <TextView
-                            android:id="@+id/tvQuantityPurchasedBottomSheet"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="sl ban"
-                            android:textColor="@color/colorBlack"
-                            android:textStyle="bold" />
-                    </LinearLayout>
+                        android:text="gia moi"
+                        android:textColor="@color/colorNewPrice"
+                        android:textStyle="bold" />
 
                 </LinearLayout>
-            </LinearLayout>
 
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right|bottom">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
-                <ImageButton
-                    android:id="@+id/btnSubtract"
-                    style="@style/button_circle_subtract" />
+                    <ImageView style="@style/image_view_cart" />
 
-                <TextView
-                    android:id="@+id/tvQuantity"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
-                    android:text="1"
-                    style="@style/text_view_quantity_product" />
-
-                <ImageButton
-                    android:id="@+id/btnAdd"
-                    style="@style/button_circle_plus" />
+                    <TextView
+                        android:id="@+id/tvQuantityPurchasedBottomSheet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="sl ban"
+                        android:textColor="@color/colorBlack"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
             </LinearLayout>
-
         </LinearLayout>
 
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|bottom">
 
-            <EditText
-                android:id="@+id/tvNote"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/colorWhite"
-                android:gravity="top|left"
-                android:hint="@string/add_note"
-                android:lines="3"
-                android:maxLines="6"
-                android:scrollbars="vertical"
-                android:textColor="@color/colorBlack"
-                android:textColorHint="@color/colorGray" />
+            <ImageButton
+                android:id="@+id/btnSubtract"
+                style="@style/button_circle_subtract" />
+
+            <TextView
+                android:id="@+id/tvQuantity"
+                style="@style/text_view_quantity_product"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:text="1" />
+
+            <ImageButton
+                android:id="@+id/btnAdd"
+                style="@style/button_circle_plus" />
+
         </LinearLayout>
 
-        <!--<include layout="@laycustom_bottom_sheet_order_productduct" />-->
     </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <EditText
+            android:id="@+id/tvNote"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorWhite"
+            android:gravity="top|left"
+            android:hint="@string/add_note"
+            android:lines="3"
+            android:maxLines="6"
+            android:scrollbars="vertical"
+            android:textColor="@color/colorBlack"
+            android:textColorHint="@color/colorGray" />
+    </LinearLayout>
+
+    <!--<include layout="@laycustom_bottom_sheet_order_productduct" />-->
 </LinearLayout>

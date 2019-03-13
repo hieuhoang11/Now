@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 public class ModelStore {
+    private final String TAG = "kiemtra";
 
     public List<HotProduct> getAllStoreHasPromoProduct() {
         return getHotProducts(AppConstant.GET_ALL_STORE_HAS_PROMO_PRODUCT);
@@ -177,8 +178,12 @@ public class ModelStore {
         HashMap<String, String> hsID = new HashMap<>();
         hsID.put(AppConstant.ID_STORE, idStore);
 
+        HashMap<String, String> hsIDStatus = new HashMap<>();
+        hsIDStatus.put(AppConstant.ORDER_STATUS, AppConstant.DRAFT_ORDER);
+
         attrs.add(hsFunction);
         attrs.add(hsID);
+        attrs.add(hsIDStatus);
         DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
         downloadJSON.execute();
         try {
@@ -230,24 +235,31 @@ public class ModelStore {
         return list;
     }
 
-    public Order addOrder(String idAccount, String idStore) {
+    public Order addNewOrder(String idAccount, String idStore) {
         String path = AppConstant.SERVER_NAME;
         List<HashMap<String, String>> attrs = new ArrayList<>();
         HashMap<String, String> hsFunction = new HashMap<>();
         hsFunction.put(AppConstant.FUNCTION, AppConstant.ADD_ORDER);
+
         HashMap<String, String> hsIDAccount = new HashMap<>();
         hsIDAccount.put(AppConstant.ID_ACCOUNT, idAccount);
 
         HashMap<String, String> hsIDStore = new HashMap<>();
         hsIDStore.put(AppConstant.ID_STORE, idStore);
 
+        HashMap<String, String> hsIDStatus = new HashMap<>();
+        hsIDStatus.put(AppConstant.ORDER_STATUS, AppConstant.DRAFT_ORDER);
+
         attrs.add(hsFunction);
         attrs.add(hsIDAccount);
         attrs.add(hsIDStore);
+        attrs.add(hsIDStatus);
+
         DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
         downloadJSON.execute();
         try {
             String dataJSON = downloadJSON.get();
+            Log.i("kiemtra", "addNewOrder: " + dataJSON);
             JSONObject jsonObject = new JSONObject(dataJSON);
             String idOrder = jsonObject.getString(AppConstant.ID_ORDER);
             Order order = new Order();
@@ -305,6 +317,39 @@ public class ModelStore {
         return false;
     }
 
+    public boolean deleteDetailOrder(String idOrder, String idProduct) {
+        String path = AppConstant.SERVER_NAME;
+        List<HashMap<String, String>> attrs = new ArrayList<>();
+
+        HashMap<String, String> hsFunction = new HashMap<>();
+        hsFunction.put(AppConstant.FUNCTION, AppConstant.DELETE_DETAIL_ORDER);
+
+        HashMap<String, String> hsIDOrder = new HashMap<>();
+        hsIDOrder.put(AppConstant.ID_ORDER, idOrder);
+
+        HashMap<String, String> hsIDProduct = new HashMap<>();
+        hsIDProduct.put(AppConstant.ID_PRODUCT, idProduct);
+
+        attrs.add(hsFunction);
+        attrs.add(hsIDOrder);
+        attrs.add(hsIDProduct);
+
+        DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
+        downloadJSON.execute();
+        try {
+            String dataJson = downloadJSON.get();
+            JSONObject jsonObject = new JSONObject(dataJson);
+            return jsonObject.getBoolean(AppConstant.RESULT);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     public List<OrderDetail> getListOrderDetail(String idOrder) {
         List<OrderDetail> list = new ArrayList<>();
 
@@ -312,7 +357,7 @@ public class ModelStore {
         List<HashMap<String, String>> attrs = new ArrayList<>();
 
         HashMap<String, String> hsFunction = new HashMap<>();
-        hsFunction.put(AppConstant.FUNCTION, AppConstant.GET_ORDER_DETAIL);
+        hsFunction.put(AppConstant.FUNCTION, AppConstant.GET_LIST_ORDER_DETAIL);
 
         HashMap<String, String> hsIDOrder = new HashMap<>();
         hsIDOrder.put(AppConstant.ID_ORDER, idOrder);
@@ -428,6 +473,7 @@ public class ModelStore {
 
         try {
             String dataJson = downloadJSON.get();
+            Log.i(TAG, "getDraftOrder: " + dataJson);
             JSONObject jsonObject = new JSONObject(dataJson);
 
             String idOrder = jsonObject.getString(AppConstant.ID_ORDER);
@@ -450,44 +496,44 @@ public class ModelStore {
         return null;
     }
 
-    public Order getDraftOrderByIdOrder(String idOrder) {
-        String path = AppConstant.SERVER_NAME;
-        List<HashMap<String, String>> attrs = new ArrayList<>();
-
-        HashMap<String, String> hsFunction = new HashMap<>();
-        hsFunction.put(AppConstant.FUNCTION, AppConstant.GET_DRAFT_ORDER_BY_ID_ORDER);
-
-        HashMap<String, String> hsIdOrder = new HashMap<>();
-        hsIdOrder.put(AppConstant.ID_ORDER, idOrder);
-
-        attrs.add(hsFunction);
-        attrs.add(hsIdOrder);
-
-        DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
-        downloadJSON.execute();
-
-        try {
-            String dataJson = downloadJSON.get();
-            JSONObject jsonObject = new JSONObject(dataJson);
-
-            String quantity = jsonObject.getString(AppConstant.QUANTITY);
-            float totalMoney = (float) jsonObject.getDouble(AppConstant.TOTAL_MONEY);
-
-            Order order = new Order();
-            order.setIdOrder(idOrder);
-            order.setQuantityProduct(quantity);
-            order.setTotalMoney(totalMoney);
-
-            return order;
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+//    public Order getDraftOrderByIdOrder(String idOrder) {
+//        String path = AppConstant.SERVER_NAME;
+//        List<HashMap<String, String>> attrs = new ArrayList<>();
+//
+//        HashMap<String, String> hsFunction = new HashMap<>();
+//        hsFunction.put(AppConstant.FUNCTION, AppConstant.GET_DRAFT_ORDER_BY_ID_ORDER);
+//
+//        HashMap<String, String> hsIdOrder = new HashMap<>();
+//        hsIdOrder.put(AppConstant.ID_ORDER, idOrder);
+//
+//        attrs.add(hsFunction);
+//        attrs.add(hsIdOrder);
+//
+//        DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
+//        downloadJSON.execute();
+//
+//        try {
+//            String dataJson = downloadJSON.get();
+//            JSONObject jsonObject = new JSONObject(dataJson);
+//
+//            String quantity = jsonObject.getString(AppConstant.QUANTITY);
+//            float totalMoney = (float) jsonObject.getDouble(AppConstant.TOTAL_MONEY);
+//
+//            Order order = new Order();
+//            order.setIdOrder(idOrder);
+//            order.setQuantityProduct(quantity);
+//            order.setTotalMoney(totalMoney);
+//
+//            return order;
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        } catch (ExecutionException e) {
+//            e.printStackTrace();
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
     public boolean deleteDraftOrder (String idOrder) {
         String path = AppConstant.SERVER_NAME;
@@ -555,6 +601,72 @@ public class ModelStore {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public int getQuantityProduct(String idProduct) {
+        String path = AppConstant.SERVER_NAME;
+        List<HashMap<String, String>> attrs = new ArrayList<>();
+
+        HashMap<String, String> hsFunction = new HashMap<>();
+        hsFunction.put(AppConstant.FUNCTION, AppConstant.GET_QUANTITY_PRODUCT);
+
+        HashMap<String, String> hsIDProduct = new HashMap<>();
+        hsIDProduct.put(AppConstant.ID_PRODUCT, idProduct);
+
+        attrs.add(hsFunction);
+        attrs.add(hsIDProduct);
+
+        DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
+        downloadJSON.execute();
+
+        try {
+            String dataJson = downloadJSON.get();
+            JSONObject jsonObject = new JSONObject(dataJson) ;
+            int quantity = jsonObject.getInt(AppConstant.QUANTITY) ;
+            return quantity ;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int getQuantityProductInDraftOrder(String idOrder , String idProduct) {
+        String path = AppConstant.SERVER_NAME;
+        List<HashMap<String, String>> attrs = new ArrayList<>();
+
+        HashMap<String, String> hsFunction = new HashMap<>();
+        hsFunction.put(AppConstant.FUNCTION, AppConstant.GET_QUANTITY_PRODUCT_IN_DRAFT_ORDER);
+
+        HashMap<String, String> hsIDOrder = new HashMap<>();
+        hsIDOrder.put(AppConstant.ID_ORDER, idOrder);
+
+        HashMap<String, String> hsIDProduct = new HashMap<>();
+        hsIDProduct.put(AppConstant.ID_PRODUCT, idProduct);
+
+        attrs.add(hsFunction);
+        attrs.add(hsIDOrder);
+        attrs.add(hsIDProduct);
+
+        DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
+        downloadJSON.execute();
+
+        try {
+            String dataJson = downloadJSON.get();
+            JSONObject jsonObject = new JSONObject(dataJson) ;
+            int quantity = jsonObject.getInt(AppConstant.QUANTITY);
+            return  quantity ;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return 0;
     }
 
     public void setIsGrid(Context context, boolean b) {
