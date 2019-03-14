@@ -1,4 +1,4 @@
-package com.example.hieuhoang.now.Presenter.Home;
+package com.example.hieuhoang.now.Presenter.Main.Home;
 
 import com.example.hieuhoang.now.Model.ObjectClass.HotProduct;
 import com.example.hieuhoang.now.Model.ObjectClass.Store;

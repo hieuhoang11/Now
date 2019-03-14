@@ -13,17 +13,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-/**
- * Created by Hieu Hoang on 19/02/2019.
- */
-
 public class ModelRegister {
 
     ModelLogin modelLogin ;
     Context context;
     public ModelRegister(Context context) {
         this.context = context ;
-        modelLogin = new ModelLogin(context);
+        modelLogin = new ModelLogin();
     }
 
     public Boolean checkEmailExists (String email) {

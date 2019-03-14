@@ -1,4 +1,4 @@
-package com.example.hieuhoang.now.Presenter.Login;
+package com.example.hieuhoang.now.Presenter.LoginRegister.Login;
 
 import android.content.Context;
 
@@ -6,16 +6,12 @@ import com.example.hieuhoang.now.Model.LoginRegister.ModelLogin;
 import com.example.hieuhoang.now.View.LoginRegister.ViewLogin;
 import com.facebook.AccessToken;
 
-/**
- * Created by Hieu Hoang on 14/02/2019.
- */
-
 public class PresenterLogicLogin implements IPresenterLogin {
     private ModelLogin modelLogin;
     ViewLogin viewLogin ;
-    public PresenterLogicLogin (ViewLogin viewLogin , Context context) {
+    public PresenterLogicLogin (ViewLogin viewLogin) {
         this.viewLogin = viewLogin ;
-        modelLogin = new ModelLogin(context);
+        modelLogin = new ModelLogin();
     }
     @Override
     public AccessToken getTokenFacebook() {

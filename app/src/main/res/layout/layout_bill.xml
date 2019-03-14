@@ -3,12 +3,62 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorWhite">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="bill"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            style="@style/image_button_in_bill"
+            android:src="@drawable/baseline_search_black_24dp"/>
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="3"
+            android:background="@drawable/vienden"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnOnGoing"
+                android:text="@string/on_going"
+               style="@style/button_in_bill"
+                />
+
+            <View
+                style="@style/vertical_line_in_bill"/>
+
+            <Button
+                android:id="@+id/btnHistory"
+                style="@style/button_in_bill"
+                android:text="@string/history"
+                />
+            <View
+                style="@style/vertical_line_in_bill"/>
+
+            <Button
+                android:id="@+id/btnDraftOrder"
+                style="@style/button_in_bill"
+                android:text="@string/draft_order"
+                />
+
+        </LinearLayout>
+        <ImageButton
+            style="@style/image_button_in_bill"
+            android:src="@drawable/baseline_search_black_24dp"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/contentBill"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
         />
+
 
 </LinearLayout>

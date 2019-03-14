@@ -1,123 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<android.support.design.widget.CoordinatorLayout-->
-    <!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-    <!--xmlns:app="http://schemas.android.com/apk/res-auto"-->
-    <!--android:id="@+id/viewProductInStore"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content">-->
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/viewProductInStore"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:layout_marginRight="10dp"
+    app:cardBackgroundColor="@color/colorWhite"
+    app:cardCornerRadius="10dp">
 
-    <android.support.v7.widget.CardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/viewProductInStore"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="10dp"
-        app:cardBackgroundColor="@color/colorWhite"
-        app:cardCornerRadius="10dp"
-        >
+        android:orientation="vertical"
+        android:paddingBottom="10dp">
+
+        <ImageView
+            android:id="@+id/imgProduct"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/test_img" />
+
+        <TextView
+            android:id="@+id/tvNameProduct"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="tên món ăn"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="10dp">
+            android:layout_marginLeft="5dp"
+            android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/imgProduct"
-                android:layout_width="match_parent"
-                android:layout_height="170dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/test_img" />
+            <ImageView style="@style/image_view_cart" />
 
             <TextView
-                android:id="@+id/tvNameProduct"
+                android:id="@+id/tvNumberOfPurchases"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
-                android:text="tên món ăn"
-                android:textColor="@color/colorBlack"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:layout_marginLeft="5dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <ImageView
-                    style="@style/image_view_cart"
-                    />
-
-                <TextView
-                    android:id="@+id/tvNumberOfPurchases"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text=" 10+"
-                    android:textColor="@color/colorBlack" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tvProductPrice"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="5dp"
-                        android:text="gia"
-                        android:textColor="@color/colorBlack" />
-
-                    <TextView
-                        android:id="@+id/tvDisCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingLeft="5dp"
-                        android:text="gia moi"
-                        android:textColor="@color/colorNewPrice" />
-                </LinearLayout>
-
-                <ImageButton
-                    android:id="@+id/btnSubtract"
-                    style="@style/button_circle_subtract"
-                    android:layout_gravity="bottom"
-                    android:layout_marginRight="5dp"
-                    />
-
-                <TextView
-                    android:id="@+id/tvQualityProductInCraftOrder"
-                    android:text="1"
-                    style="@style/text_view_quantity_product"
-                    android:layout_gravity="bottom"
-                    android:layout_marginRight="5dp"/>
-
-                <ImageButton
-                    android:id="@+id/btnPlus"
-                    style="@style/button_circle_plus"
-                    android:layout_gravity="bottom"
-                    android:layout_marginRight="5dp"
-                     />
-                <TextView
-                    android:id="@+id/tvOutOfStock"
-                    style="@style/text_view_out_of_stock"
-                    android:layout_gravity="bottom"
-                    android:layout_marginRight="5dp"/>
-            </LinearLayout>
-
+                android:layout_weight="1"
+                android:text=" 10+"
+                android:textColor="@color/colorBlack" />
         </LinearLayout>
-    </android.support.v7.widget.CardView>
-<!--</android.support.design.widget.CoordinatorLayout>-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvProductPrice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:text="gia"
+                    android:textColor="@color/colorBlack" />
+
+                <TextView
+                    android:id="@+id/tvDisCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="5dp"
+                    android:text="gia moi"
+                    android:textColor="@color/colorNewPrice" />
+            </LinearLayout>
+
+            <ImageButton
+                android:id="@+id/btnSubtract"
+                style="@style/button_circle_subtract"
+                android:layout_gravity="bottom"
+                android:layout_marginRight="5dp" />
+
+            <TextView
+                android:id="@+id/tvQualityProductInCraftOrder"
+                style="@style/text_view_quantity_product"
+                android:layout_gravity="bottom"
+                android:layout_marginRight="5dp"
+                android:text="1" />
+
+            <ImageButton
+                android:id="@+id/btnPlus"
+                style="@style/button_circle_plus"
+                android:layout_gravity="bottom"
+                android:layout_marginRight="5dp" />
+
+            <TextView
+                android:id="@+id/tvOutOfStock"
+                style="@style/text_view_out_of_stock"
+                android:layout_gravity="bottom"
+                android:layout_marginRight="5dp" />
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v7.widget.CardView>
 
 
 

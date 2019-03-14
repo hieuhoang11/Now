@@ -1,6 +1,7 @@
 package com.example.hieuhoang.now.View.Store;
 
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
@@ -15,7 +16,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,6 +39,7 @@ import com.example.hieuhoang.now.R;
 import com.example.hieuhoang.now.View.LoginRegister.LoginRegisterActivity;
 import com.example.hieuhoang.now.View.Store.Fragment.InformationStoreFragment;
 import com.example.hieuhoang.now.View.Store.Fragment.ListProductInStoreFragment;
+import com.example.hieuhoang.now.View.SubmitOrder.SubmitOrderActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +68,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
     private int peekHeight;
 
     //sheet cart
-    private View bottom_sheet_cart_in_store, viewCart;
+    private View bottom_sheet_cart_in_store, viewCart,viewDelivery;
     private TextView tvTotalMoneyOfCart, tvNumberItemInCart;
 
     //bottom_sheet_cart_detail
@@ -74,6 +79,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
 
     private BottomSheetBehavior sheetBehavior, sheetBehaviorAddToCart, sheetCart, sheetCartDetail;
     private ViewPagerAdapter adapter;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -131,6 +137,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
         tvNumberItemInCart = findViewById(R.id.tvNumberItemInCart);
         tvTotalMoneyOfCart = findViewById(R.id.tvTotalMoneyOfCart);
         viewCart = findViewById(R.id.viewCart);
+        viewDelivery= findViewById(R.id.viewDelivery);
         //cart detail
         bottom_sheet_cart_detail = findViewById(R.id.bottom_sheet_cart_detail);
         btnCloseSheetDetail = findViewById(R.id.btnCloseSheetDetail);
@@ -151,6 +158,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
         tvQuantity.setOnClickListener(this);
         bottom_sheet_add_to_cart.setOnClickListener(this);
         viewCart.setOnClickListener(this);
+        viewDelivery.setOnClickListener(this);
         btnCloseSheetDetail.setOnClickListener(this);
         tvResetDetail.setOnClickListener(this);
     }
@@ -269,7 +277,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
         this.closeBottomSheetAddToCart();
         bottom_sheet_cart_in_store.setVisibility(View.VISIBLE);
 
-        String quantity = order.getQuantityProduct() ;
+        String quantity = String.valueOf( order.getQuantityProduct() );
         String totalMoney = Common.formatNumber(order.getTotalMoney());
 
         tvNumberItemInCart.setText(quantity);
@@ -285,6 +293,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
     @Override
     public void onResetDraftOrderSuccess() {
         this.closeCartAndCartDetail();
+        this.dialog.dismiss();
         this.order = null;
     }
 
@@ -340,11 +349,16 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
                 if (bottom_sheet_cart_detail.getVisibility() != View.VISIBLE)
                     presenterStore.getOrderDetail(this.order.getIdOrder());
                 break;
+            case R.id.viewDelivery:
+                Intent iSubmitOrder = new Intent(StoreActivity.this, SubmitOrderActivity.class);
+                iSubmitOrder.putExtra(AppConstant.ID_ORDER , this.order.getIdOrder()) ;
+                startActivity(iSubmitOrder);
+                break;
             case R.id.btnCloseSheetDetail:
                 bottom_sheet_cart_detail.setVisibility(View.GONE);
                 break;
             case R.id.tvResetDetail:
-                showAlertDialog() ;
+                showDialog();
                 break;
             case R.id.content:
             case R.id.appBar:
@@ -397,26 +411,30 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
         return presenterStore;
     }
 
-    public void showAlertDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
-
-        builder.setMessage(getResources().getString(R.string.confirm_logout));
-        builder.setCancelable(false);
-        builder.setPositiveButton(getResources().getString(R.string.option_no), new DialogInterface.OnClickListener() {
+    private void showDialog () {
+        dialog = new Dialog(StoreActivity.this) ;
+        View view = LayoutInflater.from(StoreActivity.this).inflate(R.layout.custom_dialog,null) ;
+        TextView tvContentDialog = view.findViewById(R.id.tvContentDialog) ;
+        Button btnYes = view.findViewById(R.id.btnYes) ;
+        Button btnCancel = view.findViewById(R.id.btnCancel) ;
+        tvContentDialog.setText(getResources().getString(R.string.do_you_want_reset_draft_order));
+        btnYes.setText(getResources().getString(R.string.reset));
+        btnCancel.setText(getResources().getString(R.string.cancel));
+        btnYes.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-        builder.setNegativeButton(getResources().getString(R.string.option_yes), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+            public void onClick(View v) {
                 presenterStore.resetOrder(order.getIdOrder());
-                dialogInterface.dismiss();
             }
         });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE) ;
+        dialog.setContentView(view);
+        dialog.show();
 
     }
 }

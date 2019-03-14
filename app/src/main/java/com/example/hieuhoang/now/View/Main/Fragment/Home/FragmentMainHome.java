@@ -1,4 +1,4 @@
-package com.example.hieuhoang.now.View.Main.Fragment;
+package com.example.hieuhoang.now.View.Main.Fragment.Home;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

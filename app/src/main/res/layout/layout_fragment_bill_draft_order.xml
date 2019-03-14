@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/viewInDraft"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:background="@color/colorGridView"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <TextView
+            android:id="@+id/tvTotalItem"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:text="3"
+            android:textColor="@color/colorBlack"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="3dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:text="@string/draft_order"
+            android:textColor="@color/colorBlack" />
+
+        <Button
+            android:id="@+id/btnDeleteAll"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@color/colorTransparent"
+            android:drawableRight="@drawable/icon_trash_black_24dp"
+            android:text="@string/delete_all"
+            android:textAllCaps="false"
+            android:textColor="@color/colorBlack" />
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvDraftOrder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="40dp"
+        />
+
+</android.support.design.widget.CoordinatorLayout>

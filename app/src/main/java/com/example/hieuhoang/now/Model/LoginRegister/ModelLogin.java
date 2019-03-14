@@ -29,7 +29,7 @@ public class ModelLogin {
     private AccessTokenTracker accessTokenTracker;
     private Context context;
 
-    public ModelLogin(Context context) {
+    public ModelLogin() {
         this.context = context;
     }
 

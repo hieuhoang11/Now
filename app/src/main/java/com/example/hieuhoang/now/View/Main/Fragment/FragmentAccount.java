@@ -50,18 +50,9 @@ public class FragmentAccount extends Fragment implements View.OnClickListener, G
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_account, container, false);
-        modelLogin = new ModelLogin(getContext());
-        //Begin Mapping
-        btnLoginAccount = (Button) view.findViewById(R.id.btnLoginAccount);
-        btnLogoutAccount = (Button) view.findViewById(R.id.btnLogoutAccount);
-        btnImgAccount = (CircleImageView) view.findViewById(R.id.btnImgAccount);
+        modelLogin = new ModelLogin();
 
-        //End Mapping
-
-        btnLoginAccount.setOnClickListener(this);
-        btnLogoutAccount.setOnClickListener(this);
-        btnImgAccount.setOnClickListener(this);
-
+        Mapping(view);
 
         //begin google
         if (googleApiClient == null)
@@ -71,7 +62,18 @@ public class FragmentAccount extends Fragment implements View.OnClickListener, G
         Log.i("life", "onCreate");
         return view;
     }
+private void Mapping(View view){
+    //Begin Mapping
+    btnLoginAccount = (Button) view.findViewById(R.id.btnLoginAccount);
+    btnLogoutAccount = (Button) view.findViewById(R.id.btnLogoutAccount);
+    btnImgAccount = (CircleImageView) view.findViewById(R.id.btnImgAccount);
 
+    //End Mapping
+
+    btnLoginAccount.setOnClickListener(this);
+    btnLogoutAccount.setOnClickListener(this);
+    btnImgAccount.setOnClickListener(this);
+}
     @Override
     public void onStart() {
         super.onStart();

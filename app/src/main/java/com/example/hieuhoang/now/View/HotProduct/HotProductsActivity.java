@@ -19,7 +19,6 @@ import java.util.List;
 public class HotProductsActivity extends AppCompatActivity implements ViewHotProduct,View.OnClickListener{
 
     private RecyclerView rvHotProducts ;
-    //private List<HotProduct> listHotProducts ;
     private ImageButton btnBackHotProducts ;
     private IPresenterHotProduct presenterHotProduct;
     @Override
@@ -48,7 +47,7 @@ public class HotProductsActivity extends AppCompatActivity implements ViewHotPro
 
     @Override
     public void loadHotProducts(List<HotProduct> productList) {
-        rvHotAdapter hotAdapter = new rvHotAdapter(productList,HotProductsActivity.this,R.layout.custom_hot_product_grid_2);
+        rvHotAdapter hotAdapter = new rvHotAdapter(productList,HotProductsActivity.this,R.layout.custom_grid_hot_product);
         LinearLayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),2);
         rvHotProducts.setAdapter(hotAdapter);
         rvHotProducts.setLayoutManager(layoutManager);

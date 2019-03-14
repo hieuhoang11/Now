@@ -75,18 +75,18 @@ public class rvHotAdapter extends RecyclerView.Adapter<rvHotAdapter.HotProductVi
         private TextView tvHotProductName;
         private TextView tvHotOldPrice;
         private TextView tvHotNewPrice;
-        private LinearLayout viewHotProduct;
+        private View viewHotProduct;
         private ImageView imgHotProduct;
 
         public HotProductViewHolder(View itemView) {
             super(itemView);
-            tvHotStoreName = (TextView) itemView.findViewById(R.id.hotStoreName);
-            tvHotQuality = (TextView) itemView.findViewById(R.id.hotQuality);
-            tvHotProductName = (TextView) itemView.findViewById(R.id.hotProductName);
-            tvHotOldPrice = (TextView) itemView.findViewById(R.id.hotOldPrice);
-            tvHotNewPrice = (TextView) itemView.findViewById(R.id.hotNewPrice);
-            viewHotProduct = (LinearLayout) itemView.findViewById(R.id.viewHotProduct);
-            imgHotProduct = (ImageView) itemView.findViewById(R.id.imgHotProduct);
+            tvHotStoreName =  itemView.findViewById(R.id.hotStoreName);
+            tvHotQuality =  itemView.findViewById(R.id.hotQuality);
+            tvHotProductName =  itemView.findViewById(R.id.hotProductName);
+            tvHotOldPrice =  itemView.findViewById(R.id.hotOldPrice);
+            tvHotNewPrice =  itemView.findViewById(R.id.hotNewPrice);
+            viewHotProduct = itemView.findViewById(R.id.viewHotProduct);
+            imgHotProduct = itemView.findViewById(R.id.imgHotProduct);
         }
     }
 }

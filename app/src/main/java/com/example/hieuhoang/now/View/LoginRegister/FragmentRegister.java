@@ -6,7 +6,6 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +16,7 @@ import android.widget.Toast;
 
 import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.ObjectClass.Account;
-import com.example.hieuhoang.now.Presenter.Register.PresenterLogicRegisterAccount;
+import com.example.hieuhoang.now.Presenter.LoginRegister.Register.PresenterLogicRegister;
 import com.example.hieuhoang.now.R;
 
 
@@ -26,13 +25,13 @@ public class FragmentRegister extends Fragment implements ViewRegister , View.On
     private EditText edtFullName, edtEmail, edtPassword, edtRepeatPassword;
     private Button  btnRegisterAccount;
 
-    private PresenterLogicRegisterAccount presenterLogicRegisterAccount;
+    private PresenterLogicRegister presenterLogicRegister;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_fragment_register, container, false);
 
-        presenterLogicRegisterAccount = new PresenterLogicRegisterAccount(this,getContext());
+        presenterLogicRegister = new PresenterLogicRegister(this,getContext());
 
         btnRegisterAccount = (Button) view.findViewById(R.id.btnRegisterAccount);
         input_edtFullName = (TextInputLayout) view.findViewById(R.id.input_edtFullName);
@@ -100,7 +99,7 @@ public class FragmentRegister extends Fragment implements ViewRegister , View.On
         account.setEmail(edtEmail.getText().toString());
         account.setPassword(edtPassword.getText().toString());
         account.setAccountType(AppConstant.ACCOUNT_TYPE_CUSTOMER);
-        presenterLogicRegisterAccount.RegisterAccount(account);
+        presenterLogicRegister.RegisterAccount(account);
     }
 
     @Override

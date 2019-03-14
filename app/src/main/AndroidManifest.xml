@@ -28,7 +28,8 @@
         <activity android:name=".View.Test.TestActivity" />
         <activity android:name=".View.ProductInStoreActivity" />
         <activity android:name=".View.Test.Test1Activity" />
-        <activity android:name=".View.Test.test3Activity"></activity>
+        <activity android:name=".View.Test.test3Activity" />
+        <activity android:name=".View.SubmitOrder.SubmitOrderActivity"></activity>
     </application>
 
 </manifest>

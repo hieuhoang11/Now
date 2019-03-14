@@ -11,14 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.example.hieuhoang.now.Adapter.StoreAdapter;
 import com.example.hieuhoang.now.Model.ObjectClass.GroupProduct;
-import com.example.hieuhoang.now.Presenter.Store.IPresenterListProductInStore;
-import com.example.hieuhoang.now.Presenter.Store.PresenterLogicListProductInStore;
+import com.example.hieuhoang.now.Presenter.Store.ListProduct.IPresenterListProductInStore;
+import com.example.hieuhoang.now.Presenter.Store.ListProduct.PresenterLogicListProductInStore;
 import com.example.hieuhoang.now.R;
 import com.example.hieuhoang.now.View.Store.StoreActivity;
 

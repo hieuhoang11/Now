@@ -1,4 +1,4 @@
-package com.example.hieuhoang.now.Presenter.Register;
+package com.example.hieuhoang.now.Presenter.LoginRegister.Register;
 
 import android.content.Context;
 
@@ -7,11 +7,11 @@ import com.example.hieuhoang.now.Model.LoginRegister.ModelRegister;
 import com.example.hieuhoang.now.View.LoginRegister.ViewRegister;
 
 
-public class PresenterLogicRegisterAccount implements IPresenterRegisterAccount {
+public class PresenterLogicRegister implements IPresenterRegister {
     private ViewRegister viewRegister;
     private ModelRegister modelRegister;
 
-    public PresenterLogicRegisterAccount(ViewRegister viewRegister, Context context) {
+    public PresenterLogicRegister(ViewRegister viewRegister, Context context) {
         this.viewRegister = viewRegister;
         modelRegister = new ModelRegister(context);
     }

@@ -1,12 +1,17 @@
 package com.example.hieuhoang.now.Common;
 
+import android.app.Dialog;
 import android.content.Context;
 
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.StrikethroughSpan;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 
+import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.R;
 import com.squareup.picasso.Picasso;
 
@@ -59,6 +64,8 @@ public class Common {
             return " 1+" ;
         return " 0";
     }
+
+
 
     public static String createKey (String prefix) {
 //        String key = prefix;

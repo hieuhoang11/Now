@@ -8,8 +8,6 @@ import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
-import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +17,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.hieuhoang.now.Presenter.Login.IPresenterLogin;
-import com.example.hieuhoang.now.Presenter.Login.PresenterLogicLogin;
+import com.example.hieuhoang.now.Presenter.LoginRegister.Login.IPresenterLogin;
+import com.example.hieuhoang.now.Presenter.LoginRegister.Login.PresenterLogicLogin;
 import com.example.hieuhoang.now.R;
 
 
@@ -38,7 +36,7 @@ public class FragmentLogin extends Fragment implements ViewLogin ,View.OnClickLi
 
         View view = inflater.inflate(R.layout.layout_fragment_login, container, false);
 
-        presenterLogicLogin = new PresenterLogicLogin(this,getActivity().getApplicationContext());
+        presenterLogicLogin = new PresenterLogicLogin(this);
         btnLogin = (Button) view.findViewById(R.id.btnLogin);
         btnBackLogin = (ImageButton) view.findViewById(R.id.btnBackLoginRegister);
         txtRegister = (TextView) view.findViewById(R.id.txtRegister);

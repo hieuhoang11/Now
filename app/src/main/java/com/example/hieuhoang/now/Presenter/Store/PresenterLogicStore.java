@@ -1,39 +1,37 @@
 package com.example.hieuhoang.now.Presenter.Store;
 
 import android.content.Context;
-import android.util.Log;
 
-import com.example.hieuhoang.now.Common.Common;
 import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.LoginRegister.ModelLogin;
 import com.example.hieuhoang.now.Model.ObjectClass.Account;
-import com.example.hieuhoang.now.Model.ObjectClass.GroupProduct;
 import com.example.hieuhoang.now.Model.ObjectClass.Order;
 import com.example.hieuhoang.now.Model.ObjectClass.OrderDetail;
 import com.example.hieuhoang.now.Model.ObjectClass.Product;
 import com.example.hieuhoang.now.Model.ObjectClass.Store;
+import com.example.hieuhoang.now.Model.Order.ModelOrder;
+import com.example.hieuhoang.now.Model.Product.ModelProduct;
 import com.example.hieuhoang.now.Model.Store.ModelStore;
-import com.example.hieuhoang.now.Presenter.Service.IPresenterService;
 import com.example.hieuhoang.now.View.Store.ViewStore;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Hieu Hoang on 27/02/2019.
- */
-
 public class PresenterLogicStore implements IPresenterStore {
-    ModelStore modelStore;
-    ModelLogin modelLogin;
-    ViewStore viewStore;
-    Context context;
+    private ModelStore modelStore;
+    private ModelLogin modelLogin;
+    private  ModelOrder modelOrder ;
+    private ModelProduct modelProduct ;
+    private ViewStore viewStore;
+    private Context context;
 
     public PresenterLogicStore(ViewStore viewStore, Context context) {
         this.viewStore = viewStore;
         modelStore = new ModelStore();
-        modelLogin = new ModelLogin(context);
+        modelLogin = new ModelLogin();
+        modelOrder = new ModelOrder() ;
+        modelProduct = new ModelProduct() ;
         this.context = context;
     }
 
@@ -49,15 +47,15 @@ public class PresenterLogicStore implements IPresenterStore {
     public void addProductsToCart(Order order, String idStore, String idProduct, int quantity, String note) {
         if (order == null) {
             String idAccount = String.valueOf(modelLogin.getAccountInformation(context).getID_Account());
-            order = modelStore.addNewOrder(idAccount, idStore);
+            order = modelOrder.addNewOrder(idAccount, idStore);
         }
         if (order == null) {
             return;
         }
-        boolean b = modelStore.addDetailOrder(order.getIdOrder(), idProduct, quantity, note);
+        boolean b = modelOrder.addDetailOrder(order.getIdOrder(), idProduct, quantity, note);
         if (!b) return;
 
-        order = modelStore.getOrderInformation(order.getIdOrder());
+        order = modelOrder.getOrderInformation(order.getIdOrder());
         if (order == null) return;
 
         viewStore.showCart(order);
@@ -78,14 +76,14 @@ public class PresenterLogicStore implements IPresenterStore {
     @Override
     public void getDraftOrder(String idStore) {
         int idAccount = modelLogin.getAccountInformation(context).getID_Account();
-        Order order = modelStore.getDraftOrder(idStore, String.valueOf(idAccount));
+        Order order = modelOrder.getDraftOrder(idStore, String.valueOf(idAccount));
         if (order == null) return;
         viewStore.showCart(order);
     }
 
     @Override
     public void getOrderDetail(String idOrder) {
-        List<OrderDetail> list = modelStore.getListOrderDetail(idOrder);
+        List<OrderDetail> list = modelOrder.getListOrderDetail(idOrder);
         int s = list.size();
         if (s > 0) {
             viewStore.showCartDetail(list);
@@ -95,22 +93,24 @@ public class PresenterLogicStore implements IPresenterStore {
 
     @Override
     public void resetOrder(String idOrder) {
-        boolean b = modelStore.deleteDraftOrder(idOrder);
-        if (b)
+        boolean b = modelOrder.deleteDraftOrder(idOrder);
+        if (b) {
+            viewStore.disPlayQuantityOfProductInCraftOrder(null);
             viewStore.onResetDraftOrderSuccess();
+        }
     }
 
     @Override
     public void updateQuantityProductInOrderDetail(String idOrder, String idProduct, int quantity) {
         boolean b;
         if (quantity == 0)
-            b = modelStore.deleteDetailOrder(idOrder, idProduct);
-        else b = modelStore.updateQuantityProductInOrderDetail(idOrder, idProduct, quantity);
+            b = modelOrder.deleteDetailOrder(idOrder, idProduct);
+        else b = modelOrder.updateQuantityProductInOrderDetail(idOrder, idProduct, quantity);
         if (b) {
-            List<OrderDetail> list = modelStore.getListOrderDetail(idOrder);
+            List<OrderDetail> list = modelOrder.getListOrderDetail(idOrder);
             int s = list.size();
             if (s == 0) {
-                if (modelStore.deleteDraftOrder(idOrder)) {
+                if (modelOrder.deleteDraftOrder(idOrder)) {
                     viewStore.onResetDraftOrderSuccess();
                     viewStore.disPlayQuantityOfProductInCraftOrder(null);
                 }
@@ -119,7 +119,7 @@ public class PresenterLogicStore implements IPresenterStore {
 
             viewStore.showCartDetail(list);
 
-            Order order = modelStore.getOrderInformation(idOrder);
+            Order order = modelOrder.getOrderInformation(idOrder);
             if (order != null) {
                 viewStore.showCart(order);
 
@@ -130,14 +130,14 @@ public class PresenterLogicStore implements IPresenterStore {
 
     @Override
     public boolean isEnoughItems(String idOrder, String idProduct, int quantity) {
-        int q = modelStore.getQuantityProduct(idProduct);
+        int q = modelProduct.getQuantityProduct(idProduct);
         if (idOrder == null) return q >= quantity ;
-        int q2 = modelStore.getQuantityProductInDraftOrder(idOrder, idProduct);
+        int q2 = modelOrder.getQuantityProductInDraftOrder(idOrder, idProduct);
         return (q - q2) >= quantity ;
     }
 
-    public void disPlayQuantityOfProductInCraftOrder(String idOrder) {
-        List<OrderDetail> mList = modelStore.getListOrderDetail(idOrder);
+    private void disPlayQuantityOfProductInCraftOrder(String idOrder) {
+        List<OrderDetail> mList = modelOrder.getListOrderDetail(idOrder);
         Map<String, Integer> map = null;
         if (mList.size() > 0) {
             map = new HashMap<>();

@@ -1,4 +1,4 @@
-package com.example.hieuhoang.now.View.Main.Fragment;
+package com.example.hieuhoang.now.View.Main.Fragment.Home;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -19,8 +19,8 @@ import com.example.hieuhoang.now.Adapter.rvHotAdapter;
 import com.example.hieuhoang.now.Adapter.rvRecommendAdapter;
 import com.example.hieuhoang.now.Model.ObjectClass.HotProduct;
 import com.example.hieuhoang.now.Model.ObjectClass.Store;
-import com.example.hieuhoang.now.Presenter.Home.IPresenterHome;
-import com.example.hieuhoang.now.Presenter.Home.PresenterLogicHome;
+import com.example.hieuhoang.now.Presenter.Main.Home.IPresenterHome;
+import com.example.hieuhoang.now.Presenter.Main.Home.PresenterLogicHome;
 import com.example.hieuhoang.now.R;
 import com.example.hieuhoang.now.View.Service.ServiceFragment;
 import com.example.hieuhoang.now.View.Home.ViewHome;

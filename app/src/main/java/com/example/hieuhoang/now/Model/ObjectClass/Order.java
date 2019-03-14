@@ -1,14 +1,13 @@
 package com.example.hieuhoang.now.Model.ObjectClass;
 
-/**
- * Created by Hieu Hoang on 08/03/2019.
- */
-
 public class Order {
     String idOrder;
     String idStore;
+    String storeName;
+    String storeImage ;
     String idCustomer;
-    String quantityProduct ;
+    String storeAddress;
+    int quantityProduct ;
     float totalMoney ;
 
     public Order() {
@@ -20,6 +19,30 @@ public class Order {
 
     public void setIdOrder(String idOrder) {
         this.idOrder = idOrder;
+    }
+
+    public String getStoreName() {
+        return storeName;
+    }
+
+    public String getStoreAddress() {
+        return storeAddress;
+    }
+
+    public String getStoreImage() {
+        return storeImage;
+    }
+
+    public void setStoreImage(String storeImage) {
+        this.storeImage = storeImage;
+    }
+
+    public void setStoreAddress(String storeAddress) {
+        this.storeAddress = storeAddress;
+    }
+
+    public void setStoreName(String storeName) {
+        this.storeName = storeName;
     }
 
     public String getIdStore() {
@@ -38,11 +61,11 @@ public class Order {
         this.idCustomer = idCustomer;
     }
 
-    public String getQuantityProduct() {
+    public int getQuantityProduct() {
         return quantityProduct;
     }
 
-    public void setQuantityProduct(String quantityProduct) {
+    public void setQuantityProduct(int quantityProduct) {
         this.quantityProduct = quantityProduct;
     }
 

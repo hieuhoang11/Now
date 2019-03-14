@@ -11,9 +11,9 @@ import android.view.View;
 import com.example.hieuhoang.now.Adapter.ViewPagerAdapter;
 import com.example.hieuhoang.now.R;
 import com.example.hieuhoang.now.View.Main.Fragment.FragmentAccount;
-import com.example.hieuhoang.now.View.Main.Fragment.FragmentBill;
+import com.example.hieuhoang.now.View.Main.Fragment.Bill.FragmentBill;
 import com.example.hieuhoang.now.View.Main.Fragment.FragmentNotification;
-import com.example.hieuhoang.now.View.Main.Fragment.FragmentMainHome;
+import com.example.hieuhoang.now.View.Main.Fragment.Home.FragmentMainHome;
 
 import java.util.ArrayList;
 import java.util.List;
