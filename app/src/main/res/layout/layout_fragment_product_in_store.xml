@@ -39,22 +39,24 @@
                     android:id="@+id/btnShowList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
                     android:background="@color/colorTransparent"
-                    android:src="@drawable/baseline_search_black_24dp" />
+                    android:src="@drawable/icon_list_view" />
 
                 <ImageButton
                     android:id="@+id/btnShowGrid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
                     android:background="@color/colorTransparent"
-                    android:src="@drawable/baseline_search_black_24dp" />
+                    android:src="@drawable/icon_grid_view" />
 
                 <ImageButton
                     android:id="@+id/btnSearchStore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/colorTransparent"
-                    android:src="@drawable/baseline_search_black_24dp" />
+                    android:src="@drawable/icon_search_24dp" />
             </LinearLayout>
 
         </LinearLayout>
@@ -77,8 +79,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:src="@drawable/baseline_search_black_24dp" />
-
+                    android:src="@drawable/icon_search_24dp" />
                 <EditText
                     android:id="@+id/edtSearchInStore"
                     android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package com.example.hieuhoang.now.View.Main.Fragment;
+package com.example.hieuhoang.now.View.Main.Fragment.Notification;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,10 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.hieuhoang.now.R;
-
-/**
- * Created by Hieu Hoang on 13/02/2019.
- */
 
 public class FragmentNotification extends Fragment{
     @Nullable

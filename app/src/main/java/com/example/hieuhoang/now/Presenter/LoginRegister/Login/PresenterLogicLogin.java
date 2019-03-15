@@ -1,9 +1,7 @@
 package com.example.hieuhoang.now.Presenter.LoginRegister.Login;
 
-import android.content.Context;
-
 import com.example.hieuhoang.now.Model.LoginRegister.ModelLogin;
-import com.example.hieuhoang.now.View.LoginRegister.ViewLogin;
+import com.example.hieuhoang.now.View.LoginRegister.Login.ViewLogin;
 import com.facebook.AccessToken;
 
 public class PresenterLogicLogin implements IPresenterLogin {

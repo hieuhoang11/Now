@@ -15,6 +15,15 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <!--main-->
+
+    <style name="button_view_main" parent="@android:style/Widget.ImageButton" >
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:background">@color/colorTransparent</item>
+    </style>
+
 
     <style name="TextAppearance.App.TextInputLayout" parent="@android:style/TextAppearance">
         <item name="android:textColor">@color/colorTextAppearance</item>

@@ -29,7 +29,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@color/colorWhite"
-            android:src="@drawable/baseline_search_black_24dp" />
+            android:src="@drawable/icon_search_24dp" />
 
     </LinearLayout>
 

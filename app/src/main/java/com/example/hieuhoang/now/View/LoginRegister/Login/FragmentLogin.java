@@ -1,4 +1,4 @@
-package com.example.hieuhoang.now.View.LoginRegister;
+package com.example.hieuhoang.now.View.LoginRegister.Login;
 
 
 import android.os.Bundle;
@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.hieuhoang.now.Presenter.LoginRegister.Login.IPresenterLogin;
 import com.example.hieuhoang.now.Presenter.LoginRegister.Login.PresenterLogicLogin;
 import com.example.hieuhoang.now.R;
+import com.example.hieuhoang.now.View.LoginRegister.Register.FragmentRegister;
 
 
 public class FragmentLogin extends Fragment implements ViewLogin ,View.OnClickListener{

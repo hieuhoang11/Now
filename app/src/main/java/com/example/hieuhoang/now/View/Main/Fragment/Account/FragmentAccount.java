@@ -1,4 +1,4 @@
-package com.example.hieuhoang.now.View.Main.Fragment;
+package com.example.hieuhoang.now.View.Main.Fragment.Account;
 
 import android.content.DialogInterface;
 import android.content.Intent;

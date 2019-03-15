@@ -15,7 +15,7 @@
 
         <ImageButton
             style="@style/image_button_in_bill"
-            android:src="@drawable/baseline_search_black_24dp"/>
+            android:src="@drawable/icon_search_24dp"/>
         <LinearLayout
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -50,7 +50,7 @@
         </LinearLayout>
         <ImageButton
             style="@style/image_button_in_bill"
-            android:src="@drawable/baseline_search_black_24dp"/>
+            android:src="@drawable/icon_search_24dp"/>
     </LinearLayout>
 
     <FrameLayout

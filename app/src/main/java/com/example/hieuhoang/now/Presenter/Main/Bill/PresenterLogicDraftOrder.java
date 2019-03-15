@@ -48,4 +48,12 @@ public class PresenterLogicDraftOrder implements IPresenterDraftOrder {
 
         }
     }
+
+    @Override
+    public void deleteDraftOrder(String idOrder) {
+        boolean b = modelOrder.deleteDraftOrder(idOrder) ;
+        if(b) {
+            getListDraftOrder() ;
+        }
+    }
 }

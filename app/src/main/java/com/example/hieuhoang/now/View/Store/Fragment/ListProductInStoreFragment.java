@@ -41,7 +41,7 @@ public class ListProductInStoreFragment extends Fragment implements ViewListProd
         Mapping(view);
         addOnClick();
         activity = (StoreActivity) getActivity();
-        presenterListProductInStore = new PresenterLogicListProductInStore(this, getActivity().getApplicationContext());
+        presenterListProductInStore = new PresenterLogicListProductInStore(this, getContext());
         presenterListProductInStore.getListProduct(String.valueOf(activity.getStore().getID_Store()));
         presenterListProductInStore.showQuantityProductInCraftOrder(activity.getOrder());
         return view;
@@ -65,11 +65,11 @@ public class ListProductInStoreFragment extends Fragment implements ViewListProd
 
     @Override
     public void loadListProductInStore(List<GroupProduct> mGroupProducts, boolean isGrid) {
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-        adapter = new StoreAdapter(mGroupProducts, getActivity().getApplicationContext(), activity,activity.getPresenterStore(), isGrid);
+        setIcon(isGrid);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        adapter = new StoreAdapter(mGroupProducts, getContext(), activity,activity.getPresenterStore(), isGrid);
         rvStore.setAdapter(adapter);
         rvStore.setLayoutManager(layoutManager);
-
     }
 
     @Override
@@ -85,18 +85,35 @@ public class ListProductInStoreFragment extends Fragment implements ViewListProd
                 if (isSearch) {
                     linearSearch.setVisibility(View.GONE);
                     edtSearchInStore.setText("");
-                } else linearSearch.setVisibility(View.VISIBLE);
+                    btnSearchStore.setImageResource(R.drawable.icon_search_24dp);
+                } else  {
+                    linearSearch.setVisibility(View.VISIBLE);
+                    btnSearchStore.setImageResource(R.drawable.icon_search_actived_24dp);
+                }
                 isSearch = !isSearch;
                 break;
             case R.id.btnShowGrid:
                 presenterListProductInStore.setIsGrid(true);
+                setIcon(true);
                 this.dataSetChanged(true);
                 break;
             case R.id.btnShowList:
                 presenterListProductInStore.setIsGrid(false);
+                setIcon(false);
                 this.dataSetChanged(false);
                 break;
         }
+    }
+
+    private void setIcon (boolean b) {
+        if(b) {
+            btnShowGrid.setImageResource(R.drawable.icon_grid_view_actived);
+            btnShowList.setImageResource(R.drawable.icon_list_view);
+        } else {
+            btnShowList.setImageResource(R.drawable.icon_list_view_actived);
+            btnShowGrid.setImageResource(R.drawable.icon_grid_view);
+        }
+
     }
 
     private void dataSetChanged(boolean isGrid) {

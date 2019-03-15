@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.example.hieuhoang.now.Model.ObjectClass.Account;
 import com.example.hieuhoang.now.Model.LoginRegister.ModelRegister;
-import com.example.hieuhoang.now.View.LoginRegister.ViewRegister;
+import com.example.hieuhoang.now.View.LoginRegister.Register.ViewRegister;
 
 
 public class PresenterLogicRegister implements IPresenterRegister {

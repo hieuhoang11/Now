@@ -7,11 +7,9 @@ import com.example.hieuhoang.now.ConnectInternet.DownloadJSON;
 import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.ObjectClass.Order;
 import com.example.hieuhoang.now.Model.ObjectClass.OrderDetail;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -402,8 +400,7 @@ public class ModelOrder {
         try {
             String dataJson = downloadJSON.get();
             JSONObject jsonObject = new JSONObject(dataJson);
-            int quantity = jsonObject.getInt(AppConstant.QUANTITY);
-            return quantity;
+            return jsonObject.getInt(AppConstant.QUANTITY);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

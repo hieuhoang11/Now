@@ -1,4 +1,4 @@
-package com.example.hieuhoang.now.View.LoginRegister;
+package com.example.hieuhoang.now.View.LoginRegister.Register;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

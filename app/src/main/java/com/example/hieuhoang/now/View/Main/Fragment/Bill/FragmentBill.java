@@ -1,7 +1,8 @@
 package com.example.hieuhoang.now.View.Main.Fragment.Bill;
 
-import android.graphics.Color;
+
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,23 +11,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
 import com.example.hieuhoang.now.R;
 import com.example.hieuhoang.now.View.Main.Fragment.Bill.Fragment.FragmentDraftOrder;
 import com.example.hieuhoang.now.View.Main.Fragment.Bill.Fragment.FragmentHistory;
 import com.example.hieuhoang.now.View.Main.Fragment.Bill.Fragment.FragmentOnGoing;
 
 public class FragmentBill extends Fragment implements View.OnClickListener {
-    Button btnOnGoing, btnHistory, btnDraftOrder;
-    private int colorBlack, colorWhite;
+    private Button btnOnGoing, btnHistory, btnDraftOrder;
+    private int colorNormal, colorTextIsChecked;
     private FragmentManager fragmentManager;
-
+    private int tabSelected = 0 ;
+    private Button [] buttons;
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_bill, container, false);
-        init();
         Mapping(view);
+        init();
+
         return view;
     }
 
@@ -41,12 +43,17 @@ public class FragmentBill extends Fragment implements View.OnClickListener {
     }
 
     private void init() {
-        colorBlack = getActivity().getResources().getColor(R.color.colorBlack);
-        colorWhite = getActivity().getResources().getColor(R.color.colorWhite);
+        this.buttons = new Button[3];
+        buttons[0] = btnOnGoing ;
+        buttons[1] = btnHistory ;
+        buttons[2] = btnDraftOrder;
+
+        colorNormal = getActivity().getResources().getColor(R.color.colorBlack);
+        colorTextIsChecked = getActivity().getResources().getColor(R.color.colorTextTabSelected);
 
         fragmentManager = getActivity().getSupportFragmentManager();
 
-        addFragment(new FragmentOnGoing());
+        setContent(new FragmentOnGoing(),0);
     }
 
 
@@ -54,32 +61,31 @@ public class FragmentBill extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnOnGoing:
-                addFragment(new FragmentOnGoing());
+                setContent(new FragmentOnGoing(),0);
                 break;
             case R.id.btnHistory:
-                addFragment(new FragmentHistory());
+                setContent(new FragmentHistory(),1);
                 break;
             case R.id.btnDraftOrder:
-                addFragment(new FragmentDraftOrder());
+                setContent(new FragmentDraftOrder(),2);
                 break;
         }
     }
 
-    private void setBackgroundColor(Button btn) {
-        setBackgroundColor(btnOnGoing, this.colorWhite, this.colorBlack);
-        setBackgroundColor(btnHistory, this.colorWhite, this.colorBlack);
-        setBackgroundColor(btnDraftOrder, this.colorWhite, this.colorBlack);
-        setBackgroundColor(btn, this.colorBlack, this.colorWhite);
+    private void setContent(Fragment fragment ,int index) {
+        addFragment(fragment) ;
+        setSelectedColor(index);
+        tabSelected = index ;
     }
 
-    private void setBackgroundColor(Button btn, int colorBackground, int colorText) {
-        btn.setBackgroundColor(colorBackground);
-        btn.setTextColor(colorText);
+    private void setSelectedColor(int index) {
+        buttons[tabSelected].setTextColor(this.colorNormal);
+        buttons[index].setTextColor(this.colorTextIsChecked);
     }
 
     private void addFragment(Fragment fragment) {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.contentBill, fragment);
+        fragmentTransaction.replace(R.id.contentBill, fragment);
         //fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }

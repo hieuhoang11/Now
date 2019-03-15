@@ -17,6 +17,7 @@
             android:layout_height="35dp"
             android:text="@string/notice"
             android:textColor="@color/colorBlack"
+            android:textStyle="bold"
             android:gravity="center"/>
 
         <TextView

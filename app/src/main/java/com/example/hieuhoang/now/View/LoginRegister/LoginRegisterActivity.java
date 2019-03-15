@@ -13,6 +13,7 @@ import android.widget.Button;
 import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.LoginRegister.ModelLogin;
 import com.example.hieuhoang.now.R;
+import com.example.hieuhoang.now.View.LoginRegister.Login.FragmentLogin;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
