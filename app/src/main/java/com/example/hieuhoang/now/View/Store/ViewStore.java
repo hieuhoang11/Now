@@ -8,10 +8,6 @@ import com.example.hieuhoang.now.Model.ObjectClass.Store;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Hieu Hoang on 27/02/2019.
- */
-
 public interface ViewStore {
     void loadInformationStore(Store store);
 
@@ -28,4 +24,8 @@ public interface ViewStore {
     void onResetDraftOrderSuccess();
 
     void disPlayQuantityOfProductInCraftOrder (Map<String,Integer> map) ;
+
+    void showSheetEditNote (String idProduct  ,String note) ;
+
+    void deleteItemOrderDetail (String idOrder , String idProduct);
 }

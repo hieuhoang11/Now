@@ -29,7 +29,7 @@ public class ModelLogin {
     private AccessTokenTracker accessTokenTracker;
     private Context context;
 
-    public ModelLogin() {
+    public ModelLogin(Context context) {
         this.context = context;
     }
 
@@ -60,7 +60,7 @@ public class ModelLogin {
                 int id = jsonObject.getInt(AppConstant.ID_ACCOUNT);
                 account.setFullName(fullName);
                 account.setID_Account(id);
-                setCacheLogin(context, account);
+                setCacheLogin( account);
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -109,7 +109,7 @@ public class ModelLogin {
         return null;
     }
 
-    public void setCacheLogin(Context context, Account account) {
+    public void setCacheLogin(Account account) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(AppConstant.LOGIN_SHAREDPREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(AppConstant.FULL_NAME, account.getFullName());
@@ -117,7 +117,7 @@ public class ModelLogin {
         editor.apply();
     }
 
-    public Account getAccountInformation(Context context) {
+    public Account getAccountInformation() {
 
         SharedPreferences sharedPreferences = context.getSharedPreferences(AppConstant.LOGIN_SHAREDPREFERENCES, Context.MODE_PRIVATE);
         if (sharedPreferences == null) {
@@ -131,10 +131,10 @@ public class ModelLogin {
         return account;
     }
 
-    public void logoutAccount (Context context) {
+    public void logoutAccount () {
         Account account = new Account();
         account.setFullName("");
         account.setID_Account(AppConstant.DEFAULT_ID_ACCOUNT);
-        setCacheLogin (context ,account) ;
+        setCacheLogin (account) ;
     }
 }

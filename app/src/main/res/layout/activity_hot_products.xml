@@ -48,7 +48,7 @@
         android:layout_height="match_parent"
         android:paddingLeft="15dp"
         android:paddingBottom="15dp"
-        android:background="@color/colorGridView"
+        android:background="@color/colorApp"
         >
 
     </android.support.v7.widget.RecyclerView>

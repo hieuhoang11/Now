@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorWhite"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    >
+    <EditText
+        android:id="@+id/edtNote"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:textColor="@color/colorBlack"
+        android:hint="@string/note"
+        android:background="@color/colorWhite"
+        android:lines="3"
+        android:maxLines="6"
+        android:gravity="top|left"
+        android:scrollbars="vertical"
+        android:textColorHint="@color/colorGray"
+        />
+    <Button
+        android:id="@+id/btnDone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/done"
+        android:background="@drawable/bg_done"/>
+
+</LinearLayout>

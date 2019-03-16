@@ -22,8 +22,7 @@ import com.example.hieuhoang.now.Model.ObjectClass.Store;
 import com.example.hieuhoang.now.Presenter.Main.Home.IPresenterHome;
 import com.example.hieuhoang.now.Presenter.Main.Home.PresenterLogicHome;
 import com.example.hieuhoang.now.R;
-import com.example.hieuhoang.now.View.Service.ServiceFragment;
-import com.example.hieuhoang.now.View.Home.ViewHome;
+import com.example.hieuhoang.now.View.Main.Fragment.Home.Service.ServiceFragment;
 import com.example.hieuhoang.now.View.HotProduct.HotProductsActivity;
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.example.hieuhoang.now.View.Service.Fragment;
+package com.example.hieuhoang.now.View.Main.Fragment.Home.Service.Fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,7 +21,7 @@ import java.util.List;
  * Created by Hieu Hoang on 24/02/2019.
  */
 
-public class JustOrderFragment extends Fragment implements ViewFragment {
+public class NearbyFragment extends Fragment implements ViewFragment {
 
     RecyclerView rvItemFragmentService;
     IPresenterFragmentService presenterLogicFragmentService ;
@@ -31,7 +31,7 @@ public class JustOrderFragment extends Fragment implements ViewFragment {
         rvItemFragmentService = view.findViewById(R.id.rvItemFragmentService);
 
         presenterLogicFragmentService = new PresenterLogicFragmentService(this);
-        presenterLogicFragmentService.loadJustOrderStores();
+        presenterLogicFragmentService.loadNearbyStores();
         return view;
     }
 

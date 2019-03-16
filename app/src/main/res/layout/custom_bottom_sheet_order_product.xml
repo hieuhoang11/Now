@@ -162,7 +162,7 @@
             android:background="@color/colorWhite"
             android:gravity="top|left"
             android:hint="@string/add_note"
-            android:lines="3"
+            android:lines="6"
             android:maxLines="6"
             android:scrollbars="vertical"
             android:textColor="@color/colorBlack"

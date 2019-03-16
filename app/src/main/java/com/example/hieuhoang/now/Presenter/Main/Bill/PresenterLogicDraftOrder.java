@@ -20,13 +20,13 @@ public class PresenterLogicDraftOrder implements IPresenterDraftOrder {
     public PresenterLogicDraftOrder(ViewDraftOrder viewDraftOrder, Context context) {
         this.viewDraftOrder = viewDraftOrder;
         modelOrder = new ModelOrder();
-        modelLogin = new ModelLogin();
+        modelLogin = new ModelLogin(context);
         this.context = context;
     }
 
     @Override
     public void getListDraftOrder() {
-        Account customer = modelLogin.getAccountInformation(context);
+        Account customer = modelLogin.getAccountInformation();
         if (customer.getID_Account() == AppConstant.DEFAULT_ID_ACCOUNT)
             return;
         List<Order> list = modelOrder.getListDraftOrderByIdCustomer(String.valueOf(customer.getID_Account()));
@@ -40,7 +40,7 @@ public class PresenterLogicDraftOrder implements IPresenterDraftOrder {
 
     @Override
     public void deleteAllDraftOrder() {
-        Account customer = modelLogin.getAccountInformation(context);
+        Account customer = modelLogin.getAccountInformation();
         if (customer.getID_Account() == AppConstant.DEFAULT_ID_ACCOUNT)
             return;
         boolean b = modelOrder.deleteAllDraftOrder(String.valueOf(customer.getID_Account())) ;

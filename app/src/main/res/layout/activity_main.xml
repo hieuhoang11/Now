@@ -19,42 +19,47 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:orientation="horizontal"
-        android:background="@color/colorWhite">
+        android:background="@color/colorWhite"
+        android:orientation="horizontal">
+
         <ImageButton
             android:id="@+id/btnHome"
-           style="@style/button_view_main"
-            android:src="@drawable/icon_home_24dp"/>
+            style="@style/button_view_main"
+            android:src="@drawable/icon_home_24dp"
+            />
+
         <ImageButton
             android:id="@+id/btnBill"
             style="@style/button_view_main"
-            android:src="@drawable/icon_home_24dp"/>
+            android:src="@drawable/icon_bill_24dp" />
+
         <ImageButton
             android:id="@+id/btnNotification"
             style="@style/button_view_main"
-            android:src="@drawable/icon_notifications_24dp"/>
+            android:src="@drawable/icon_notifications_24dp" />
+
         <ImageButton
             android:id="@+id/btnAccount"
             style="@style/button_view_main"
-            android:src="@drawable/icon_user_24dp"/>
+            android:src="@drawable/icon_user_24dp" />
 
     </LinearLayout>
 
 
     <!--<android.support.v4.view.ViewPager-->
-        <!--android:id="@+id/viewPager"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="match_parent"-->
-        <!--android:layout_weight="1">-->
+    <!--android:id="@+id/viewPager"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:layout_weight="1">-->
 
     <!--</android.support.v4.view.ViewPager>-->
     <!---->
     <!--<android.support.design.widget.TabLayout-->
-        <!--android:id="@+id/tabLayoutMain"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="40dp"-->
-        <!--android:background="@color/colorWhite"-->
-        <!--app:tabMode="fixed">-->
+    <!--android:id="@+id/tabLayoutMain"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="40dp"-->
+    <!--android:background="@color/colorWhite"-->
+    <!--app:tabMode="fixed">-->
 
     <!--</android.support.design.widget.TabLayout>-->
 

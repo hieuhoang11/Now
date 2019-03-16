@@ -122,7 +122,6 @@ public class test3Activity extends AppCompatActivity {
     @OnClick(R.id.btn_bottom_sheet_dialog)
     public void showBottomSheetDialog() {
         View view = getLayoutInflater().inflate(R.layout.fragment_bottom_sheet_dialog, null);
-
         BottomSheetDialog dialog = new BottomSheetDialog(this);
         dialog.setContentView(view);
         dialog.show();

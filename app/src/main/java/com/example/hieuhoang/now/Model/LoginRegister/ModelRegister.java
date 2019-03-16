@@ -16,10 +16,9 @@ import java.util.concurrent.ExecutionException;
 public class ModelRegister {
 
     ModelLogin modelLogin ;
-    Context context;
+
     public ModelRegister(Context context) {
-        this.context = context ;
-        modelLogin = new ModelLogin();
+        modelLogin = new ModelLogin(context);
     }
 
     public Boolean checkEmailExists (String email) {
@@ -89,7 +88,7 @@ public class ModelRegister {
             if (result.equals("true")) {
                 int id = jsonObject.getInt(AppConstant.ID_ACCOUNT);
                 account.setID_Account(id);
-                modelLogin.setCacheLogin(context,account);
+                modelLogin.setCacheLogin(account);
                 return true;
             }
 

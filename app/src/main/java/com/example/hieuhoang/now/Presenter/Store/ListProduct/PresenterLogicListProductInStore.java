@@ -7,7 +7,7 @@ import com.example.hieuhoang.now.Model.ObjectClass.Order;
 import com.example.hieuhoang.now.Model.ObjectClass.OrderDetail;
 import com.example.hieuhoang.now.Model.Order.ModelOrder;
 import com.example.hieuhoang.now.Model.Product.ModelProduct;
-import com.example.hieuhoang.now.View.Store.Fragment.ViewListProductInStore;
+import com.example.hieuhoang.now.View.Store.Fragment.ProductsInStore.ViewListProductInStore;
 
 import java.util.HashMap;
 import java.util.List;
@@ -49,7 +49,7 @@ public class PresenterLogicListProductInStore implements IPresenterListProductIn
                 map.put(detail.getIdProduct(),detail.getQuantity()) ;
             }
         }
-        viewListProductInStore.showQuantityInCraftOrder(map);
+        viewListProductInStore.displayQuantityInDraftOrder(map);
     }
 
 

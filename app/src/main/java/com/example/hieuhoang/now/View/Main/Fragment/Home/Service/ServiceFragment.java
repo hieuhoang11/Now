@@ -1,4 +1,4 @@
-package com.example.hieuhoang.now.View.Service;
+package com.example.hieuhoang.now.View.Main.Fragment.Home.Service;
 
 
 import android.os.Bundle;
@@ -35,7 +35,7 @@ public class ServiceFragment extends Fragment implements ViewService, View.OnCli
     private rvItemServiceAdapter adapter;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.abc_test, container, false);
+        View view = inflater.inflate(R.layout.layout_fragment_service, container, false);
 
         Mapping(view);
 

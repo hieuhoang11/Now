@@ -344,7 +344,7 @@ public class ModelOrder {
         List<HashMap<String, String>> attrs = new ArrayList<>();
 
         HashMap<String, String> hsFunction = new HashMap<>();
-        hsFunction.put(AppConstant.FUNCTION, AppConstant.UPDATE_QUANTITY_PRODUCT_ORDER);
+        hsFunction.put(AppConstant.FUNCTION, AppConstant.UPDATE_QUANTITY_PRODUCT_ORDER_DETAIL);
 
         HashMap<String, String> hsIDOrder = new HashMap<>();
         hsIDOrder.put(AppConstant.ID_ORDER, idOrder);
@@ -359,6 +359,44 @@ public class ModelOrder {
         attrs.add(hsIDOrder);
         attrs.add(hsIDProduct);
         attrs.add(hsQuantity);
+
+        DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
+        downloadJSON.execute();
+
+        try {
+            String dataJson = downloadJSON.get();
+            JSONObject jsonObject = new JSONObject(dataJson);
+            return jsonObject.getBoolean(AppConstant.RESULT);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean updateNoteInOrderDetail(String idOrder, String idProduct, String note) {
+        String path = AppConstant.SERVER_NAME;
+        List<HashMap<String, String>> attrs = new ArrayList<>();
+
+        HashMap<String, String> hsFunction = new HashMap<>();
+        hsFunction.put(AppConstant.FUNCTION, AppConstant.UPDATE_NOTE_ORDER_DETAIL);
+
+        HashMap<String, String> hsIDOrder = new HashMap<>();
+        hsIDOrder.put(AppConstant.ID_ORDER, idOrder);
+
+        HashMap<String, String> hsIDProduct = new HashMap<>();
+        hsIDProduct.put(AppConstant.ID_PRODUCT, idProduct);
+
+        HashMap<String, String> hsNote = new HashMap<>();
+        hsNote.put(AppConstant.NOTE, note);
+
+        attrs.add(hsFunction);
+        attrs.add(hsIDOrder);
+        attrs.add(hsIDProduct);
+        attrs.add(hsNote);
 
         DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
         downloadJSON.execute();

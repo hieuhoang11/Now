@@ -29,7 +29,6 @@
         <activity android:name=".View.Test.Test1Activity" />
         <activity android:name=".View.Test.test3Activity" />
         <activity android:name=".View.SubmitOrder.SubmitOrderActivity" />
-        <activity android:name=".View.Test.SwipeActivity"></activity>
     </application>
 
 </manifest>

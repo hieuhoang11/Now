@@ -1,127 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.daimajia.swipe.SwipeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipeOrderDetail"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/bottom_wrapper"
+        android:layout_width="80dp"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/tvDelete"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/colorRed"
+            android:gravity="center"
+            android:text="@string/delete"
+            android:textColor="@color/colorWhite" />
+    </LinearLayout>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="10dp">
-
+        android:orientation="vertical">
+        <View
+            style="@style/horizontal_line" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tvProductNameInCartDetail"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="ten san pam"
-                android:textColor="@color/colorBlack"
-                android:textSize="17sp"
-                android:textStyle="bold" />
+            android:background="@color/colorWhite"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="10dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_weight="1"
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tvOldPriceInCartDetail"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tvProductNameInCartDetail"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="gia cu"
+                    android:text="ten san pam"
                     android:textColor="@color/colorBlack"
-                     />
-
-                <ImageView
-                    android:id="@+id/imgInCartDetail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginRight="2dp"
-                    android:src="@drawable/icon_arrow_point_to_right" />
-
-                <TextView
-                    android:id="@+id/tvNewPriceInCartDetail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="gia moi"
-                    android:textColor="@color/colorNewPrice"
+                    android:textSize="17sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text=" x "
-                    android:textColor="@color/colorBlack" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvOldPriceInCartDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="gia cu"
+                        android:textColor="@color/colorBlack"
+                        />
+
+                    <ImageView
+                        android:id="@+id/imgInCartDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:src="@drawable/icon_arrow_point_to_right" />
+
+                    <TextView
+                        android:id="@+id/tvNewPriceInCartDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="gia moi"
+                        android:textColor="@color/colorNewPrice"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" x "
+                        android:textColor="@color/colorBlack" />
+
+                    <TextView
+                        android:id="@+id/tvQualityProductInCartDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="3"
+                        android:textColor="@color/colorBlack" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text=" = "
+                        android:textColor="@color/colorBlack" />
+
+                    <TextView
+                        android:id="@+id/tvTotalMoneyInCartDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="19,000d"
+                        android:textColor="@color/colorBlack" />
+
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/tvQualityProductInCartDetail"
-                    android:layout_width="wrap_content"
+                    android:id="@+id/tvNoteInCartDetail"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="3"
-                    android:textColor="@color/colorBlack" />
+                    android:text="@string/note"
+                    android:textColor="@color/colorText" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text=" = "
-                    android:textColor="@color/colorBlack" />
-
-                <TextView
-                    android:id="@+id/tvTotalMoneyInCartDetail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="19,000d"
-                    android:textColor="@color/colorBlack" />
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/tvNoteInCartDetail"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/note"
-                android:textColor="@color/colorText" />
+                android:gravity="right"
+                android:orientation="horizontal">
 
+                <ImageButton
+                    android:id="@+id/btnSubtractInCartDetail"
+                    style="@style/button_circle_subtract"
+                    />
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/tvQuantityInCartDetail"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:text="1"
+                    style="@style/text_view_quantity_product" />
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:orientation="horizontal">
+                <ImageButton
+                    android:id="@+id/btnAddInCartDetail"
+                    style="@style/button_circle_plus" />
 
-            <ImageButton
-                android:id="@+id/btnSubtractInCartDetail"
-                style="@style/button_circle_subtract"
-                />
-
-            <TextView
-                android:id="@+id/tvQuantityInCartDetail"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:text="1"
-                style="@style/text_view_quantity_product" />
-
-            <ImageButton
-                android:id="@+id/btnAddInCartDetail"
-                style="@style/button_circle_plus" />
+            </LinearLayout>
 
         </LinearLayout>
 
     </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="@color/colorGray"></View>
-</LinearLayout>
+</com.daimajia.swipe.SwipeLayout>
 

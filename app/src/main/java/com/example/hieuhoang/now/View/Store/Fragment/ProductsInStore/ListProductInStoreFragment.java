@@ -1,4 +1,4 @@
-package com.example.hieuhoang.now.View.Store.Fragment;
+package com.example.hieuhoang.now.View.Store.Fragment.ProductsInStore;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -73,7 +73,7 @@ public class ListProductInStoreFragment extends Fragment implements ViewListProd
     }
 
     @Override
-    public void showQuantityInCraftOrder(Map<String, Integer> map) {
+    public void displayQuantityInDraftOrder(Map<String, Integer> map) {
         this.adapter.setHashMap(map);
         this.adapter.notifyDataSetChanged();
     }
@@ -120,5 +120,6 @@ public class ListProductInStoreFragment extends Fragment implements ViewListProd
         this.adapter.setIsGrid(isGrid);
         this.adapter.notifyDataSetChanged();
     }
+
 
 }

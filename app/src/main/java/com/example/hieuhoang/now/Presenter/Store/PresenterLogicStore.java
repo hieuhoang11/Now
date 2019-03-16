@@ -29,7 +29,7 @@ public class PresenterLogicStore implements IPresenterStore {
     public PresenterLogicStore(ViewStore viewStore, Context context) {
         this.viewStore = viewStore;
         modelStore = new ModelStore();
-        modelLogin = new ModelLogin();
+        modelLogin = new ModelLogin(context);
         modelOrder = new ModelOrder() ;
         modelProduct = new ModelProduct() ;
         this.context = context;
@@ -46,7 +46,7 @@ public class PresenterLogicStore implements IPresenterStore {
     @Override
     public void addProductsToCart(Order order, String idStore, String idProduct, int quantity, String note) {
         if (order == null) {
-            String idAccount = String.valueOf(modelLogin.getAccountInformation(context).getID_Account());
+            String idAccount = String.valueOf(modelLogin.getAccountInformation().getID_Account());
             order = modelOrder.addNewOrder(idAccount, idStore);
         }
         if (order == null) {
@@ -65,7 +65,7 @@ public class PresenterLogicStore implements IPresenterStore {
 
     @Override
     public void showSheetAddToCart(Product product) {
-        Account account = modelLogin.getAccountInformation(context);
+        Account account = modelLogin.getAccountInformation();
         if (account.getID_Account() != AppConstant.DEFAULT_ID_ACCOUNT) {
             viewStore.showBottomSheetAddToCart(product);
         } else {
@@ -75,7 +75,7 @@ public class PresenterLogicStore implements IPresenterStore {
 
     @Override
     public void getDraftOrder(String idStore) {
-        int idAccount = modelLogin.getAccountInformation(context).getID_Account();
+        int idAccount = modelLogin.getAccountInformation().getID_Account();
         Order order = modelOrder.getDraftOrder(idStore, String.valueOf(idAccount));
         if (order == null) return;
         viewStore.showCart(order);
@@ -134,6 +134,38 @@ public class PresenterLogicStore implements IPresenterStore {
         if (idOrder == null) return q >= quantity ;
         int q2 = modelOrder.getQuantityProductInDraftOrder(idOrder, idProduct);
         return (q - q2) >= quantity ;
+    }
+
+
+    @Override
+    public void updateNoteDetailOrder(String idOrder , String idProduct ,String note) {
+        if(modelOrder.updateNoteInOrderDetail(idOrder,idProduct,note)) {
+            getOrderDetail(idOrder) ;
+        }
+    }
+
+    @Override
+    public void deleteOrderDetail(String idOrder, String idProduct) {
+        if(modelOrder.deleteDetailOrder(idOrder,idProduct)) {
+            List<OrderDetail> list = modelOrder.getListOrderDetail(idOrder);
+            int s = list.size();
+            if (s == 0) {
+                if (modelOrder.deleteDraftOrder(idOrder)) {
+                    viewStore.onResetDraftOrderSuccess();
+                    viewStore.disPlayQuantityOfProductInCraftOrder(null);
+                }
+                return;
+            }
+
+            viewStore.showCartDetail(list);
+
+            Order order = modelOrder.getOrderInformation(idOrder);
+            if (order != null) {
+                viewStore.showCart(order);
+
+                disPlayQuantityOfProductInCraftOrder(order.getIdOrder());
+            }
+        }
     }
 
     private void disPlayQuantityOfProductInCraftOrder(String idOrder) {

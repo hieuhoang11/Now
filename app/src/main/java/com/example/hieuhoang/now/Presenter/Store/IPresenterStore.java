@@ -13,4 +13,6 @@ public interface IPresenterStore {
     void resetOrder(String idOrder);
     void updateQuantityProductInOrderDetail (String idOrder , String idProduct ,int quantity) ;
     boolean isEnoughItems (String idOrder,String idProduct, int quantity) ;
+    void updateNoteDetailOrder(String idOrder , String idProduct ,String note) ;
+    void deleteOrderDetail (String idOrder , String idProduct ) ;
 }

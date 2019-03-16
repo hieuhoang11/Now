@@ -1,39 +1,44 @@
 package com.example.hieuhoang.now.Adapter;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.daimajia.swipe.SwipeLayout;
+import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.example.hieuhoang.now.Common.Common;
 import com.example.hieuhoang.now.Model.ObjectClass.OrderDetail;
 import com.example.hieuhoang.now.Presenter.Store.IPresenterStore;
 import com.example.hieuhoang.now.R;
+import com.example.hieuhoang.now.View.Store.ViewStore;
 
 import java.util.List;
 
-public class rvCartDetailAdapter extends RecyclerView.Adapter<rvCartDetailAdapter.DetailViewHolder> {
+public class srvCartDetailAdapter extends RecyclerSwipeAdapter<srvCartDetailAdapter.DetailViewHolder> {
     private List<OrderDetail> mOrderDetails;
-    private LayoutInflater mLayoutInflater;
     private Context context;
     private IPresenterStore presenterLogicStore ;
+    private ViewStore storeActivity ;
 
-    public rvCartDetailAdapter(List<OrderDetail> mOrderDetails, Context context,IPresenterStore presenterLogicStore) {
+    public srvCartDetailAdapter(List<OrderDetail> mOrderDetails, Context context,ViewStore storeActivity,IPresenterStore presenterLogicStore) {
         this.mOrderDetails = mOrderDetails;
-        this.mLayoutInflater = LayoutInflater.from(context);
         this.context = context;
         this.presenterLogicStore = presenterLogicStore ;
+        this.storeActivity = storeActivity ;
     }
-
     @Override
     public DetailViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = mLayoutInflater.inflate(R.layout.custom_item_in_cart, parent, false);
-        return new rvCartDetailAdapter.DetailViewHolder(itemView);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_item_in_cart, parent, false);
+        return new srvCartDetailAdapter.DetailViewHolder(view);
     }
 
     @Override
@@ -81,6 +86,20 @@ public class rvCartDetailAdapter extends RecyclerView.Adapter<rvCartDetailAdapte
             }
         });
 
+        holder.tvNoteInCartDetail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                storeActivity.showSheetEditNote(detail.getIdProduct() , detail.getNote());
+            }
+        });
+
+        holder.tvDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                storeActivity.deleteItemOrderDetail(detail.getIdOrder(),detail.getIdProduct());
+            }
+        });
+        mItemManger.bindView(holder.itemView, position);
     }
 
     @Override
@@ -88,11 +107,16 @@ public class rvCartDetailAdapter extends RecyclerView.Adapter<rvCartDetailAdapte
         return mOrderDetails.size();
     }
 
+    @Override
+    public int getSwipeLayoutResourceId(int position) {
+        return R.id.swipeOrderDetail;
+    }
+
     class DetailViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvProductNameInCartDetail, tvNoteInCartDetail,tvQualityProductInCartDetail ,tvOldPriceInCartDetail, tvNewPriceInCartDetail, tvTotalMoneyInCartDetail, tvQuantityInCartDetail;
+        private TextView tvProductNameInCartDetail, tvNoteInCartDetail,tvQualityProductInCartDetail ,tvOldPriceInCartDetail, tvNewPriceInCartDetail, tvTotalMoneyInCartDetail, tvQuantityInCartDetail,tvDelete;
         private ImageView imgInCartDetail;
         private ImageButton btnSubtractInCartDetail, btnAddInCartDetail;
-
+        private SwipeLayout swipeLayout;
         public DetailViewHolder(View itemView) {
             super(itemView);
             tvProductNameInCartDetail = itemView.findViewById(R.id.tvProductNameInCartDetail);
@@ -105,6 +129,14 @@ public class rvCartDetailAdapter extends RecyclerView.Adapter<rvCartDetailAdapte
             btnAddInCartDetail = itemView.findViewById(R.id.btnAddInCartDetail);
             tvNoteInCartDetail = itemView.findViewById(R.id.tvNoteInCartDetail);
             tvQualityProductInCartDetail= itemView.findViewById(R.id.tvQualityProductInCartDetail);
+            swipeLayout = itemView.findViewById(R.id.swipeOrderDetail) ;
+            tvDelete = itemView.findViewById(R.id.tvDelete) ;
         }
     }
+
+    public void setData (List<OrderDetail> mOrderDetails) {
+        this.mOrderDetails = mOrderDetails ;
+    }
+
+
 }

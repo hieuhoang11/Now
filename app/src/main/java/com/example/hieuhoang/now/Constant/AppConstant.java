@@ -1,7 +1,7 @@
 package com.example.hieuhoang.now.Constant;
 
 public class AppConstant {
-    public static final String LOCAL = "http://192.168.1.3:8080";
+    public static final String LOCAL = "http://192.168.1.13:8080";
     public static final String SERVER_NAME = LOCAL + "/webnow/getJSONData.php";
     public static final String SERVER_NAME_IMG = LOCAL + "/webnow/";
     public static final String EMAIL = "email";
@@ -20,7 +20,8 @@ public class AppConstant {
     public static final String GET_ORDER_INFORMATION_BY_ID = "getOrderInformationByIdOrder";
     public static final String DELETE_DRAFT_ORDER = "deleteDraftOrder";
     public static final String DELETE_ALL_DRAFT_ORDER = "deleteAllDraftOrder";
-    public static final String UPDATE_QUANTITY_PRODUCT_ORDER = "updateQuantityProductInOrderDetail";
+    public static final String UPDATE_QUANTITY_PRODUCT_ORDER_DETAIL = "updateQuantityProductInOrderDetail";
+    public static final String UPDATE_NOTE_ORDER_DETAIL = "updateNoteInOrderDetail";
     public static final String GET_QUANTITY_PRODUCT_IN_DRAFT_ORDER = "getQuantityProductInDraftOrder";
     public static final String GET_QUANTITY_PRODUCT = "getQuantityProduct";
     public static final String REGISTER_ACCOUNT = "registerAccount";

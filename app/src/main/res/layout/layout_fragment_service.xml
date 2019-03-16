@@ -1,245 +1,278 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorApp"
-    >
+    android:background="@color/colorApp">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorWhite"
-        android:paddingBottom="13dp">
+        android:layout_marginBottom="10dp"
+        android:background="@color/colorApp">
 
-        <android.support.v7.widget.Toolbar
+        <android.support.design.widget.CollapsingToolbarLayout
             android:layout_width="match_parent"
-            android:layout_height="25dp"
-            app:layout_scrollFlags="scroll|enterAlways">
+            android:layout_height="wrap_content"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <Button
-                android:id="@+id/btnBackService"
-                android:layout_width="wrap_content"
-                android:layout_height="25dp"
-                android:background="@color/colorTransparent"
-                android:drawableLeft="@drawable/icon_arrow_back_black_24dp"
-                android:drawableRight="@drawable/icon_arrow_point_to_right"
-                android:gravity="left|center_vertical"
-                android:text="Đồ ăn"
-                android:textAllCaps="false"
-                android:textColor="@color/colorBlack"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:text="Giao tới"
-                android:textColor="@color/colorText" />
-        </android.support.v7.widget.Toolbar>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:layout_marginLeft="13dp"
-            android:layout_marginRight="13dp"
-            android:layout_marginTop="10dp"
-            android:layout_weight="1"
-            android:background="@drawable/bgsearch"
-            android:orientation="horizontal"
-            android:weightSum="8">
-
-            <Button
-                android:id="@+id/btnSearch"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="start"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="3"
-                android:background="@drawable/buttonsearch"
-                android:drawableLeft="@drawable/icon_search_24dp"
-                android:text="Tìm món ăn, địa điểm,..."
-                android:textAlignment="textStart"
-                android:textAllCaps="false"
-                android:textColor="@color/colorTextSearch"
-                android:textSize="11dp" />
+                android:layout_marginTop="70dp"
+                android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btnLocation"
+                <android.support.v4.widget.NestedScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorWhite"
+                            android:orientation="horizontal"
+                            android:paddingLeft="13dp"
+                            android:paddingRight="13dp"
+                            android:paddingTop="13dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/txt_preferential"
+                                android:textColor="@color/colorBlack"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="right"
+                                android:text="@string/see_more"
+                                android:textColor="@color/colorBlack"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rvPreferentialService"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorWhite"
+                            android:paddingBottom="13dp"
+                            android:paddingLeft="13dp"
+                            android:paddingTop="13dp">
+
+                        </android.support.v7.widget.RecyclerView>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:background="@color/colorWhite"
+                            android:orientation="horizontal"
+                            android:paddingLeft="13dp"
+                            android:paddingRight="13dp"
+                            android:paddingTop="10dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="Hot"
+                                android:textColor="@color/colorBlack"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:gravity="right"
+                                android:text="@string/see_more"
+                                android:textColor="@color/colorBlack"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/rvHotProductService"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorWhite"
+                            android:paddingBottom="13dp"
+                            android:paddingLeft="13dp"
+                            android:paddingTop="13dp">
+
+                        </android.support.v7.widget.RecyclerView>
+
+                    </LinearLayout>
+
+
+                </android.support.v4.widget.NestedScrollView>
+
+            </LinearLayout>
+
+            <android.support.v7.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginRight="10dp"
-                android:layout_weight="5"
-                android:background="@color/colorBGSearch"
-                android:drawableRight="@drawable/baseline_arrow_drop_down_black_24dp"
-                android:padding="0dp"
-                android:text="Hải Phòng"
-                android:textAlignment="textEnd"
-                android:textAllCaps="false"
-                android:textColor="@color/colorTextSearch"
-                android:textSize="11dp"
-                android:textStyle="bold" />
+                android:background="@color/colorWhite"
+                app:layout_collapseMode="pin">
 
-        </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:paddingTop="5dp">
+
+                        <Button
+                            android:id="@+id/btnBackService"
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:background="@color/colorTransparent"
+                            android:drawableLeft="@drawable/icon_arrow_back_black_24dp"
+                            android:drawableRight="@drawable/icon_arrow_point_to_right"
+                            android:gravity="left|center_vertical"
+                            android:text="Đồ ăn"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorBlack"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical"
+                            android:text="Giao tới"
+                            android:textColor="@color/colorText" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/bgsearch"
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:weightSum="8"
+                        >
+
+                        <Button
+                            android:id="@+id/btnSearch"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="start"
+                            android:layout_weight="3"
+                            android:background="@drawable/buttonsearch"
+                            android:drawableLeft="@drawable/icon_search_24dp"
+                            android:text="Tìm món ăn, địa điểm,..."
+                            android:textAlignment="textStart"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorTextSearch"
+                            android:textSize="11dp" />
+
+                        <Button
+                            android:id="@+id/btnLocation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end"
+                            android:layout_weight="5"
+                            android:background="@color/colorBGSearch"
+                            android:drawableRight="@drawable/baseline_arrow_drop_down_black_24dp"
+                            android:padding="0dp"
+                            android:text="Hải Phòng"
+                            android:textAlignment="textEnd"
+                            android:textAllCaps="false"
+                            android:textColor="@color/colorTextSearch"
+                            android:textSize="11dp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
 
-    <android.support.v4.widget.NestedScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="vertical">
+            android:background="@color/colorWhite"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:weightSum="4">
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/txtRecommendItemService"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorWhite"
-                android:orientation="horizontal"
-                android:paddingLeft="13dp"
-                android:paddingRight="13dp"
-                android:paddingTop="13dp">
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="Gợi ý"
+                android:textColor="@color/colorBlack" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/txt_preferential"
-                    android:textColor="@color/colorBlack"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="@string/see_more"
-                    android:textColor="@color/colorBlack"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvPreferentialService"
+            <TextView
+                android:id="@+id/txtJustOrderItemService"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorWhite"
-                android:paddingBottom="13dp"
-                android:paddingLeft="13dp"
-                android:paddingTop="13dp">
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="Vừa đặt"
+                android:textColor="@color/colorBlack" />
 
-            </android.support.v7.widget.RecyclerView>
-
-            <LinearLayout
+            <TextView
+                android:id="@+id/txtNearbyItemService"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
-                android:background="@color/colorWhite"
-                android:orientation="horizontal"
-                android:paddingLeft="13dp"
-                android:paddingRight="13dp"
-                android:paddingTop="10dp">
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="Gần tôi"
+                android:textColor="@color/colorBlack" />
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Hot"
-                    android:textColor="@color/colorBlack"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="right"
-                    android:text="@string/see_more"
-                    android:textColor="@color/colorBlack"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvHotProductService"
+            <TextView
+                android:id="@+id/txtNewItemService"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/colorWhite"
-                android:paddingBottom="13dp"
-                android:paddingLeft="13dp"
-                android:paddingTop="13dp">
-
-            </android.support.v7.widget.RecyclerView>
-
-            <!--<android.support.v7.widget.ContentFrameLayout-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="match_parent"-->
-            <!--&gt;-->
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorWhite"
-                android:orientation="horizontal"
-                android:paddingBottom="13dp"
-                android:weightSum="4"
-                >
-
-                <TextView
-                    android:id="@+id/txtRecommendItemService"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:text="Gợi ý"
-                    android:textColor="@color/colorBlack" />
-
-                <TextView
-                    android:id="@+id/txtJustOrderItemService"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:text="Vừa đặt"
-                    android:textColor="@color/colorBlack" />
-
-                <TextView
-                    android:id="@+id/txtNearbyItemService"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:text="Gần tôi"
-                    android:textColor="@color/colorBlack" />
-
-                <TextView
-                    android:id="@+id/txtNewItemService"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center_horizontal"
-                    android:text="Mới"
-                    android:textColor="@color/colorBlack" />
-            </LinearLayout>
-            <!--</android.support.v7.widget.ContentFrameLayout>-->
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rvItemService"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="2dp"
-
-                android:background="@color/colorWhite">
-
-            </android.support.v7.widget.RecyclerView>
-
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="Mới"
+                android:textColor="@color/colorBlack" />
         </LinearLayout>
-    </android.support.v4.widget.NestedScrollView>
 
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvItemService"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="2dp"
+
+            android:background="@color/colorWhite">
+
+        </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
 
 
 </android.support.design.widget.CoordinatorLayout>

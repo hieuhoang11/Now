@@ -1,5 +1,6 @@
 package com.example.hieuhoang.now.View.Main.Fragment.Account;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,12 +12,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.hieuhoang.now.Model.LoginRegister.ModelLogin;
 import com.example.hieuhoang.now.Model.ObjectClass.Account;
 import com.example.hieuhoang.now.R;
 import com.example.hieuhoang.now.View.LoginRegister.LoginRegisterActivity;
+import com.example.hieuhoang.now.View.Store.StoreActivity;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
@@ -50,7 +54,7 @@ public class FragmentAccount extends Fragment implements View.OnClickListener, G
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_account, container, false);
-        modelLogin = new ModelLogin();
+        modelLogin = new ModelLogin(getContext());
 
         Mapping(view);
 
@@ -83,7 +87,7 @@ private void Mapping(View view){
         googleSignInResult = modelLogin.getInformationGoogle(googleApiClient);
         //get information Login
 
-        account = modelLogin.getAccountInformation(getContext());
+        account = modelLogin.getAccountInformation();
 
         btnLogoutAccount.setVisibility(View.VISIBLE);
         if (account != null && !account.getFullName().equals("")) {
@@ -115,7 +119,7 @@ private void Mapping(View view){
                 }
                 break;
             case R.id.btnLogoutAccount:
-                showAlertDialog();
+                dialogConfirmLogout();
                 break;
         }
     }
@@ -123,7 +127,7 @@ private void Mapping(View view){
     private boolean isLogged() {
         accessToken = modelLogin.getAccessTokenFacebook();
         googleSignInResult = modelLogin.getInformationGoogle(googleApiClient);
-        account = modelLogin.getAccountInformation(getContext());
+        account = modelLogin.getAccountInformation();
         if (account != null && !account.getFullName().equals("")) {
             Log.i("kiemtra", "account name: " + account.getFullName());
             return true;
@@ -135,7 +139,7 @@ private void Mapping(View view){
 
     private void logoutAccount() {
         if (account != null && !account.getFullName().equals("")) {
-            modelLogin.logoutAccount(getContext());
+            modelLogin.logoutAccount();
         }
         if (accessToken != null) {
             LoginManager.getInstance().logOut();
@@ -190,56 +194,38 @@ private void Mapping(View view){
                 .into(btnImgAccount);
     }
 
-    public void showAlertDialog() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-
-        builder.setMessage(getResources().getString(R.string.confirm_logout));
-        builder.setCancelable(false);
-        builder.setPositiveButton(getResources().getString(R.string.option_no), new DialogInterface.OnClickListener() {
+    private void dialogConfirmLogout() {
+        final Dialog dialog = new Dialog(getContext());
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.custom_dialog, null);
+        TextView tvContentDialog = view.findViewById(R.id.tvContentDialog);
+        Button btnYes = view.findViewById(R.id.btnYes);
+        Button btnCancel = view.findViewById(R.id.btnCancel);
+        tvContentDialog.setText(getResources().getString(R.string.do_you_want_to_logout));
+        btnYes.setText(getResources().getString(R.string.logout));
+        btnCancel.setText(getResources().getString(R.string.cancel));
+        btnYes.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                dialogInterface.dismiss();
-            }
-        });
-        builder.setNegativeButton(getResources().getString(R.string.option_yes), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
+            public void onClick(View v) {
+                dialog.dismiss();
                 logoutAccount();
-                dialogInterface.dismiss();
             }
         });
-        AlertDialog alertDialog = builder.create();
-        alertDialog.show();
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(view);
+        dialog.show();
 
     }
+
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        Log.i("life", "onResume");
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        Log.i("life", "onPause");
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        Log.i("life", "onStop");
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.i("life", "onDestroy");
     }
 
 }

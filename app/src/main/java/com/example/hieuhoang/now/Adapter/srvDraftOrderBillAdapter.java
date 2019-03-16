@@ -3,8 +3,8 @@ package com.example.hieuhoang.now.Adapter;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +12,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.example.hieuhoang.now.Common.Common;
@@ -124,7 +122,6 @@ public class srvDraftOrderBillAdapter extends RecyclerSwipeAdapter<srvDraftOrder
         private SwipeLayout swipeLayout;
         private ImageView imgStore;
         private TextView tvStoreName,tvStoreAddress,tvQuantity,tvTotalMoney ,tvDelete;
-       // View viewDraftOrder;
        private DraftOrderViewHolder(View itemView) {
             super(itemView);
             swipeLayout = itemView.findViewById(R.id.swipeDraftOrder);
@@ -133,7 +130,6 @@ public class srvDraftOrderBillAdapter extends RecyclerSwipeAdapter<srvDraftOrder
             tvStoreAddress = itemView.findViewById(R.id.tvStoreAddress);
             tvQuantity = itemView.findViewById(R.id.tvQuantity);
             tvTotalMoney = itemView.findViewById(R.id.tvTotalMoney);
-            //viewDraftOrder= itemView.findViewById(R.id.viewDraftOrder);
             tvDelete = itemView.findViewById(R.id.tvDelete);
         }
     }
@@ -144,6 +140,7 @@ public class srvDraftOrderBillAdapter extends RecyclerSwipeAdapter<srvDraftOrder
 
     private void showDialog (final String idOrder) {
         final Dialog dialog = new Dialog(context) ;
+        DialogFragment dialogFragment = new DialogFragment() ;
         View view = LayoutInflater.from(context).inflate(R.layout.custom_dialog,null) ;
         TextView tvContentDialog = view.findViewById(R.id.tvContentDialog) ;
         Button btnYes = view.findViewById(R.id.btnYes) ;

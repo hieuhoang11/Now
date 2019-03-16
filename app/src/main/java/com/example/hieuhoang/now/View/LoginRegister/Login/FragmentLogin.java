@@ -37,7 +37,7 @@ public class FragmentLogin extends Fragment implements ViewLogin ,View.OnClickLi
 
         View view = inflater.inflate(R.layout.layout_fragment_login, container, false);
 
-        presenterLogicLogin = new PresenterLogicLogin(this);
+        presenterLogicLogin = new PresenterLogicLogin(this,getContext());
         btnLogin = (Button) view.findViewById(R.id.btnLogin);
         btnBackLogin = (ImageButton) view.findViewById(R.id.btnBackLoginRegister);
         txtRegister = (TextView) view.findViewById(R.id.txtRegister);

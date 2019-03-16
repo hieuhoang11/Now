@@ -1,15 +1,13 @@
 package com.example.hieuhoang.now.View.Store;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomSheetBehavior;
+import android.support.design.widget.BottomSheetDialog;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,13 +18,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hieuhoang.now.Adapter.ViewPagerAdapter;
-import com.example.hieuhoang.now.Adapter.rvCartDetailAdapter;
+import com.example.hieuhoang.now.Adapter.srvCartDetailAdapter;
 import com.example.hieuhoang.now.Common.Common;
 import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.ObjectClass.OrderDetail;
@@ -38,7 +37,7 @@ import com.example.hieuhoang.now.Presenter.Store.PresenterLogicStore;
 import com.example.hieuhoang.now.R;
 import com.example.hieuhoang.now.View.LoginRegister.LoginRegisterActivity;
 import com.example.hieuhoang.now.View.Store.Fragment.InformationStoreFragment;
-import com.example.hieuhoang.now.View.Store.Fragment.ListProductInStoreFragment;
+import com.example.hieuhoang.now.View.Store.Fragment.ProductsInStore.ListProductInStoreFragment;
 import com.example.hieuhoang.now.View.SubmitOrder.SubmitOrderActivity;
 
 import java.util.ArrayList;
@@ -55,7 +54,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
     private TabLayout tabLayout;
     private Product product;
     private Store store;
-    private Order order ;
+    private Order order;
     //sheet
     private ImageView imgBottomSheet, imgProductBottomSheet;
     private ImageButton btnSubtract, btnAdd, btnCloseBottomSheet;
@@ -68,7 +67,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
     private int peekHeight;
 
     //sheet cart
-    private View bottom_sheet_cart_in_store, viewCart,viewDelivery;
+    private View bottom_sheet_cart_in_store, viewCart, viewDelivery;
     private TextView tvTotalMoneyOfCart, tvNumberItemInCart;
 
     //bottom_sheet_cart_detail
@@ -79,7 +78,8 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
 
     private BottomSheetBehavior sheetBehavior, sheetBehaviorAddToCart, sheetCart, sheetCartDetail;
     private ViewPagerAdapter adapter;
-    private Dialog dialog;
+   // private Dialog dialog;
+    private srvCartDetailAdapter cartDetailAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,12 +99,12 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
 
         presenterStore.getDraftOrder(idStore);
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            toolbar.setTitle(store.getStoreName());
-        }
+//        Toolbar toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//        if (getSupportActionBar() != null) {
+//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//            toolbar.setTitle(store.getStoreName());
+//        }
 
     }
 
@@ -129,6 +129,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
         btnSubtract = findViewById(R.id.btnSubtract);
         tvQuantity = findViewById(R.id.tvQuantity);
         tvNote = findViewById(R.id.tvNote);
+
         //add to cart
         bottom_sheet_add_to_cart = findViewById(R.id.bottom_sheet_add_to_cart);
         tvTotal = findViewById(R.id.tvTotal);
@@ -137,7 +138,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
         tvNumberItemInCart = findViewById(R.id.tvNumberItemInCart);
         tvTotalMoneyOfCart = findViewById(R.id.tvTotalMoneyOfCart);
         viewCart = findViewById(R.id.viewCart);
-        viewDelivery= findViewById(R.id.viewDelivery);
+        viewDelivery = findViewById(R.id.viewDelivery);
         //cart detail
         bottom_sheet_cart_detail = findViewById(R.id.bottom_sheet_cart_detail);
         btnCloseSheetDetail = findViewById(R.id.btnCloseSheetDetail);
@@ -173,9 +174,14 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
         fragmentTitleList.add(getResources().getString(R.string.delivery));
         fragmentTitleList.add(getResources().getString(R.string.information));
 
-         adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentList, fragmentTitleList);
+        adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentList, fragmentTitleList);
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+
+        cartDetailAdapter = new srvCartDetailAdapter(new ArrayList<OrderDetail>(), getApplicationContext(), this, presenterStore);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        rvProductsInCartDetail.setAdapter(cartDetailAdapter);
+        rvProductsInCartDetail.setLayoutManager(layoutManager);
 
         tabLayout.setOnTabSelectedListener(
                 new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
@@ -186,7 +192,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
 
                         if (tab.getPosition() != 0) {
                             closeCartAndCartDetail();
-                        } else showCart(order);
+                        } else if (order != null) showCart(order);
                     }
 
                     @Override
@@ -228,10 +234,8 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
     public void showCartDetail(List<OrderDetail> orderDetailList) {
 
         bottom_sheet_cart_detail.setVisibility(View.VISIBLE);
-        rvCartDetailAdapter adapter = new rvCartDetailAdapter(orderDetailList,getApplicationContext(),presenterStore) ;
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-        rvProductsInCartDetail.setAdapter(adapter);
-        rvProductsInCartDetail.setLayoutManager(layoutManager);
+        cartDetailAdapter.setData(orderDetailList);
+        cartDetailAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -263,7 +267,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
 
         tvQuantityPurchasedBottomSheet.setText(Common.qualityPurchased(product.getQuantityPurchase()));
 
-        this.product = product ;
+        this.product = product;
     }
 
     @Override
@@ -273,11 +277,11 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
     }
 
     @Override
-    public void showCart( Order order) {
+    public void showCart(Order order) {
         this.closeBottomSheetAddToCart();
         bottom_sheet_cart_in_store.setVisibility(View.VISIBLE);
 
-        String quantity = String.valueOf( order.getQuantityProduct() );
+        String quantity = String.valueOf(order.getQuantityProduct());
         String totalMoney = Common.formatNumber(order.getTotalMoney());
 
         tvNumberItemInCart.setText(quantity);
@@ -293,14 +297,23 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
     @Override
     public void onResetDraftOrderSuccess() {
         this.closeCartAndCartDetail();
-        this.dialog.dismiss();
         this.order = null;
     }
 
     @Override
     public void disPlayQuantityOfProductInCraftOrder(Map<String, Integer> map) {
-       ListProductInStoreFragment fragment = (ListProductInStoreFragment) adapter.getItem(0);
-       fragment.showQuantityInCraftOrder(map);
+        ListProductInStoreFragment fragment = (ListProductInStoreFragment) adapter.getItem(0);
+        fragment.displayQuantityInDraftOrder(map);
+    }
+
+    @Override
+    public void showSheetEditNote(String idProduct, String note) {
+        showBottomSheetDialogEditNote(order.getIdOrder(), idProduct, note);
+    }
+
+    @Override
+    public void deleteItemOrderDetail(String idOrder, String idProduct) {
+        dialogConfirmDeleteItemOrderDetail(idOrder, idProduct);
     }
 
     @Override
@@ -311,15 +324,14 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
                 break;
             case R.id.btnAdd:
                 String id = null;
-                if(this.order != null) {
-                    id = this.order.getIdOrder() ;
+                if (this.order != null) {
+                    id = this.order.getIdOrder();
                 }
                 int a = Integer.parseInt(tvQuantity.getText().toString()) + 1;
-                if(presenterStore.isEnoughItems(id,this.product.getId(),a)) {
+                if (presenterStore.isEnoughItems(id, this.product.getId(), a)) {
                     tvQuantity.setText(String.valueOf(a));
                     tvTotal.setText(Common.formatNumber(totalMoney(a)));
-                }
-                else {
+                } else {
                     Toast.makeText(this.getApplicationContext(), R.string.msg_out_of_stock, Toast.LENGTH_SHORT).show();
                 }
                 break;
@@ -332,10 +344,10 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
                 break;
             case R.id.bottom_sheet_add_to_cart:
                 String id1 = null;
-                if(this.order != null) {
-                    id1 = this.order.getIdOrder() ;
+                if (this.order != null) {
+                    id1 = this.order.getIdOrder();
                 }
-                if(!presenterStore.isEnoughItems(id1,this.product.getId(),Integer.parseInt(tvQuantity.getText().toString()))) {
+                if (!presenterStore.isEnoughItems(id1, this.product.getId(), Integer.parseInt(tvQuantity.getText().toString()))) {
                     Toast.makeText(this.getApplicationContext(), R.string.msg_out_of_stock, Toast.LENGTH_SHORT).show();
                     break;
                 }
@@ -343,7 +355,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
                 String idProduct = this.product.getId();
                 int quantity = Integer.parseInt(tvQuantity.getText().toString().trim());
                 String note = tvNote.getText().toString().trim();
-                this.presenterStore.addProductsToCart(this.order ,idStore, idProduct, quantity, note);
+                this.presenterStore.addProductsToCart(this.order, idStore, idProduct, quantity, note);
                 break;
             case R.id.viewCart:
                 if (bottom_sheet_cart_detail.getVisibility() != View.VISIBLE)
@@ -351,14 +363,17 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
                 break;
             case R.id.viewDelivery:
                 Intent iSubmitOrder = new Intent(StoreActivity.this, SubmitOrderActivity.class);
-                iSubmitOrder.putExtra(AppConstant.ID_ORDER , this.order.getIdOrder()) ;
+                iSubmitOrder.putExtra(AppConstant.ID_ORDER, this.order.getIdOrder());
                 startActivity(iSubmitOrder);
                 break;
             case R.id.btnCloseSheetDetail:
                 bottom_sheet_cart_detail.setVisibility(View.GONE);
                 break;
             case R.id.tvResetDetail:
-                showDialog();
+                dialogConfirmResetCart();
+                break;
+            case R.id.tvQuantity:
+                showBottomSheetDialogTypeInQuantity();
                 break;
             case R.id.content:
             case R.id.appBar:
@@ -370,8 +385,8 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
 
     @Override
     public void closeCartAndCartDetail() {
-        bottom_sheet_cart_in_store.setVisibility(View.INVISIBLE);
-        bottom_sheet_cart_detail.setVisibility(View.INVISIBLE);
+        bottom_sheet_cart_in_store.setVisibility(View.GONE);
+        bottom_sheet_cart_detail.setVisibility(View.GONE);
     }
 
     @Override
@@ -411,18 +426,19 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
         return presenterStore;
     }
 
-    private void showDialog () {
-        dialog = new Dialog(StoreActivity.this) ;
-        View view = LayoutInflater.from(StoreActivity.this).inflate(R.layout.custom_dialog,null) ;
-        TextView tvContentDialog = view.findViewById(R.id.tvContentDialog) ;
-        Button btnYes = view.findViewById(R.id.btnYes) ;
-        Button btnCancel = view.findViewById(R.id.btnCancel) ;
+    private void dialogConfirmResetCart() {
+        final Dialog dialog = new Dialog(StoreActivity.this);
+        View view = LayoutInflater.from(StoreActivity.this).inflate(R.layout.custom_dialog, null);
+        TextView tvContentDialog = view.findViewById(R.id.tvContentDialog);
+        Button btnYes = view.findViewById(R.id.btnYes);
+        Button btnCancel = view.findViewById(R.id.btnCancel);
         tvContentDialog.setText(getResources().getString(R.string.do_you_want_reset_draft_order));
         btnYes.setText(getResources().getString(R.string.reset));
         btnCancel.setText(getResources().getString(R.string.cancel));
         btnYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                dialog.dismiss();
                 presenterStore.resetOrder(order.getIdOrder());
             }
         });
@@ -432,9 +448,75 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
                 dialog.dismiss();
             }
         });
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE) ;
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(view);
         dialog.show();
 
+    }
+
+    public void dialogConfirmDeleteItemOrderDetail(final String idOrder, final String idProduct) {
+        final Dialog dialog = new Dialog(StoreActivity.this);
+        View view = LayoutInflater.from(StoreActivity.this).inflate(R.layout.custom_dialog, null);
+        TextView tvContentDialog = view.findViewById(R.id.tvContentDialog);
+        Button btnYes = view.findViewById(R.id.btnYes);
+        Button btnCancel = view.findViewById(R.id.btnCancel);
+        tvContentDialog.setText(getResources().getString(R.string.do_you_want_delete_this_items));
+        btnYes.setText(getResources().getString(R.string.delete));
+        btnCancel.setText(getResources().getString(R.string.cancel));
+        btnYes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+                presenterStore.deleteOrderDetail(idOrder, idProduct);
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(view);
+        dialog.show();
+
+    }
+
+    public void showBottomSheetDialogTypeInQuantity() {
+        View view = getLayoutInflater().inflate(R.layout.layout_bottom_sheet_dialog_quantity, null);
+        final EditText edtQuantity = view.findViewById(R.id.edtQuantity);
+        final BottomSheetDialog dialog = new BottomSheetDialog(this);
+        view.findViewById(R.id.btnDone).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String quantity = edtQuantity.getText().toString().trim();
+                if (!quantity.equals("") && !quantity.equals("0")) {
+                    tvQuantity.setText(quantity);
+                    tvTotal.setText(Common.formatNumber(totalMoney(Integer.parseInt(quantity))));
+                }
+                dialog.dismiss();
+            }
+        });
+        dialog.setContentView(view);
+        dialog.show();
+    }
+
+    public void showBottomSheetDialogEditNote(final String idOrder, final String idProduct, String note) {
+        View view = getLayoutInflater().inflate(R.layout.layout_bottom_sheet_dialog_edit_note, null);
+        final EditText edtNote = view.findViewById(R.id.edtNote);
+        if (!note.equals("")) edtNote.setText(note);
+        final BottomSheetDialog dialog = new BottomSheetDialog(this);
+        view.findViewById(R.id.btnDone).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String n = edtNote.getText().toString().trim();
+                if (!n.equals("")) {
+                    presenterStore.updateNoteDetailOrder(idOrder, idProduct, n);
+                }
+                dialog.dismiss();
+            }
+        });
+        dialog.setContentView(view);
+        dialog.show();
     }
 }

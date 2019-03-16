@@ -3,7 +3,7 @@ package com.example.hieuhoang.now.Presenter.Service;
 import com.example.hieuhoang.now.Model.ObjectClass.HotProduct;
 import com.example.hieuhoang.now.Model.ObjectClass.Store;
 import com.example.hieuhoang.now.Model.Store.ModelStore;
-import com.example.hieuhoang.now.View.Service.ViewService;
+import com.example.hieuhoang.now.View.Main.Fragment.Home.Service.ViewService;
 
 import java.util.List;
 

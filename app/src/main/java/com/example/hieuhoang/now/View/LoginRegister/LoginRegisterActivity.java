@@ -43,7 +43,7 @@ public class LoginRegisterActivity extends AppCompatActivity implements View.OnC
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        modelLogin = new ModelLogin();
+        modelLogin = new ModelLogin(getApplicationContext());
         mGoogleApiClient = modelLogin.getGoogleApiClient(LoginRegisterActivity.this, this);
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
