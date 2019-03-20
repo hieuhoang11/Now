@@ -11,24 +11,15 @@ public class HotProduct {
     String idStore ;
     String imageProduct ;
     String storeName ;
-    String quantityDiscount ;
+    String discountNumber ;
     String productName ;
-    String oldPrice;
-    String newPrice;
+    float oldPrice;
+    float newPrice;
 
     public HotProduct() {
 
     }
 
-    public HotProduct(String idStore, String imageProduct, String storeName, String quantityDiscount, String productName, String oldPrice, String newPrice) {
-        this.idStore = idStore;
-        this.imageProduct = imageProduct;
-        this.storeName = storeName;
-        this.quantityDiscount = quantityDiscount;
-        this.productName = productName;
-        this.oldPrice = oldPrice;
-        this.newPrice = newPrice;
-    }
 
     public String getIdStore() {
         return idStore;
@@ -54,12 +45,12 @@ public class HotProduct {
         this.storeName = storeName;
     }
 
-    public String getQuantityDiscount() {
-        return quantityDiscount;
+    public String getDiscountNumber() {
+        return discountNumber;
     }
 
-    public void setQuantityDiscount(String quantityDiscount) {
-        this.quantityDiscount = quantityDiscount;
+    public void setDiscountNumber(String discountNumber) {
+        this.discountNumber = discountNumber;
     }
 
     public String getProductName() {
@@ -70,19 +61,19 @@ public class HotProduct {
         this.productName = productName;
     }
 
-    public String getOldPrice() {
+    public float getOldPrice() {
         return oldPrice;
     }
 
-    public void setOldPrice(String oldPrice) {
+    public void setOldPrice(float oldPrice) {
         this.oldPrice = oldPrice;
     }
 
-    public String getNewPrice() {
+    public float getNewPrice() {
         return newPrice;
     }
 
-    public void setNewPrice(String newPrice) {
+    public void setNewPrice(float newPrice) {
         this.newPrice = newPrice;
     }
 }

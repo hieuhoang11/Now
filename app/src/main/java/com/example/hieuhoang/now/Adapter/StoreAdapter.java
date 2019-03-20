@@ -4,17 +4,14 @@ import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.hieuhoang.now.Model.ObjectClass.GroupProduct;
-import com.example.hieuhoang.now.Model.ObjectClass.Store;
 import com.example.hieuhoang.now.Presenter.Store.IPresenterStore;
 import com.example.hieuhoang.now.R;
 import com.example.hieuhoang.now.View.Store.StoreActivity;
@@ -42,18 +39,11 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
         this.isGrid = isGrid;
         this.presenterLogicStore = presenterLogicStore ;
         this.storeActivity = storeActivity;
-        visible = new int[mGroupProducts.size()];
-        visibleText = new int[mGroupProducts.size()];
-        int l = visible.length;
-        for (int i = 0; i < l; i++) {
-            visible[i] = View.VISIBLE;
-            visibleText[i] = View.INVISIBLE;
-        }
     }
 
     @Override
     public StoreViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = mLayoutInflater.inflate(R.layout.custom_recyclerview_store, parent, false);
+        View itemView = mLayoutInflater.inflate(R.layout.custom_recyclerview_group_product, parent, false);
         return new StoreAdapter.StoreViewHolder(itemView);
     }
 
@@ -131,6 +121,16 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
 
     public void setHashMap(Map<String,Integer> map) {
         this.map = map ;
+    }
+    public void setData (List<GroupProduct> mGroupProducts) {
+        this.mGroupProducts = mGroupProducts ;
+        visible = new int[mGroupProducts.size()];
+        visibleText = new int[mGroupProducts.size()];
+        int l = visible.length;
+        for (int i = 0; i < l; i++) {
+            visible[i] = View.VISIBLE;
+            visibleText[i] = View.INVISIBLE;
+        }
     }
 
 }

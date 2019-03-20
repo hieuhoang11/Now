@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.hieuhoang.now.View.Brand.BrandActivity"
+    android:background="@color/colorWhite">
+
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <TextView
+            android:id="@+id/tvBrandName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ten thuong hieu"
+            android:textColor="@color/colorBlack"
+            android:gravity="center_horizontal"
+            android:textStyle="bold"
+            android:textSize="18sp"
+           />
+    </android.support.v7.widget.Toolbar>
+    <View
+        android:layout_marginTop="40dp"
+        style="@style/horizontal_line"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rvListStore"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="41dp">
+
+    </android.support.v7.widget.RecyclerView>
+
+</android.support.design.widget.CoordinatorLayout>

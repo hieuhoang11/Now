@@ -6,8 +6,10 @@ import com.example.hieuhoang.now.ConnectInternet.DownloadJSON;
 import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.LoginRegister.ModelLogin;
 import com.example.hieuhoang.now.Model.ObjectClass.Account;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,13 +17,13 @@ import java.util.concurrent.ExecutionException;
 
 public class ModelRegister {
 
-    ModelLogin modelLogin ;
+    ModelLogin modelLogin;
 
     public ModelRegister(Context context) {
         modelLogin = new ModelLogin(context);
     }
 
-    public Boolean checkEmailExists (String email) {
+    public Boolean checkEmailExists(String email) {
         String path = AppConstant.SERVER_NAME;
         List<HashMap<String, String>> attrs = new ArrayList<>();
 
@@ -39,10 +41,7 @@ public class ModelRegister {
         try {
             String dataJSON = downloadJSON.get();
             JSONObject jsonObject = new JSONObject(dataJSON);
-            String result = jsonObject.getString("result");
-            if (result.equals("false")) {
-                return false;
-            }
+            return jsonObject.getBoolean(AppConstant.RESULT);
 
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -84,13 +83,11 @@ public class ModelRegister {
         try {
             String dataJSON = downloadJSON.get();
             JSONObject jsonObject = new JSONObject(dataJSON);
-            String result = jsonObject.getString("result");
-            if (result.equals("true")) {
-                int id = jsonObject.getInt(AppConstant.ID_ACCOUNT);
-                account.setID_Account(id);
-                modelLogin.setCacheLogin(account);
-                return true;
-            }
+
+            int id = jsonObject.getInt(AppConstant.ID_ACCOUNT);
+            account.setIdAccount(id);
+            modelLogin.setCacheLogin(account);
+            return true;
 
         } catch (InterruptedException e) {
             e.printStackTrace();

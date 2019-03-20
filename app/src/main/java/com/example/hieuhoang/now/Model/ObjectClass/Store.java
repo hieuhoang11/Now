@@ -1,26 +1,26 @@
 package com.example.hieuhoang.now.Model.ObjectClass;
 
 public class Store {
-    int ID_Store , ID_ThuongHieu ;
+    String idStore , idBrand ;
     String image , storeName ,storeAddress , price , khuyenMai ;
 
     public Store() {
     }
 
-    public int getID_Store() {
-        return ID_Store;
+    public String getIdStore() {
+        return idStore;
     }
 
-    public void setID_Store(int ID_Store) {
-        this.ID_Store = ID_Store;
+    public void setIdStore(String idStore) {
+        this.idStore = idStore;
     }
 
-    public int getID_ThuongHieu() {
-        return ID_ThuongHieu;
+    public String getIdBrand() {
+        return idBrand;
     }
 
-    public void setID_ThuongHieu(int ID_ThuongHieu) {
-        this.ID_ThuongHieu = ID_ThuongHieu;
+    public void setIdBrand(String idBrand) {
+        this.idBrand = idBrand;
     }
 
     public String getImage() {

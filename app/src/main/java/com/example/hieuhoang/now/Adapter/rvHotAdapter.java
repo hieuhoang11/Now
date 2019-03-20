@@ -48,11 +48,11 @@ public class rvHotAdapter extends RecyclerView.Adapter<rvHotAdapter.HotProductVi
     @Override
     public void onBindViewHolder(HotProductViewHolder holder, int position) {
         final HotProduct product = mHotProducts.get(position);
-        Common.loadImageFromInternet(AppConstant.SERVER_NAME_IMG + product.getImageProduct(), context,holder.imgHotProduct);
-        holder.tvHotOldPrice.setText(Common.oldPriceFormat(product.getOldPrice()+"đ"));
-        holder.tvHotNewPrice.setText(product.getNewPrice()+"đ");
+        Common.loadImageFromServer( product.getImageProduct(), context,holder.imgHotProduct);
+        holder.tvHotOldPrice.setText(Common.oldPriceFormat(Common.formatNumber(product.getOldPrice())));
+        holder.tvHotNewPrice.setText(Common.formatNumber(product.getNewPrice()));
         holder.tvHotProductName.setText(product.getProductName());
-        holder.tvHotQuality.setText(product.getQuantityDiscount()+" giảm giá");
+        holder.tvHotQuality.setText(product.getDiscountNumber()+" giảm giá");
         holder.tvHotStoreName.setText(product.getStoreName());
         holder.viewHotProduct.setOnClickListener(new View.OnClickListener() {
             @Override

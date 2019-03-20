@@ -45,8 +45,11 @@ public class LoginRegisterActivity extends AppCompatActivity implements View.OnC
         super.onCreate(savedInstanceState);
         modelLogin = new ModelLogin(getApplicationContext());
         mGoogleApiClient = modelLogin.getGoogleApiClient(LoginRegisterActivity.this, this);
+
         FacebookSdk.sdkInitialize(getApplicationContext());
+
         callbackManager = CallbackManager.Factory.create();
+
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {

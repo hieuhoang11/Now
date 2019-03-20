@@ -3,6 +3,8 @@
     package="com.example.hieuhoang.now">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -14,6 +16,12 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
+        <meta-data
+            android:name="com.google.android.maps.v2.API_KEY"
+            android:value="@string/map_api_key" />
 
         <activity android:name=".View.Main.MainActivity">
             <intent-filter>
@@ -29,6 +37,8 @@
         <activity android:name=".View.Test.Test1Activity" />
         <activity android:name=".View.Test.test3Activity" />
         <activity android:name=".View.SubmitOrder.SubmitOrderActivity" />
+        <activity android:name=".View.Test.map.MapActivity" />
+        <activity android:name=".View.Brand.BrandActivity"></activity>
     </application>
 
 </manifest>

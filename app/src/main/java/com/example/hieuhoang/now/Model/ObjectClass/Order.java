@@ -1,14 +1,14 @@
 package com.example.hieuhoang.now.Model.ObjectClass;
 
 public class Order {
-    String idOrder;
-    String idStore;
-    String storeName;
-    String storeImage ;
-    String idCustomer;
-    String storeAddress;
-    int quantityProduct ;
-    float totalMoney ;
+    private String idOrder;
+    private String idStore;
+    private String storeName;
+    private String storeImage;
+    private String idCustomer;
+    private String storeAddress;
+    private int quantityProduct;
+    private float totalMoney;
 
     public Order() {
     }

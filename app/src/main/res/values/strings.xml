@@ -1,15 +1,21 @@
 <resources>
     <string name="app_name">Now</string>
+    <string name="map_api_key">AIzaSyCGvf-HbfwdoqDOggHeLJUU4YI0jv_qbuE</string>
     <string name="facebook_app_id">809871782682457</string>
     <string name="you_need_enter_password">Bạn cần nhập mật khẩu!</string>
     <string name="login_success">Đăng nhập thành công</string>
     <string name="login_fail">Tài khoản hoặc mặt khẩu không chính xác</string>
     <string name="login_account">Đăng nhập tài khoản</string>
+    <string name="login">Đăng nhập</string>
+    <string name="to_continue">để tiếp tục</string>
+    <string name="no_data_to_display">Không có dữ liệu !!!</string>
     <string name="do_you_want_to_logout">Bạn có muốn đăng xuất không?</string>
     <string name="option_yes">Có</string>
     <string name="option_no">Không</string>
     <string name="recommend">Gợi ý</string>
     <string name="see_more">Xem thêm ></string>
+    <string name="address">Địa chỉ</string>
+    <string name="branch">Chi nhánh</string>
     <string name="input_quantity">Nhập số lượng</string>
     <string name="add_item">Thêm món</string>
     <string name="item">Món</string>
@@ -37,10 +43,13 @@
     <string name="add_note">Thêm ghi chú</string>
     <string name="msg_out_of_stock">Không đủ sản phẩm</string>
     <string name="fast_delivery">Giao nhanh</string>
+    <string name="delivery_to">Giao tới</string>
+    <string name="distance">Khoảng cách</string>
     <string name="register_success">Đăng kí thành công !</string>
     <string name="register_fail">Đăng kí thất bại !</string>
     <string name="email_exists">Email đã tồn tại !</string>
     <string name="or_login_with">Hoặc đăng nhập bằng</string>
     <string name="txt_preferential">Ưu đãi</string>
+    <string name="submit_order">Gửi yêu cầu</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
 </resources>

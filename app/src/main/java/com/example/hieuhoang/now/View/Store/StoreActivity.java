@@ -12,7 +12,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +22,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.hieuhoang.now.Adapter.ViewPagerAdapter;
 import com.example.hieuhoang.now.Adapter.srvCartDetailAdapter;
 import com.example.hieuhoang.now.Common.Common;
@@ -36,9 +34,10 @@ import com.example.hieuhoang.now.Presenter.Store.IPresenterStore;
 import com.example.hieuhoang.now.Presenter.Store.PresenterLogicStore;
 import com.example.hieuhoang.now.R;
 import com.example.hieuhoang.now.View.LoginRegister.LoginRegisterActivity;
-import com.example.hieuhoang.now.View.Store.Fragment.InformationStoreFragment;
-import com.example.hieuhoang.now.View.Store.Fragment.ProductsInStore.ListProductInStoreFragment;
+import com.example.hieuhoang.now.View.Store.InfoStore.InfoStoreFragment;
+import com.example.hieuhoang.now.View.Store.ProductsInStore.ListProductInStoreFragment;
 import com.example.hieuhoang.now.View.SubmitOrder.SubmitOrderActivity;
+import com.google.android.gms.maps.MapFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -106,6 +105,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
 //            toolbar.setTitle(store.getStoreName());
 //        }
 
+
     }
 
     private void Mapping() {
@@ -168,7 +168,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
 
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(new ListProductInStoreFragment());
-        fragmentList.add(new InformationStoreFragment());
+        fragmentList.add(new InfoStoreFragment());
 
         List<String> fragmentTitleList = new ArrayList<>();
         fragmentTitleList.add(getResources().getString(R.string.delivery));
@@ -227,7 +227,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
         this.store = store;
         tvNameOfStore.setText(store.getStoreName());
         tvAddressOfStore.setText(store.getStoreAddress());
-        Common.loadImageFromInternet(AppConstant.SERVER_NAME_IMG + store.getImage(), getApplicationContext(), imgStore);
+        Common.loadImageFromServer( store.getImage(), getApplicationContext(), imgStore);
     }
 
     @Override
@@ -248,7 +248,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
         appBarLayout.animate().alpha((float) 0.3).start();
 
         tvQuantity.setText(String.valueOf(1));
-        Common.loadImageFromInternet(AppConstant.SERVER_NAME_IMG + product.getImage().trim(), getApplicationContext(), imgProductBottomSheet);
+        Common.loadImageFromServer( product.getImage().trim(), getApplicationContext(), imgProductBottomSheet);
         tvNameProductBottomSheet.setText(product.getProductName());
         String oldPriceStr = Common.formatNumber(product.getPrice());
         if (product.getDiscount() != 0) {
@@ -351,7 +351,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
                     Toast.makeText(this.getApplicationContext(), R.string.msg_out_of_stock, Toast.LENGTH_SHORT).show();
                     break;
                 }
-                String idStore = String.valueOf(this.store.getID_Store());
+                String idStore = this.store.getIdStore();
                 String idProduct = this.product.getId();
                 int quantity = Integer.parseInt(tvQuantity.getText().toString().trim());
                 String note = tvNote.getText().toString().trim();

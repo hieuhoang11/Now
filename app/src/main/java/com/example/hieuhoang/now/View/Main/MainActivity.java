@@ -8,11 +8,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+
+import com.example.hieuhoang.now.Model.Location.ModelLocation;
 import com.example.hieuhoang.now.R;
-import com.example.hieuhoang.now.View.Main.Fragment.Account.FragmentAccount;
-import com.example.hieuhoang.now.View.Main.Fragment.Bill.FragmentBill;
-import com.example.hieuhoang.now.View.Main.Fragment.Notification.FragmentNotification;
-import com.example.hieuhoang.now.View.Main.Fragment.Home.FragmentMainHome;
+import com.example.hieuhoang.now.View.Main.Account.FragmentAccount;
+import com.example.hieuhoang.now.View.Main.Bill.FragmentBill;
+import com.example.hieuhoang.now.View.Main.Notification.FragmentNotification;
+import com.example.hieuhoang.now.View.Main.Home.FragmentMainHome;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -23,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private FragmentNotification fragmentNotification ;
     private FragmentAccount fragmentAccount ;
     private int tabSelected = 0 ;
+    public static ModelLocation modelLocation ;
+
    // private String [] tag = {"home" , "bill" ,"notification" , "account"} ;
 
     private int[] tabIconsUnselected = {
@@ -43,8 +47,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         Mapping () ;
         init ();
+
+        modelLocation = new ModelLocation(this,getApplicationContext());
+        modelLocation.Connect();
     }
 
     private void Mapping () {
@@ -111,7 +119,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         imageButton.setImageResource(tabIconsSelected[index]);
     }
 
-//    private ViewPager viewPager;
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        modelLocation.disConnect () ;
+    }
+    //    private ViewPager viewPager;
 //    private TabLayout tabLayout;
 //
 

@@ -2,15 +2,13 @@ package com.example.hieuhoang.now.Presenter.Store;
 
 import android.content.Context;
 
-import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.LoginRegister.ModelLogin;
-import com.example.hieuhoang.now.Model.ObjectClass.Account;
 import com.example.hieuhoang.now.Model.ObjectClass.Order;
 import com.example.hieuhoang.now.Model.ObjectClass.OrderDetail;
 import com.example.hieuhoang.now.Model.ObjectClass.Product;
 import com.example.hieuhoang.now.Model.ObjectClass.Store;
 import com.example.hieuhoang.now.Model.Order.ModelOrder;
-import com.example.hieuhoang.now.Model.Product.ModelProduct;
+import com.example.hieuhoang.now.Model.Store.Product.ModelProduct;
 import com.example.hieuhoang.now.Model.Store.ModelStore;
 import com.example.hieuhoang.now.View.Store.ViewStore;
 
@@ -46,7 +44,7 @@ public class PresenterLogicStore implements IPresenterStore {
     @Override
     public void addProductsToCart(Order order, String idStore, String idProduct, int quantity, String note) {
         if (order == null) {
-            String idAccount = String.valueOf(modelLogin.getAccountInformation().getID_Account());
+            String idAccount = String.valueOf(modelLogin.getAccountInformation().getIdAccount());
             order = modelOrder.addNewOrder(idAccount, idStore);
         }
         if (order == null) {
@@ -65,8 +63,7 @@ public class PresenterLogicStore implements IPresenterStore {
 
     @Override
     public void showSheetAddToCart(Product product) {
-        Account account = modelLogin.getAccountInformation();
-        if (account.getID_Account() != AppConstant.DEFAULT_ID_ACCOUNT) {
+        if (modelLogin.isLogged()) {
             viewStore.showBottomSheetAddToCart(product);
         } else {
             viewStore.startLoginActivity();
@@ -75,7 +72,7 @@ public class PresenterLogicStore implements IPresenterStore {
 
     @Override
     public void getDraftOrder(String idStore) {
-        int idAccount = modelLogin.getAccountInformation().getID_Account();
+        int idAccount = modelLogin.getAccountInformation().getIdAccount();
         Order order = modelOrder.getDraftOrder(idStore, String.valueOf(idAccount));
         if (order == null) return;
         viewStore.showCart(order);

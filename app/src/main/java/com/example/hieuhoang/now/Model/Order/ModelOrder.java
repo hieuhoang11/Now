@@ -7,9 +7,11 @@ import com.example.hieuhoang.now.ConnectInternet.DownloadJSON;
 import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.ObjectClass.Order;
 import com.example.hieuhoang.now.Model.ObjectClass.OrderDetail;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -210,15 +212,16 @@ public class ModelOrder {
             String dataJson = downloadJSON.get();
             Log.i("kiemtra", "getOrderInformation: " + dataJson);
             JSONObject jsonObject = new JSONObject(dataJson);
-
+            String idStore = jsonObject.getString(AppConstant.ID_STORE);
             int quantity = jsonObject.getInt(AppConstant.QUANTITY);
             float totalMoney = (float) jsonObject.getDouble(AppConstant.TOTAL_MONEY);
-
+            String idCustomer = jsonObject.getString(AppConstant.ID_ACCOUNT);
             Order order = new Order();
             order.setIdOrder(idOrder);
             order.setQuantityProduct(quantity);
             order.setTotalMoney(totalMoney);
-
+            order.setIdStore(idStore);
+            order.setIdCustomer(idCustomer);
             return order;
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -481,7 +484,7 @@ public class ModelOrder {
                 String idStore = jsonObject.getString(AppConstant.ID_STORE);
                 String storeName = jsonObject.getString(AppConstant.STORE_NAME);
                 String address = jsonObject.getString(AppConstant.STORE_ADDRESS);
-                String image = jsonObject.getString(AppConstant.IMAGE) ;
+                String image = jsonObject.getString(AppConstant.IMAGE);
                 int quantity = jsonObject.getInt(AppConstant.QUANTITY);
                 float total = (float) jsonObject.getDouble(AppConstant.TOTAL_MONEY);
 

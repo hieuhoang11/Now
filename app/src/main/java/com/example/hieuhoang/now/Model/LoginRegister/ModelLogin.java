@@ -34,7 +34,6 @@ public class ModelLogin {
     }
 
     public Boolean checkLogin(String email, String password) {
-        boolean b = false ;
         String path = AppConstant.SERVER_NAME;
         List<HashMap<String, String>> attrs = new ArrayList<>();
         HashMap<String, String> hsFunction = new HashMap<>();
@@ -51,17 +50,13 @@ public class ModelLogin {
         try {
             String dataJSON = downloadJSON.get();
             JSONObject jsonObject = new JSONObject(dataJSON);
-            String result = jsonObject.getString("result");
-            Log.i("kiemtra", "checkLogin: " + dataJSON);
-            if (result.equals("true")) {
-                b = true ;
-                Account account = new Account();
-                String fullName = jsonObject.getString(AppConstant.FULL_NAME);
-                int id = jsonObject.getInt(AppConstant.ID_ACCOUNT);
-                account.setFullName(fullName);
-                account.setID_Account(id);
-                setCacheLogin( account);
-            }
+            String fullName = jsonObject.getString(AppConstant.FULL_NAME);
+            int id = jsonObject.getInt(AppConstant.ID_ACCOUNT);
+            Account account = new Account();
+            account.setFullName(fullName);
+            account.setIdAccount(id);
+            setCacheLogin(account);
+            return true ;
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -69,7 +64,12 @@ public class ModelLogin {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return b;
+        return false;
+    }
+
+    public Boolean isLogged() {
+        Account account = this.getAccountInformation();
+        return (account.getIdAccount() != AppConstant.DEFAULT_ID_ACCOUNT);
     }
 
     public AccessToken getAccessTokenFacebook() {
@@ -113,7 +113,7 @@ public class ModelLogin {
         SharedPreferences sharedPreferences = context.getSharedPreferences(AppConstant.LOGIN_SHAREDPREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(AppConstant.FULL_NAME, account.getFullName());
-        editor.putInt(AppConstant.ID_ACCOUNT, account.getID_Account());
+        editor.putInt(AppConstant.ID_ACCOUNT, account.getIdAccount());
         editor.apply();
     }
 
@@ -125,16 +125,16 @@ public class ModelLogin {
         }
         Account account = new Account();
         String fullName = sharedPreferences.getString(AppConstant.FULL_NAME, "");
-        int id = sharedPreferences.getInt(AppConstant.ID_ACCOUNT,AppConstant.DEFAULT_ID_ACCOUNT) ;
+        int id = sharedPreferences.getInt(AppConstant.ID_ACCOUNT, AppConstant.DEFAULT_ID_ACCOUNT);
         account.setFullName(fullName);
-        account.setID_Account(id);
+        account.setIdAccount(id);
         return account;
     }
 
-    public void logoutAccount () {
+    public void logoutAccount() {
         Account account = new Account();
         account.setFullName("");
-        account.setID_Account(AppConstant.DEFAULT_ID_ACCOUNT);
-        setCacheLogin (account) ;
+        account.setIdAccount(AppConstant.DEFAULT_ID_ACCOUNT);
+        setCacheLogin(account);
     }
 }

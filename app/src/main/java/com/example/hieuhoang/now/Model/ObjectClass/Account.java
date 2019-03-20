@@ -10,30 +10,31 @@ import com.example.hieuhoang.now.Constant.AppConstant;
 
 public class Account {
 
-    private int ID_Account ;
+    private int idAccount ;
     private String fullName ;
+    private String phoneNumber ;
     private String email;
     private String password;
     private int accountType ;
 
     public Account() {
-        ID_Account = AppConstant.DEFAULT_ID_ACCOUNT;
+        idAccount = AppConstant.DEFAULT_ID_ACCOUNT;
     }
 
-    public Account(int ID_Account, String fullName, String email, String password , int accountType) {
-        this.ID_Account = ID_Account;
-        this.fullName = fullName;
-        this.email = email;
-        this.password = password;
-        this.accountType = accountType;
+    public int getIdAccount() {
+        return idAccount;
     }
 
-    public int getID_Account() {
-        return ID_Account;
+    public void setIdAccount(int idAccount) {
+        this.idAccount = idAccount;
     }
 
-    public void setID_Account(int ID_Account) {
-        this.ID_Account = ID_Account;
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getFullName() {

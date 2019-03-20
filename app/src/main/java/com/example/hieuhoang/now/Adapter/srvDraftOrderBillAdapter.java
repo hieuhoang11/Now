@@ -17,7 +17,7 @@ import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
 import com.example.hieuhoang.now.Common.Common;
 import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.ObjectClass.Order;
-import com.example.hieuhoang.now.Presenter.Main.Bill.IPresenterDraftOrder;
+import com.example.hieuhoang.now.Presenter.Main.Bill.DraftOrder.IPresenterDraftOrder;
 import com.example.hieuhoang.now.R;
 import com.example.hieuhoang.now.View.Store.StoreActivity;
 
@@ -92,7 +92,7 @@ public class srvDraftOrderBillAdapter extends RecyclerSwipeAdapter<srvDraftOrder
             }
         });
 
-        Common.loadImageFromInternet(AppConstant.SERVER_NAME_IMG + order.getStoreImage() , context , holder.imgStore);
+        Common.loadImageFromServer(order.getStoreImage() , context , holder.imgStore);
         holder.tvStoreName.setText(order.getStoreName());
         holder.tvStoreAddress.setText(order.getStoreAddress());
         holder.tvQuantity.setText(String.valueOf(order.getQuantityProduct()));

@@ -1,22 +1,13 @@
 package com.example.hieuhoang.now.Model.Store;
 
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.util.Log;
-
 import com.example.hieuhoang.now.ConnectInternet.DownloadJSON;
 import com.example.hieuhoang.now.Constant.AppConstant;
-import com.example.hieuhoang.now.Model.ObjectClass.GroupProduct;
 import com.example.hieuhoang.now.Model.ObjectClass.HotProduct;
-import com.example.hieuhoang.now.Model.ObjectClass.Order;
-import com.example.hieuhoang.now.Model.ObjectClass.OrderDetail;
-import com.example.hieuhoang.now.Model.ObjectClass.Product;
 import com.example.hieuhoang.now.Model.ObjectClass.Store;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -33,7 +24,7 @@ public class ModelStore {
         return getHotProducts(AppConstant.GET_STORE_HAS_PROMO_PRODUCT);
     }
 
-    public List<HotProduct> getHotProducts(String functionName) {
+    private List<HotProduct> getHotProducts(String functionName) {
 
         String path = AppConstant.SERVER_NAME;
         List<HashMap<String, String>> attrs = new ArrayList<>();
@@ -46,27 +37,25 @@ public class ModelStore {
         List<HotProduct> list = new ArrayList<>();
         try {
             String dataJson = downloadJSON.get();
-            Log.i("kiemtra", dataJson);
+            Log.i("kiemtra","getHotProducts: " + dataJson);
             JSONArray jsonArray = new JSONArray(dataJson);
             int count = jsonArray.length();
             for (int i = 0; i < count; i++) {
-
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                String idStore = jsonObject.getString("ID_cuahang");
-                String imageProduct = jsonObject.getString("hinhanhsanpham");
-                String storeName = jsonObject.getString("ten_cuahang");
-                String quantityDiscount = jsonObject.getString("sogiamgia");
-                String productName = jsonObject.getString("tensanpham");
-                String oldPrice = jsonObject.getString("dongia");
-                String newPrice = jsonObject.getString("giamoi");
-
+                String idStore = jsonObject.getString(AppConstant.ID_STORE);
+                String imageProduct = jsonObject.getString(AppConstant.IMAGE);
+                String storeName = jsonObject.getString(AppConstant.STORE_NAME);
+                String discountNumber = jsonObject.getString(AppConstant.DISCOUNT_NUMBER);
+                String productName = jsonObject.getString(AppConstant.PRODUCT_NAME);
+                float oldPrice = (float) jsonObject.getDouble(AppConstant.PRODUCT_PRICE);
+                float newPrice = (float) jsonObject.getDouble(AppConstant.PRODUCT_DISCOUNT);
                 HotProduct p = new HotProduct();
                 p.setIdStore(idStore);
                 p.setImageProduct(imageProduct);
                 p.setNewPrice(newPrice);
                 p.setOldPrice(oldPrice);
                 p.setProductName(productName);
-                p.setQuantityDiscount(quantityDiscount);
+                p.setDiscountNumber(discountNumber);
                 p.setStoreName(storeName);
                 list.add(p);
             }
@@ -86,7 +75,10 @@ public class ModelStore {
         List<Store> list = new ArrayList<>();
 
         for (int i = 0; i < 2; i++) {
-            list.add(new Store());
+            Store store = new Store() ;
+            store.setStoreName("Tên cửa hàng đó mà");
+            store.setStoreAddress("địa chỉ cửa hàng nè");
+            list.add(store);
         }
         return list;
     }
@@ -95,7 +87,10 @@ public class ModelStore {
         List<Store> list = new ArrayList<>();
 
         for (int i = 0; i < 3; i++) {
-            list.add(new Store());
+            Store store = new Store() ;
+            store.setStoreName("Tên cửa hàng đó mà");
+            store.setStoreAddress("địa chỉ cửa hàng nè");
+            list.add(store);
         }
         return list;
     }
@@ -104,7 +99,10 @@ public class ModelStore {
         List<Store> list = new ArrayList<>();
 
         for (int i = 0; i < 4; i++) {
-            list.add(new Store());
+            Store store = new Store() ;
+            store.setStoreName("Tên cửa hàng đó mà");
+            store.setStoreAddress("địa chỉ cửa hàng nè");
+            list.add(store);
         }
         return list;
     }
@@ -113,7 +111,10 @@ public class ModelStore {
         List<Store> list = new ArrayList<>();
 
         for (int i = 0; i < 23; i++) {
-            list.add(new Store());
+            Store store = new Store() ;
+            store.setStoreName("Tên cửa hàng đó mà");
+            store.setStoreAddress("địa chỉ cửa hàng nè");
+            list.add(store);
         }
         return list;
     }
@@ -122,7 +123,10 @@ public class ModelStore {
         List<Store> list = new ArrayList<>();
 
         for (int i = 0; i < 23; i++) {
-            list.add(new Store());
+            Store store = new Store() ;
+            store.setStoreName("Tên cửa hàng đó mà");
+            store.setStoreAddress("địa chỉ cửa hàng nè");
+            list.add(store);
         }
         return list;
     }
@@ -146,11 +150,11 @@ public class ModelStore {
             JSONObject jsonObject = new JSONObject(dataJSON);
             String storeName = jsonObject.getString(AppConstant.STORE_NAME).trim();
             String storeAddress = jsonObject.getString(AppConstant.STORE_ADDRESS).trim();
-            int idBrand = jsonObject.getInt(AppConstant.ID_BRAND);
+            String idBrand = jsonObject.getString(AppConstant.ID_BRAND);
             String image = jsonObject.getString(AppConstant.IMAGE).trim();
             Store store = new Store();
-            store.setID_Store(Integer.parseInt(idStore));
-            store.setID_ThuongHieu(idBrand);
+            store.setIdStore(idStore);
+            store.setIdBrand(idBrand);
             store.setStoreName(storeName);
             store.setStoreAddress(storeAddress);
             store.setImage(image);

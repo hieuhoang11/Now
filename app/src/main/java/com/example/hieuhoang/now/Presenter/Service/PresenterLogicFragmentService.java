@@ -2,7 +2,7 @@ package com.example.hieuhoang.now.Presenter.Service;
 
 import com.example.hieuhoang.now.Model.ObjectClass.Store;
 import com.example.hieuhoang.now.Model.Store.ModelStore;
-import com.example.hieuhoang.now.View.Main.Fragment.Home.Service.Fragment.ViewFragment;
+import com.example.hieuhoang.now.View.Main.Home.Service.Fragment.ViewFragment;
 
 import java.util.List;
 public class PresenterLogicFragmentService implements IPresenterFragmentService {

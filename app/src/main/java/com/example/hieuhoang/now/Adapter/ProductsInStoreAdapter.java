@@ -56,7 +56,7 @@ public class ProductsInStoreAdapter extends RecyclerView.Adapter<ProductsInStore
         final Product product = mProducts.get(position);
         holder.tvNameProduct.setText(product.getProductName());
         holder.tvNumberOfPurchases.setText(Common.qualityPurchased(product.getQuantityPurchase()));
-        Common.loadImageFromInternet(AppConstant.SERVER_NAME_IMG + product.getImage(), context, holder.imgProduct);
+        Common.loadImageFromServer(product.getImage(), context, holder.imgProduct);
         final String price = Common.formatNumber(product.getPrice());
         if (product.getDiscount() == 0) {
             holder.tvProductPrice.setText(price);

@@ -5,9 +5,10 @@ import android.content.Context;
 import com.example.hieuhoang.now.Model.ObjectClass.GroupProduct;
 import com.example.hieuhoang.now.Model.ObjectClass.Order;
 import com.example.hieuhoang.now.Model.ObjectClass.OrderDetail;
+import com.example.hieuhoang.now.Model.ObjectClass.Store;
 import com.example.hieuhoang.now.Model.Order.ModelOrder;
-import com.example.hieuhoang.now.Model.Product.ModelProduct;
-import com.example.hieuhoang.now.View.Store.Fragment.ProductsInStore.ViewListProductInStore;
+import com.example.hieuhoang.now.Model.Store.Product.ModelProduct;
+import com.example.hieuhoang.now.View.Store.ProductsInStore.ViewListProductInStore;
 
 import java.util.HashMap;
 import java.util.List;
@@ -26,8 +27,9 @@ public class PresenterLogicListProductInStore implements IPresenterListProductIn
         this.context = context ;
     }
     @Override
-    public void getListProduct(String idStore) {
-        List<GroupProduct> list = modelProduct.getListGroupProductByIDStore(idStore);
+    public void getListProduct(Store store) {
+        if(store == null) return;
+        List<GroupProduct> list = modelProduct.getListGroupProductByIDStore(store.getIdStore());
         if (list.size() > 0) {
             viewListProductInStore.loadListProductInStore(list, modelProduct.getIsGrid(context));
         }

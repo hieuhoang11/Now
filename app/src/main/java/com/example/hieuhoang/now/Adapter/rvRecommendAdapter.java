@@ -41,7 +41,7 @@ public class rvRecommendAdapter extends RecyclerView.Adapter<rvRecommendAdapter.
             @Override
             public void onClick(View v) {
                 Intent iStore = new Intent(context, StoreActivity.class) ;
-                iStore.putExtra(AppConstant.ID_STORE,store.getID_Store());
+                iStore.putExtra(AppConstant.ID_STORE,store.getIdStore());
                 context.startActivity(iStore);
             }
         });

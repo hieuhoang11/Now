@@ -42,7 +42,7 @@ public class rvPreferentialAdapter extends RecyclerView.Adapter<rvPreferentialAd
             @Override
             public void onClick(View v) {
                 Intent iStore = new Intent(context, StoreActivity.class) ;
-                iStore.putExtra(AppConstant.ID_STORE,mStores.get(position).getID_Store());
+                iStore.putExtra(AppConstant.ID_STORE,mStores.get(position).getIdStore());
                 context.startActivity(iStore);
             }
         });
