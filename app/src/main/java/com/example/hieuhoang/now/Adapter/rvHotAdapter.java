@@ -89,4 +89,7 @@ public class rvHotAdapter extends RecyclerView.Adapter<rvHotAdapter.HotProductVi
             imgHotProduct = itemView.findViewById(R.id.imgHotProduct);
         }
     }
+    public void setData (List<HotProduct> mHotProducts) {
+        this.mHotProducts = mHotProducts ;
+    }
 }

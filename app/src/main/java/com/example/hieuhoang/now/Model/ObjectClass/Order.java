@@ -6,11 +6,29 @@ public class Order {
     private String storeName;
     private String storeImage;
     private String idCustomer;
+    private String customerAddress ;
     private String storeAddress;
+    private String note;
     private int quantityProduct;
     private float totalMoney;
 
     public Order() {
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public String getCustomerAddress() {
+        return customerAddress;
+    }
+
+    public void setCustomerAddress(String customerAddress) {
+        this.customerAddress = customerAddress;
     }
 
     public String getIdOrder() {

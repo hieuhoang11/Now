@@ -101,6 +101,7 @@ public class ModelProduct {
         boolean b = sharedPreferences.getBoolean(AppConstant.IS_GRID, false);
         return b;
     }
+
     public int getQuantityProduct(String idProduct) {
         String path = AppConstant.SERVER_NAME;
         List<HashMap<String, String>> attrs = new ArrayList<>();
@@ -130,5 +131,39 @@ public class ModelProduct {
             e.printStackTrace();
         }
         return 0;
+    }
+
+    public boolean updateQuantityProduct (String idProduct , String quantity) {
+        String path = AppConstant.SERVER_NAME;
+        List<HashMap<String, String>> attrs = new ArrayList<>();
+
+        HashMap<String, String> hsFunction = new HashMap<>();
+        hsFunction.put(AppConstant.FUNCTION, AppConstant.UPDATE_QUANTITY_PRODUCT);
+
+        HashMap<String, String> hsIDProduct = new HashMap<>();
+        hsIDProduct.put(AppConstant.ID_PRODUCT, idProduct);
+
+        HashMap<String, String> hsQuantity = new HashMap<>();
+        hsQuantity.put(AppConstant.QUANTITY, quantity);
+
+        attrs.add(hsFunction);
+        attrs.add(hsIDProduct);
+        attrs.add(hsQuantity);
+
+        DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
+        downloadJSON.execute();
+        try {
+            String dataJson = downloadJSON.get();
+            Log.i(TAG, "updateQuantityProduct: " + dataJson);
+            JSONObject jsonObject = new JSONObject(dataJson) ;
+            return jsonObject.getBoolean(AppConstant.RESULT);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

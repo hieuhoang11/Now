@@ -118,6 +118,51 @@
         <item name="android:background">@color/colorGray</item>
     </style>
 
+    <style name="img_price_old_to_new" parent="@android:style/Widget" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@drawable/icon_arrow_point_to_right</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="text_product_name" parent="@android:style/Widget.TextView" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">ten san pam</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="text_old_price" parent="@android:style/Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">12,000d</item>
+        <item name="android:textColor">@color/colorOldPrice</item>
+    </style>
+    <style name="text_new_price" parent="@android:style/Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">12,000d</item>
+        <item name="android:textColor">@color/colorNewPrice</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="text_total_money" parent="@android:style/Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:text">12,000d</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+    <!--<style name="text_txt" parent="@android:style/Widget.TextView">-->
+        <!--<item name="android:layout_width">match_parent</item>-->
+        <!--<item name="android:layout_height">wrap_content</item>-->
+        <!--<item name="android:textColor">@color/colorText</item>-->
+    <!--</style>-->
+    <style name="text_color_black" parent="@android:style/Widget.TextView">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
     <!--<style name="TextAppearance.App.TabLayout" parent="@android:style/TextAppearance">-->
         <!--<item name="android:textColor">@color/colorTextTabAppearance</item>-->
     <!--</style>-->

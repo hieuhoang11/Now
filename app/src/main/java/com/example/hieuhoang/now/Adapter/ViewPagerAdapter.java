@@ -13,20 +13,12 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
     public ViewPagerAdapter(FragmentManager fm ,List<Fragment> fragmentList) {
         super(fm);
         this.fragmentList = fragmentList ;
-//        fragmentList.add(new FragmentHome());
-//        fragmentList.add(new FragmentBill());
-//        fragmentList.add(new FragmentNotification());
-//        fragmentList.add(new FragmentAccount());
     }
 
     public ViewPagerAdapter(FragmentManager fm ,List<Fragment> fragmentList,List<String> mFragmentTitleList) {
         super(fm);
         this.fragmentList = fragmentList ;
         this.mFragmentTitleList = mFragmentTitleList ;
-//        fragmentList.add(new FragmentHome());
-//        fragmentList.add(new FragmentBill());
-//        fragmentList.add(new FragmentNotification());
-//        fragmentList.add(new FragmentAccount());
     }
 
 

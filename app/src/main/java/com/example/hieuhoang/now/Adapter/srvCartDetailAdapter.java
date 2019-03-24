@@ -26,15 +26,16 @@ import java.util.List;
 public class srvCartDetailAdapter extends RecyclerSwipeAdapter<srvCartDetailAdapter.DetailViewHolder> {
     private List<OrderDetail> mOrderDetails;
     private Context context;
-    private IPresenterStore presenterLogicStore ;
-    private ViewStore storeActivity ;
+    private IPresenterStore presenterLogicStore;
+    private ViewStore storeActivity;
 
-    public srvCartDetailAdapter(List<OrderDetail> mOrderDetails, Context context,ViewStore storeActivity,IPresenterStore presenterLogicStore) {
+    public srvCartDetailAdapter(List<OrderDetail> mOrderDetails, Context context, ViewStore storeActivity, IPresenterStore presenterLogicStore) {
         this.mOrderDetails = mOrderDetails;
         this.context = context;
-        this.presenterLogicStore = presenterLogicStore ;
-        this.storeActivity = storeActivity ;
+        this.presenterLogicStore = presenterLogicStore;
+        this.storeActivity = storeActivity;
     }
+
     @Override
     public DetailViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_item_in_cart, parent, false);
@@ -44,59 +45,59 @@ public class srvCartDetailAdapter extends RecyclerSwipeAdapter<srvCartDetailAdap
     @Override
     public void onBindViewHolder(final DetailViewHolder holder, int position) {
         final OrderDetail detail = mOrderDetails.get(position);
-        holder.tvProductNameInCartDetail.setText(detail.getProductName());
+        holder.tvProductName.setText(detail.getProductName());
         String price = Common.formatNumber(detail.getProductPrice());
-        float totalMoney = detail.getQuantity() ;
-        if(detail.getDisCount() != 0){
-            holder.tvNewPriceInCartDetail.setText(Common.formatNumber(detail.getDisCount()));
-            holder.tvOldPriceInCartDetail.setText(Common.oldPriceFormat(price));
-            holder.tvOldPriceInCartDetail.setTextColor(context.getResources().getColor(R.color.colorOldPrice));
-            totalMoney *= detail.getDisCount() ;
+        float totalMoney = 0;
+        if (detail.getDisCount() != 0) {
+            holder.tvNewPrice.setText(Common.formatNumber(detail.getDisCount()));
+            holder.tvOldPrice.setText(Common.oldPriceFormat(price));
+            totalMoney = detail.getQuantity() * detail.getDisCount();
         } else {
-            holder.tvNewPriceInCartDetail.setVisibility(View.GONE);
-            holder.imgInCartDetail.setVisibility(View.GONE);
-            holder.tvOldPriceInCartDetail.setText(price);
-            totalMoney *= detail.getProductPrice() ;
+            holder.tvNewPrice.setVisibility(View.GONE);
+            holder.img.setVisibility(View.GONE);
+            holder.tvOldPrice.setText(price);
+            holder.tvOldPrice.setTextColor(context.getResources().getColor(R.color.colorBlack));
+            totalMoney = detail.getQuantity() * detail.getProductPrice();
         }
+        holder.tvTotalMoney.setText(Common.formatNumber(totalMoney));
 
-        holder.tvQuantityInCartDetail.setText(String.valueOf(detail.getQuantity()));
+        holder.tvQuantity.setText(String.valueOf(detail.getQuantity()));
         String note = detail.getNote().equals("") ? context.getResources().getString(R.string.note) : detail.getNote();
-        holder.tvNoteInCartDetail.setText(note);
-        holder.tvTotalMoneyInCartDetail.setText(Common.formatNumber(totalMoney));
-        holder.tvQualityProductInCartDetail.setText(String.valueOf(detail.getQuantity()));
+        holder.tvNote.setText(note);
 
-        holder.btnSubtractInCartDetail.setOnClickListener(new View.OnClickListener() {
+        holder.tvQualityProduct.setText(String.valueOf(detail.getQuantity()));
+
+        holder.btnSubtract.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int q = Integer.parseInt(holder.tvQualityProductInCartDetail.getText().toString()) -1;
-                presenterLogicStore.updateQuantityProductInOrderDetail(detail.getIdOrder(),detail.getIdProduct() , q);
+                int q = Integer.parseInt(holder.tvQualityProduct.getText().toString()) - 1;
+                presenterLogicStore.updateQuantityProductInOrderDetail(detail.getIdOrder(), detail.getIdProduct(), q);
             }
         });
 
-        holder.btnAddInCartDetail.setOnClickListener(new View.OnClickListener() {
+        holder.btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int q = Integer.parseInt(holder.tvQualityProductInCartDetail.getText().toString()) +1;
-                if(presenterLogicStore.isEnoughItems(detail.getIdOrder() , detail.getIdProduct(),q)) {
-                    presenterLogicStore.updateQuantityProductInOrderDetail(detail.getIdOrder(),detail.getIdProduct() , q);
-                }
-                else {
+                int q = Integer.parseInt(holder.tvQualityProduct.getText().toString()) + 1;
+                if (presenterLogicStore.isEnoughItems(detail.getIdOrder(), detail.getIdProduct(), q)) {
+                    presenterLogicStore.updateQuantityProductInOrderDetail(detail.getIdOrder(), detail.getIdProduct(), q);
+                } else {
                     Toast.makeText(context, R.string.msg_out_of_stock, Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
-        holder.tvNoteInCartDetail.setOnClickListener(new View.OnClickListener() {
+        holder.tvNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                storeActivity.showSheetEditNote(detail.getIdProduct() , detail.getNote());
+                storeActivity.showSheetEditNote(detail.getIdProduct(), detail.getNote());
             }
         });
 
         holder.tvDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                storeActivity.deleteItemOrderDetail(detail.getIdOrder(),detail.getIdProduct());
+                storeActivity.deleteItemOrderDetail(detail.getIdOrder(), detail.getIdProduct());
             }
         });
         mItemManger.bindView(holder.itemView, position);
@@ -113,29 +114,28 @@ public class srvCartDetailAdapter extends RecyclerSwipeAdapter<srvCartDetailAdap
     }
 
     class DetailViewHolder extends RecyclerView.ViewHolder {
-        private TextView tvProductNameInCartDetail, tvNoteInCartDetail,tvQualityProductInCartDetail ,tvOldPriceInCartDetail, tvNewPriceInCartDetail, tvTotalMoneyInCartDetail, tvQuantityInCartDetail,tvDelete;
-        private ImageView imgInCartDetail;
-        private ImageButton btnSubtractInCartDetail, btnAddInCartDetail;
-        private SwipeLayout swipeLayout;
+        private TextView tvProductName, tvNote, tvQualityProduct, tvOldPrice, tvNewPrice, tvTotalMoney, tvQuantity, tvDelete;
+        private ImageView img;
+        private ImageButton btnSubtract, btnAdd;
+
         public DetailViewHolder(View itemView) {
             super(itemView);
-            tvProductNameInCartDetail = itemView.findViewById(R.id.tvProductNameInCartDetail);
-            tvOldPriceInCartDetail = itemView.findViewById(R.id.tvOldPriceInCartDetail);
-            tvNewPriceInCartDetail = itemView.findViewById(R.id.tvNewPriceInCartDetail);
-            imgInCartDetail = itemView.findViewById(R.id.imgInCartDetail);
-            tvTotalMoneyInCartDetail = itemView.findViewById(R.id.tvTotalMoneyInCartDetail);
-            btnSubtractInCartDetail = itemView.findViewById(R.id.btnSubtractInCartDetail);
-            tvQuantityInCartDetail = itemView.findViewById(R.id.tvQuantityInCartDetail);
-            btnAddInCartDetail = itemView.findViewById(R.id.btnAddInCartDetail);
-            tvNoteInCartDetail = itemView.findViewById(R.id.tvNoteInCartDetail);
-            tvQualityProductInCartDetail= itemView.findViewById(R.id.tvQualityProductInCartDetail);
-            swipeLayout = itemView.findViewById(R.id.swipeOrderDetail) ;
-            tvDelete = itemView.findViewById(R.id.tvDelete) ;
+            tvProductName = itemView.findViewById(R.id.tvProductNameInCartDetail);
+            tvOldPrice = itemView.findViewById(R.id.tvOldPriceInCartDetail);
+            tvNewPrice = itemView.findViewById(R.id.tvNewPriceInCartDetail);
+            img = itemView.findViewById(R.id.imgInCartDetail);
+            tvTotalMoney = itemView.findViewById(R.id.tvTotalMoneyInCartDetail);
+            btnSubtract = itemView.findViewById(R.id.btnSubtractInCartDetail);
+            tvQuantity = itemView.findViewById(R.id.tvQuantityInCartDetail);
+            btnAdd = itemView.findViewById(R.id.btnAddInCartDetail);
+            tvNote = itemView.findViewById(R.id.tvNoteInCartDetail);
+            tvQualityProduct = itemView.findViewById(R.id.tvQualityProductInCartDetail);
+            tvDelete = itemView.findViewById(R.id.tvDelete);
         }
     }
 
-    public void setData (List<OrderDetail> mOrderDetails) {
-        this.mOrderDetails = mOrderDetails ;
+    public void setData(List<OrderDetail> mOrderDetails) {
+        this.mOrderDetails = mOrderDetails;
     }
 
 

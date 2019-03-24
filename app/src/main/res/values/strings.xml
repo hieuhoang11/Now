@@ -10,6 +10,7 @@
     <string name="to_continue">để tiếp tục</string>
     <string name="no_data_to_display">Không có dữ liệu !!!</string>
     <string name="do_you_want_to_logout">Bạn có muốn đăng xuất không?</string>
+    <string name="agree">Đồng ý</string>
     <string name="option_yes">Có</string>
     <string name="option_no">Không</string>
     <string name="recommend">Gợi ý</string>
@@ -23,6 +24,7 @@
     <string name="do_you_want_delete_this_draft_order">Bạn có muốn xóa đơn nháp này?</string>
     <string name="do_you_want_reset_draft_order">Bạn có muốn làm mới giỏ hàng?</string>
     <string name="do_you_want_delete_this_items">Bạn có muốn xóa món ăn này?</string>
+    <string name="submit_order_success">Gửi yêu cầu thành công !!!</string>
     <string name="notice">Thông báo</string>
     <string name="logout">Đăng xuất</string>
     <string name="cart">Giỏ hàng</string>

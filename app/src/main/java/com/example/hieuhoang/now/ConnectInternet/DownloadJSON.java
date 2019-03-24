@@ -20,10 +20,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by Hieu Hoang on 19/02/2019.
- */
-
 public class DownloadJSON extends AsyncTask<String, Void, String> {
     private String path;
     private List<HashMap<String, String>> attrs;

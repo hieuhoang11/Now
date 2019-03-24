@@ -69,4 +69,8 @@ public class rvRecommendAdapter extends RecyclerView.Adapter<rvRecommendAdapter.
 
         }
     }
+
+    public void setData (List<Store> mStores) {
+        this.mStores = mStores ;
+    }
 }

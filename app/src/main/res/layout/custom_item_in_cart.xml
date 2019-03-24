@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.daimajia.swipe.SwipeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.daimajia.swipe.SwipeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/swipeOrderDetail"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+
     <LinearLayout
         android:id="@+id/bottom_wrapper"
         android:layout_width="80dp"
@@ -21,12 +21,14 @@
             android:text="@string/delete"
             android:textColor="@color/colorWhite" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <View
-            style="@style/horizontal_line" />
+
+        <View style="@style/horizontal_line" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -36,19 +38,14 @@
             android:padding="10dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tvProductNameInCartDetail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="ten san pam"
-                    android:textColor="@color/colorBlack"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
+                    style="@style/text_product_name" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -57,54 +54,31 @@
 
                     <TextView
                         android:id="@+id/tvOldPriceInCartDetail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="gia cu"
-                        android:textColor="@color/colorBlack"
-                        />
+                        style="@style/text_old_price" />
 
                     <ImageView
                         android:id="@+id/imgInCartDetail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
+                        style="@style/img_price_old_to_new"
                         android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:src="@drawable/icon_arrow_point_to_right" />
-
+                        android:layout_marginRight="2dp" />
                     <TextView
                         android:id="@+id/tvNewPriceInCartDetail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="gia moi"
-                        android:textColor="@color/colorNewPrice"
-                        android:textStyle="bold" />
-
+                        style="@style/text_new_price" />
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:text=" x "
-                        android:textColor="@color/colorBlack" />
-
+                       style="@style/text_color_black" />
                     <TextView
                         android:id="@+id/tvQualityProductInCartDetail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        style="@style/text_color_black"
                         android:text="3"
-                        android:textColor="@color/colorBlack" />
-
+                        />
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
                         android:text=" = "
-                        android:textColor="@color/colorBlack" />
+                        style="@style/text_color_black" />
 
                     <TextView
                         android:id="@+id/tvTotalMoneyInCartDetail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="19,000d"
-                        android:textColor="@color/colorBlack" />
+                        style="@style/text_total_money" />
 
                 </LinearLayout>
 
@@ -112,29 +86,27 @@
                     android:id="@+id/tvNoteInCartDetail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/note"
-                    android:textColor="@color/colorText" />
-
+                    android:textColor="@color/colorText"
+                    android:text="@string/note" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="right"
+                android:gravity="end"
                 android:orientation="horizontal">
 
                 <ImageButton
                     android:id="@+id/btnSubtractInCartDetail"
-                    style="@style/button_circle_subtract"
-                    />
+                    style="@style/button_circle_subtract" />
 
                 <TextView
                     android:id="@+id/tvQuantityInCartDetail"
+                    style="@style/text_view_quantity_product"
                     android:layout_marginLeft="5dp"
                     android:layout_marginRight="5dp"
-                    android:text="1"
-                    style="@style/text_view_quantity_product" />
+                    android:text="1" />
 
                 <ImageButton
                     android:id="@+id/btnAddInCartDetail"

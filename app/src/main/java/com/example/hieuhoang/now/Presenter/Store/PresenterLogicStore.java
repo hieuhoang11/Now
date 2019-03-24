@@ -74,7 +74,11 @@ public class PresenterLogicStore implements IPresenterStore {
     public void getDraftOrder(String idStore) {
         int idAccount = modelLogin.getAccountInformation().getIdAccount();
         Order order = modelOrder.getDraftOrder(idStore, String.valueOf(idAccount));
-        if (order == null) return;
+        if (order == null) {
+            viewStore.onResetDraftOrderSuccess();
+            viewStore.disPlayQuantityOfProductInCraftOrder(null);
+            return;
+        }
         viewStore.showCart(order);
     }
 

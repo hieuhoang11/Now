@@ -1,7 +1,7 @@
 package com.example.hieuhoang.now.Constant;
 
 public class AppConstant {
-    public static final String LOCAL = "http://192.168.1.13:8080";
+    public static final String LOCAL = "http://192.168.1.9:8080";
     public static final String SERVER_NAME = LOCAL + "/webnow/getJSONData.php";
     public static final String SERVER_NAME_IMG = LOCAL + "/webnow/";
     public static final String EMAIL = "email";
@@ -27,9 +27,11 @@ public class AppConstant {
     public static final String UPDATE_NOTE_ORDER_DETAIL = "updateNoteInOrderDetail";
     public static final String GET_QUANTITY_PRODUCT_IN_DRAFT_ORDER = "getQuantityProductInDraftOrder";
     public static final String GET_QUANTITY_PRODUCT = "getQuantityProduct";
+    public static final String UPDATE_QUANTITY_PRODUCT = "updateQuantityProduct";
     public static final String REGISTER_ACCOUNT = "registerAccount";
     public static final String CHECK_EMAIL_EXISTS = "checkEmailExists";
     public static final String GET_LIST_DRAFT_ORDER = "getListDraftOrderByIdCustomer";
+    public static final String SUBMIT_ORDER = "submitOrder";
     public static final String CHECK_LOGIN = "checkLogin";
     public static final String GET_ACCOUNT_BY_ID = "getAccountByID";
     public static final String FULL_NAME = "fullname";
@@ -45,12 +47,14 @@ public class AppConstant {
     public static final String BRAND_NAME = "brand_name";
     public static final String ID_STORE = "id_store";
     public static final String STORE_NAME = "store_name";
-    public static final String STORE_ADDRESS = "address";
+    public static final String STORE_ADDRESS = "store_address";
+    public static final String ADDRESS = "address";
     public static final String ID_BRAND = "id_brand";
     public static final String ID_PRODUCT = "id_product";
     public static final String ID_ORDER = "id_order";
     public static final String ORDER_STATUS = "order_status";
     public static final String DRAFT_ORDER = "1";
+    public static final String SUBMIT_ORDER_STATUS = "2";
     public static final String COMPLETE_ORDER = "4";
     public static final String QUANTITY = "quantity";
     public static final String DISCOUNT_NUMBER = "discountNumber";

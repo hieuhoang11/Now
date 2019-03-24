@@ -80,6 +80,7 @@ public class ListProductInStoreFragment extends Fragment implements ViewListProd
 
     @Override
     public void displayQuantityInDraftOrder(Map<String, Integer> map) {
+        if(adapter == null) return;
         this.adapter.setHashMap(map);
         this.adapter.notifyDataSetChanged();
     }

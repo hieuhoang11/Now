@@ -34,10 +34,11 @@ public class ModelLocation implements GoogleApiClient.ConnectionCallbacks,
     public ModelLocation(Activity activity, Context context) {
         this.context = context;
         this.activity = activity;
-        if (checkPlayServices()) {
+        //if (checkPlayServices()) {
             // Building the GoogleApi client
             buildGoogleApiClient();
-        }
+        gac.connect();
+       // }
 
     }
     public void Connect () {
@@ -88,25 +89,30 @@ public class ModelLocation implements GoogleApiClient.ConnectionCallbacks,
 
     private void buildGoogleApiClient() {
         if (gac == null) {
+            Log.i("kiemtra", "null: ");
             gac = new GoogleApiClient.Builder(context)
                     .addConnectionCallbacks(this)
                     .addOnConnectionFailedListener(this)
                     .addApi(LocationServices.API).build();
+        } else  {
+            gac.connect();
+            Log.i("kiemtra", "connect: ");
         }
     }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-
+        Log.i("kiemtra", "onConnected: ");
+        gac.connect();
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-
+        Log.i("kiemtra", "onConnectionSuspended: ");
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-
+        Log.i("kiemtra", "onConnectionFailed: ");
     }
 }

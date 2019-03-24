@@ -12,7 +12,9 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
@@ -35,10 +37,14 @@ public class ModelOrder {
         HashMap<String, String> hsIDStatus = new HashMap<>();
         hsIDStatus.put(AppConstant.ORDER_STATUS, AppConstant.DRAFT_ORDER);
 
+        HashMap<String, String> hsIDOrder = new HashMap<>();
+        hsIDOrder.put(AppConstant.ID_ORDER, generateOrderId(idStore, idAccount));
+
         attrs.add(hsFunction);
         attrs.add(hsIDAccount);
         attrs.add(hsIDStore);
         attrs.add(hsIDStatus);
+        attrs.add(hsIDOrder);
 
         DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
         downloadJSON.execute();
@@ -509,4 +515,52 @@ public class ModelOrder {
         return list;
     }
 
+    public boolean submitOrder(String idOrder, String address, String note) {
+        String path = AppConstant.SERVER_NAME;
+        List<HashMap<String, String>> attrs = new ArrayList<>();
+
+        HashMap<String, String> hsFunction = new HashMap<>();
+        hsFunction.put(AppConstant.FUNCTION, AppConstant.SUBMIT_ORDER);
+
+        HashMap<String, String> hsIđOer = new HashMap<>();
+        hsIđOer.put(AppConstant.ID_ORDER, idOrder);
+
+        HashMap<String, String> hsAddress = new HashMap<>();
+        hsAddress.put(AppConstant.ADDRESS, address);
+
+        HashMap<String, String> hsNote = new HashMap<>();
+        hsNote.put(AppConstant.NOTE, note);
+
+        HashMap<String, String> hsStatus = new HashMap<>();
+        hsStatus.put(AppConstant.ORDER_STATUS, AppConstant.SUBMIT_ORDER_STATUS);
+
+        attrs.add(hsFunction);
+        attrs.add(hsIđOer);
+        attrs.add(hsAddress);
+        attrs.add(hsNote);
+        attrs.add(hsStatus);
+
+        DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
+        downloadJSON.execute();
+        try {
+            String dataJson = downloadJSON.get();
+            JSONObject jsonObject = new JSONObject(dataJson);
+            return jsonObject.getBoolean(AppConstant.RESULT);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    private String generateOrderId(String idStore, String idCustomer) {
+        SimpleDateFormat format = new SimpleDateFormat("ddMMyyyyHHmmss");
+        Date date = new Date();
+        StringBuffer buffer = new StringBuffer();
+        buffer.append(idStore).append(idCustomer).append(format.format(date));
+        return buffer.toString();
+    }
 }

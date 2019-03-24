@@ -6,28 +6,31 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
-
-import com.example.hieuhoang.now.Model.Location.ModelLocation;
 import com.example.hieuhoang.now.R;
 import com.example.hieuhoang.now.View.Main.Account.FragmentAccount;
 import com.example.hieuhoang.now.View.Main.Bill.FragmentBill;
+import com.example.hieuhoang.now.View.Main.Home.FragmentHome;
 import com.example.hieuhoang.now.View.Main.Notification.FragmentNotification;
-import com.example.hieuhoang.now.View.Main.Home.FragmentMainHome;
+
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private ImageButton btnHome,btnBill,btnNotification,btnAccount;
-    private FragmentMainHome fragmentHome ;
-    private FragmentBill fragmentBill ;
-    private FragmentNotification fragmentNotification ;
-    private FragmentAccount fragmentAccount ;
-    private int tabSelected = 0 ;
-    public static ModelLocation modelLocation ;
+    private FragmentHome fragmentHome;
+    private FragmentBill fragmentBill;
+    private FragmentNotification fragmentNotification;
+    private FragmentAccount fragmentAccount;
+    private int tabSelected = 0;
+    private String TAG = "kiemtra";
+    private int[] content = {R.id.Home, R.id.Bill, R.id.Notification, R.id.Account};
+    private View[] views;
+    private ImageButton[] buttons;
+    //public static ModelLocation modelLocation ;
 
-   // private String [] tag = {"home" , "bill" ,"notification" , "account"} ;
+    // private String [] tag = {"home" , "bill" ,"notification" , "account"} ;
 
     private int[] tabIconsUnselected = {
             R.drawable.icon_home_24dp,
@@ -47,82 +50,111 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        Mapping () ;
-        init ();
-
-        modelLocation = new ModelLocation(this,getApplicationContext());
-        modelLocation.Connect();
+        Mapping();
+        init();
+        addOnClick();
+        Log.i(TAG, "onCreate: ");
+        //modelLocation = new ModelLocation(this,getApplicationContext());
+        //modelLocation.Connect();
     }
 
-    private void Mapping () {
-        btnHome = findViewById(R.id.btnHome) ;
-        btnBill = findViewById(R.id.btnBill) ;
-        btnNotification = findViewById(R.id.btnNotification) ;
-        btnAccount = findViewById(R.id.btnAccount) ;
+    private void Mapping() {
+        buttons = new ImageButton[4];
+        buttons[0] = findViewById(R.id.btnHome);
+        buttons[1] = findViewById(R.id.btnBill);
+        buttons[2] = findViewById(R.id.btnNotification);
+        buttons[3] = findViewById(R.id.btnAccount);
 
-        btnHome.setOnClickListener(this);
-        btnBill.setOnClickListener(this);
-        btnNotification.setOnClickListener(this);
-        btnAccount.setOnClickListener(this);
+        views = new View[4];
+        views[0] = findViewById(R.id.Home);
+        views[1] = findViewById(R.id.Bill);
+        views[2] = findViewById(R.id.Notification);
+        views[3] = findViewById(R.id.Account);
+
+        views[1].setVisibility(View.GONE);
+        views[2].setVisibility(View.GONE);
+        views[3].setVisibility(View.GONE);
     }
 
-    private void init () {
-        btnHome.setImageResource(tabIconsSelected[tabSelected]);
+    private void addOnClick() {
+        buttons[0].setOnClickListener(this);
+        buttons[1].setOnClickListener(this);
+        buttons[2].setOnClickListener(this);
+        buttons[3].setOnClickListener(this);
+    }
+
+
+    private void init() {
+        buttons[0].setImageResource(tabIconsSelected[tabSelected]);
         fragmentManager = getSupportFragmentManager();
-        fragmentHome = new FragmentMainHome();
-        fragmentBill = new FragmentBill();
-        fragmentNotification = new FragmentNotification();
-        fragmentAccount = new FragmentAccount() ;
+        fragmentHome = new FragmentHome();
+//        fragmentBill = new FragmentBill();
+//        fragmentNotification = new FragmentNotification();
+//        fragmentAccount = new FragmentAccount() ;
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.contentMain, fragmentHome);
+        fragmentTransaction.add(R.id.Home, fragmentHome);
         fragmentTransaction.commit();
     }
 
-    private void replaceFragment(Fragment fragment) {
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.contentMain, fragment);
-        fragmentTransaction.commit();
-    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btnHome :
-                setContent(fragmentHome,btnHome , 0) ;
+            case R.id.btnHome:
+                if (fragmentHome == null) {
+                    fragmentHome = new FragmentHome();
+                    setContent(fragmentHome, 0);
+                } else visibleFragment(0);
                 break;
-            case R.id.btnBill :
-                setContent(fragmentBill,btnBill , 1) ;
+            case R.id.btnBill:
+                if (fragmentBill == null) {
+                    fragmentBill = new FragmentBill();
+                    setContent(fragmentBill, 1);
+                } else visibleFragment(1);
                 break;
-            case R.id.btnNotification :
-                setContent(fragmentNotification,btnNotification , 2) ;
+            case R.id.btnNotification:
+                if (fragmentNotification == null) {
+                    fragmentNotification = new FragmentNotification();
+                    setContent(fragmentNotification, 2);
+                } else visibleFragment(2);
                 break;
-            case R.id.btnAccount :
-                setContent(fragmentAccount,btnAccount , 3) ;
+            case R.id.btnAccount:
+                if (fragmentAccount == null) {
+                    fragmentAccount = new FragmentAccount();
+                    setContent(fragmentAccount, 3);
+                } else visibleFragment(3);
                 break;
         }
     }
 
-    private void setContent (Fragment fragment,ImageButton imageButton , int index) {
-        if(tabSelected == index) return;
-        setIcon (imageButton ,index) ;
-        fragmentManager.popBackStack();
-        replaceFragment(fragment);
-        tabSelected = index ;
+    private void setContent(Fragment fragment, int index) {
+        if (tabSelected == index) return;
+        addFragment(fragment, content[index]);
+        visibleFragment(index);
     }
 
-    private void setIcon (ImageButton imageButton , int index) {
-        btnHome.setImageResource(tabIconsUnselected[0]);
-        btnBill.setImageResource(tabIconsUnselected[1]);
-        btnNotification.setImageResource(tabIconsUnselected[2]);
-        btnAccount.setImageResource(tabIconsUnselected[3]);
-        imageButton.setImageResource(tabIconsSelected[index]);
+    private void visibleFragment(int index) {
+        views[tabSelected].setVisibility(View.GONE);
+        views[index].setVisibility(View.VISIBLE);
+        setIcon(index);
+        tabSelected = index;
+    }
+
+    private void setIcon(int index) {
+        buttons[tabSelected].setImageResource(tabIconsUnselected[tabSelected]);
+        buttons[index].setImageResource(tabIconsSelected[index]);
+    }
+
+    private void addFragment(Fragment fragment, int content) {
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(content, fragment);
+        fragmentTransaction.commit();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        modelLocation.disConnect () ;
+        //modelLocation.disConnect () ;
     }
     //    private ViewPager viewPager;
 //    private TabLayout tabLayout;
@@ -141,7 +173,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 ////        Start tabLayout
 //
 //        List<Fragment> fragmentList = new ArrayList<>();
-//        fragmentList.add(new FragmentMainHome());
 //        fragmentList.add(new FragmentBill());
 //        fragmentList.add(new FragmentNotification());
 //        fragmentList.add(new FragmentAccount());

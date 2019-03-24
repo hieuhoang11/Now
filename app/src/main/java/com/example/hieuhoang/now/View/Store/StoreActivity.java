@@ -13,7 +13,9 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -79,24 +81,18 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
     private ViewPagerAdapter adapter;
    // private Dialog dialog;
     private srvCartDetailAdapter cartDetailAdapter;
-
+String TAG = "kiemtra";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store);
 
         Mapping();
-        addOnClick();
 
         Intent intent = getIntent();
         String idStore = intent.getStringExtra(AppConstant.ID_STORE);
-
         presenterStore = new PresenterLogicStore(this, getApplicationContext());
         presenterStore.getStoreByID(idStore);
-
-        init();
-
-        presenterStore.getDraftOrder(idStore);
 
 //        Toolbar toolbar = findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
@@ -106,7 +102,15 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
 //        }
 
 
+
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        presenterStore.getDraftOrder(store.getIdStore());
+    }
+
 
     private void Mapping() {
         appBarLayout = findViewById(R.id.appBar);
@@ -147,6 +151,20 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
         tvTotalMoneyOfCartDetail = findViewById(R.id.tvTotalMoneyOfCartDetail);
         rvProductsInCartDetail = findViewById(R.id.rvProductsInCartDetail);
 
+        // bottom sheet
+        sheetBehavior = BottomSheetBehavior.from(bottom_sheet);
+        bottom_sheet.setVisibility(View.GONE);
+
+        sheetBehaviorAddToCart = BottomSheetBehavior.from(bottom_sheet_add_to_cart);
+        bottom_sheet_add_to_cart.setVisibility(View.GONE);
+        peekHeight = sheetBehaviorAddToCart.getPeekHeight();
+
+        sheetCart = BottomSheetBehavior.from(bottom_sheet_cart_in_store);
+        bottom_sheet_cart_in_store.setVisibility(View.GONE);
+
+        sheetCartDetail = BottomSheetBehavior.from(bottom_sheet_cart_detail);
+        bottom_sheet_cart_detail.setVisibility(View.GONE);
+
     }
 
     private void addOnClick() {
@@ -166,6 +184,11 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
 
     private void init() {
 
+        cartDetailAdapter = new srvCartDetailAdapter(new ArrayList<OrderDetail>(), getApplicationContext(), this, presenterStore);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        rvProductsInCartDetail.setAdapter(cartDetailAdapter);
+        rvProductsInCartDetail.setLayoutManager(layoutManager);
+
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(new ListProductInStoreFragment());
         fragmentList.add(new InfoStoreFragment());
@@ -176,12 +199,8 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
 
         adapter = new ViewPagerAdapter(getSupportFragmentManager(), fragmentList, fragmentTitleList);
         viewPager.setAdapter(adapter);
-        tabLayout.setupWithViewPager(viewPager);
 
-        cartDetailAdapter = new srvCartDetailAdapter(new ArrayList<OrderDetail>(), getApplicationContext(), this, presenterStore);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-        rvProductsInCartDetail.setAdapter(cartDetailAdapter);
-        rvProductsInCartDetail.setLayoutManager(layoutManager);
+        tabLayout.setupWithViewPager(viewPager);
 
         tabLayout.setOnTabSelectedListener(
                 new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
@@ -207,27 +226,20 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
                     }
                 }
         );
-        // bottom sheet
-        sheetBehavior = BottomSheetBehavior.from(bottom_sheet);
-        bottom_sheet.setVisibility(View.GONE);
 
-        sheetBehaviorAddToCart = BottomSheetBehavior.from(bottom_sheet_add_to_cart);
-        bottom_sheet_add_to_cart.setVisibility(View.GONE);
-        peekHeight = sheetBehaviorAddToCart.getPeekHeight();
-
-        sheetCart = BottomSheetBehavior.from(bottom_sheet_cart_in_store);
-        bottom_sheet_cart_in_store.setVisibility(View.GONE);
-
-        sheetCartDetail = BottomSheetBehavior.from(bottom_sheet_cart_detail);
-        bottom_sheet_cart_detail.setVisibility(View.GONE);
     }
 
     @Override
     public void loadInformationStore(Store store) {
         this.store = store;
+
+        init();
+        addOnClick();
+
         tvNameOfStore.setText(store.getStoreName());
         tvAddressOfStore.setText(store.getStoreAddress());
         Common.loadImageFromServer( store.getImage(), getApplicationContext(), imgStore);
+
     }
 
     @Override
@@ -308,7 +320,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
 
     @Override
     public void showSheetEditNote(String idProduct, String note) {
-        showBottomSheetDialogEditNote(order.getIdOrder(), idProduct, note);
+        showDialogEditNote(order.getIdOrder(), idProduct, note);
     }
 
     @Override
@@ -501,7 +513,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
         dialog.show();
     }
 
-    public void showBottomSheetDialogEditNote(final String idOrder, final String idProduct, String note) {
+    public void showDialogEditNote(final String idOrder, final String idProduct, String note) {
         View view = getLayoutInflater().inflate(R.layout.layout_bottom_sheet_dialog_edit_note, null);
         final EditText edtNote = view.findViewById(R.id.edtNote);
         if (!note.equals("")) edtNote.setText(note);
