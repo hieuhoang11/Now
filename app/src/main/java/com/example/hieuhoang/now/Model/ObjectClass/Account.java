@@ -10,7 +10,7 @@ import com.example.hieuhoang.now.Constant.AppConstant;
 
 public class Account {
 
-    private int idAccount ;
+    private String idAccount ;
     private String fullName ;
     private String phoneNumber ;
     private String email;
@@ -21,11 +21,11 @@ public class Account {
         idAccount = AppConstant.DEFAULT_ID_ACCOUNT;
     }
 
-    public int getIdAccount() {
+    public String getIdAccount() {
         return idAccount;
     }
 
-    public void setIdAccount(int idAccount) {
+    public void setIdAccount(String idAccount) {
         this.idAccount = idAccount;
     }
 

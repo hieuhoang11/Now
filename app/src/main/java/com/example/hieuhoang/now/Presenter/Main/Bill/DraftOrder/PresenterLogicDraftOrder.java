@@ -27,9 +27,9 @@ public class PresenterLogicDraftOrder implements IPresenterDraftOrder {
     @Override
     public void getListDraftOrder() {
         Account customer = modelLogin.getAccountInformation();
-        if (customer.getIdAccount() == AppConstant.DEFAULT_ID_ACCOUNT)
+        if (customer.getIdAccount().equals(AppConstant.DEFAULT_ID_ACCOUNT))
             return;
-        List<Order> list = modelOrder.getListDraftOrderByIdCustomer(String.valueOf(customer.getIdAccount()));
+        List<Order> list = modelOrder.getListDraftOrderByIdCustomer(customer.getIdAccount());
         if (list.size() > 0) {
             viewDraftOrder.loadListDraftOrder(list);
         } else {
@@ -41,11 +41,12 @@ public class PresenterLogicDraftOrder implements IPresenterDraftOrder {
     @Override
     public void deleteAllDraftOrder() {
         Account customer = modelLogin.getAccountInformation();
-        if (customer.getIdAccount() == AppConstant.DEFAULT_ID_ACCOUNT)
+        if (customer.getIdAccount().equals(AppConstant.DEFAULT_ID_ACCOUNT))
             return;
         boolean b = modelOrder.deleteAllDraftOrder(String.valueOf(customer.getIdAccount())) ;
         if(b) {
-
+            viewDraftOrder.onDeleteAllOrderSuccess();
+            viewDraftOrder.noHasDraftOrder();
         }
     }
 
@@ -53,6 +54,7 @@ public class PresenterLogicDraftOrder implements IPresenterDraftOrder {
     public void deleteDraftOrder(String idOrder) {
         boolean b = modelOrder.deleteDraftOrder(idOrder) ;
         if(b) {
+            viewDraftOrder.onDeleteOrderSuccess();
             getListDraftOrder() ;
         }
     }

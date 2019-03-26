@@ -7,4 +7,6 @@ import java.util.List;
 public interface ViewDraftOrder {
     void loadListDraftOrder(List<Order> mOrders ) ;
     void noHasDraftOrder( ) ;
+    void onDeleteOrderSuccess () ;
+    void onDeleteAllOrderSuccess () ;
 }

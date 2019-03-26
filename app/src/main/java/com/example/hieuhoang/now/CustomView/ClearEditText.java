@@ -55,7 +55,7 @@ public class ClearEditText extends EditText {
         install();
     }
     private void install(){
-        setInputType(InputType.TYPE_CLASS_TEXT);
+        //setInputType(InputType.TYPE_CLASS_TEXT);
         Drawable[] drawables = getCompoundDrawables() ;
         drawable = visible ? crossx : noncrossx ;
         setCompoundDrawablesWithIntrinsicBounds(drawables[0], drawables[1], drawable, drawables[3]);

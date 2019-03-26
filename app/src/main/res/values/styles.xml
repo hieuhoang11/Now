@@ -163,6 +163,58 @@
         <item name="android:textColor">@color/colorBlack</item>
     </style>
 
+    <style name="text_title_activity" parent="@android:style/Widget.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="clear_edit_text" parent="@android:style/Widget.TextView" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <!--<item name="android:paddingStart">5dp</item>-->
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <!--<item name="android:textColorHint">@color/colorText</item>-->
+
+    </style>
+
+    <style name="text_bg_order_status" parent="@android:style/Widget.TextView" >
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@drawable/custom_text_in_order_status_negative</item>
+    </style>
+
+    <style name="text_order_status" parent="@android:style/Widget.TextView" >
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/colorDisEnable</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_marginLeft">20dp</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+    <style name="text_time_order_status" parent="@android:style/Widget.TextView" >
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorText</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+    <style name="vertical_line_order_status" parent="@android:style/Widget" >
+        <item name="android:layout_marginStart">22.5dp</item>
+        <item name="android:layout_width">1dp</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:background">@color/colorGray</item>
+    </style>
+
     <!--<style name="TextAppearance.App.TabLayout" parent="@android:style/TextAppearance">-->
         <!--<item name="android:textColor">@color/colorTextTabAppearance</item>-->
     <!--</style>-->

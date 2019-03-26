@@ -1,7 +1,7 @@
 package com.example.hieuhoang.now.Constant;
 
 public class AppConstant {
-    public static final String LOCAL = "http://192.168.1.9:8080";
+    private static final String LOCAL = "http://192.168.1.2:8080";
     public static final String SERVER_NAME = LOCAL + "/webnow/getJSONData.php";
     public static final String SERVER_NAME_IMG = LOCAL + "/webnow/";
     public static final String EMAIL = "email";
@@ -30,14 +30,18 @@ public class AppConstant {
     public static final String UPDATE_QUANTITY_PRODUCT = "updateQuantityProduct";
     public static final String REGISTER_ACCOUNT = "registerAccount";
     public static final String CHECK_EMAIL_EXISTS = "checkEmailExists";
-    public static final String GET_LIST_DRAFT_ORDER = "getListDraftOrderByIdCustomer";
-    public static final String SUBMIT_ORDER = "submitOrder";
+    public static final String FUNC_GET_LIST_DRAFT_ORDER = "getListDraftOrder";
+    public static final String FUNC_GET_LIST_ON_GOING_ORDER = "getListOnGoingOrder";
+    public static final String FUNC_SUBMIT_ORDER = "submitOrder";
+    public static final String FUNC_GET_ORDER_STATUS = "getOrderStatus";
     public static final String CHECK_LOGIN = "checkLogin";
     public static final String GET_ACCOUNT_BY_ID = "getAccountByID";
+    public static final String FUNC_UPDATE_ACC_INFO = "updateAccountInfo";
     public static final String FULL_NAME = "fullname";
     public static final String PHONE = "phone";
+    public static final String DATA = "data";
     public static final String ID_ACCOUNT = "id_account";
-    public static final int DEFAULT_ID_ACCOUNT = -1;
+    public static final String DEFAULT_ID_ACCOUNT = "-1";
     public static final String PRODUCT_NAME = "product_name";
     public static final String PRODUCT_PRICE = "price";
     public static final String PRODUCT_DISCOUNT = "discount";
@@ -53,9 +57,17 @@ public class AppConstant {
     public static final String ID_PRODUCT = "id_product";
     public static final String ID_ORDER = "id_order";
     public static final String ORDER_STATUS = "order_status";
-    public static final String DRAFT_ORDER = "1";
-    public static final String SUBMIT_ORDER_STATUS = "2";
-    public static final String COMPLETE_ORDER = "4";
+    public static final String ID_ORDER_STATUS = "id_status";
+    public static final String TIME = "time";
+    public static final String DRAFT_ORDER = "draft_order";
+    public static final String COMPLETE_ORDER = "complete_order";
+    public static final int DRAFT_ORDER_STATUS = 1;
+    public static final int SUBMIT_ORDER_STATUS = 2;
+    public static final int CANCEL_ORDER_STATUS = 3;
+    public static final int PROCESSING_ORDER_STATUS = 4;
+    public static final int ON_GOING_ORDER_STATUS = 5;
+    public static final int ARRIVED_ORDER_STATUS = 6;
+    public static final int COMPLETE_ORDER_STATUS = 7;
     public static final String QUANTITY = "quantity";
     public static final String DISCOUNT_NUMBER = "discountNumber";
     public static final String TOTAL_MONEY = "total_money";

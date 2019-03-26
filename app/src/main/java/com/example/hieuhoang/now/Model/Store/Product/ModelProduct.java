@@ -31,7 +31,7 @@ public class ModelProduct {
         hsID.put(AppConstant.ID_STORE, idStore);
 
         HashMap<String, String> hsIDStatus = new HashMap<>();
-        hsIDStatus.put(AppConstant.ORDER_STATUS, AppConstant.COMPLETE_ORDER);
+        hsIDStatus.put(AppConstant.ORDER_STATUS, String.valueOf(AppConstant.COMPLETE_ORDER_STATUS));
 
         attrs.add(hsFunction);
         attrs.add(hsID);

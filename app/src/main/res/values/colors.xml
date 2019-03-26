@@ -17,18 +17,22 @@
     <color name="colorGoogle" >#da4835</color>
     <color name="colorStartButton" >#ec9668</color>
     <color name="colorEndButton" >#5c1302</color>
-    <color name="colorTextAppearance" >#262424</color>
+    <color name="colorTextAppearance" >#fd53bdf5</color>
     <color name="colorTextTabSelected" >#fd53bdf5</color>
     <color name="colorOldPrice" >#959595</color>
     <color name="colorNewPrice" >#6088a7</color>
     <color name="colorTextRecommend">#73484444</color>
     <color name="colorMenuItem">#f3f7fb</color>
     <color name="colorGridView">#dddddd</color>
+    <color name="colorDisEnable">#9e9d9d</color>
     <color name="colorBottomCircle">#49739d</color>
     <color name="colorMenu">#f9f9f9</color>
     <color name="colorTopOfBottomSheet">#0288ff</color>
     <color name="colorBottomOfBottomSheet">#49739d</color>
     <color name="colorTotalMoneyCart">#ecd876</color>
-    <color name="bgLogoItemInCart">#f67122</color>
+    <color name="bgLogoItemInCart">#f67122</color>colorDone
+    <color name="colorDone">#3F51B5</color>
+    <color name="colorWarning">#caf41219</color>
+    <color name="colorTextCircleInOrderStatus">#4df544</color>
    <!--// 183651-->
 </resources>

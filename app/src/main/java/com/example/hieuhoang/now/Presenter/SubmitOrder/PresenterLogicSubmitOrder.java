@@ -27,6 +27,7 @@ public class PresenterLogicSubmitOrder implements IPresenterSubmitOrder {
     private ModelProduct modelProduct;
     private ModelAccount modelAccount;
     private ViewSubmitOrder viewSubmitOrder;
+    String TAG = "kiemtra";
 
     public PresenterLogicSubmitOrder(Activity activity, Context context, ViewSubmitOrder viewSubmitOrder) {
         modelStore = new ModelStore();
@@ -54,7 +55,7 @@ public class PresenterLogicSubmitOrder implements IPresenterSubmitOrder {
         getOrderDetail(idOrder);
 
         getStoreName(order.getIdStore());
-        getCustomerName(order.getIdCustomer());
+        getCustomerInfo(order.getIdCustomer());
     }
 
     @Override
@@ -74,18 +75,20 @@ public class PresenterLogicSubmitOrder implements IPresenterSubmitOrder {
     }
 
     @Override
-    public void getCustomerName(String idCustomer) {
+    public void getCustomerInfo(String idCustomer) {
         Account account = modelAccount.getAccountById(idCustomer);
         if (account == null) return;
-        viewSubmitOrder.setCustomerName(account);
+        viewSubmitOrder.setCustomerInfo(account);
     }
 
     @Override
     public void submitOrder(Order order, List<OrderDetail> mDetailList) {
         Map<String, Integer> mapQuantity = isEnoughQuantity(mDetailList) ;
         if (mapQuantity.size() == mDetailList.size()) {
+            Log.i(TAG, "submitOrder: 1");
             boolean b = modelOrder.submitOrder(order.getIdOrder(), order.getCustomerAddress(), order.getNote());
             if (b) {
+                Log.i(TAG, "submitOrder: 2");
                 for(Map.Entry<String,Integer> values : mapQuantity.entrySet()){
                     b = modelProduct.updateQuantityProduct(values.getKey(), String.valueOf(values.getValue()));
                 }
@@ -100,7 +103,6 @@ public class PresenterLogicSubmitOrder implements IPresenterSubmitOrder {
         Map<String, Integer> map = new HashMap<>();
         for (OrderDetail detail : mDetailList) {
             int q = modelProduct.getQuantityProduct(detail.getIdProduct());
-            Log.i("kiemtra", "isEnoughQuantity: " + q);
             if (q < detail.getQuantity()) {
                 map.put(detail.getIdProduct(), q);
                 b = false;

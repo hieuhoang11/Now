@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,8 +19,8 @@ import com.example.hieuhoang.now.Presenter.Main.Bill.PresenterLogicBill;
 import com.example.hieuhoang.now.R;
 import com.example.hieuhoang.now.View.LoginRegister.LoginRegisterActivity;
 import com.example.hieuhoang.now.View.Main.Bill.DraftOrder.FragmentDraftOrder;
-import com.example.hieuhoang.now.View.Main.Bill.History.FragmentHistory;
-import com.example.hieuhoang.now.View.Main.Bill.OnGoing.FragmentOnGoing;
+import com.example.hieuhoang.now.View.Main.Bill.OnGoingHistory.FragmentHistory;
+import com.example.hieuhoang.now.View.Main.Bill.OnGoingHistory.FragmentOnGoing;
 
 public class FragmentBill extends Fragment implements ViewBill,View.OnClickListener {
     private Button btnOnGoing, btnHistory, btnDraftOrder , btnLogin;

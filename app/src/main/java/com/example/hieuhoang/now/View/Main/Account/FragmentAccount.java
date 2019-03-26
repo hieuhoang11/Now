@@ -33,9 +33,6 @@ import org.json.JSONObject;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-/**
- * Created by Hieu Hoang on 13/02/2019.
- */
 
 public class FragmentAccount extends Fragment implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
     Button btnLoginAccount, btnLogoutAccount;
@@ -59,8 +56,6 @@ public class FragmentAccount extends Fragment implements View.OnClickListener, G
         if (googleApiClient == null)
             googleApiClient = modelLogin.getGoogleApiClient(getActivity(), this);
         //end google
-
-        Log.i("life", "onCreate");
         return view;
     }
 private void Mapping(View view){

@@ -24,10 +24,6 @@ import com.example.hieuhoang.now.R;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
- * Created by Hieu Hoang on 13/02/2019.
- */
-
 @SuppressLint("AppCompatCustomView")
 public class PasswordEditText extends EditText implements TextWatcher{
 

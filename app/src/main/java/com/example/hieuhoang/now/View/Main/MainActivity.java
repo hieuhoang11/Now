@@ -53,7 +53,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Mapping();
         init();
         addOnClick();
-        Log.i(TAG, "onCreate: ");
         //modelLocation = new ModelLocation(this,getApplicationContext());
         //modelLocation.Connect();
     }
@@ -85,15 +84,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private void init() {
-        buttons[0].setImageResource(tabIconsSelected[tabSelected]);
+
         fragmentManager = getSupportFragmentManager();
+
         fragmentHome = new FragmentHome();
-//        fragmentBill = new FragmentBill();
-//        fragmentNotification = new FragmentNotification();
-//        fragmentAccount = new FragmentAccount() ;
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.Home, fragmentHome);
-        fragmentTransaction.commit();
+        buttons[0].setImageResource(tabIconsSelected[tabSelected]);
+        addFragment( fragmentHome,R.id.Home);
     }
 
 

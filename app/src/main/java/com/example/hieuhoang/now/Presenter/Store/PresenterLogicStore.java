@@ -72,8 +72,8 @@ public class PresenterLogicStore implements IPresenterStore {
 
     @Override
     public void getDraftOrder(String idStore) {
-        int idAccount = modelLogin.getAccountInformation().getIdAccount();
-        Order order = modelOrder.getDraftOrder(idStore, String.valueOf(idAccount));
+        String idAccount = modelLogin.getAccountInformation().getIdAccount();
+        Order order = modelOrder.getDraftOrder(idStore, idAccount);
         if (order == null) {
             viewStore.onResetDraftOrderSuccess();
             viewStore.disPlayQuantityOfProductInCraftOrder(null);

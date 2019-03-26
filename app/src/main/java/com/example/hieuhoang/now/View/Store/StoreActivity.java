@@ -304,6 +304,8 @@ String TAG = "kiemtra";
 
         this.order = order;
 
+        if(viewPager.getCurrentItem() != 0) this.closeCartAndCartDetail();
+
     }
 
     @Override
@@ -513,12 +515,36 @@ String TAG = "kiemtra";
         dialog.show();
     }
 
-    public void showDialogEditNote(final String idOrder, final String idProduct, String note) {
-        View view = getLayoutInflater().inflate(R.layout.layout_bottom_sheet_dialog_edit_note, null);
+//    public void showDialogEditNote(final String idOrder, final String idProduct, String note) {
+//        View view = getLayoutInflater().inflate(R.layout.layout_bottom_sheet_dialog_edit_note, null);
+//        final EditText edtNote = view.findViewById(R.id.edtNote);
+//        if (!note.equals("")) edtNote.setText(note);
+//        final BottomSheetDialog dialog = new BottomSheetDialog(this);
+//        view.findViewById(R.id.btnDone).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                String n = edtNote.getText().toString().trim();
+//                if (!n.equals("")) {
+//                    presenterStore.updateNoteDetailOrder(idOrder, idProduct, n);
+//                }
+//                dialog.dismiss();
+//            }
+//        });
+//        dialog.setContentView(view);
+//        dialog.show();
+//    }
+
+    private void showDialogEditNote(final String idOrder, final String idProduct, String note) {
+        final Dialog dialog = new Dialog(StoreActivity.this);
+        View view = LayoutInflater.from(StoreActivity.this).inflate(R.layout.custom_dialog_edit_note, null);
         final EditText edtNote = view.findViewById(R.id.edtNote);
         if (!note.equals("")) edtNote.setText(note);
-        final BottomSheetDialog dialog = new BottomSheetDialog(this);
-        view.findViewById(R.id.btnDone).setOnClickListener(new View.OnClickListener() {
+        TextView tvTitle = view.findViewById(R.id.tvTitle);
+        tvTitle.setText(getResources().getString(R.string.add_note));
+        Button btnYes = view.findViewById(R.id.btnYes);
+        Button btnCancel = view.findViewById(R.id.btnCancel);
+
+        btnYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String n = edtNote.getText().toString().trim();
@@ -528,6 +554,13 @@ String TAG = "kiemtra";
                 dialog.dismiss();
             }
         });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(view);
         dialog.show();
     }

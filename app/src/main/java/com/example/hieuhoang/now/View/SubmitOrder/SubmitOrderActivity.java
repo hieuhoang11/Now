@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +24,7 @@ import com.example.hieuhoang.now.Model.ObjectClass.OrderDetail;
 import com.example.hieuhoang.now.Presenter.SubmitOrder.IPresenterSubmitOrder;
 import com.example.hieuhoang.now.Presenter.SubmitOrder.PresenterLogicSubmitOrder;
 import com.example.hieuhoang.now.R;
+import com.example.hieuhoang.now.View.SubmitOrder.EditInfo.EditInfoActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -36,14 +38,16 @@ import java.util.Map;
 
 public class SubmitOrderActivity extends AppCompatActivity implements ViewSubmitOrder, OnMapReadyCallback, View.OnClickListener {
     private final String TAG = "kiemtra";
-    private TextView tvStoreName, tvQuantityItem, tvTotalMoney, tvCustomer, tvLocation, tvNote;
+    private TextView tvStoreName, tvQuantityItem, tvTotalMoney, tvCusInfo, tvLocation, tvNote;
     private RecyclerView rvSubmit;
     private Button btnSubmit;
     private GoogleMap map;
     private IPresenterSubmitOrder presenterLogicSubmitOrder;
     private rvSubmitOrderAdapter adapter;
     private List<OrderDetail> mDetails;
-    private String idOrder;
+    private Order order;
+    private Account customer;
+    private final int EDIT_INFO_CODE = 111;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +57,7 @@ public class SubmitOrderActivity extends AppCompatActivity implements ViewSubmit
         Mapping();
 
         Intent intent = getIntent();
-        idOrder = intent.getStringExtra(AppConstant.ID_ORDER);
+        String idOrder = intent.getStringExtra(AppConstant.ID_ORDER);
 
         adapter = new rvSubmitOrderAdapter(new ArrayList<OrderDetail>(), getApplicationContext());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
@@ -72,7 +76,7 @@ public class SubmitOrderActivity extends AppCompatActivity implements ViewSubmit
         tvStoreName = findViewById(R.id.tvStoreName);
         tvQuantityItem = findViewById(R.id.tvQuantityItem);
         tvTotalMoney = findViewById(R.id.tvTotalMoney);
-        tvCustomer = findViewById(R.id.tvCustomer);
+        tvCusInfo = findViewById(R.id.tvCusInfo);
         tvLocation = findViewById(R.id.tvLocation);
         rvSubmit = findViewById(R.id.rvSubmit);
         btnSubmit = findViewById(R.id.btnSubmit);
@@ -92,6 +96,7 @@ public class SubmitOrderActivity extends AppCompatActivity implements ViewSubmit
         tvLocation.setText(address);
         if (map == null) return;
         LatLng location = Common.getCoordinates(SubmitOrderActivity.this, address);
+        if (location == null) return;
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 17));
         map.addMarker(new MarkerOptions().position(location));
     }
@@ -105,14 +110,16 @@ public class SubmitOrderActivity extends AppCompatActivity implements ViewSubmit
     public void setInfoOrder(Order order) {
         tvQuantityItem.setText(String.valueOf(order.getQuantityProduct()));
         tvTotalMoney.setText(Common.formatNumber(order.getTotalMoney()));
+        this.order = order;
     }
 
     @Override
-    public void setCustomerName(Account account) {
+    public void setCustomerInfo(Account account) {
         String text = account.getFullName();
-        if (account.getPhoneNumber().equals(""))
+        if (!account.getPhoneNumber().equals(""))
             text += " - " + account.getPhoneNumber();
-        tvCustomer.setText(text);
+        tvCusInfo.setText(text);
+        this.customer = account;
     }
 
     @Override
@@ -125,7 +132,8 @@ public class SubmitOrderActivity extends AppCompatActivity implements ViewSubmit
     @Override
     public void noEnoughQuantity(Map<String, Integer> map) {
         Toast.makeText(SubmitOrderActivity.this, getResources().getString(R.string.msg_out_of_stock), Toast.LENGTH_SHORT).show();
-
+        adapter.setMap (map) ;
+        adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -138,6 +146,11 @@ public class SubmitOrderActivity extends AppCompatActivity implements ViewSubmit
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnSubmit:
+                if (!checkInfoCus()) {
+                    Toast.makeText(SubmitOrderActivity.this, getResources().getString(R.string.please_complete_all_info), Toast.LENGTH_SHORT).show();
+                    startEditActivity();
+                    break;
+                }
                 submitOrder();
                 break;
             case R.id.tvNote:
@@ -146,32 +159,65 @@ public class SubmitOrderActivity extends AppCompatActivity implements ViewSubmit
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == EDIT_INFO_CODE && resultCode == RESULT_OK && data != null) {
+            Bundle bundle = data.getBundleExtra(AppConstant.DATA);
+            String phone = bundle.getString(AppConstant.PHONE);
+            String fullName = bundle.getString(AppConstant.FULL_NAME) ;
+            String cus = fullName + " - " + phone ;
+            tvCusInfo.setText(cus);
+            tvLocation.setText(bundle.getString(AppConstant.ADDRESS));
+            customer.setPhoneNumber(phone);
+            customer.setFullName(fullName);
+        }
+    }
+
     private void submitOrder() {
-        Order order = new Order();
         String note = tvNote.getText().toString();
-        String address = "11 Cổ nhuế Hà nội";
-        order.setIdOrder(this.idOrder);
+        note = note.equals(getResources().getString(R.string.note)) ? "" : note;
         order.setNote(note);
-        order.setCustomerAddress(address);
+        order.setCustomerAddress(tvLocation.getText().toString());
         presenterLogicSubmitOrder.submitOrder(order, this.mDetails);
+    }
+
+    private void startEditActivity() {
+        Intent iEdit = new Intent(SubmitOrderActivity.this, EditInfoActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putString(AppConstant.ID_ACCOUNT, customer.getIdAccount());
+        bundle.putString(AppConstant.FULL_NAME, customer.getFullName());
+        bundle.putString(AppConstant.ADDRESS, tvLocation.getText().toString());
+        bundle.putString(AppConstant.PHONE, customer.getPhoneNumber());
+        iEdit.putExtra(AppConstant.DATA, bundle);
+        startActivityForResult(iEdit, EDIT_INFO_CODE);
+    }
+
+    private boolean checkInfoCus() {
+        if (this.customer.getPhoneNumber().equals(""))
+            return false;
+        if (this.customer.getFullName().equals(""))
+            return false;
+        return !(this.tvLocation.getText().toString().equals(""));
     }
 
     private void showDialogEditNote() {
         final Dialog dialog = new Dialog(SubmitOrderActivity.this);
         View view = LayoutInflater.from(SubmitOrderActivity.this).inflate(R.layout.custom_dialog_edit_note, null);
-        final TextView tvContentDialog = view.findViewById(R.id.tvContentDialog);
+        final EditText edtNote = view.findViewById(R.id.edtNote);
+        String text = tvNote.getText().toString();
+        text = text.equals(getResources().getString(R.string.note)) ? "" : text;
+        edtNote.setText(text);
         TextView tvTitle = view.findViewById(R.id.tvTitle);
         tvTitle.setText(getResources().getString(R.string.add_note));
         Button btnYes = view.findViewById(R.id.btnYes);
         Button btnCancel = view.findViewById(R.id.btnCancel);
 
-        btnYes.setText(getResources().getString(R.string.agree));
-        btnCancel.setText(getResources().getString(R.string.cancel));
         btnYes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
-                String text = tvContentDialog.getText().toString().trim();
+                String text = edtNote.getText().toString().trim();
                 if (!text.equals("")) tvNote.setText(text);
             }
         });

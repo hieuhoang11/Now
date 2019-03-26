@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import com.example.hieuhoang.now.Model.ObjectClass.Store;
 import com.example.hieuhoang.now.Presenter.Main.Home.IPresenterHome;
 import com.example.hieuhoang.now.Presenter.Main.Home.PresenterLogicHome;
 import com.example.hieuhoang.now.R;
+import com.example.hieuhoang.now.View.Location.LocationActivity;
 import com.example.hieuhoang.now.View.Main.Home.Service.ServiceFragment;
 import com.example.hieuhoang.now.View.HotProduct.HotProductsActivity;
 import com.example.hieuhoang.now.View.Main.MainActivity;
@@ -35,11 +37,13 @@ public class FragmentHome extends Fragment implements ViewHome, View.OnClickList
     private RecyclerView rvHotProductList, rvRecommendProductList;
     private TextView tvReadMoreHot, tvHot;
     private ImageButton btnFood;
+    private Button btnLocation ;
     private IPresenterHome presenterHome;
     private LinearLayout linearHot;
     private String TAG = "kiemtra";
     private rvHotAdapter hotAdapter;
     private rvRecommendAdapter recommendAdapter;
+    private final int REQUEST_CODE_LOCATION = 111;
 
     @Nullable
     @Override
@@ -60,14 +64,15 @@ public class FragmentHome extends Fragment implements ViewHome, View.OnClickList
         rvRecommendProductList.setAdapter(recommendAdapter);
         rvRecommendProductList.setLayoutManager(recommendManager);
 
-        Log.i(TAG, "onCreateView: Home 1");
         presenterHome.loadListRecommendProduct();
         presenterHome.loadListHotProduct();
-        Log.i(TAG, "onCreateView: Home");
         return view;
     }
 
     private void Mapping(View view) {
+
+        btnLocation = view.findViewById(R.id.btnLocation) ;
+
         rvHotProductList = view.findViewById(R.id.rvHotProductList);
         rvRecommendProductList = view.findViewById(R.id.rvRecommend);
         btnFood = view.findViewById(R.id.btnFood);
@@ -82,6 +87,7 @@ public class FragmentHome extends Fragment implements ViewHome, View.OnClickList
 
         tvReadMoreHot.setOnClickListener(this);
         btnFood.setOnClickListener(this);
+        btnLocation.setOnClickListener(this);
     }
 
     @Override
@@ -97,6 +103,11 @@ public class FragmentHome extends Fragment implements ViewHome, View.OnClickList
                 fragmentTransaction.add(R.id.Home, new ServiceFragment());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
+                break;
+
+            case R.id.btnLocation:
+                Intent iLocation = new Intent(getContext() , LocationActivity.class) ;
+                startActivityForResult(iLocation , REQUEST_CODE_LOCATION);
                 break;
         }
     }

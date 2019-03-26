@@ -51,7 +51,7 @@ public class ModelLogin {
             String dataJSON = downloadJSON.get();
             JSONObject jsonObject = new JSONObject(dataJSON);
             String fullName = jsonObject.getString(AppConstant.FULL_NAME);
-            int id = jsonObject.getInt(AppConstant.ID_ACCOUNT);
+            String id = jsonObject.getString(AppConstant.ID_ACCOUNT);
             Account account = new Account();
             account.setFullName(fullName);
             account.setIdAccount(id);
@@ -69,7 +69,7 @@ public class ModelLogin {
 
     public Boolean isLogged() {
         Account account = this.getAccountInformation();
-        return (account.getIdAccount() != AppConstant.DEFAULT_ID_ACCOUNT);
+        return !(account.getIdAccount().equals(AppConstant.DEFAULT_ID_ACCOUNT));
     }
 
     public AccessToken getAccessTokenFacebook() {
@@ -113,7 +113,7 @@ public class ModelLogin {
         SharedPreferences sharedPreferences = context.getSharedPreferences(AppConstant.LOGIN_SHAREDPREFERENCES, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(AppConstant.FULL_NAME, account.getFullName());
-        editor.putInt(AppConstant.ID_ACCOUNT, account.getIdAccount());
+        editor.putString(AppConstant.ID_ACCOUNT, account.getIdAccount());
         editor.apply();
     }
 
@@ -125,7 +125,7 @@ public class ModelLogin {
         }
         Account account = new Account();
         String fullName = sharedPreferences.getString(AppConstant.FULL_NAME, "");
-        int id = sharedPreferences.getInt(AppConstant.ID_ACCOUNT, AppConstant.DEFAULT_ID_ACCOUNT);
+        String id = sharedPreferences.getString(AppConstant.ID_ACCOUNT, AppConstant.DEFAULT_ID_ACCOUNT);
         account.setFullName(fullName);
         account.setIdAccount(id);
         return account;

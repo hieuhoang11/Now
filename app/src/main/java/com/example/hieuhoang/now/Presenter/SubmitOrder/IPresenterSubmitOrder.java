@@ -10,6 +10,6 @@ public interface IPresenterSubmitOrder {
     void getOrder (String idOrder) ;
     void getOrderDetail (String idOrder) ;
     void getStoreName(String idStore) ;
-    void getCustomerName(String idCustomer);
+    void getCustomerInfo(String idCustomer);
     void submitOrder (Order order, List<OrderDetail> mDetailList) ;
 }

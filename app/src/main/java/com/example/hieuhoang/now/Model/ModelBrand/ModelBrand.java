@@ -32,6 +32,7 @@ public class ModelBrand {
         downloadJSON.execute();
         try {
             String dataJson = downloadJSON.get();
+            Log.i("kiemtra", "getListStoreByIdBrand: " + dataJson);
             JSONArray jsonArray = new JSONArray(dataJson);
             int count = jsonArray.length();
             for (int i = 0; i < count; i++) {

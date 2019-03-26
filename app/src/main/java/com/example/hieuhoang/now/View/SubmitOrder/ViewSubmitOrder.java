@@ -11,7 +11,7 @@ public interface ViewSubmitOrder {
     void addMarker (String address) ;
     void setStoreName (String storeName) ;
     void setInfoOrder (Order order) ;
-    void setCustomerName (Account account) ;
+    void setCustomerInfo (Account account) ;
     void loadOrderDetail (List<OrderDetail> mDetailList) ;
     void noEnoughQuantity (Map<String,Integer> map) ;
     void onSubmitSuccess () ;

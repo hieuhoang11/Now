@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hieuhoang.now.Adapter.srvDraftOrderBillAdapter;
 import com.example.hieuhoang.now.Model.ObjectClass.Order;
@@ -80,6 +81,16 @@ public class FragmentDraftOrder extends Fragment implements ViewDraftOrder {
         viewInDraft.setVisibility(View.GONE);
         rvDraftOrder.setVisibility(View.GONE);
         viewNoData.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onDeleteOrderSuccess() {
+        Toast.makeText(getContext() ,getContext().getResources().getString(R.string.delete_draft_order_success) ,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onDeleteAllOrderSuccess() {
+        Toast.makeText(getContext() ,getContext().getResources().getString(R.string.delete_all_draft_order_success) ,Toast.LENGTH_SHORT).show();
     }
 
     public void showDialog () {

@@ -140,7 +140,6 @@ public class srvDraftOrderBillAdapter extends RecyclerSwipeAdapter<srvDraftOrder
 
     private void showDialog (final String idOrder) {
         final Dialog dialog = new Dialog(context) ;
-        DialogFragment dialogFragment = new DialogFragment() ;
         View view = LayoutInflater.from(context).inflate(R.layout.custom_dialog,null) ;
         TextView tvContentDialog = view.findViewById(R.id.tvContentDialog) ;
         Button btnYes = view.findViewById(R.id.btnYes) ;

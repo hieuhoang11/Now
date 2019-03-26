@@ -84,7 +84,7 @@ public class ModelRegister {
             String dataJSON = downloadJSON.get();
             JSONObject jsonObject = new JSONObject(dataJSON);
 
-            int id = jsonObject.getInt(AppConstant.ID_ACCOUNT);
+            String id = jsonObject.getString(AppConstant.ID_ACCOUNT);
             account.setIdAccount(id);
             modelLogin.setCacheLogin(account);
             return true;
