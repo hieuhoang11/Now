@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/viewItem"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:baselineAligned="false"
+    android:orientation="vertical"
+    >
+
+    <View style="@style/horizontal_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvProductName"
+                style="@style/text_product_name" />
+            <LinearLayout
+                android:id="@+id/viewQuantity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    style="@style/text_color_black"
+                    android:text="Còn : "/>
+                <TextView
+                    style="@style/text_color_black"
+                    android:id="@+id/tvQuantityAvailable"
+                    />
+                <TextView
+                    android:layout_marginLeft="3dp"
+                    style="@style/text_color_black"
+                    android:text="@string/product"
+                    />
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/tvNote"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="3dp"
+                android:text="@string/note"
+                android:textColor="@color/colorText" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvOldPrice"
+                    style="@style/text_old_price" />
+
+                <ImageView
+                    android:id="@+id/img"
+                    style="@style/img_price_old_to_new" />
+
+                <TextView
+                    android:id="@+id/tvNewPrice"
+                    style="@style/text_new_price" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/text_color_black"
+                    android:layout_width="wrap_content"
+                    android:text=" x " />
+
+                <TextView
+                    android:id="@+id/tvQuality"
+                    style="@style/text_color_black"
+                    android:text="3" />
+
+                <TextView
+                    style="@style/text_color_black"
+                    android:text=" = " />
+
+                <TextView
+                    android:id="@+id/tvTotalMoney"
+                    style="@style/text_total_money" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+    <Button
+        android:id="@+id/getLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Get location"
+        android:textSize="20sp"
+        android:onClick="onClick"/>
+    <TextView
+        android:id="@+id/longitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Longitude: "
+        android:textSize="20sp"/>
+    <TextView
+        android:id="@+id/latitude"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Latitude: "
+        android:textSize="20sp"/>
+    <TextView
+    android:id="@+id/loc"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="vi tri: "
+    android:textSize="20sp"/>
+    <EditText
+        android:id="@+id/vitri"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"/>
+    <TextView
+        android:id="@+id/longitude2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="longitude2 : "
+        android:textSize="20sp"/>
+    <TextView
+        android:id="@+id/latitude2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="latitude2 : "
+        android:textSize="20sp"/>
+    <TextView
+        android:id="@+id/kc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="khoang cach : "
+        android:textSize="20sp"/>
+</LinearLayout>

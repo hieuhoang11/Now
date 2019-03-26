@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
+    tools:context="com.example.hieuhoang.now.View.SubmitOrder.EditInfo.EditInfoActivity">
+
+    <TextView
+        style="@style/text_title_activity"
+        android:text="@string/edit_info" />
+
+    <View style="@style/horizontal_line" />
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <!--<android.support.design.widget.TextInputLayout-->
+                <!--android:id="@+id/input_edtName"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_margin="5dp"-->
+                <!--android:textColorHint="@color/colorTextHint"-->
+                <!--app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">-->
+
+                <!--<com.example.hieuhoang.now.CustomView.ClearEditText-->
+                    <!--android:id="@+id/edEmailLogin"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:hint="Địa chỉ Email"-->
+                    <!--android:textColor="@color/colorBlack" />-->
+            <!--</android.support.design.widget.TextInputLayout>-->
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textColorHint="@color/colorText"
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+                >
+
+                <com.example.hieuhoang.now.CustomView.ClearEditText
+                    android:id="@+id/tvName"
+                    android:hint="@string/full_name"
+                    style="@style/clear_edit_text"
+
+                    />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textColorHint="@color/colorText"
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
+                >
+
+                <com.example.hieuhoang.now.CustomView.ClearEditText
+                    android:id="@+id/tvPhone"
+                    style="@style/clear_edit_text"
+                    android:hint="@string/phone_number"
+                    android:inputType="number"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:textColorHint="@color/colorText"
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
+
+                <com.example.hieuhoang.now.CustomView.ClearEditText
+                    android:id="@+id/tvAddress"
+                    style="@style/clear_edit_text"
+                    android:hint="@string/address" />
+            </android.support.design.widget.TextInputLayout>
+        </LinearLayout>
+
+
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+
+    <Button
+        android:id="@+id/btnDone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/done"
+        android:background="@drawable/bg_done"/>
+</LinearLayout>
