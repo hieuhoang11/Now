@@ -1,139 +1,170 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/colorWhite"
-    android:paddingBottom="30dp">
+    android:orientation="vertical"
+    android:paddingBottom="50dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@color/colorTopOfBottomSheet"
         android:gravity="center_vertical"
-        android:paddingStart="10dp"
+        android:orientation="horizontal"
         android:paddingEnd="10dp"
-        android:orientation="horizontal">
+        android:paddingStart="10dp">
+
         <ImageButton
             android:id="@+id/btnCloseSheet"
             android:layout_width="25dp"
             android:layout_height="25dp"
-            android:src="@drawable/icon_x_36dp"
+            android:background="@color/colorTransparent"
             android:scaleType="centerCrop"
-            android:background="@color/colorTransparent"/>
+            android:src="@drawable/icon_x_36dp" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="@string/order_status"
             android:gravity="center"
+            android:text="@string/order_status"
             android:textColor="@color/colorWhite"
             android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
     </LinearLayout>
 
+    <Button
+        android:id="@+id/btnDetail"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_gravity="end|center_vertical"
+        android:layout_marginEnd="10dp"
+        android:background="@color/colorTransparent"
+        android:gravity="end|center_vertical"
+        android:text="@string/detail"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold" />
+
     <LinearLayout
-        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
         android:background="@color/colorWhite"
+        android:orientation="horizontal"
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
         <TextView
-            android:text="1"
             android:id="@+id/tvSubmittedNumber"
             style="@style/text_bg_order_status"
             android:background="@drawable/custom_text_in_order_status_positive"
-            />
+            android:text="1" />
+
         <TextView
             android:id="@+id/tvSubmitted"
             style="@style/text_order_status"
+            android:layout_width="wrap_content"
             android:text="@string/submit_order"
-            android:textColor="@color/colorBlack"/>
+            android:textColor="@color/colorBlack" />
+
+        <Button
+            android:id="@+id/btnCancelOrder"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_marginStart="10dp"
+            android:background="@color/colorGray"
+            android:paddingEnd="5dp"
+            android:paddingStart="5dp"
+            android:text="@string/cancel_order"
+            android:textAllCaps="false"
+            android:textColor="@color/colorText"
+            android:visibility="gone"/>
+
         <TextView
             android:id="@+id/tvSubmittedTime"
-            style="@style/text_time_order_status"
-            />
+            style="@style/text_time_order_status" />
     </LinearLayout>
+
     <View
-        style="@style/vertical_line_order_status"
-        />
+        android:id="@+id/line1"
+        style="@style/vertical_line_order_status" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:background="@color/colorWhite"
+        android:orientation="horizontal"
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
         <TextView
             android:id="@+id/tvProcessedNumber"
-            android:text="2"
             style="@style/text_bg_order_status"
-            />
+            android:text="2" />
+
         <TextView
             android:id="@+id/tvProcessed"
             style="@style/text_order_status"
-            android:text="@string/process"/>
+            android:text="@string/process" />
+
         <TextView
             android:id="@+id/tvProcessedTime"
-            style="@style/text_time_order_status"
-            />
+            style="@style/text_time_order_status" />
     </LinearLayout>
+
     <View
-        style="@style/vertical_line_order_status"
-        />
+        android:id="@+id/line2"
+        style="@style/vertical_line_order_status" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:background="@color/colorWhite"
+        android:orientation="horizontal"
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
         <TextView
-            android:text="3"
             android:id="@+id/tvOnGoingNumber"
             style="@style/text_bg_order_status"
-            />
+            android:text="3" />
+
         <TextView
             android:id="@+id/tvOnGoing"
             style="@style/text_order_status"
-            android:text="@string/on_going"/>
+            android:text="@string/on_going" />
+
         <TextView
             android:id="@+id/tvOnGoingTime"
-            style="@style/text_time_order_status"
-            />
+            style="@style/text_time_order_status" />
     </LinearLayout>
+
     <View
-        style="@style/vertical_line_order_status"
-        />
+        android:id="@+id/line3"
+        style="@style/vertical_line_order_status" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:background="@color/colorWhite"
+        android:orientation="horizontal"
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
         <TextView
-            android:text="4"
             android:id="@+id/tvCompletedNumber"
             style="@style/text_bg_order_status"
-            />
+            android:text="4" />
+
         <TextView
             android:id="@+id/tvCompleted"
             style="@style/text_order_status"
-            android:text="@string/complete"/>
+            android:text="@string/complete" />
+
         <TextView
             android:id="@+id/tvCompletedTime"
-            style="@style/text_time_order_status"
-            />
+            style="@style/text_time_order_status" />
     </LinearLayout>
 
 </LinearLayout>

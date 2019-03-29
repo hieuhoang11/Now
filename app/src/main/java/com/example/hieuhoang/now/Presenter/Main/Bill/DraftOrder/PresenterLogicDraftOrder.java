@@ -26,10 +26,11 @@ public class PresenterLogicDraftOrder implements IPresenterDraftOrder {
 
     @Override
     public void getListDraftOrder() {
+        if(!modelLogin.isLogged()) return;
         Account customer = modelLogin.getAccountInformation();
         if (customer.getIdAccount().equals(AppConstant.DEFAULT_ID_ACCOUNT))
             return;
-        List<Order> list = modelOrder.getListDraftOrderByIdCustomer(customer.getIdAccount());
+        List<Order> list = modelOrder.getListDraftOrder(customer.getIdAccount());
         if (list.size() > 0) {
             viewDraftOrder.loadListDraftOrder(list);
         } else {

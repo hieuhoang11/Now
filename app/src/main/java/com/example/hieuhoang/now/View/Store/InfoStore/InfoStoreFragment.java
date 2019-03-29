@@ -36,16 +36,22 @@ public class InfoStoreFragment extends Fragment implements ViewInfoStore, OnMapR
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_fragment_info_store, container, false);
-        store = ((StoreActivity) getActivity()).getStore();
 
         Mapping(view);
 
         presenterLogicInfoStore = new PresenterLogicInfoStore(this);
-        presenterLogicInfoStore.getQuantityBranch(store.getIdBrand());
 
         MapFragment mapFragment = (MapFragment) getActivity().getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        store = ((StoreActivity) getActivity()).getStore();
+        if(store == null) return;
+        presenterLogicInfoStore.getQuantityBranch(store.getIdBrand());
     }
 
     private void Mapping(View view) {

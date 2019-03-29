@@ -80,6 +80,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/icon_search_24dp" />
+
                 <EditText
                     android:id="@+id/edtSearchInStore"
                     android:layout_width="match_parent"

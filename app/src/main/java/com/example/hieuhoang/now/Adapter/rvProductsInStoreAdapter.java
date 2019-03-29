@@ -2,7 +2,6 @@ package com.example.hieuhoang.now.Adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,9 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hieuhoang.now.Common.Common;
-import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.ObjectClass.Product;
-import com.example.hieuhoang.now.Model.ObjectClass.Store;
 import com.example.hieuhoang.now.Presenter.Store.IPresenterStore;
 import com.example.hieuhoang.now.R;
 import com.example.hieuhoang.now.View.Store.StoreActivity;
@@ -21,25 +18,25 @@ import com.example.hieuhoang.now.View.Store.StoreActivity;
 import java.util.List;
 import java.util.Map;
 
-public class ProductsInStoreAdapter extends RecyclerView.Adapter<ProductsInStoreAdapter.ProductsViewHolder> {
+public class rvProductsInStoreAdapter extends RecyclerView.Adapter<rvProductsInStoreAdapter.ProductsViewHolder> {
     private List<Product> mProducts;
     private LayoutInflater mLayoutInflater;
     private Context context;
     private IPresenterStore presenterLogicStore;
     private boolean isGrid;
-    private StoreActivity storeActivity ;
-    private Map<String,Integer> map ;
+    private StoreActivity storeActivity;
+    private Map<String, Integer> map;
     private final int LAYOUT_LIST_PRODUCT = R.layout.custom_list_product_store;
     private final int LAYOUT_GRID_PRODUCT = R.layout.custom_grid_product_store;
 
-    public ProductsInStoreAdapter(List<Product> mProducts, Context context, StoreActivity storeActivity, IPresenterStore presenterLogicStore, boolean isGrid, Map<String,Integer> map) {
+    public rvProductsInStoreAdapter(List<Product> mProducts, Context context, StoreActivity storeActivity, IPresenterStore presenterLogicStore, boolean isGrid, Map<String, Integer> map) {
         this.mProducts = mProducts;
         this.mLayoutInflater = LayoutInflater.from(context);
         this.context = context;
         this.isGrid = isGrid;
-        this.presenterLogicStore = presenterLogicStore ;
-        this.map = map ;
-        this.storeActivity =storeActivity ;
+        this.presenterLogicStore = presenterLogicStore;
+        this.map = map;
+        this.storeActivity = storeActivity;
     }
 
     @Override
@@ -48,7 +45,7 @@ public class ProductsInStoreAdapter extends RecyclerView.Adapter<ProductsInStore
         if (isGrid) layout = LAYOUT_GRID_PRODUCT;
         else layout = LAYOUT_LIST_PRODUCT;
         View itemView = mLayoutInflater.inflate(layout, parent, false);
-        return new ProductsInStoreAdapter.ProductsViewHolder(itemView);
+        return new rvProductsInStoreAdapter.ProductsViewHolder(itemView);
     }
 
     @Override
@@ -71,7 +68,7 @@ public class ProductsInStoreAdapter extends RecyclerView.Adapter<ProductsInStore
         holder.btnSubtract.setVisibility(View.GONE);
         holder.tvQualityProductInCraftOrder.setVisibility(View.GONE);
 
-        if(product.getQuantity() > 0 ) {
+        if (product.getQuantity() > 0) {
             holder.tvOutOfStock.setVisibility(View.GONE);
             holder.viewProductInStore.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -92,9 +89,9 @@ public class ProductsInStoreAdapter extends RecyclerView.Adapter<ProductsInStore
                     presenterLogicStore.showSheetAddToCart(product);
                 }
             });
-            if(map != null) {
-                if(map.get(product.getId()) != null){
-                    int value = map.get(product.getId()) ;
+            if (map != null) {
+                if (map.get(product.getId()) != null) {
+                    int value = map.get(product.getId());
                     holder.btnSubtract.setVisibility(View.VISIBLE);
                     holder.tvQualityProductInCraftOrder.setVisibility(View.VISIBLE);
                     holder.tvQualityProductInCraftOrder.setText(String.valueOf(value));
@@ -112,10 +109,10 @@ public class ProductsInStoreAdapter extends RecyclerView.Adapter<ProductsInStore
     }
 
     public class ProductsViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNameProduct, tvProductPrice, tvNumberOfPurchases, tvDisCount , tvOutOfStock , tvQualityProductInCraftOrder;
+        TextView tvNameProduct, tvProductPrice, tvNumberOfPurchases, tvDisCount, tvOutOfStock, tvQualityProductInCraftOrder;
         ImageView imgProduct, imgDisCount;
         View viewProductInStore;
-        ImageButton btnPlus,btnSubtract;
+        ImageButton btnPlus, btnSubtract;
 
 
         public ProductsViewHolder(View itemView) {

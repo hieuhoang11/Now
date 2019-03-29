@@ -53,18 +53,39 @@
             android:src="@drawable/icon_search_24dp"/>
     </LinearLayout>
 
-    <FrameLayout
-        android:id="@+id/contentBill"
+    <LinearLayout
+        android:id="@+id/viewContentBill"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="5dp"
-        />
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/contentOngoing"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+        <FrameLayout
+            android:id="@+id/contentHistory"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+        <FrameLayout
+            android:id="@+id/contentDraft"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+    </LinearLayout>
+
+
     <LinearLayout
         android:id="@+id/viewLoginToContinue"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal"
-        android:gravity="center">
+        android:gravity="center"
+        android:visibility="gone">
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="wrap_content"
@@ -77,7 +98,7 @@
             android:textSize="20sp"
             />
         <TextView
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/to_continue"

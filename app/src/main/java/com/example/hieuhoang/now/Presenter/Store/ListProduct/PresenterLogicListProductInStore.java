@@ -43,7 +43,7 @@ public class PresenterLogicListProductInStore implements IPresenterListProductIn
     @Override
     public void showQuantityProductInCraftOrder(Order order) {
         if(order == null) return;
-        List<OrderDetail> mList = modelOrder.getListOrderDetail(order.getIdOrder()) ;
+        List<OrderDetail> mList = modelOrder.getListDraftOrderDetail(order.getIdOrder()) ;
         Map<String,Integer> map = null ;
         if(mList.size() > 0) {
             map = new HashMap<>();

@@ -6,7 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -15,7 +14,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.hieuhoang.now.Adapter.rvSubmitOrderAdapter;
+import com.example.hieuhoang.now.Adapter.rvOrderDetailAdapter;
 import com.example.hieuhoang.now.Common.Common;
 import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.ObjectClass.Account;
@@ -39,11 +38,11 @@ import java.util.Map;
 public class SubmitOrderActivity extends AppCompatActivity implements ViewSubmitOrder, OnMapReadyCallback, View.OnClickListener {
     private final String TAG = "kiemtra";
     private TextView tvStoreName, tvQuantityItem, tvTotalMoney, tvCusInfo, tvLocation, tvNote;
-    private RecyclerView rvSubmit;
+    private RecyclerView rvOrderDetail;
     private Button btnSubmit;
     private GoogleMap map;
     private IPresenterSubmitOrder presenterLogicSubmitOrder;
-    private rvSubmitOrderAdapter adapter;
+    private rvOrderDetailAdapter adapter;
     private List<OrderDetail> mDetails;
     private Order order;
     private Account customer;
@@ -59,10 +58,10 @@ public class SubmitOrderActivity extends AppCompatActivity implements ViewSubmit
         Intent intent = getIntent();
         String idOrder = intent.getStringExtra(AppConstant.ID_ORDER);
 
-        adapter = new rvSubmitOrderAdapter(new ArrayList<OrderDetail>(), getApplicationContext());
+        adapter = new rvOrderDetailAdapter(new ArrayList<OrderDetail>(), getApplicationContext());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-        rvSubmit.setLayoutManager(layoutManager);
-        rvSubmit.setAdapter(adapter);
+        rvOrderDetail.setLayoutManager(layoutManager);
+        rvOrderDetail.setAdapter(adapter);
 
         presenterLogicSubmitOrder = new PresenterLogicSubmitOrder(this, getApplicationContext(), this);
         presenterLogicSubmitOrder.getOrder(idOrder);
@@ -78,7 +77,7 @@ public class SubmitOrderActivity extends AppCompatActivity implements ViewSubmit
         tvTotalMoney = findViewById(R.id.tvTotalMoney);
         tvCusInfo = findViewById(R.id.tvCusInfo);
         tvLocation = findViewById(R.id.tvLocation);
-        rvSubmit = findViewById(R.id.rvSubmit);
+        rvOrderDetail = findViewById(R.id.rvOrderDetail);
         btnSubmit = findViewById(R.id.btnSubmit);
         tvNote = findViewById(R.id.tvNote);
         tvNote.setOnClickListener(this);

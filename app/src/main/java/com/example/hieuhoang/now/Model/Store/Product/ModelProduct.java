@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 
+import com.example.hieuhoang.now.Common.Common;
 import com.example.hieuhoang.now.ConnectInternet.DownloadJSON;
 import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.ObjectClass.GroupProduct;
@@ -153,10 +154,7 @@ public class ModelProduct {
         DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
         downloadJSON.execute();
         try {
-            String dataJson = downloadJSON.get();
-            Log.i(TAG, "updateQuantityProduct: " + dataJson);
-            JSONObject jsonObject = new JSONObject(dataJson) ;
-            return jsonObject.getBoolean(AppConstant.RESULT);
+            return Common.parseBooleanJson(downloadJSON.get());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

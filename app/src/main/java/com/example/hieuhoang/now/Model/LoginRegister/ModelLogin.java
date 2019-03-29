@@ -33,7 +33,7 @@ public class ModelLogin {
         this.context = context;
     }
 
-    public Boolean checkLogin(String email, String password) {
+    public boolean checkLogin(String email, String password) {
         String path = AppConstant.SERVER_NAME;
         List<HashMap<String, String>> attrs = new ArrayList<>();
         HashMap<String, String> hsFunction = new HashMap<>();
@@ -67,7 +67,7 @@ public class ModelLogin {
         return false;
     }
 
-    public Boolean isLogged() {
+    public boolean isLogged() {
         Account account = this.getAccountInformation();
         return !(account.getIdAccount().equals(AppConstant.DEFAULT_ID_ACCOUNT));
     }

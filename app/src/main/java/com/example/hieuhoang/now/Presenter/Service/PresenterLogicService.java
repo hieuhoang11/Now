@@ -7,9 +7,6 @@ import com.example.hieuhoang.now.View.Main.Home.Service.ViewService;
 
 import java.util.List;
 
-/**
- * Created by Hieu Hoang on 24/02/2019.
- */
 
 public class PresenterLogicService implements IPresenterService {
     private ModelStore modelProduct ;

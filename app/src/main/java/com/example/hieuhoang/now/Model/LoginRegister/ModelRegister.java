@@ -2,6 +2,7 @@ package com.example.hieuhoang.now.Model.LoginRegister;
 
 import android.content.Context;
 
+import com.example.hieuhoang.now.Common.Common;
 import com.example.hieuhoang.now.ConnectInternet.DownloadJSON;
 import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.LoginRegister.ModelLogin;
@@ -23,7 +24,7 @@ public class ModelRegister {
         modelLogin = new ModelLogin(context);
     }
 
-    public Boolean checkEmailExists(String email) {
+    public boolean checkEmailExists(String email) {
         String path = AppConstant.SERVER_NAME;
         List<HashMap<String, String>> attrs = new ArrayList<>();
 
@@ -39,10 +40,7 @@ public class ModelRegister {
         DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
         downloadJSON.execute();
         try {
-            String dataJSON = downloadJSON.get();
-            JSONObject jsonObject = new JSONObject(dataJSON);
-            return jsonObject.getBoolean(AppConstant.RESULT);
-
+            return Common.parseBooleanJson(downloadJSON.get());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -53,7 +51,7 @@ public class ModelRegister {
         return true;
     }
 
-    public Boolean RegisterAccount(Account account) {
+    public boolean RegisterAccount(Account account) {
         String path = AppConstant.SERVER_NAME;
         List<HashMap<String, String>> attrs = new ArrayList<>();
 

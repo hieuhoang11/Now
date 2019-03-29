@@ -19,9 +19,15 @@ import com.example.hieuhoang.now.R;
 import com.google.android.gms.maps.model.LatLng;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -77,19 +83,29 @@ public class Common {
         return " 0";
     }
 
-    public static LatLng getCoordinates(Context context , String address){
+    public static LatLng getCoordinates(Context context, String address) {
         Geocoder geocoder = new Geocoder(context, Locale.getDefault());
         try {
             List<Address> addresses = geocoder.getFromLocationName(address, 5);
             if (addresses.size() > 0) {
-                return new LatLng(addresses.get(0).getLatitude(),addresses.get(0).getLongitude());
+                return new LatLng(addresses.get(0).getLatitude(), addresses.get(0).getLongitude());
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return  null ;
+        return null;
     }
 
+    public static boolean parseBooleanJson(String dataJson) throws JSONException {
+        JSONObject jsonObject = new JSONObject(dataJson);
+        return jsonObject.getBoolean(AppConstant.RESULT);
+
+    }
+
+   public static String formatDate (Date date) {
+       SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+       return format.format(date) ;
+    }
     public static String createKey(String prefix) {
 //        String key = prefix;
 //        String[] partsDay;

@@ -1,6 +1,8 @@
 package com.example.hieuhoang.now.View.Main.Bill;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -8,6 +10,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,18 +22,23 @@ import com.example.hieuhoang.now.Presenter.Main.Bill.PresenterLogicBill;
 import com.example.hieuhoang.now.R;
 import com.example.hieuhoang.now.View.LoginRegister.LoginRegisterActivity;
 import com.example.hieuhoang.now.View.Main.Bill.DraftOrder.FragmentDraftOrder;
-import com.example.hieuhoang.now.View.Main.Bill.OnGoingHistory.FragmentHistory;
-import com.example.hieuhoang.now.View.Main.Bill.OnGoingHistory.FragmentOnGoing;
+import com.example.hieuhoang.now.View.Main.Bill.History.FragmentHistory;
+import com.example.hieuhoang.now.View.Main.Bill.OnGoing.FragmentOnGoing;
 
-public class FragmentBill extends Fragment implements ViewBill,View.OnClickListener {
-    private Button btnOnGoing, btnHistory, btnDraftOrder , btnLogin;
+import java.util.Collections;
+
+public class FragmentBill extends Fragment implements ViewBill, View.OnClickListener {
+    private Button btnOnGoing, btnHistory, btnDraftOrder, btnLogin;
     private int colorNormal, colorTextIsChecked;
     private View viewLoginToContinue;
-    private FrameLayout contentBill ;
+    private FrameLayout[] frameLayouts;
+    private Fragment []fragments;
+    private int[] contents = {R.id.contentOngoing,R.id.contentHistory,R.id.contentDraft};
+    private View viewContentBill;
     private FragmentManager fragmentManager;
-    private int tabSelected = 0 ;
-    private Button [] buttons;
-    private IPresenterBill presenterLogicBill ;
+    private int tabSelected = -1;
+    private Button[] buttons;
+    private IPresenterBill presenterLogicBill;
 
     @Nullable
     @Override
@@ -51,28 +59,40 @@ public class FragmentBill extends Fragment implements ViewBill,View.OnClickListe
         btnOnGoing = view.findViewById(R.id.btnOnGoing);
         btnHistory = view.findViewById(R.id.btnHistory);
         btnDraftOrder = view.findViewById(R.id.btnDraftOrder);
-        viewLoginToContinue= view.findViewById(R.id.viewLoginToContinue);
-        contentBill = view.findViewById(R.id.contentBill);
+        viewLoginToContinue = view.findViewById(R.id.viewLoginToContinue);
         btnLogin = view.findViewById(R.id.btnLogin);
+        viewContentBill = view.findViewById(R.id.viewContentBill);
+
+        frameLayouts = new FrameLayout[3];
+        frameLayouts[0] = view.findViewById(R.id.contentOngoing);
+        frameLayouts[1] = view.findViewById(R.id.contentHistory);
+        frameLayouts[2] = view.findViewById(R.id.contentDraft);
+
+        frameLayouts[0].setVisibility(View.GONE);
+        frameLayouts[1].setVisibility(View.GONE);
+        frameLayouts[2].setVisibility(View.GONE);
+
         btnOnGoing.setOnClickListener(this);
         btnHistory.setOnClickListener(this);
         btnDraftOrder.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
     }
 
+
     private void init() {
-
-        presenterLogicBill = new PresenterLogicBill(this ,getContext()) ;
-
+        Context context = getContext();
+        presenterLogicBill = new PresenterLogicBill(this, context);
         this.buttons = new Button[3];
-        buttons[0] = btnOnGoing ;
-        buttons[1] = btnHistory ;
+        buttons[0] = btnOnGoing;
+        buttons[1] = btnHistory;
         buttons[2] = btnDraftOrder;
 
-        colorNormal = getActivity().getResources().getColor(R.color.colorBlack);
-        colorTextIsChecked = getActivity().getResources().getColor(R.color.colorTextTabSelected);
+        colorNormal = context.getResources().getColor(R.color.colorBlack);
+        colorTextIsChecked = context.getResources().getColor(R.color.colorTextTabSelected);
 
         fragmentManager = getActivity().getSupportFragmentManager();
+        fragments = new Fragment[3] ;
+
     }
 
 
@@ -80,25 +100,39 @@ public class FragmentBill extends Fragment implements ViewBill,View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnOnGoing:
-                setContent(new FragmentOnGoing(),0);
+                if (fragments[0] == null) {
+                    fragments[0] = new FragmentOnGoing();
+                    setContent(fragments[0], 0);
+                    break;
+                }
+                visibleFragment(0);
                 break;
             case R.id.btnHistory:
-                setContent(new FragmentHistory(),1);
+                if (fragments[1] == null) {
+                    fragments[1] = new FragmentHistory();
+                    setContent(fragments[1], 1);
+                    break;
+                }
+                visibleFragment(1);
                 break;
             case R.id.btnDraftOrder:
-                setContent(new FragmentDraftOrder(),2);
+                if (fragments[2] == null) {
+                    fragments[2] = new FragmentDraftOrder();
+                    setContent(fragments[2], 2);
+                    break;
+                }
+                visibleFragment(2);
                 break;
-            case R.id.btnLogin :
-                Intent iLogin = new Intent(getContext() , LoginRegisterActivity.class) ;
+            case R.id.btnLogin:
+                Intent iLogin = new Intent(getContext(), LoginRegisterActivity.class);
                 startActivity(iLogin);
                 break;
         }
     }
 
-    private void setContent(Fragment fragment ,int index) {
-        addFragment(fragment) ;
-        setSelectedColor(index);
-        tabSelected = index ;
+    private void setContent(Fragment fragment, int index) {
+        addFragment(fragment,index);
+        visibleFragment(index);
     }
 
     private void setSelectedColor(int index) {
@@ -106,23 +140,34 @@ public class FragmentBill extends Fragment implements ViewBill,View.OnClickListe
         buttons[index].setTextColor(this.colorTextIsChecked);
     }
 
-    private void addFragment(Fragment fragment) {
+    private void visibleFragment(int index) {
+        frameLayouts[tabSelected].setVisibility(View.GONE);
+        frameLayouts[index].setVisibility(View.VISIBLE);
+        setSelectedColor(index);
+        tabSelected = index;
+    }
+
+    private void addFragment(Fragment fragment,int index) {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.contentBill, fragment);
-        //fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.add(contents[index], fragment);
         fragmentTransaction.commit();
     }
 
     @Override
     public void notLogIn() {
         viewLoginToContinue.setVisibility(View.VISIBLE);
-        contentBill.setVisibility(View.GONE);
+        viewContentBill.setVisibility(View.GONE);
     }
 
     @Override
     public void loadOrder() {
-        contentBill.setVisibility(View.VISIBLE);
+        viewContentBill.setVisibility(View.VISIBLE);
         viewLoginToContinue.setVisibility(View.GONE);
-        setContent(new FragmentOnGoing(),0);
+        if(tabSelected == -1) {
+            tabSelected = 0 ;
+            fragments[0] = new FragmentOnGoing();
+            setContent(fragments[0], 0);
+        }
+        else fragments[tabSelected].onStart();
     }
 }

@@ -20,7 +20,7 @@ import java.util.List;
 import java.util.Map;
 
 
-public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHolder> {
+public class rvStoreAdapter extends RecyclerView.Adapter<rvStoreAdapter.StoreViewHolder> {
     private List<GroupProduct> mGroupProducts;
     private LayoutInflater mLayoutInflater;
     private IPresenterStore presenterLogicStore ;
@@ -29,10 +29,9 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
     private int visibleText[];
     private boolean isGrid;
     private Map<String,Integer> map =null;
-    private ProductsInStoreAdapter adapter;
     private StoreActivity storeActivity ;
 
-    public StoreAdapter(List<GroupProduct> mGroupProducts, Context context,StoreActivity storeActivity,IPresenterStore presenterLogicStore, boolean isGrid) {
+    public rvStoreAdapter(List<GroupProduct> mGroupProducts, Context context, StoreActivity storeActivity, IPresenterStore presenterLogicStore, boolean isGrid) {
         this.mGroupProducts = mGroupProducts;
         this.mLayoutInflater = LayoutInflater.from(context);
         this.context = context;
@@ -44,11 +43,11 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
     @Override
     public StoreViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = mLayoutInflater.inflate(R.layout.custom_recyclerview_group_product, parent, false);
-        return new StoreAdapter.StoreViewHolder(itemView);
+        return new rvStoreAdapter.StoreViewHolder(itemView);
     }
 
     @Override
-    public void onBindViewHolder(final StoreViewHolder holder, final int position) {
+    public void onBindViewHolder(final StoreViewHolder holder, int position) {
         GroupProduct groupProduct = mGroupProducts.get(position);
         holder.tvDanhMuc.setText(groupProduct.getNameGroup());
         holder.tvQualityProduct.setText(String.valueOf(groupProduct.getListProducts().size())+ " " + context.getResources().getString(R.string.item));
@@ -60,20 +59,20 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
             layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
             holder.rvProductsInStore.setBackgroundColor(context.getResources().getColor(R.color.colorWhite));
         }
-        adapter = new ProductsInStoreAdapter(groupProduct.getListProducts(), context, storeActivity,presenterLogicStore,isGrid,map);
+        rvProductsInStoreAdapter adapter = new rvProductsInStoreAdapter(groupProduct.getListProducts(), context,  storeActivity,presenterLogicStore,isGrid,map);
         holder.rvProductsInStore.setAdapter(adapter);
         holder.rvProductsInStore.setLayoutManager(layoutManager);
 
         holder.linearDanhMuc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hideRecyclerView(holder.rvProductsInStore, holder.tvQualityProduct, position);
+                hideRecyclerView(holder.rvProductsInStore, holder.tvQualityProduct, holder.getAdapterPosition());
             }
         });
         holder.btnDanhmucStore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hideRecyclerView(holder.rvProductsInStore, holder.tvQualityProduct, position);
+                hideRecyclerView(holder.rvProductsInStore, holder.tvQualityProduct, holder.getAdapterPosition());
             }
         });
         holder.rvProductsInStore.setVisibility(visible[position]);
@@ -91,7 +90,7 @@ public class StoreAdapter extends RecyclerView.Adapter<StoreAdapter.StoreViewHol
         private LinearLayout linearDanhMuc;
         private TextView tvQualityProduct, tvDanhMuc;
 
-        public StoreViewHolder(View itemView) {
+        private StoreViewHolder(View itemView) {
             super(itemView);
             btnDanhmucStore = itemView.findViewById(R.id.btnDanhmucStore);
             rvProductsInStore = itemView.findViewById(R.id.rvProductsInStore);

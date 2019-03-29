@@ -106,7 +106,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (fragmentBill == null) {
                     fragmentBill = new FragmentBill();
                     setContent(fragmentBill, 1);
-                } else visibleFragment(1);
+                } else  {
+                    visibleFragment(1);
+                    fragmentBill.onStart();
+                }
                 break;
             case R.id.btnNotification:
                 if (fragmentNotification == null) {

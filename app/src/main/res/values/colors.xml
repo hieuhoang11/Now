@@ -34,5 +34,6 @@
     <color name="colorDone">#3F51B5</color>
     <color name="colorWarning">#caf41219</color>
     <color name="colorTextCircleInOrderStatus">#4df544</color>
+    <color name="colorSwipe">#149fef</color>
    <!--// 183651-->
 </resources>

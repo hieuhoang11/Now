@@ -41,7 +41,8 @@
         <activity android:name=".View.Test.map.MapActivity" />
         <activity android:name=".View.Brand.BrandActivity" />
         <activity android:name=".View.SubmitOrder.EditInfo.EditInfoActivity" />
-        <activity android:name=".View.Location.LocationActivity"></activity>
+        <activity android:name=".View.Location.LocationActivity" />
+        <activity android:name=".View.OrderDetail.OrderDetailActivity"></activity>
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.example.hieuhoang.now.Presenter.Service;
+package com.example.hieuhoang.now.Presenter.Service.Fragment;
 
 import com.example.hieuhoang.now.Model.ObjectClass.Store;
 import com.example.hieuhoang.now.Model.Store.ModelStore;

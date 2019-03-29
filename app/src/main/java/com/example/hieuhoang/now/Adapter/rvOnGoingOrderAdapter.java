@@ -11,18 +11,18 @@ import android.widget.TextView;
 
 import com.example.hieuhoang.now.Common.Common;
 import com.example.hieuhoang.now.Model.ObjectClass.Order;
-import com.example.hieuhoang.now.Presenter.Main.Bill.OnGoingHistory.IPresenterOnGoingHistory;
+import com.example.hieuhoang.now.Presenter.Main.Bill.OnGoing.IPresenterOnGoing;
 import com.example.hieuhoang.now.R;
 
 import java.util.List;
 
-public class rvOrderInBillAdapter extends RecyclerView.Adapter<rvOrderInBillAdapter.OrderViewHolder> {
+public class rvOnGoingOrderAdapter extends RecyclerView.Adapter<rvOnGoingOrderAdapter.OrderViewHolder> {
     private String TAG = "kiemtra";
     private List<Order> mOrders;
     private Context context;
-    private IPresenterOnGoingHistory presenterLogic;
+    private IPresenterOnGoing presenterLogic;
 
-    public rvOrderInBillAdapter(Context context,List<Order> mOrders, IPresenterOnGoingHistory presenterLogic) {
+    public rvOnGoingOrderAdapter(Context context, List<Order> mOrders, IPresenterOnGoing presenterLogic) {
         this.mOrders = mOrders;
         this.context = context ;
         this.presenterLogic = presenterLogic;
@@ -30,7 +30,7 @@ public class rvOrderInBillAdapter extends RecyclerView.Adapter<rvOrderInBillAdap
 
     @Override
     public OrderViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_ongoing_history_order_in_bill, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_ongoing_order_in_bill, parent, false);
         return new OrderViewHolder(view);
     }
 

@@ -53,7 +53,7 @@ public class PresenterLogicStore implements IPresenterStore {
         boolean b = modelOrder.addDetailOrder(order.getIdOrder(), idProduct, quantity, note);
         if (!b) return;
 
-        order = modelOrder.getOrderInformation(order.getIdOrder());
+        order = modelOrder.getDraftOrderById(order.getIdOrder());
         if (order == null) return;
 
         viewStore.showCart(order);
@@ -84,7 +84,7 @@ public class PresenterLogicStore implements IPresenterStore {
 
     @Override
     public void getOrderDetail(String idOrder) {
-        List<OrderDetail> list = modelOrder.getListOrderDetail(idOrder);
+        List<OrderDetail> list = modelOrder.getListDraftOrderDetail(idOrder);
         int s = list.size();
         if (s > 0) {
             viewStore.showCartDetail(list);
@@ -108,7 +108,7 @@ public class PresenterLogicStore implements IPresenterStore {
             b = modelOrder.deleteDetailOrder(idOrder, idProduct);
         else b = modelOrder.updateQuantityProductInOrderDetail(idOrder, idProduct, quantity);
         if (b) {
-            List<OrderDetail> list = modelOrder.getListOrderDetail(idOrder);
+            List<OrderDetail> list = modelOrder.getListDraftOrderDetail(idOrder);
             int s = list.size();
             if (s == 0) {
                 if (modelOrder.deleteDraftOrder(idOrder)) {
@@ -120,7 +120,7 @@ public class PresenterLogicStore implements IPresenterStore {
 
             viewStore.showCartDetail(list);
 
-            Order order = modelOrder.getOrderInformation(idOrder);
+            Order order = modelOrder.getDraftOrderById(idOrder);
             if (order != null) {
                 viewStore.showCart(order);
 
@@ -137,7 +137,6 @@ public class PresenterLogicStore implements IPresenterStore {
         return (q - q2) >= quantity ;
     }
 
-
     @Override
     public void updateNoteDetailOrder(String idOrder , String idProduct ,String note) {
         if(modelOrder.updateNoteInOrderDetail(idOrder,idProduct,note)) {
@@ -148,7 +147,7 @@ public class PresenterLogicStore implements IPresenterStore {
     @Override
     public void deleteOrderDetail(String idOrder, String idProduct) {
         if(modelOrder.deleteDetailOrder(idOrder,idProduct)) {
-            List<OrderDetail> list = modelOrder.getListOrderDetail(idOrder);
+            List<OrderDetail> list = modelOrder.getListDraftOrderDetail(idOrder);
             int s = list.size();
             if (s == 0) {
                 if (modelOrder.deleteDraftOrder(idOrder)) {
@@ -160,7 +159,7 @@ public class PresenterLogicStore implements IPresenterStore {
 
             viewStore.showCartDetail(list);
 
-            Order order = modelOrder.getOrderInformation(idOrder);
+            Order order = modelOrder.getDraftOrderById(idOrder);
             if (order != null) {
                 viewStore.showCart(order);
 
@@ -170,7 +169,7 @@ public class PresenterLogicStore implements IPresenterStore {
     }
 
     private void disPlayQuantityOfProductInCraftOrder(String idOrder) {
-        List<OrderDetail> mList = modelOrder.getListOrderDetail(idOrder);
+        List<OrderDetail> mList = modelOrder.getListDraftOrderDetail(idOrder);
         Map<String, Integer> map = null;
         if (mList.size() > 0) {
             map = new HashMap<>();

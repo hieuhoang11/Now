@@ -24,6 +24,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.hieuhoang.now.Adapter.ViewPagerAdapter;
 import com.example.hieuhoang.now.Adapter.srvCartDetailAdapter;
 import com.example.hieuhoang.now.Common.Common;
@@ -79,9 +80,11 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
 
     private BottomSheetBehavior sheetBehavior, sheetBehaviorAddToCart, sheetCart, sheetCartDetail;
     private ViewPagerAdapter adapter;
-   // private Dialog dialog;
+    // private Dialog dialog;
     private srvCartDetailAdapter cartDetailAdapter;
-String TAG = "kiemtra";
+    String TAG = "kiemtra";
+    private String idStore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -90,9 +93,9 @@ String TAG = "kiemtra";
         Mapping();
 
         Intent intent = getIntent();
-        String idStore = intent.getStringExtra(AppConstant.ID_STORE);
+        idStore = intent.getStringExtra(AppConstant.ID_STORE);
         presenterStore = new PresenterLogicStore(this, getApplicationContext());
-        presenterStore.getStoreByID(idStore);
+
 
 //        Toolbar toolbar = findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
@@ -102,15 +105,14 @@ String TAG = "kiemtra";
 //        }
 
 
-
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        presenterStore.getDraftOrder(store.getIdStore());
+        presenterStore.getDraftOrder(idStore);
+        presenterStore.getStoreByID(idStore);
     }
-
 
     private void Mapping() {
         appBarLayout = findViewById(R.id.appBar);
@@ -238,16 +240,8 @@ String TAG = "kiemtra";
 
         tvNameOfStore.setText(store.getStoreName());
         tvAddressOfStore.setText(store.getStoreAddress());
-        Common.loadImageFromServer( store.getImage(), getApplicationContext(), imgStore);
+        Common.loadImageFromServer(store.getImage(), getApplicationContext(), imgStore);
 
-    }
-
-    @Override
-    public void showCartDetail(List<OrderDetail> orderDetailList) {
-
-        bottom_sheet_cart_detail.setVisibility(View.VISIBLE);
-        cartDetailAdapter.setData(orderDetailList);
-        cartDetailAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -260,7 +254,7 @@ String TAG = "kiemtra";
         appBarLayout.animate().alpha((float) 0.3).start();
 
         tvQuantity.setText(String.valueOf(1));
-        Common.loadImageFromServer( product.getImage().trim(), getApplicationContext(), imgProductBottomSheet);
+        Common.loadImageFromServer(product.getImage().trim(), getApplicationContext(), imgProductBottomSheet);
         tvNameProductBottomSheet.setText(product.getProductName());
         String oldPriceStr = Common.formatNumber(product.getPrice());
         if (product.getDiscount() != 0) {
@@ -304,8 +298,16 @@ String TAG = "kiemtra";
 
         this.order = order;
 
-        if(viewPager.getCurrentItem() != 0) this.closeCartAndCartDetail();
+        if (viewPager.getCurrentItem() != 0) this.closeCartAndCartDetail();
 
+    }
+
+    @Override
+    public void showCartDetail(List<OrderDetail> orderDetailList) {
+
+        bottom_sheet_cart_detail.setVisibility(View.VISIBLE);
+        cartDetailAdapter.setData(orderDetailList);
+        cartDetailAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -514,25 +516,6 @@ String TAG = "kiemtra";
         dialog.setContentView(view);
         dialog.show();
     }
-
-//    public void showDialogEditNote(final String idOrder, final String idProduct, String note) {
-//        View view = getLayoutInflater().inflate(R.layout.layout_bottom_sheet_dialog_edit_note, null);
-//        final EditText edtNote = view.findViewById(R.id.edtNote);
-//        if (!note.equals("")) edtNote.setText(note);
-//        final BottomSheetDialog dialog = new BottomSheetDialog(this);
-//        view.findViewById(R.id.btnDone).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String n = edtNote.getText().toString().trim();
-//                if (!n.equals("")) {
-//                    presenterStore.updateNoteDetailOrder(idOrder, idProduct, n);
-//                }
-//                dialog.dismiss();
-//            }
-//        });
-//        dialog.setContentView(view);
-//        dialog.show();
-//    }
 
     private void showDialogEditNote(final String idOrder, final String idProduct, String note) {
         final Dialog dialog = new Dialog(StoreActivity.this);

@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorApp"
     android:orientation="vertical"
-    tools:context="com.example.hieuhoang.now.View.SubmitOrder.SubmitOrderActivity">
-
+    tools:context="com.example.hieuhoang.now.View.OrderDetail.OrderDetailActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,14 +16,14 @@
         <TextView
             android:id="@+id/tvStoreName"
             style="@style/text_title_activity"
-            android:text="ten cua hang" />
+             />
     </LinearLayout>
 
     <View style="@style/horizontal_line" />
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1">
 
         <LinearLayout
@@ -57,7 +57,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:orientation="vertical"
-                    android:paddingLeft="10dp"
+                    android:paddingStart="10dp"
                     android:weightSum="3">
 
                     <LinearLayout
@@ -77,7 +77,6 @@
                             android:id="@+id/tvCusInfo"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="hoang minh hieu - 123456789"
                             android:textColor="@color/colorBlack" />
 
 
@@ -118,7 +117,6 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:text="0,1km"
                             android:textColor="@color/colorBlack" />
 
                     </LinearLayout>
@@ -175,19 +173,19 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="3dp"
+            android:layout_marginStart="3dp"
             android:text="@string/item"
             android:textColor="@color/colorWhite" />
 
         <Button
-            android:id="@+id/btnSubmit"
-            android:layout_width="match_parent"
+            android:id="@+id/btnOk"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:background="@color/colorTransparent"
             android:gravity="center"
-            android:text="@string/submit_order"
+            android:text="@string/agree"
             android:textAllCaps="false"
             android:textColor="@color/colorWhite"
             android:textStyle="bold" />
@@ -197,8 +195,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:text="29,000 d"
             android:textColor="@color/colorWhite" />
     </LinearLayout>
-
 </LinearLayout>

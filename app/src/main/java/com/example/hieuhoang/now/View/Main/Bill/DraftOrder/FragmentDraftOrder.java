@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -30,6 +31,7 @@ public class FragmentDraftOrder extends Fragment implements ViewDraftOrder {
     private View viewInDraft,viewNoData;
     private srvDraftOrderBillAdapter adapter;
     private RecyclerView rvDraftOrder;
+    private SwipeRefreshLayout swipeRefresh;
     private IPresenterDraftOrder presenterLogicDraftOrder;
 
     @Nullable
@@ -41,12 +43,27 @@ public class FragmentDraftOrder extends Fragment implements ViewDraftOrder {
         return view;
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        presenterLogicDraftOrder.getListDraftOrder();
+    }
+
     private void Mapping(View view) {
         rvDraftOrder = view.findViewById(R.id.rvDraftOrder);
         tvTotalItem = view.findViewById(R.id.tvTotalItem);
         btnDeleteAll = view.findViewById(R.id.btnDeleteAll);
         viewInDraft = view.findViewById(R.id.viewInDraft);
         viewNoData = view.findViewById(R.id.viewNoData);
+        swipeRefresh = view.findViewById(R.id.swipeRefresh);
+        swipeRefresh.setColorSchemeResources(R.color.colorSwipe) ;
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                onStart();
+            }
+        });
+
         btnDeleteAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,8 +79,6 @@ public class FragmentDraftOrder extends Fragment implements ViewDraftOrder {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rvDraftOrder.setAdapter(adapter);
         rvDraftOrder.setLayoutManager(layoutManager);
-
-        presenterLogicDraftOrder.getListDraftOrder();
     }
 
     @Override
@@ -74,6 +89,7 @@ public class FragmentDraftOrder extends Fragment implements ViewDraftOrder {
         tvTotalItem.setText(String.valueOf(mOrders.size()));
         this.adapter.setData(mOrders);
         this.adapter.notifyDataSetChanged();
+        swipeRefresh.setRefreshing(false);
     }
 
     @Override
@@ -81,6 +97,7 @@ public class FragmentDraftOrder extends Fragment implements ViewDraftOrder {
         viewInDraft.setVisibility(View.GONE);
         rvDraftOrder.setVisibility(View.GONE);
         viewNoData.setVisibility(View.VISIBLE);
+        swipeRefresh.setRefreshing(false);
     }
 
     @Override

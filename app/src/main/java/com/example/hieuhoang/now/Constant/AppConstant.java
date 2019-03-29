@@ -1,7 +1,7 @@
 package com.example.hieuhoang.now.Constant;
 
 public class AppConstant {
-    private static final String LOCAL = "http://192.168.1.2:8080";
+    private static final String LOCAL = "http://192.168.1.5:8080";
     public static final String SERVER_NAME = LOCAL + "/webnow/getJSONData.php";
     public static final String SERVER_NAME_IMG = LOCAL + "/webnow/";
     public static final String EMAIL = "email";
@@ -19,8 +19,10 @@ public class AppConstant {
     public static final String GET_DRAFT_ORDER = "getDraftOrder";
     public static final String ADD_DETAIL_ORDER = "addDetailOrder";
     public static final String DELETE_DETAIL_ORDER = "deleteDetailOrder";
+    public static final String GET_LIST_DRAFT_ORDER_DETAIL = "getListDraftDetailOrder";
     public static final String GET_LIST_ORDER_DETAIL = "getListDetailOrder";
-    public static final String GET_ORDER_INFORMATION_BY_ID = "getOrderInformationByIdOrder";
+    public static final String GET_DRAFT_ORDER_BY_ID = "getDraftOrderByIdOrder";
+    public static final String GET_ORDER_BY_ID = "getOrderByIdOrder";
     public static final String DELETE_DRAFT_ORDER = "deleteDraftOrder";
     public static final String DELETE_ALL_DRAFT_ORDER = "deleteAllDraftOrder";
     public static final String UPDATE_QUANTITY_PRODUCT_ORDER_DETAIL = "updateQuantityProductInOrderDetail";
@@ -32,8 +34,10 @@ public class AppConstant {
     public static final String CHECK_EMAIL_EXISTS = "checkEmailExists";
     public static final String FUNC_GET_LIST_DRAFT_ORDER = "getListDraftOrder";
     public static final String FUNC_GET_LIST_ON_GOING_ORDER = "getListOnGoingOrder";
+    public static final String FUNC_GET_LIST_HISTORY_ORDER = "getListHistoryOrder";
     public static final String FUNC_SUBMIT_ORDER = "submitOrder";
     public static final String FUNC_GET_ORDER_STATUS = "getOrderStatus";
+    public static final String FUNC_CANCEL_ORDER = "cancelOrder";
     public static final String CHECK_LOGIN = "checkLogin";
     public static final String GET_ACCOUNT_BY_ID = "getAccountByID";
     public static final String FUNC_UPDATE_ACC_INFO = "updateAccountInfo";
@@ -61,6 +65,8 @@ public class AppConstant {
     public static final String TIME = "time";
     public static final String DRAFT_ORDER = "draft_order";
     public static final String COMPLETE_ORDER = "complete_order";
+    public static final String CANCEL_ORDER = "cancel_order";
+    public static final String SUBMIT_ORDER = "submit_order";
     public static final int DRAFT_ORDER_STATUS = 1;
     public static final int SUBMIT_ORDER_STATUS = 2;
     public static final int CANCEL_ORDER_STATUS = 3;
@@ -77,5 +83,7 @@ public class AppConstant {
     public static final String IS_GRID_IN_STORE = "is_grid";
     public static final String IS_GRID = "isGrid";
     public static final int ACCOUNT_TYPE_CUSTOMER = 1;
+    public static final String START_DATE = "start_date";
+    public static final String FINISH_DATE = "finish_date";
 
 }

@@ -3,9 +3,7 @@ package com.example.hieuhoang.now.Presenter.SubmitOrder;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
-
 import com.example.hieuhoang.now.Model.Account.ModelAccount;
-import com.example.hieuhoang.now.Model.Location.ModelLocation;
 import com.example.hieuhoang.now.Model.ObjectClass.Account;
 import com.example.hieuhoang.now.Model.ObjectClass.Order;
 import com.example.hieuhoang.now.Model.ObjectClass.OrderDetail;
@@ -13,9 +11,7 @@ import com.example.hieuhoang.now.Model.ObjectClass.Store;
 import com.example.hieuhoang.now.Model.Order.ModelOrder;
 import com.example.hieuhoang.now.Model.Store.ModelStore;
 import com.example.hieuhoang.now.Model.Store.Product.ModelProduct;
-import com.example.hieuhoang.now.View.Main.MainActivity;
 import com.example.hieuhoang.now.View.SubmitOrder.ViewSubmitOrder;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -48,7 +44,7 @@ public class PresenterLogicSubmitOrder implements IPresenterSubmitOrder {
 
     @Override
     public void getOrder(String idOrder) {
-        Order order = modelOrder.getOrderInformation(idOrder);
+        Order order = modelOrder.getDraftOrderById(idOrder);
         if (order == null) return;
         viewSubmitOrder.setInfoOrder(order);
 
@@ -60,7 +56,7 @@ public class PresenterLogicSubmitOrder implements IPresenterSubmitOrder {
 
     @Override
     public void getOrderDetail(String idOrder) {
-        List<OrderDetail> list = modelOrder.getListOrderDetail(idOrder);
+        List<OrderDetail> list = modelOrder.getListDraftOrderDetail(idOrder);
         if (list.size() > 0) {
             viewSubmitOrder.loadOrderDetail(list);
         }
@@ -85,10 +81,8 @@ public class PresenterLogicSubmitOrder implements IPresenterSubmitOrder {
     public void submitOrder(Order order, List<OrderDetail> mDetailList) {
         Map<String, Integer> mapQuantity = isEnoughQuantity(mDetailList) ;
         if (mapQuantity.size() == mDetailList.size()) {
-            Log.i(TAG, "submitOrder: 1");
             boolean b = modelOrder.submitOrder(order.getIdOrder(), order.getCustomerAddress(), order.getNote());
             if (b) {
-                Log.i(TAG, "submitOrder: 2");
                 for(Map.Entry<String,Integer> values : mapQuantity.entrySet()){
                     b = modelProduct.updateQuantityProduct(values.getKey(), String.valueOf(values.getValue()));
                 }

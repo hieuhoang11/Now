@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
-import com.example.hieuhoang.now.Adapter.StoreAdapter;
+import com.example.hieuhoang.now.Adapter.rvStoreAdapter;
 import com.example.hieuhoang.now.Model.ObjectClass.GroupProduct;
 import com.example.hieuhoang.now.Presenter.Store.ListProduct.IPresenterListProductInStore;
 import com.example.hieuhoang.now.Presenter.Store.ListProduct.PresenterLogicListProductInStore;
@@ -31,7 +31,7 @@ public class ListProductInStoreFragment extends Fragment implements ViewListProd
     private LinearLayout linearSearch;
     private EditText edtSearchInStore;
     private boolean isSearch = false;
-    private StoreAdapter adapter;
+    private rvStoreAdapter adapter;
     private StoreActivity activity;
     private IPresenterListProductInStore presenterListProductInStore;
 
@@ -44,7 +44,7 @@ public class ListProductInStoreFragment extends Fragment implements ViewListProd
         activity = (StoreActivity) getActivity();
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        adapter = new StoreAdapter(new ArrayList<GroupProduct>(), getContext(), activity,activity.getPresenterStore(), false);
+        adapter = new rvStoreAdapter(new ArrayList<GroupProduct>(), getContext(), activity,activity.getPresenterStore(), false);
         rvStore.setAdapter(adapter);
         rvStore.setLayoutManager(layoutManager);
 

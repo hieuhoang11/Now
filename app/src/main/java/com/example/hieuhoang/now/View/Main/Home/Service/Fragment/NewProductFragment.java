@@ -11,8 +11,8 @@ import android.view.ViewGroup;
 
 import com.example.hieuhoang.now.Adapter.rvItemStoreAdapter;
 import com.example.hieuhoang.now.Model.ObjectClass.Store;
-import com.example.hieuhoang.now.Presenter.Service.IPresenterFragmentService;
-import com.example.hieuhoang.now.Presenter.Service.PresenterLogicFragmentService;
+import com.example.hieuhoang.now.Presenter.Service.Fragment.IPresenterFragmentService;
+import com.example.hieuhoang.now.Presenter.Service.Fragment.PresenterLogicFragmentService;
 import com.example.hieuhoang.now.R;
 
 import java.util.List;

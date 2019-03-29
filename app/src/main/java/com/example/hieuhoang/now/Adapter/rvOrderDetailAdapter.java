@@ -16,13 +16,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class rvSubmitOrderAdapter extends RecyclerView.Adapter<rvSubmitOrderAdapter.SubmitViewHolder> {
+public class rvOrderDetailAdapter extends RecyclerView.Adapter<rvOrderDetailAdapter.SubmitViewHolder> {
     private List<OrderDetail> detailList;
     private Context context;
     private Map<String, Integer> map;
     private int BACK_GROUND_COLOR_WARNING;
 
-    public rvSubmitOrderAdapter(List<OrderDetail> detailList, Context context) {
+    public rvOrderDetailAdapter(List<OrderDetail> detailList, Context context) {
         this.detailList = detailList;
         this.context = context;
         map = new HashMap<>();
@@ -31,7 +31,7 @@ public class rvSubmitOrderAdapter extends RecyclerView.Adapter<rvSubmitOrderAdap
 
     @Override
     public SubmitViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_item_submit_order, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.custom_item_order_detail, parent, false);
         return new SubmitViewHolder(view);
     }
 

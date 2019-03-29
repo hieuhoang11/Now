@@ -11,6 +11,7 @@
     <string name="no_data_to_display">Không có dữ liệu !!!</string>
     <string name="no_on_going_order">Không có đơn hàng đang tới !!!</string>
     <string name="do_you_want_to_logout">Bạn có muốn đăng xuất không?</string>
+    <string name="do_you_want_to_cancel_order">Bạn có muốn hủy đơn hàng không?</string>
     <string name="please_complete_all_info">Vui lòng điền đầy đủ thông tin</string>
     <string name="agree">Đồng ý</string>
     <string name="order_status">Trạng thái đơn hàng</string>
@@ -44,7 +45,10 @@
     <string name="delete_all_draft_order_success">Xoá tất cả đơn nháp thành công</string>
     <string name="delete_all">Xóa tất cả</string>
     <string name="delete">Xóa</string>
-    <string name="cancel">Đóng</string>
+    <string name="close">Đóng</string>
+    <string name="cancel">Hủy</string>
+    <string name="cancel_order">Huỷ đơn hàng</string>
+    <string name="cancel_order_success">Huỷ đơn hàng thành công !!!</string>
     <string name="done">Xong</string>
     <string name="information">Thông tin</string>
     <string name="edit_info">Thay đổi thông tin</string>
@@ -61,6 +65,7 @@
     <string name="or_login_with">Hoặc đăng nhập bằng</string>
     <string name="txt_preferential">Ưu đãi</string>
     <string name="submit_order">Gửi yêu cầu</string>
+    <string name="detail">Chi tiết</string>
     <string name="process">Xử lý</string>
     <string name="full_name">Họ và tên</string>
     <string name="phone_number">Số điện thoại</string>

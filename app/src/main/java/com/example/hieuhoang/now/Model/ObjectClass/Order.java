@@ -9,10 +9,19 @@ public class Order {
     private String customerAddress ;
     private String storeAddress;
     private String note;
+    private String time ;
     private int quantityProduct;
     private float totalMoney;
 
     public Order() {
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getNote() {

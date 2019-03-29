@@ -1,15 +1,11 @@
 package com.example.hieuhoang.now.Model.Account;
 
-
-import android.util.Log;
-
+import com.example.hieuhoang.now.Common.Common;
 import com.example.hieuhoang.now.ConnectInternet.DownloadJSON;
 import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.ObjectClass.Account;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -68,9 +64,7 @@ public class ModelAccount {
         DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
         downloadJSON.execute();
         try {
-            String dataJson = downloadJSON.get();
-            JSONObject jsonObject = new JSONObject(dataJson);
-            return jsonObject.getBoolean(AppConstant.RESULT);
+            return Common.parseBooleanJson(downloadJSON.get());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
