@@ -10,7 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.hieuhoang.now.Common.Common;
+import com.example.hieuhoang.now.Util.Util;
 import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.ObjectClass.Store;
 import com.example.hieuhoang.now.Presenter.Store.InformationStore.IPresenterInfoStore;
@@ -22,7 +22,6 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
-import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
@@ -77,7 +76,7 @@ public class InfoStoreFragment extends Fragment implements ViewInfoStore, OnMapR
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
         if(map == null || store == null) return;
-        LatLng storeLocation = Common.getCoordinates(getContext(), store.getStoreAddress());
+        LatLng storeLocation = Util.getCoordinates(getContext(), store.getStoreAddress());
         if(storeLocation == null) return;
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(storeLocation, 17));
         map.addMarker(new MarkerOptions()

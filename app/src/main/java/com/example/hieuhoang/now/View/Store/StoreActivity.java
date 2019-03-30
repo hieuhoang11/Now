@@ -13,9 +13,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.DragEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -27,7 +25,7 @@ import android.widget.Toast;
 
 import com.example.hieuhoang.now.Adapter.ViewPagerAdapter;
 import com.example.hieuhoang.now.Adapter.srvCartDetailAdapter;
-import com.example.hieuhoang.now.Common.Common;
+import com.example.hieuhoang.now.Util.Util;
 import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.ObjectClass.OrderDetail;
 import com.example.hieuhoang.now.Model.ObjectClass.Order;
@@ -38,9 +36,8 @@ import com.example.hieuhoang.now.Presenter.Store.PresenterLogicStore;
 import com.example.hieuhoang.now.R;
 import com.example.hieuhoang.now.View.LoginRegister.LoginRegisterActivity;
 import com.example.hieuhoang.now.View.Store.InfoStore.InfoStoreFragment;
-import com.example.hieuhoang.now.View.Store.ProductsInStore.ListProductInStoreFragment;
+import com.example.hieuhoang.now.View.Store.Product.ProductFragment;
 import com.example.hieuhoang.now.View.SubmitOrder.SubmitOrderActivity;
-import com.google.android.gms.maps.MapFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +54,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
     private Product product;
     private Store store;
     private Order order;
+   // private SwipeRefreshLayout swipeRefresh;
     //sheet
     private ImageView imgBottomSheet, imgProductBottomSheet;
     private ImageButton btnSubtract, btnAdd, btnCloseBottomSheet;
@@ -84,13 +82,22 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
     private srvCartDetailAdapter cartDetailAdapter;
     String TAG = "kiemtra";
     private String idStore;
+    private List<Fragment> fragmentList;
+    private boolean isInit = false ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store);
-
+        isInit = false ;
         Mapping();
+
+        addOnClick();
+
+        cartDetailAdapter = new srvCartDetailAdapter(new ArrayList<OrderDetail>(), getApplicationContext(), this, presenterStore);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+        rvProductsInCartDetail.setAdapter(cartDetailAdapter);
+        rvProductsInCartDetail.setLayoutManager(layoutManager);
 
         Intent intent = getIntent();
         idStore = intent.getStringExtra(AppConstant.ID_STORE);
@@ -110,7 +117,6 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
     @Override
     protected void onStart() {
         super.onStart();
-        presenterStore.getDraftOrder(idStore);
         presenterStore.getStoreByID(idStore);
     }
 
@@ -121,7 +127,16 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
         imgStore = findViewById(R.id.imgStore);
         viewPager = findViewById(R.id.viewPagerStore);
         tabLayout = findViewById(R.id.tabLayoutStore);
-
+//        swipeRefresh = findViewById(R.id.mainLayout);
+//        swipeRefresh.setColorSchemeResources(R.color.colorSwipe);
+//        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                //isRefresh = true;
+//                //onStart();
+//                swipeRefresh.setRefreshing(false);
+//            }
+//        });
         //bottom sheet
         bottom_sheet = findViewById(R.id.bottom_sheet);
         imgProductBottomSheet = findViewById(R.id.imgProductBottomSheet);
@@ -184,15 +199,9 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
         tvResetDetail.setOnClickListener(this);
     }
 
-    private void init() {
-
-        cartDetailAdapter = new srvCartDetailAdapter(new ArrayList<OrderDetail>(), getApplicationContext(), this, presenterStore);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
-        rvProductsInCartDetail.setAdapter(cartDetailAdapter);
-        rvProductsInCartDetail.setLayoutManager(layoutManager);
-
-        List<Fragment> fragmentList = new ArrayList<>();
-        fragmentList.add(new ListProductInStoreFragment());
+    private void initTabs() {
+        fragmentList = new ArrayList<>();
+        fragmentList.add(new ProductFragment());
         fragmentList.add(new InfoStoreFragment());
 
         List<String> fragmentTitleList = new ArrayList<>();
@@ -228,19 +237,47 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
                     }
                 }
         );
-
     }
 
     @Override
     public void loadInformationStore(Store store) {
         this.store = store;
 
-        init();
-        addOnClick();
+        if (!isInit) {
+            initTabs();
+            isInit = true ;
+        } else {
+            for(Fragment f : fragmentList) {
+                f.onStart();
+            }
+        }
+        presenterStore.getDraftOrder(idStore);
 
         tvNameOfStore.setText(store.getStoreName());
         tvAddressOfStore.setText(store.getStoreAddress());
-        Common.loadImageFromServer(store.getImage(), getApplicationContext(), imgStore);
+        Util.loadImageFromServer(store.getImage(), getApplicationContext(), imgStore);
+
+    }
+
+    @Override
+    public void showCart(Order order) {
+        this.closeBottomSheetAddToCart();
+        bottom_sheet_cart_in_store.setVisibility(View.VISIBLE);
+
+        String quantity = String.valueOf(order.getQuantityProduct());
+        String totalMoney = Util.formatNumber(order.getTotalMoney());
+
+        tvNumberItemInCart.setText(quantity);
+        tvTotalMoneyOfCart.setText(totalMoney);
+
+        tvTotalItemsInCartDetail.setText(quantity);
+        tvTotalMoneyOfCartDetail.setText(totalMoney);
+
+        this.order = order;
+
+        if (viewPager.getCurrentItem() != 0) this.closeCartAndCartDetail();
+
+        //swipeRefresh.setRefreshing(false);
 
     }
 
@@ -254,14 +291,14 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
         appBarLayout.animate().alpha((float) 0.3).start();
 
         tvQuantity.setText(String.valueOf(1));
-        Common.loadImageFromServer(product.getImage().trim(), getApplicationContext(), imgProductBottomSheet);
+        Util.loadImageFromServer(product.getImage().trim(), getApplicationContext(), imgProductBottomSheet);
         tvNameProductBottomSheet.setText(product.getProductName());
-        String oldPriceStr = Common.formatNumber(product.getPrice());
+        String oldPriceStr = Util.formatNumber(product.getPrice());
         if (product.getDiscount() != 0) {
             tvNewPriceBottomSheet.setVisibility(View.VISIBLE);
-            String disCount = Common.formatNumber(product.getDiscount());
+            String disCount = Util.formatNumber(product.getDiscount());
             tvNewPriceBottomSheet.setText(disCount);
-            tvOldPriceBottomSheet.setText(Common.oldPriceFormat(oldPriceStr));
+            tvOldPriceBottomSheet.setText(Util.oldPriceFormat(oldPriceStr));
             imgBottomSheet.setVisibility(View.VISIBLE);
             tvTotal.setText(disCount);
         } else {
@@ -271,7 +308,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
             tvNewPriceBottomSheet.setVisibility(View.GONE);
         }
 
-        tvQuantityPurchasedBottomSheet.setText(Common.qualityPurchased(product.getQuantityPurchase()));
+        tvQuantityPurchasedBottomSheet.setText(Util.qualityPurchased(product.getQuantityPurchase()));
 
         this.product = product;
     }
@@ -280,26 +317,6 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
     public void startLoginActivity() {
         Intent iLogin = new Intent(StoreActivity.this, LoginRegisterActivity.class);
         startActivity(iLogin);
-    }
-
-    @Override
-    public void showCart(Order order) {
-        this.closeBottomSheetAddToCart();
-        bottom_sheet_cart_in_store.setVisibility(View.VISIBLE);
-
-        String quantity = String.valueOf(order.getQuantityProduct());
-        String totalMoney = Common.formatNumber(order.getTotalMoney());
-
-        tvNumberItemInCart.setText(quantity);
-        tvTotalMoneyOfCart.setText(totalMoney);
-
-        tvTotalItemsInCartDetail.setText(quantity);
-        tvTotalMoneyOfCartDetail.setText(totalMoney);
-
-        this.order = order;
-
-        if (viewPager.getCurrentItem() != 0) this.closeCartAndCartDetail();
-
     }
 
     @Override
@@ -318,7 +335,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
 
     @Override
     public void disPlayQuantityOfProductInCraftOrder(Map<String, Integer> map) {
-        ListProductInStoreFragment fragment = (ListProductInStoreFragment) adapter.getItem(0);
+        ProductFragment fragment = (ProductFragment) adapter.getItem(0);
         fragment.displayQuantityInDraftOrder(map);
     }
 
@@ -346,7 +363,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
                 int a = Integer.parseInt(tvQuantity.getText().toString()) + 1;
                 if (presenterStore.isEnoughItems(id, this.product.getId(), a)) {
                     tvQuantity.setText(String.valueOf(a));
-                    tvTotal.setText(Common.formatNumber(totalMoney(a)));
+                    tvTotal.setText(Util.formatNumber(totalMoney(a)));
                 } else {
                     Toast.makeText(this.getApplicationContext(), R.string.msg_out_of_stock, Toast.LENGTH_SHORT).show();
                 }
@@ -355,7 +372,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
                 int s = Integer.parseInt(tvQuantity.getText().toString()) - 1;
                 if (s >= 1) {
                     tvQuantity.setText(String.valueOf(s));
-                    tvTotal.setText(Common.formatNumber(totalMoney(s)));
+                    tvTotal.setText(Util.formatNumber(totalMoney(s)));
                 }
                 break;
             case R.id.bottom_sheet_add_to_cart:
@@ -508,7 +525,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
                 String quantity = edtQuantity.getText().toString().trim();
                 if (!quantity.equals("") && !quantity.equals("0")) {
                     tvQuantity.setText(quantity);
-                    tvTotal.setText(Common.formatNumber(totalMoney(Integer.parseInt(quantity))));
+                    tvTotal.setText(Util.formatNumber(totalMoney(Integer.parseInt(quantity))));
                 }
                 dialog.dismiss();
             }

@@ -2,14 +2,10 @@ package com.example.hieuhoang.now.Model.ObjectClass;
 
 import java.util.List;
 
-/**
- * Created by Hieu Hoang on 27/02/2019.
- */
-
 public class GroupProduct {
-    int idGroup ;
-    String nameGroup ;
-    List<Product> listProducts ;
+    private int idGroup ;
+    private String nameGroup ;
+    private List<Product> listProducts ;
 
     public GroupProduct() {
     }

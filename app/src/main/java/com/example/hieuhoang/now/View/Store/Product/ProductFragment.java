@@ -1,4 +1,4 @@
-package com.example.hieuhoang.now.View.Store.ProductsInStore;
+package com.example.hieuhoang.now.View.Store.Product;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -6,6 +6,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,27 +16,32 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
-import com.example.hieuhoang.now.Adapter.rvStoreAdapter;
+import com.example.hieuhoang.now.Adapter.rvGroupProductAdapter;
 import com.example.hieuhoang.now.Model.ObjectClass.GroupProduct;
+import com.example.hieuhoang.now.Model.ObjectClass.Order;
+import com.example.hieuhoang.now.Model.ObjectClass.Product;
+import com.example.hieuhoang.now.Model.ObjectClass.Store;
 import com.example.hieuhoang.now.Presenter.Store.ListProduct.IPresenterListProductInStore;
 import com.example.hieuhoang.now.Presenter.Store.ListProduct.PresenterLogicListProductInStore;
 import com.example.hieuhoang.now.R;
+import com.example.hieuhoang.now.Util.Util;
 import com.example.hieuhoang.now.View.Store.StoreActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ListProductInStoreFragment extends Fragment implements ViewListProductInStore, View.OnClickListener {
+public class ProductFragment extends Fragment implements ViewProduct, View.OnClickListener, TextWatcher {
 
     private ImageButton btnSearchStore, btnShowGrid, btnShowList;
     private RecyclerView rvStore;
     private LinearLayout linearSearch;
     private EditText edtSearchInStore;
     private boolean isSearch = false;
-    private rvStoreAdapter adapter;
+    private rvGroupProductAdapter adapter;
     private StoreActivity activity;
     private IPresenterListProductInStore presenterListProductInStore;
+    private List<GroupProduct> mGroupProducts;
 
     @Nullable
     @Override
@@ -44,14 +52,23 @@ public class ListProductInStoreFragment extends Fragment implements ViewListProd
         activity = (StoreActivity) getActivity();
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        adapter = new rvStoreAdapter(new ArrayList<GroupProduct>(), getContext(), activity,activity.getPresenterStore(), false);
+        adapter = new rvGroupProductAdapter(new ArrayList<GroupProduct>(), getContext(), activity, false);
         rvStore.setAdapter(adapter);
         rvStore.setLayoutManager(layoutManager);
 
         presenterListProductInStore = new PresenterLogicListProductInStore(this, getContext());
-        presenterListProductInStore.getListProduct(activity.getStore());
-        presenterListProductInStore.showQuantityProductInCraftOrder(activity.getOrder());
+
+
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Store store = activity.getStore();
+        Order order = activity.getOrder();
+        presenterListProductInStore.getListProduct(store);
+        presenterListProductInStore.showQuantityProductInCraftOrder(order);
     }
 
     private void Mapping(View view) {
@@ -64,10 +81,11 @@ public class ListProductInStoreFragment extends Fragment implements ViewListProd
         linearSearch.setVisibility(View.GONE);
     }
 
-    private void addOnClick(){
+    private void addOnClick() {
         btnSearchStore.setOnClickListener(this);
         btnShowGrid.setOnClickListener(this);
         btnShowList.setOnClickListener(this);
+        edtSearchInStore.addTextChangedListener(this);
     }
 
     @Override
@@ -76,11 +94,12 @@ public class ListProductInStoreFragment extends Fragment implements ViewListProd
         adapter.setData(mGroupProducts);
         adapter.setIsGrid(isGrid);
         adapter.notifyDataSetChanged();
+        this.mGroupProducts = mGroupProducts ;
     }
 
     @Override
     public void displayQuantityInDraftOrder(Map<String, Integer> map) {
-        if(adapter == null) return;
+        if (adapter == null) return;
         this.adapter.setHashMap(map);
         this.adapter.notifyDataSetChanged();
     }
@@ -93,7 +112,7 @@ public class ListProductInStoreFragment extends Fragment implements ViewListProd
                     linearSearch.setVisibility(View.GONE);
                     edtSearchInStore.setText("");
                     btnSearchStore.setImageResource(R.drawable.icon_search_24dp);
-                } else  {
+                } else {
                     linearSearch.setVisibility(View.VISIBLE);
                     btnSearchStore.setImageResource(R.drawable.icon_search_actived_24dp);
                 }
@@ -112,8 +131,8 @@ public class ListProductInStoreFragment extends Fragment implements ViewListProd
         }
     }
 
-    private void setIcon (boolean b) {
-        if(b) {
+    private void setIcon(boolean b) {
+        if (b) {
             btnShowGrid.setImageResource(R.drawable.icon_grid_view_actived);
             btnShowList.setImageResource(R.drawable.icon_list_view);
         } else {
@@ -128,5 +147,42 @@ public class ListProductInStoreFragment extends Fragment implements ViewListProd
         this.adapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+    }
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        Log.i("kiemtra", "onTextChanged: " + start + " " + before + " " + s.length());
+        String str = Util.standardizeString(s.toString());
+        str = Util.removeAccent(str).toLowerCase();
+        if (str.length() == 0) {
+            adapter.setData(this.mGroupProducts);
+            adapter.notifyDataSetChanged();
+        } else {
+            List<GroupProduct> mG = new ArrayList<>() ;
+            List<Product> mP = new ArrayList<>() ;
+            for(GroupProduct group : this.mGroupProducts) {
+                List<Product> list = group.getListProducts() ;
+                for(Product p : list) {
+                    if(Util.removeAccent(p.getProductName()).toLowerCase().contains(str)) {
+                        mP.add(p) ;
+                    }
+                }
+            }
+            if (mP.size() > 0) {
+                GroupProduct g = new GroupProduct() ;
+                g.setListProducts(mP);
+                mG.add(g) ;
+            }
+            adapter.setData(mG);
+            adapter.notifyDataSetChanged();
+        }
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
+
+    }
 }

@@ -13,25 +13,20 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.hieuhoang.now.Adapter.rvHistoryOrderAdapter;
-import com.example.hieuhoang.now.Adapter.rvOnGoingOrderAdapter;
-import com.example.hieuhoang.now.Common.Common;
+import com.example.hieuhoang.now.Util.Util;
 import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.ObjectClass.Order;
 import com.example.hieuhoang.now.Presenter.Main.Bill.History.IPresenterHistoryOrder;
 import com.example.hieuhoang.now.Presenter.Main.Bill.History.PresenterLogicHistoryOrder;
-import com.example.hieuhoang.now.Presenter.Main.Bill.OnGoing.IPresenterOnGoing;
-import com.example.hieuhoang.now.Presenter.Main.Bill.OnGoing.PresenterLogicOnGoing;
 import com.example.hieuhoang.now.R;
 import com.example.hieuhoang.now.View.OrderDetail.OrderDetailActivity;
 
@@ -133,7 +128,6 @@ public class FragmentHistory extends Fragment implements ViewHistory, View.OnCli
     private void loadOrder () {
         String startDate = formatDate(edtStartDate.getText().toString());
         String endDate = formatDate(edtEndDate.getText().toString());
-        Log.i("kiemtra", "init: " + startDate + " - " + endDate);
         presenterLogic.getListOrder(startDate, endDate);
     }
 
@@ -150,7 +144,7 @@ public class FragmentHistory extends Fragment implements ViewHistory, View.OnCli
 
     private void initDate() {
         Calendar calendar = Calendar.getInstance() ;
-        edtEndDate.setText(Common.formatDate(calendar.getTime()));
+        edtEndDate.setText(Util.formatDate(calendar.getTime()));
 
         int month = calendar.get(Calendar.MONTH);
         int year = calendar.get(Calendar.YEAR);
@@ -160,7 +154,7 @@ public class FragmentHistory extends Fragment implements ViewHistory, View.OnCli
             year -= 1;
         } else month -= 1;
         calendar.set(year, month, day);
-        edtStartDate.setText(Common.formatDate(calendar.getTime()));
+        edtStartDate.setText(Util.formatDate(calendar.getTime()));
     }
 
     private void chooseDate(final TextView edt) {
@@ -173,7 +167,7 @@ public class FragmentHistory extends Fragment implements ViewHistory, View.OnCli
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
                 Calendar calendar = Calendar.getInstance();
                 calendar.set(year, month, dayOfMonth);
-                edt.setText(Common.formatDate(calendar.getTime()));
+                edt.setText(Util.formatDate(calendar.getTime()));
                 loadOrder () ;
             }
         }, y, m, d);

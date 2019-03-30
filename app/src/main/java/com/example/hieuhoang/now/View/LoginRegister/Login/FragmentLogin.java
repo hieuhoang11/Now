@@ -23,13 +23,13 @@ import com.example.hieuhoang.now.R;
 import com.example.hieuhoang.now.View.LoginRegister.Register.FragmentRegister;
 
 
-public class FragmentLogin extends Fragment implements ViewLogin ,View.OnClickListener{
+public class FragmentLogin extends Fragment implements ViewLogin, View.OnClickListener {
     private ImageButton btnBackLogin;
     private TextView txtRegister;
-    private EditText edEmailLogin ,edPasswordLogin;
-    private Button  btnLogin;
-    TextInputLayout input_edtEmail,input_edtPassword;
-    private IPresenterLogin presenterLogicLogin ;
+    private EditText edEmailLogin, edPasswordLogin;
+    private Button btnLogin;
+    TextInputLayout input_edtEmail, input_edtPassword;
+    private IPresenterLogin presenterLogicLogin;
 
     @Nullable
     @Override
@@ -37,14 +37,14 @@ public class FragmentLogin extends Fragment implements ViewLogin ,View.OnClickLi
 
         View view = inflater.inflate(R.layout.layout_fragment_login, container, false);
 
-        presenterLogicLogin = new PresenterLogicLogin(this,getContext());
-        btnLogin = (Button) view.findViewById(R.id.btnLogin);
-        btnBackLogin = (ImageButton) view.findViewById(R.id.btnBackLoginRegister);
-        txtRegister = (TextView) view.findViewById(R.id.txtRegister);
-        edEmailLogin= (EditText) view.findViewById(R.id.edEmailLogin);
-        edPasswordLogin = (EditText) view.findViewById(R.id.edPasswordLogin);
-        input_edtEmail = (TextInputLayout) view.findViewById(R.id.input_edtEmail);
-        input_edtPassword= (TextInputLayout) view.findViewById(R.id.input_edtPassword);
+        presenterLogicLogin = new PresenterLogicLogin(this, getContext());
+        btnLogin = view.findViewById(R.id.btnLogin);
+        btnBackLogin = view.findViewById(R.id.btnBackLoginRegister);
+        txtRegister = view.findViewById(R.id.txtRegister);
+        edEmailLogin = view.findViewById(R.id.edEmailLogin);
+        edPasswordLogin = view.findViewById(R.id.edPasswordLogin);
+        input_edtEmail = view.findViewById(R.id.input_edtEmail);
+        input_edtPassword = view.findViewById(R.id.input_edtPassword);
         btnLogin.setOnClickListener(this);
         btnBackLogin.setOnClickListener(this);
         txtRegister.setOnClickListener(this);
@@ -55,16 +55,16 @@ public class FragmentLogin extends Fragment implements ViewLogin ,View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnLogin:
-                if(! checkEmail() | ! checkPassword()) break;
+                if (!checkEmail() | !checkPassword()) break;
                 String email = edEmailLogin.getText().toString().trim();
                 String password = edPasswordLogin.getText().toString().trim();
-                presenterLogicLogin.loginAccount(email,password);
+                presenterLogicLogin.loginAccount(email, password);
                 break;
             case R.id.btnBackLoginRegister:
                 getActivity().finish();
                 break;
             case R.id.txtRegister:
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager() ;
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.add(R.id.container_login_register, new FragmentRegister(), null);
                 fragmentTransaction.commit();
@@ -74,13 +74,13 @@ public class FragmentLogin extends Fragment implements ViewLogin ,View.OnClickLi
 
     @Override
     public void onLoginSuccess() {
-        Toast.makeText(getContext(),R.string.login_success,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), R.string.login_success, Toast.LENGTH_SHORT).show();
         getActivity().finish();
     }
 
     @Override
     public void onLoginFail() {
-        Toast.makeText(getContext(),R.string.login_fail,Toast.LENGTH_SHORT).show();
+        Toast.makeText(getContext(), R.string.login_fail, Toast.LENGTH_SHORT).show();
     }
 
     private boolean checkEmail() {

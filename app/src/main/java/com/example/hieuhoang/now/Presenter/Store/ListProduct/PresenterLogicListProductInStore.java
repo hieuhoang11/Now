@@ -8,7 +8,7 @@ import com.example.hieuhoang.now.Model.ObjectClass.OrderDetail;
 import com.example.hieuhoang.now.Model.ObjectClass.Store;
 import com.example.hieuhoang.now.Model.Order.ModelOrder;
 import com.example.hieuhoang.now.Model.Store.Product.ModelProduct;
-import com.example.hieuhoang.now.View.Store.ProductsInStore.ViewListProductInStore;
+import com.example.hieuhoang.now.View.Store.Product.ViewProduct;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,12 +16,12 @@ import java.util.Map;
 
 
 public class PresenterLogicListProductInStore implements IPresenterListProductInStore {
-    ViewListProductInStore viewListProductInStore ;
+    ViewProduct viewProduct;
     ModelProduct modelProduct ;
     ModelOrder modelOrder ;
     Context context ;
-    public PresenterLogicListProductInStore(ViewListProductInStore viewListProductInStore,Context context){
-        this.viewListProductInStore = viewListProductInStore ;
+    public PresenterLogicListProductInStore(ViewProduct viewProduct, Context context){
+        this.viewProduct = viewProduct;
         modelProduct = new ModelProduct() ;
         modelOrder = new ModelOrder();
         this.context = context ;
@@ -31,7 +31,7 @@ public class PresenterLogicListProductInStore implements IPresenterListProductIn
         if(store == null) return;
         List<GroupProduct> list = modelProduct.getListGroupProductByIDStore(store.getIdStore());
         if (list.size() > 0) {
-            viewListProductInStore.loadListProductInStore(list, modelProduct.getIsGrid(context));
+            viewProduct.loadListProductInStore(list, modelProduct.getIsGrid(context));
         }
     }
 
@@ -51,7 +51,7 @@ public class PresenterLogicListProductInStore implements IPresenterListProductIn
                 map.put(detail.getIdProduct(),detail.getQuantity()) ;
             }
         }
-        viewListProductInStore.displayQuantityInDraftOrder(map);
+        viewProduct.displayQuantityInDraftOrder(map);
     }
 
 

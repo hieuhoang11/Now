@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.hieuhoang.now.Common.Common;
+import com.example.hieuhoang.now.Util.Util;
 import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.ObjectClass.Store;
 import com.example.hieuhoang.now.R;
@@ -45,7 +45,7 @@ public class rvItemStoreAdapter extends RecyclerView.Adapter<rvItemStoreAdapter.
         final Store store = mStores.get(position);
         holder.tvName.setText(store.getStoreName());
         holder.tvAddress.setText(store.getStoreAddress());
-        Common.loadImageFromServer(store.getImage(),context,holder.imgStore);
+        Util.loadImageFromServer(store.getImage(),context,holder.imgStore);
         holder.viewItemStore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -2,9 +2,8 @@ package com.example.hieuhoang.now.Model.Store.Product;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
-import com.example.hieuhoang.now.Common.Common;
+import com.example.hieuhoang.now.Util.Util;
 import com.example.hieuhoang.now.ConnectInternet.DownloadJSON;
 import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.ObjectClass.GroupProduct;
@@ -154,7 +153,7 @@ public class ModelProduct {
         DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
         downloadJSON.execute();
         try {
-            return Common.parseBooleanJson(downloadJSON.get());
+            return Util.parseBooleanJson(downloadJSON.get());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

@@ -7,10 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.hieuhoang.now.Common.Common;
+import com.example.hieuhoang.now.Util.Util;
 import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.ObjectClass.HotProduct;
 import com.example.hieuhoang.now.R;
@@ -48,9 +47,9 @@ public class rvHotAdapter extends RecyclerView.Adapter<rvHotAdapter.HotProductVi
     @Override
     public void onBindViewHolder(HotProductViewHolder holder, int position) {
         final HotProduct product = mHotProducts.get(position);
-        Common.loadImageFromServer( product.getImageProduct(), context,holder.imgHotProduct);
-        holder.tvHotOldPrice.setText(Common.oldPriceFormat(Common.formatNumber(product.getOldPrice())));
-        holder.tvHotNewPrice.setText(Common.formatNumber(product.getNewPrice()));
+        Util.loadImageFromServer( product.getImageProduct(), context,holder.imgHotProduct);
+        holder.tvHotOldPrice.setText(Util.oldPriceFormat(Util.formatNumber(product.getOldPrice())));
+        holder.tvHotNewPrice.setText(Util.formatNumber(product.getNewPrice()));
         holder.tvHotProductName.setText(product.getProductName());
         holder.tvHotQuality.setText(product.getDiscountNumber()+" giảm giá");
         holder.tvHotStoreName.setText(product.getStoreName());

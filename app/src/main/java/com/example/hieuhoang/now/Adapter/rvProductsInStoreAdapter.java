@@ -9,7 +9,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.hieuhoang.now.Common.Common;
+import com.example.hieuhoang.now.Util.Util;
 import com.example.hieuhoang.now.Model.ObjectClass.Product;
 import com.example.hieuhoang.now.Presenter.Store.IPresenterStore;
 import com.example.hieuhoang.now.R;
@@ -29,12 +29,12 @@ public class rvProductsInStoreAdapter extends RecyclerView.Adapter<rvProductsInS
     private final int LAYOUT_LIST_PRODUCT = R.layout.custom_list_product_store;
     private final int LAYOUT_GRID_PRODUCT = R.layout.custom_grid_product_store;
 
-    public rvProductsInStoreAdapter(List<Product> mProducts, Context context, StoreActivity storeActivity, IPresenterStore presenterLogicStore, boolean isGrid, Map<String, Integer> map) {
+    public rvProductsInStoreAdapter(List<Product> mProducts, Context context, StoreActivity storeActivity, boolean isGrid, Map<String, Integer> map) {
         this.mProducts = mProducts;
         this.mLayoutInflater = LayoutInflater.from(context);
         this.context = context;
         this.isGrid = isGrid;
-        this.presenterLogicStore = presenterLogicStore;
+        this.presenterLogicStore = storeActivity.getPresenterStore();
         this.map = map;
         this.storeActivity = storeActivity;
     }
@@ -52,16 +52,16 @@ public class rvProductsInStoreAdapter extends RecyclerView.Adapter<rvProductsInS
     public void onBindViewHolder(ProductsViewHolder holder, int position) {
         final Product product = mProducts.get(position);
         holder.tvNameProduct.setText(product.getProductName());
-        holder.tvNumberOfPurchases.setText(Common.qualityPurchased(product.getQuantityPurchase()));
-        Common.loadImageFromServer(product.getImage(), context, holder.imgProduct);
-        final String price = Common.formatNumber(product.getPrice());
+        holder.tvNumberOfPurchases.setText(Util.qualityPurchased(product.getQuantityPurchase()));
+        Util.loadImageFromServer(product.getImage(), context, holder.imgProduct);
+        final String price = Util.formatNumber(product.getPrice());
         if (product.getDiscount() == 0) {
             holder.tvProductPrice.setText(price);
             holder.tvDisCount.setVisibility(View.GONE);
             if (!isGrid) holder.imgDisCount.setVisibility(View.GONE);
         } else {
-            holder.tvProductPrice.setText(Common.oldPriceFormat(price));
-            holder.tvDisCount.setText(Common.formatNumber(product.getDiscount()));
+            holder.tvProductPrice.setText(Util.oldPriceFormat(price));
+            holder.tvDisCount.setText(Util.formatNumber(product.getDiscount()));
             holder.tvProductPrice.setTextColor(context.getResources().getColor(R.color.colorOldPrice));
         }
 
@@ -115,7 +115,7 @@ public class rvProductsInStoreAdapter extends RecyclerView.Adapter<rvProductsInS
         ImageButton btnPlus, btnSubtract;
 
 
-        public ProductsViewHolder(View itemView) {
+        private ProductsViewHolder(View itemView) {
             super(itemView);
             imgProduct = itemView.findViewById(R.id.imgProduct);
             tvNameProduct = itemView.findViewById(R.id.tvNameProduct);
@@ -130,6 +130,14 @@ public class rvProductsInStoreAdapter extends RecyclerView.Adapter<rvProductsInS
             if (!isGrid)
                 imgDisCount = itemView.findViewById(R.id.imgDisCount);
         }
+    }
+
+    public void setData(List<Product> mProducts) {
+        this.mProducts = mProducts ;
+    }
+
+    public void setIsGrid (boolean isGrid) {
+        this.isGrid = isGrid ;
     }
 
 }

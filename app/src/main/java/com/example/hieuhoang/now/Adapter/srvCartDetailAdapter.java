@@ -1,21 +1,17 @@
 package com.example.hieuhoang.now.Adapter;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
-import com.example.hieuhoang.now.Common.Common;
+import com.example.hieuhoang.now.Util.Util;
 import com.example.hieuhoang.now.Model.ObjectClass.OrderDetail;
 import com.example.hieuhoang.now.Presenter.Store.IPresenterStore;
 import com.example.hieuhoang.now.R;
@@ -46,11 +42,11 @@ public class srvCartDetailAdapter extends RecyclerSwipeAdapter<srvCartDetailAdap
     public void onBindViewHolder(final DetailViewHolder holder, int position) {
         final OrderDetail detail = mOrderDetails.get(position);
         holder.tvProductName.setText(detail.getProductName());
-        String price = Common.formatNumber(detail.getProductPrice());
+        String price = Util.formatNumber(detail.getProductPrice());
         float totalMoney = 0;
         if (detail.getDisCount() != 0) {
-            holder.tvNewPrice.setText(Common.formatNumber(detail.getDisCount()));
-            holder.tvOldPrice.setText(Common.oldPriceFormat(price));
+            holder.tvNewPrice.setText(Util.formatNumber(detail.getDisCount()));
+            holder.tvOldPrice.setText(Util.oldPriceFormat(price));
             totalMoney = detail.getQuantity() * detail.getDisCount();
         } else {
             holder.tvNewPrice.setVisibility(View.GONE);
@@ -59,7 +55,7 @@ public class srvCartDetailAdapter extends RecyclerSwipeAdapter<srvCartDetailAdap
             holder.tvOldPrice.setTextColor(context.getResources().getColor(R.color.colorBlack));
             totalMoney = detail.getQuantity() * detail.getProductPrice();
         }
-        holder.tvTotalMoney.setText(Common.formatNumber(totalMoney));
+        holder.tvTotalMoney.setText(Util.formatNumber(totalMoney));
 
         holder.tvQuantity.setText(String.valueOf(detail.getQuantity()));
         String note = detail.getNote().equals("") ? context.getResources().getString(R.string.note) : detail.getNote();

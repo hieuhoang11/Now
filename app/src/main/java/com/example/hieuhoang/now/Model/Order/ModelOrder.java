@@ -3,7 +3,7 @@ package com.example.hieuhoang.now.Model.Order;
 
 import android.util.Log;
 
-import com.example.hieuhoang.now.Common.Common;
+import com.example.hieuhoang.now.Util.Util;
 import com.example.hieuhoang.now.ConnectInternet.DownloadJSON;
 import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.ObjectClass.Order;
@@ -16,7 +16,6 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -98,7 +97,7 @@ public class ModelOrder {
         DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
         downloadJSON.execute();
         try {
-            return Common.parseBooleanJson(downloadJSON.get());
+            return Util.parseBooleanJson(downloadJSON.get());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -129,7 +128,7 @@ public class ModelOrder {
         DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
         downloadJSON.execute();
         try {
-            return Common.parseBooleanJson(downloadJSON.get());
+            return Util.parseBooleanJson(downloadJSON.get());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -366,7 +365,7 @@ public class ModelOrder {
         downloadJSON.execute();
 
         try {
-            return Common.parseBooleanJson(downloadJSON.get());
+            return Util.parseBooleanJson(downloadJSON.get());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -394,7 +393,7 @@ public class ModelOrder {
         downloadJSON.execute();
 
         try {
-            return Common.parseBooleanJson(downloadJSON.get());
+            return Util.parseBooleanJson(downloadJSON.get());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -430,7 +429,7 @@ public class ModelOrder {
         downloadJSON.execute();
 
         try {
-            return Common.parseBooleanJson(downloadJSON.get());
+            return Util.parseBooleanJson(downloadJSON.get());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -466,7 +465,7 @@ public class ModelOrder {
         downloadJSON.execute();
 
         try {
-            return Common.parseBooleanJson(downloadJSON.get());
+            return Util.parseBooleanJson(downloadJSON.get());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -706,7 +705,7 @@ public class ModelOrder {
         DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
         downloadJSON.execute();
         try {
-            return Common.parseBooleanJson(downloadJSON.get());
+            return Util.parseBooleanJson(downloadJSON.get());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -774,7 +773,7 @@ public class ModelOrder {
         DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
         downloadJSON.execute();
         try {
-            return Common.parseBooleanJson(downloadJSON.get());
+            return Util.parseBooleanJson(downloadJSON.get());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

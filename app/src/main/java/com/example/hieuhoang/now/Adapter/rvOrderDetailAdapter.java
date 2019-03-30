@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.hieuhoang.now.Common.Common;
+import com.example.hieuhoang.now.Util.Util;
 import com.example.hieuhoang.now.Model.ObjectClass.OrderDetail;
 import com.example.hieuhoang.now.R;
 
@@ -44,12 +44,12 @@ public class rvOrderDetailAdapter extends RecyclerView.Adapter<rvOrderDetailAdap
         String note = detail.getNote().equals("") ? context.getResources().getString(R.string.note) : detail.getNote();
         holder.tvNote.setText(note);
 
-        String price = Common.formatNumber(detail.getProductPrice());
+        String price = Util.formatNumber(detail.getProductPrice());
 
         float totalMoney = 0;
         if (detail.getDisCount() != 0) {
-            holder.tvNewPrice.setText(Common.formatNumber(detail.getDisCount()));
-            holder.tvOldPrice.setText(Common.oldPriceFormat(price));
+            holder.tvNewPrice.setText(Util.formatNumber(detail.getDisCount()));
+            holder.tvOldPrice.setText(Util.oldPriceFormat(price));
             totalMoney = detail.getQuantity() * detail.getDisCount();
         } else {
             holder.tvNewPrice.setVisibility(View.GONE);
@@ -58,7 +58,7 @@ public class rvOrderDetailAdapter extends RecyclerView.Adapter<rvOrderDetailAdap
             holder.tvOldPrice.setTextColor(context.getResources().getColor(R.color.colorBlack));
             totalMoney = detail.getQuantity() * detail.getProductPrice();
         }
-        holder.tvTotalMoney.setText(Common.formatNumber(totalMoney));
+        holder.tvTotalMoney.setText(Util.formatNumber(totalMoney));
         if (map.get(detail.getIdProduct()) != null) {
             holder.viewItem.setBackgroundColor(BACK_GROUND_COLOR_WARNING);
             holder.viewQuantity.setVisibility(View.VISIBLE);

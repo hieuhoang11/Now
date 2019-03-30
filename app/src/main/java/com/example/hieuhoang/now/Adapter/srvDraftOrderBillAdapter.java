@@ -3,7 +3,6 @@ package com.example.hieuhoang.now.Adapter;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v4.app.DialogFragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.daimajia.swipe.SwipeLayout;
 import com.daimajia.swipe.adapters.RecyclerSwipeAdapter;
-import com.example.hieuhoang.now.Common.Common;
+import com.example.hieuhoang.now.Util.Util;
 import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.ObjectClass.Order;
 import com.example.hieuhoang.now.Presenter.Main.Bill.DraftOrder.IPresenterDraftOrder;
@@ -92,11 +91,11 @@ public class srvDraftOrderBillAdapter extends RecyclerSwipeAdapter<srvDraftOrder
             }
         });
 
-        Common.loadImageFromServer(order.getStoreImage() , context , holder.imgStore);
+        Util.loadImageFromServer(order.getStoreImage() , context , holder.imgStore);
         holder.tvStoreName.setText(order.getStoreName());
         holder.tvStoreAddress.setText(order.getStoreAddress());
         holder.tvQuantity.setText(String.valueOf(order.getQuantityProduct()));
-        holder.tvTotalMoney.setText(Common.formatNumber(order.getTotalMoney()));
+        holder.tvTotalMoney.setText(Util.formatNumber(order.getTotalMoney()));
 
         holder.tvDelete.setOnClickListener(new View.OnClickListener() {
             @Override

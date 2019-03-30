@@ -2,10 +2,9 @@ package com.example.hieuhoang.now.Model.LoginRegister;
 
 import android.content.Context;
 
-import com.example.hieuhoang.now.Common.Common;
+import com.example.hieuhoang.now.Util.Util;
 import com.example.hieuhoang.now.ConnectInternet.DownloadJSON;
 import com.example.hieuhoang.now.Constant.AppConstant;
-import com.example.hieuhoang.now.Model.LoginRegister.ModelLogin;
 import com.example.hieuhoang.now.Model.ObjectClass.Account;
 
 import org.json.JSONException;
@@ -40,7 +39,7 @@ public class ModelRegister {
         DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
         downloadJSON.execute();
         try {
-            return Common.parseBooleanJson(downloadJSON.get());
+            return Util.parseBooleanJson(downloadJSON.get());
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

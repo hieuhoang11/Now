@@ -8,12 +8,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.hieuhoang.now.Common.Common;
+import com.example.hieuhoang.now.Util.Util;
 import com.example.hieuhoang.now.Model.ObjectClass.Order;
 import com.example.hieuhoang.now.Presenter.Main.Bill.History.IPresenterHistoryOrder;
 import com.example.hieuhoang.now.R;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -39,11 +38,11 @@ public class rvHistoryOrderAdapter extends RecyclerView.Adapter<rvHistoryOrderAd
     @Override
     public void onBindViewHolder(OrderViewHolder holder, int position) {
         final Order order = mOrders.get(position);
-        Common.loadImageFromServer(order.getStoreImage(), context, holder.imgStore);
+        Util.loadImageFromServer(order.getStoreImage(), context, holder.imgStore);
         holder.tvStoreName.setText(order.getStoreName());
         holder.tvStoreAddress.setText(order.getStoreAddress());
         holder.tvQuantity.setText(String.valueOf(order.getQuantityProduct()));
-        holder.tvTotalMoney.setText(Common.formatNumber(order.getTotalMoney()));
+        holder.tvTotalMoney.setText(Util.formatNumber(order.getTotalMoney()));
         holder.viewOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,7 +85,7 @@ public class rvHistoryOrderAdapter extends RecyclerView.Adapter<rvHistoryOrderAd
         int y = Integer.parseInt(time[0]);
         Calendar calendar = Calendar.getInstance();
         calendar.set(y, m - 1, d);
-        return Common.formatDate(calendar.getTime());
+        return Util.formatDate(calendar.getTime());
     }
 
 }

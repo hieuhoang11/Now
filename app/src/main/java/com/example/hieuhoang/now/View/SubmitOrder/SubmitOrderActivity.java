@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hieuhoang.now.Adapter.rvOrderDetailAdapter;
-import com.example.hieuhoang.now.Common.Common;
+import com.example.hieuhoang.now.Util.Util;
 import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.ObjectClass.Account;
 import com.example.hieuhoang.now.Model.ObjectClass.Order;
@@ -94,7 +94,7 @@ public class SubmitOrderActivity extends AppCompatActivity implements ViewSubmit
     public void addMarker(String address) {
         tvLocation.setText(address);
         if (map == null) return;
-        LatLng location = Common.getCoordinates(SubmitOrderActivity.this, address);
+        LatLng location = Util.getCoordinates(SubmitOrderActivity.this, address);
         if (location == null) return;
         map.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 17));
         map.addMarker(new MarkerOptions().position(location));
@@ -108,7 +108,7 @@ public class SubmitOrderActivity extends AppCompatActivity implements ViewSubmit
     @Override
     public void setInfoOrder(Order order) {
         tvQuantityItem.setText(String.valueOf(order.getQuantityProduct()));
-        tvTotalMoney.setText(Common.formatNumber(order.getTotalMoney()));
+        tvTotalMoney.setText(Util.formatNumber(order.getTotalMoney()));
         this.order = order;
     }
 

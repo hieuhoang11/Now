@@ -39,7 +39,7 @@
                     android:id="@+id/btnShowList"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
                     android:background="@color/colorTransparent"
                     android:src="@drawable/icon_list_view" />
 
@@ -47,7 +47,7 @@
                     android:id="@+id/btnShowGrid"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginEnd="5dp"
                     android:background="@color/colorTransparent"
                     android:src="@drawable/icon_grid_view" />
 
@@ -72,8 +72,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_search_in_store"
                 android:orientation="horizontal"
-                android:paddingLeft="15dp"
-                android:paddingRight="20dp">
+                android:paddingStart="15dp"
+                android:paddingEnd="20dp">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -81,10 +81,11 @@
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/icon_search_24dp" />
 
-                <EditText
+                <com.example.hieuhoang.now.CustomView.ClearEditText
                     android:id="@+id/edtSearchInStore"
                     android:layout_width="match_parent"
                     android:layout_height="35dp"
+                    android:layout_marginStart="3dp"
                     android:background="@color/colorWhite"
                     android:hint="@string/quick_search"
                     android:scrollHorizontally="true"
@@ -108,9 +109,7 @@
                     android:id="@+id/rvStore"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/colorApp">
-
-                </android.support.v7.widget.RecyclerView>
+                    android:background="@color/colorApp" />
 
                 <View
                     android:layout_width="match_parent"

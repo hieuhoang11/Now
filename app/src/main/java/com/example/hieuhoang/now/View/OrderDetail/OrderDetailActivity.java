@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.hieuhoang.now.Adapter.rvOrderDetailAdapter;
-import com.example.hieuhoang.now.Common.Common;
+import com.example.hieuhoang.now.Util.Util;
 import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.ObjectClass.Account;
 import com.example.hieuhoang.now.Model.ObjectClass.Order;
@@ -18,14 +18,12 @@ import com.example.hieuhoang.now.Model.ObjectClass.OrderDetail;
 import com.example.hieuhoang.now.Presenter.OrderDetail.IPresenterOrderDetail;
 import com.example.hieuhoang.now.Presenter.OrderDetail.PresenterLogicOrderDetail;
 import com.example.hieuhoang.now.R;
-import com.example.hieuhoang.now.View.SubmitOrder.ViewSubmitOrder;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class OrderDetailActivity extends AppCompatActivity implements ViewOrderDetail, OnMapReadyCallback, View.OnClickListener{
     private TextView tvStoreName, tvQuantityItem, tvTotalMoney, tvCusInfo, tvLocation, tvNote;
@@ -81,7 +79,7 @@ public class OrderDetailActivity extends AppCompatActivity implements ViewOrderD
     @Override
     public void setInfoOrder(Order order) {
         tvQuantityItem.setText(String.valueOf(order.getQuantityProduct()));
-        tvTotalMoney.setText(Common.formatNumber(order.getTotalMoney()));
+        tvTotalMoney.setText(Util.formatNumber(order.getTotalMoney()));
         tvLocation.setText(order.getCustomerAddress());
         String note = getResources().getString(R.string.note) ;
         tvNote.setText(order.getNote().equals("") ? note : order.getNote());

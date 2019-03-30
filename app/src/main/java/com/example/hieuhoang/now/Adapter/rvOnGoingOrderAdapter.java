@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.hieuhoang.now.Common.Common;
+import com.example.hieuhoang.now.Util.Util;
 import com.example.hieuhoang.now.Model.ObjectClass.Order;
 import com.example.hieuhoang.now.Presenter.Main.Bill.OnGoing.IPresenterOnGoing;
 import com.example.hieuhoang.now.R;
@@ -37,11 +37,11 @@ public class rvOnGoingOrderAdapter extends RecyclerView.Adapter<rvOnGoingOrderAd
     @Override
     public void onBindViewHolder(OrderViewHolder holder, int position) {
         final Order order = mOrders.get(position);
-        Common.loadImageFromServer(order.getStoreImage(), context, holder.imgStore);
+        Util.loadImageFromServer(order.getStoreImage(), context, holder.imgStore);
         holder.tvStoreName.setText(order.getStoreName());
         holder.tvStoreAddress.setText(order.getStoreAddress());
         holder.tvQuantity.setText(String.valueOf(order.getQuantityProduct()));
-        holder.tvTotalMoney.setText(Common.formatNumber(order.getTotalMoney()));
+        holder.tvTotalMoney.setText(Util.formatNumber(order.getTotalMoney()));
         holder.viewOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

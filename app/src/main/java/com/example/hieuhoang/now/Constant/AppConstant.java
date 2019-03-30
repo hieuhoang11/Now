@@ -1,7 +1,7 @@
 package com.example.hieuhoang.now.Constant;
 
 public class AppConstant {
-    private static final String LOCAL = "http://192.168.1.5:8080";
+    private static final String LOCAL = "http://192.168.1.3:8080";
     public static final String SERVER_NAME = LOCAL + "/webnow/getJSONData.php";
     public static final String SERVER_NAME_IMG = LOCAL + "/webnow/";
     public static final String EMAIL = "email";

@@ -12,7 +12,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.hieuhoang.now.Model.ObjectClass.GroupProduct;
-import com.example.hieuhoang.now.Presenter.Store.IPresenterStore;
 import com.example.hieuhoang.now.R;
 import com.example.hieuhoang.now.View.Store.StoreActivity;
 
@@ -20,37 +19,40 @@ import java.util.List;
 import java.util.Map;
 
 
-public class rvStoreAdapter extends RecyclerView.Adapter<rvStoreAdapter.StoreViewHolder> {
+public class rvGroupProductAdapter extends RecyclerView.Adapter<rvGroupProductAdapter.StoreViewHolder> {
     private List<GroupProduct> mGroupProducts;
     private LayoutInflater mLayoutInflater;
-    private IPresenterStore presenterLogicStore ;
     private Context context;
     private int visible[];
     private int visibleText[];
     private boolean isGrid;
-    private Map<String,Integer> map =null;
-    private StoreActivity storeActivity ;
+    private Map<String, Integer> map = null;
+    private StoreActivity storeActivity;
 
-    public rvStoreAdapter(List<GroupProduct> mGroupProducts, Context context, StoreActivity storeActivity, IPresenterStore presenterLogicStore, boolean isGrid) {
+    public rvGroupProductAdapter(List<GroupProduct> mGroupProducts, Context context, StoreActivity storeActivity, boolean isGrid) {
         this.mGroupProducts = mGroupProducts;
         this.mLayoutInflater = LayoutInflater.from(context);
         this.context = context;
         this.isGrid = isGrid;
-        this.presenterLogicStore = presenterLogicStore ;
         this.storeActivity = storeActivity;
     }
 
     @Override
     public StoreViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = mLayoutInflater.inflate(R.layout.custom_recyclerview_group_product, parent, false);
-        return new rvStoreAdapter.StoreViewHolder(itemView);
+        return new rvGroupProductAdapter.StoreViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(final StoreViewHolder holder, int position) {
         GroupProduct groupProduct = mGroupProducts.get(position);
-        holder.tvDanhMuc.setText(groupProduct.getNameGroup());
-        holder.tvQualityProduct.setText(String.valueOf(groupProduct.getListProducts().size())+ " " + context.getResources().getString(R.string.item));
+        if (groupProduct.getNameGroup() != null) {
+            holder.linearDanhMuc.setVisibility(View.VISIBLE);
+            holder.tvDanhMuc.setText(groupProduct.getNameGroup());
+        } else {
+            holder.linearDanhMuc.setVisibility(View.GONE);
+        }
+        holder.tvQualityProduct.setText(String.valueOf(groupProduct.getListProducts().size()) + " " + context.getResources().getString(R.string.item));
         LinearLayoutManager layoutManager;
         if (isGrid) {
             layoutManager = new GridLayoutManager(context, 2);
@@ -59,7 +61,7 @@ public class rvStoreAdapter extends RecyclerView.Adapter<rvStoreAdapter.StoreVie
             layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
             holder.rvProductsInStore.setBackgroundColor(context.getResources().getColor(R.color.colorWhite));
         }
-        rvProductsInStoreAdapter adapter = new rvProductsInStoreAdapter(groupProduct.getListProducts(), context,  storeActivity,presenterLogicStore,isGrid,map);
+        rvProductsInStoreAdapter adapter = new rvProductsInStoreAdapter(groupProduct.getListProducts(), context, storeActivity, isGrid, map);
         holder.rvProductsInStore.setAdapter(adapter);
         holder.rvProductsInStore.setLayoutManager(layoutManager);
 
@@ -118,11 +120,12 @@ public class rvStoreAdapter extends RecyclerView.Adapter<rvStoreAdapter.StoreVie
         this.isGrid = b;
     }
 
-    public void setHashMap(Map<String,Integer> map) {
-        this.map = map ;
+    public void setHashMap(Map<String, Integer> map) {
+        this.map = map;
     }
-    public void setData (List<GroupProduct> mGroupProducts) {
-        this.mGroupProducts = mGroupProducts ;
+
+    public void setData(List<GroupProduct> mGroupProducts) {
+        this.mGroupProducts = mGroupProducts;
         visible = new int[mGroupProducts.size()];
         visibleText = new int[mGroupProducts.size()];
         int l = visible.length;
