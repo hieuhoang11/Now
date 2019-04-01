@@ -24,6 +24,8 @@
     <string name="input_quantity">Nhập số lượng</string>
     <string name="add_item">Thêm món</string>
     <string name="item">Món</string>
+    <string name="no_result">Không có kết quả</string>
+    <string name="search_dish_location">Tìm kiếm món ăn, địa chỉ ...</string>
     <string name="do_you_want_delete_all_draft_orders">Bạn có muốn xóa tất cả đơn nháp?</string>
     <string name="do_you_want_delete_this_draft_order">Bạn có muốn xóa đơn nháp này?</string>
     <string name="do_you_want_reset_draft_order">Bạn có muốn làm mới giỏ hàng?</string>
@@ -73,5 +75,6 @@
     <string name="location">Địa điểm</string>
     <string name="ha_noi">Hà Nội</string>
     <string name="tp_hcm">TP.HCM</string>
+    <string name="drinks">Đồ uống</string>
     <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
 </resources>

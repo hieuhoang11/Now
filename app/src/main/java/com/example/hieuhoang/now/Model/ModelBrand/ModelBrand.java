@@ -22,7 +22,7 @@ public class ModelBrand {
         String path = AppConstant.SERVER_NAME;
         List<HashMap<String, String>> attrs = new ArrayList<>();
         HashMap<String, String> hsFunction = new HashMap<>();
-        hsFunction.put(AppConstant.FUNCTION, AppConstant.GET_LIST_STORE_BY_ID_BRAND);
+        hsFunction.put(AppConstant.FUNCTION, AppConstant.FUNC_GET_LIST_STORE_BY_ID_BRAND);
         HashMap<String, String> hsID = new HashMap<>();
         hsID.put(AppConstant.ID_BRAND, idBrand);
 

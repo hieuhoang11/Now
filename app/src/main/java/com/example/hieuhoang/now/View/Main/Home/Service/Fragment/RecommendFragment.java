@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.hieuhoang.now.Adapter.rvItemStoreAdapter;
+import com.example.hieuhoang.now.Adapter.rvStoreAdapter;
 import com.example.hieuhoang.now.Model.ObjectClass.Store;
 import com.example.hieuhoang.now.Presenter.Service.Fragment.IPresenterFragmentService;
 import com.example.hieuhoang.now.Presenter.Service.Fragment.PresenterLogicFragmentService;
@@ -35,7 +35,7 @@ public class RecommendFragment extends Fragment implements ViewFragment {
     @Override
     public void loadProducts(List<Store> mStores) {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.VERTICAL,false);
-        rvItemStoreAdapter hotAdapter = new rvItemStoreAdapter(mStores,getActivity().getApplicationContext());
+        rvStoreAdapter hotAdapter = new rvStoreAdapter(mStores,getActivity().getApplicationContext());
         rvItemFragmentService.setAdapter(hotAdapter);
         rvItemFragmentService.setLayoutManager(layoutManager);
     }

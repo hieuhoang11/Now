@@ -29,6 +29,7 @@ import com.example.hieuhoang.now.View.Location.LocationActivity;
 import com.example.hieuhoang.now.View.Main.Home.Service.ServiceFragment;
 import com.example.hieuhoang.now.View.HotProduct.HotProductsActivity;
 import com.example.hieuhoang.now.View.Main.MainActivity;
+import com.example.hieuhoang.now.View.Search.SearchActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,7 +38,7 @@ public class FragmentHome extends Fragment implements ViewHome, View.OnClickList
     private RecyclerView rvHotProductList, rvRecommendProductList;
     private TextView tvReadMoreHot, tvHot;
     private ImageButton btnFood;
-    private Button btnLocation ;
+    private Button btnLocation ,btnSearch;
     private IPresenterHome presenterHome;
     private LinearLayout linearHot;
     private String TAG = "kiemtra";
@@ -72,6 +73,7 @@ public class FragmentHome extends Fragment implements ViewHome, View.OnClickList
     private void Mapping(View view) {
 
         btnLocation = view.findViewById(R.id.btnLocation) ;
+        btnSearch = view.findViewById(R.id.btnSearch) ;
 
         rvHotProductList = view.findViewById(R.id.rvHotProductList);
         rvRecommendProductList = view.findViewById(R.id.rvRecommend);
@@ -88,6 +90,7 @@ public class FragmentHome extends Fragment implements ViewHome, View.OnClickList
         tvReadMoreHot.setOnClickListener(this);
         btnFood.setOnClickListener(this);
         btnLocation.setOnClickListener(this);
+        btnSearch.setOnClickListener(this);
     }
 
     @Override
@@ -108,6 +111,10 @@ public class FragmentHome extends Fragment implements ViewHome, View.OnClickList
             case R.id.btnLocation:
                 Intent iLocation = new Intent(getContext() , LocationActivity.class) ;
                 startActivityForResult(iLocation , REQUEST_CODE_LOCATION);
+                break;
+            case R.id.btnSearch:
+                Intent iSearch = new Intent(getContext() , SearchActivity.class) ;
+                startActivity(iSearch );
                 break;
         }
     }

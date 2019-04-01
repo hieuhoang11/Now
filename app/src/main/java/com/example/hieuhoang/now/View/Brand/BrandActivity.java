@@ -5,10 +5,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.widget.TextView;
 
-import com.example.hieuhoang.now.Adapter.rvItemStoreAdapter;
+import com.example.hieuhoang.now.Adapter.rvStoreAdapter;
 import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.ObjectClass.Store;
 import com.example.hieuhoang.now.Presenter.Brand.IPresenterBrand;
@@ -20,7 +19,7 @@ import java.util.List;
 
 public class BrandActivity extends AppCompatActivity implements ViewBrand {
     private IPresenterBrand presenterLogicBrand;
-    private rvItemStoreAdapter adapter;
+    private rvStoreAdapter adapter;
     private RecyclerView rvListStore;
     private TextView tvBrandName;
 
@@ -32,7 +31,7 @@ public class BrandActivity extends AppCompatActivity implements ViewBrand {
         Intent intent = getIntent();
         String idBrand = intent.getStringExtra(AppConstant.ID_BRAND);
 
-        adapter = new rvItemStoreAdapter(new ArrayList<Store>(), BrandActivity.this);
+        adapter = new rvStoreAdapter(new ArrayList<Store>(), BrandActivity.this);
         LinearLayoutManager layoutManager = new LinearLayoutManager(BrandActivity.this, LinearLayoutManager.VERTICAL, false);
         rvListStore.setAdapter(adapter);
         rvListStore.setLayoutManager(layoutManager);

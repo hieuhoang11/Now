@@ -8,9 +8,10 @@ public class AppConstant {
     public static final String PASSWORD = "password";
     public static final String PERMISSION_FACEBOOK = "public_profile";
     public static final String FUNCTION = "function";
-    public static final String GET_STORE_BY_ID = "getStoreByID";
-    public static final String GET_LIST_STORE_BY_ID_BRAND = "getListStoreByIdBrand";
+    public static final String FUNC_GET_STORE_BY_ID = "getStoreByID";
+    public static final String FUNC_GET_LIST_STORE_BY_ID_BRAND = "getListStoreByIdBrand";
     public static final String GET_BRAND_NAME = "getBrandName";
+    public static final String FUNC_SEARCH_STORE = "searchStore";
     public static final String COUNT_BRANCH = "countBranches";
     public static final String GET_STORE_HAS_PROMO_PRODUCT= "getStoreHasPromoProduct";
     public static final String GET_ALL_STORE_HAS_PROMO_PRODUCT= "getAllStoreHasPromoProduct";
@@ -54,6 +55,9 @@ public class AppConstant {
     public static final String ACCOUNT_TYPE = "account_type";
     public static final String BRAND_NAME = "brand_name";
     public static final String ID_STORE = "id_store";
+    public static final String ID_SERVICE = "id_service";
+    public static final String CONDITION = "condition";
+    public static final String START = "start";
     public static final String STORE_NAME = "store_name";
     public static final String STORE_ADDRESS = "store_address";
     public static final String ADDRESS = "address";
@@ -85,5 +89,5 @@ public class AppConstant {
     public static final int ACCOUNT_TYPE_CUSTOMER = 1;
     public static final String START_DATE = "start_date";
     public static final String FINISH_DATE = "finish_date";
-
+    public static final String ID_SERVICE_DEFAULT = "2";
 }

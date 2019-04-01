@@ -6,9 +6,11 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,7 +33,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class ProductFragment extends Fragment implements ViewProduct, View.OnClickListener, TextWatcher {
+public class ProductFragment extends Fragment implements ViewProduct, View.OnClickListener, TextWatcher, View.OnKeyListener {
 
     private ImageButton btnSearchStore, btnShowGrid, btnShowList;
     private RecyclerView rvStore;
@@ -79,6 +81,7 @@ public class ProductFragment extends Fragment implements ViewProduct, View.OnCli
         btnShowList = view.findViewById(R.id.btnShowList);
         linearSearch = view.findViewById(R.id.linearSearch);
         linearSearch.setVisibility(View.GONE);
+
     }
 
     private void addOnClick() {
@@ -86,6 +89,7 @@ public class ProductFragment extends Fragment implements ViewProduct, View.OnCli
         btnShowGrid.setOnClickListener(this);
         btnShowList.setOnClickListener(this);
         edtSearchInStore.addTextChangedListener(this);
+        edtSearchInStore.setOnKeyListener(this);
     }
 
     @Override
@@ -154,7 +158,6 @@ public class ProductFragment extends Fragment implements ViewProduct, View.OnCli
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        Log.i("kiemtra", "onTextChanged: " + start + " " + before + " " + s.length());
         String str = Util.standardizeString(s.toString());
         str = Util.removeAccent(str).toLowerCase();
         if (str.length() == 0) {
@@ -184,5 +187,13 @@ public class ProductFragment extends Fragment implements ViewProduct, View.OnCli
     @Override
     public void afterTextChanged(Editable s) {
 
+    }
+
+    @Override
+    public boolean onKey(View v, int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_ENTER)) {
+            return true;
+        }
+        return false;
     }
 }

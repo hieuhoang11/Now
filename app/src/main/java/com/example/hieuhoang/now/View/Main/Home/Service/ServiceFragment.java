@@ -16,7 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.hieuhoang.now.Adapter.rvHotAdapter;
-import com.example.hieuhoang.now.Adapter.rvItemStoreAdapter;
+import com.example.hieuhoang.now.Adapter.rvStoreAdapter;
 import com.example.hieuhoang.now.Adapter.rvPreferentialAdapter;
 import com.example.hieuhoang.now.Model.ObjectClass.HotProduct;
 import com.example.hieuhoang.now.Model.ObjectClass.Store;
@@ -32,7 +32,7 @@ public class ServiceFragment extends Fragment implements ViewService, View.OnCli
     Button btnBackService;
     private PresenterLogicService presenterLogicService;
     LinearLayoutManager layoutManager;
-    private rvItemStoreAdapter adapter;
+    private rvStoreAdapter adapter;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_fragment_service, container, false);
@@ -40,7 +40,7 @@ public class ServiceFragment extends Fragment implements ViewService, View.OnCli
         Mapping(view);
 
         layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        adapter = new rvItemStoreAdapter(null, getContext());
+        adapter = new rvStoreAdapter(null, getContext());
         rvItemService.setAdapter(adapter);
         rvItemService.setLayoutManager(layoutManager);
 

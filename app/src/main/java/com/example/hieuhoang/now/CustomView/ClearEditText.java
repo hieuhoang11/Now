@@ -61,7 +61,7 @@ public class ClearEditText extends EditText {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (event.getAction() == MotionEvent.ACTION_DOWN && event.getX() >= (getRight() - drawable.getBounds().width())) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN && event.getX() >= (getRight() - getLeft() - drawable.getBounds().width())) {
             setText("");
         }
         return super.onTouchEvent(event);

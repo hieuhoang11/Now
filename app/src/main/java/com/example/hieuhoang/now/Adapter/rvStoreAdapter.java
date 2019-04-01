@@ -19,12 +19,12 @@ import com.example.hieuhoang.now.View.Store.StoreActivity;
 import java.util.List;
 
 
-public class rvItemStoreAdapter extends RecyclerView.Adapter<rvItemStoreAdapter.ItemServiceViewHolder> {
+public class rvStoreAdapter extends RecyclerView.Adapter<rvStoreAdapter.ItemServiceViewHolder> {
     private List<Store> mStores;
     private LayoutInflater mLayoutInflater;
     private Context context;
 
-    public rvItemStoreAdapter(List<Store> mStores, Context context) {
+    public rvStoreAdapter(List<Store> mStores, Context context) {
         this.mStores = mStores;
         this.mLayoutInflater = LayoutInflater.from(context);
         this.context = context;
@@ -37,7 +37,7 @@ public class rvItemStoreAdapter extends RecyclerView.Adapter<rvItemStoreAdapter.
     @Override
     public ItemServiceViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = mLayoutInflater.inflate(R.layout.custom_recyclerview_item_store, parent, false);
-        return new rvItemStoreAdapter.ItemServiceViewHolder(itemView);
+        return new rvStoreAdapter.ItemServiceViewHolder(itemView);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class rvItemStoreAdapter extends RecyclerView.Adapter<rvItemStoreAdapter.
         private TextView tvAddress;
         private TextView tvPromo;
         private TextView tvPrice;
-        private LinearLayout viewItemStore;
+        private View viewItemStore;
 
         public ItemServiceViewHolder(View itemView) {
             super(itemView);

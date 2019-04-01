@@ -42,7 +42,8 @@
         <activity android:name=".View.Brand.BrandActivity" />
         <activity android:name=".View.SubmitOrder.EditInfo.EditInfoActivity" />
         <activity android:name=".View.Location.LocationActivity" />
-        <activity android:name=".View.OrderDetail.OrderDetailActivity"></activity>
+        <activity android:name=".View.OrderDetail.OrderDetailActivity" />
+        <activity android:name=".View.Search.SearchActivity"></activity>
     </application>
 
 </manifest>

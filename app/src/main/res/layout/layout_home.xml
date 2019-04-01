@@ -9,55 +9,55 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="13dp"
             android:background="@color/colorWhite"
             android:orientation="horizontal"
-            android:weightSum="10">
+            android:paddingBottom="13dp"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="35dp"
                 android:layout_marginTop="6dp"
-                android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:background="@drawable/bgsearch"
-                android:orientation="horizontal"
-                android:weightSum="8">
+                android:orientation="horizontal">
 
                 <Button
                     android:id="@+id/btnSearch"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="3"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
                     android:background="@drawable/buttonsearch"
-                    android:drawableLeft="@drawable/icon_search_24dp"
-                    android:text="Tìm món ăn, địa điểm,..."
+                    android:drawableStart="@drawable/icon_search_24dp"
+                    android:maxLines="1"
+                    android:text="@string/search_dish_location"
                     android:textAlignment="textStart"
                     android:textAllCaps="false"
                     android:textColor="@color/colorTextSearch"
-                    android:textSize="11dp" />
+                    android:textSize="13sp" />
 
 
                 <Button
                     android:id="@+id/btnLocation"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:layout_marginRight="10dp"
-                    android:layout_weight="5"
+                    android:layout_marginEnd="10dp"
                     android:background="@color/colorBGSearch"
-                    android:drawableRight="@drawable/baseline_arrow_drop_down_black_24dp"
+                    android:drawableEnd="@drawable/baseline_arrow_drop_down_black_24dp"
                     android:padding="0dp"
                     android:text="Hải Phòng"
                     android:textAlignment="textEnd"
                     android:textAllCaps="false"
                     android:textColor="@color/colorTextSearch"
-                    android:textSize="11dp"
+                    android:textSize="13sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
@@ -65,9 +65,8 @@
 
             <ImageButton
                 android:id="@+id/btnFavorite"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_weight="9"
                 android:background="@color/colorWhite"
                 android:src="@drawable/baseline_favorite_border_black_24dp" />
 
@@ -119,7 +118,7 @@
                         android:layout_width="60dp"
                         android:layout_height="60dp"
                         android:background="@drawable/custom_button_circle"
-                        android:drawableLeft="@drawable/icon_like_24dp" />
+                        android:drawableStart="@drawable/icon_like_24dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -156,13 +155,13 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="@string/fast_delivery"
                     android:textAllCaps="true"
                     android:textColor="@color/colorTextSearch"
-                    android:textSize="18dp"
-                    android:layout_weight="1"/>
+                    android:textSize="18dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -292,9 +291,9 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_weight="1"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="@string/recommend"
                     android:textAllCaps="true"
                     android:textColor="@color/colorTextSearch"
@@ -316,7 +315,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_radius_10dp"
                 android:paddingBottom="15dp"
-                android:paddingLeft="10dp"
+                android:paddingStart="10dp"
                 android:paddingTop="15dp">
 
             </android.support.v7.widget.RecyclerView>
@@ -332,9 +331,9 @@
 
                 <TextView
                     android:id="@+id/tvHot"
-                    android:layout_weight="1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:text="Hot"
                     android:textAllCaps="true"
                     android:textColor="@color/colorTextSearch"
@@ -357,7 +356,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_radius_10dp"
                 android:paddingBottom="15dp"
-                android:paddingLeft="13dp"
+                android:paddingStart="13dp"
                 android:paddingTop="15dp">
 
             </android.support.v7.widget.RecyclerView>
