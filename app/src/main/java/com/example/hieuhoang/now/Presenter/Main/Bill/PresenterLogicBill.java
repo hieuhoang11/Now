@@ -17,6 +17,6 @@ private ModelLogin modelLogin ;
     public void checkLogin() {
         if(modelLogin.isLogged())
             viewBill.loadOrder();
-        else viewBill.notLogIn();
+        else viewBill.noLogged();
     }
 }

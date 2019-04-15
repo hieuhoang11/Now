@@ -86,6 +86,7 @@ public class FragmentDraftOrder extends Fragment implements ViewDraftOrder {
         viewNoData.setVisibility(View.GONE);
         viewInDraft.setVisibility(View.VISIBLE);
         rvDraftOrder.setVisibility(View.VISIBLE);
+        swipeRefresh.setVisibility(View.VISIBLE);
         tvTotalItem.setText(String.valueOf(mOrders.size()));
         this.adapter.setData(mOrders);
         this.adapter.notifyDataSetChanged();
@@ -96,6 +97,7 @@ public class FragmentDraftOrder extends Fragment implements ViewDraftOrder {
     public void noHasDraftOrder() {
         viewInDraft.setVisibility(View.GONE);
         rvDraftOrder.setVisibility(View.GONE);
+        swipeRefresh.setVisibility(View.GONE);
         viewNoData.setVisibility(View.VISIBLE);
         swipeRefresh.setRefreshing(false);
     }

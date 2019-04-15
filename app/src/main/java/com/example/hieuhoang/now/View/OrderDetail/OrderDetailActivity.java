@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.hieuhoang.now.Adapter.rvOrderDetailAdapter;
@@ -29,6 +30,7 @@ public class OrderDetailActivity extends AppCompatActivity implements ViewOrderD
     private TextView tvStoreName, tvQuantityItem, tvTotalMoney, tvCusInfo, tvLocation, tvNote;
     private RecyclerView rvOrderDetail;
     private Button btnOk;
+    private ImageButton btnBack;
     private rvOrderDetailAdapter adapter;
     private IPresenterOrderDetail presenterLogicOrderDetail;
 
@@ -63,6 +65,8 @@ public class OrderDetailActivity extends AppCompatActivity implements ViewOrderD
         rvOrderDetail = findViewById(R.id.rvOrderDetail);
         btnOk = findViewById(R.id.btnOk);
         tvNote = findViewById(R.id.tvNote);
+        btnBack = findViewById(R.id.btnBack) ;
+        btnBack.setOnClickListener(this);
         btnOk.setOnClickListener(this);
     }
 

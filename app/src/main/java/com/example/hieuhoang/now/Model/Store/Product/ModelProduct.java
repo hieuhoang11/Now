@@ -2,6 +2,7 @@ package com.example.hieuhoang.now.Model.Store.Product;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.example.hieuhoang.now.Util.Util;
 import com.example.hieuhoang.now.ConnectInternet.DownloadJSON;
@@ -40,6 +41,7 @@ public class ModelProduct {
         downloadJSON.execute();
         try {
             String dataJSON = downloadJSON.get();
+            Log.i(TAG, "getListGroupProductByIDStore: " + dataJSON);
             JSONArray jsonArray = new JSONArray(dataJSON);
             int count = jsonArray.length();
             for (int i = 0; i < count; i++) {
@@ -149,6 +151,91 @@ public class ModelProduct {
         attrs.add(hsFunction);
         attrs.add(hsIDProduct);
         attrs.add(hsQuantity);
+
+        DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
+        downloadJSON.execute();
+        try {
+            return Util.parseBooleanJson(downloadJSON.get());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean updateQuantityProductWhenCancel (String idProduct , String quantity) {
+        String path = AppConstant.SERVER_NAME;
+        List<HashMap<String, String>> attrs = new ArrayList<>();
+
+        HashMap<String, String> hsFunction = new HashMap<>();
+        hsFunction.put(AppConstant.FUNCTION, AppConstant.UPDATE_QUANTITY_PRODUCT_CANCEL);
+
+        HashMap<String, String> hsIDProduct = new HashMap<>();
+        hsIDProduct.put(AppConstant.ID_PRODUCT, idProduct);
+
+        HashMap<String, String> hsQuantity = new HashMap<>();
+        hsQuantity.put(AppConstant.QUANTITY, quantity);
+
+        attrs.add(hsFunction);
+        attrs.add(hsIDProduct);
+        attrs.add(hsQuantity);
+
+        DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
+        downloadJSON.execute();
+        try {
+            return Util.parseBooleanJson(downloadJSON.get());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean updatePromoProduct (String idProduct ) {
+        String path = AppConstant.SERVER_NAME;
+        List<HashMap<String, String>> attrs = new ArrayList<>();
+
+        HashMap<String, String> hsFunction = new HashMap<>();
+        hsFunction.put(AppConstant.FUNCTION, AppConstant.FUNC_UPDATE_PROMO_PRODUCT);
+
+        HashMap<String, String> hsIDProduct = new HashMap<>();
+        hsIDProduct.put(AppConstant.ID_PRODUCT, idProduct);
+
+        attrs.add(hsFunction);
+        attrs.add(hsIDProduct);
+
+        DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
+        downloadJSON.execute();
+        try {
+            return Util.parseBooleanJson(downloadJSON.get());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean updatePromoProductWhenCancel (String idProduct ) {
+        String path = AppConstant.SERVER_NAME;
+        List<HashMap<String, String>> attrs = new ArrayList<>();
+
+        HashMap<String, String> hsFunction = new HashMap<>();
+        hsFunction.put(AppConstant.FUNCTION, AppConstant.FUNC_UPDATE_PROMO_PRODUCT_CANCEL);
+
+        HashMap<String, String> hsIDProduct = new HashMap<>();
+        hsIDProduct.put(AppConstant.ID_PRODUCT, idProduct);
+
+        attrs.add(hsFunction);
+        attrs.add(hsIDProduct);
 
         DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
         downloadJSON.execute();

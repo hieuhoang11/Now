@@ -3,6 +3,7 @@ package com.example.hieuhoang.now.Adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,12 @@ public class rvStoreAdapter extends RecyclerView.Adapter<rvStoreAdapter.ItemServ
         final Store store = mStores.get(position);
         holder.tvName.setText(store.getStoreName());
         holder.tvAddress.setText(store.getStoreAddress());
+        String price = context.getResources().getString(R.string.price);
+        price += " " ;
+        price += Util.formatPriceStore(store.getPriceProduct());
+        holder.tvPrice.setText( price );
+        if(store.isPromo())
+            holder.tvPromo.setVisibility(View.VISIBLE);
         Util.loadImageFromServer(store.getImage(),context,holder.imgStore);
         holder.viewItemStore.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +77,7 @@ public class rvStoreAdapter extends RecyclerView.Adapter<rvStoreAdapter.ItemServ
         private TextView tvPrice;
         private View viewItemStore;
 
-        public ItemServiceViewHolder(View itemView) {
+        private ItemServiceViewHolder(View itemView) {
             super(itemView);
             imgStore = itemView.findViewById(R.id.imgItemService);
             tvName = itemView.findViewById(R.id.tvNameStoreItemService);

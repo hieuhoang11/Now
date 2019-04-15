@@ -4,7 +4,7 @@ android {
     compileSdkVersion 26
     defaultConfig {
         applicationId "com.example.hieuhoang.now"
-        minSdkVersion 17
+        minSdkVersion 21
         targetSdkVersion 26
         versionCode 1
         versionName "1.0"
@@ -37,7 +37,6 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.daimajia.swipelayout:library:1.2.0@aar'
     implementation 'com.google.android.gms:play-services-location:16.0.0'
-
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
 }
 

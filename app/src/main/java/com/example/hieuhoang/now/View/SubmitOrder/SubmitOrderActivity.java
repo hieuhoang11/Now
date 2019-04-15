@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +24,7 @@ import com.example.hieuhoang.now.Model.ObjectClass.OrderDetail;
 import com.example.hieuhoang.now.Presenter.SubmitOrder.IPresenterSubmitOrder;
 import com.example.hieuhoang.now.Presenter.SubmitOrder.PresenterLogicSubmitOrder;
 import com.example.hieuhoang.now.R;
-import com.example.hieuhoang.now.View.SubmitOrder.EditInfo.EditInfoActivity;
+import com.example.hieuhoang.now.View.EditInfo.EditInfoActivity;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -39,7 +40,8 @@ public class SubmitOrderActivity extends AppCompatActivity implements ViewSubmit
     private final String TAG = "kiemtra";
     private TextView tvStoreName, tvQuantityItem, tvTotalMoney, tvCusInfo, tvLocation, tvNote;
     private RecyclerView rvOrderDetail;
-    private Button btnSubmit;
+    private Button btnSubmit,btnEdit;
+    private ImageButton btnBack ;
     private GoogleMap map;
     private IPresenterSubmitOrder presenterLogicSubmitOrder;
     private rvOrderDetailAdapter adapter;
@@ -80,8 +82,12 @@ public class SubmitOrderActivity extends AppCompatActivity implements ViewSubmit
         rvOrderDetail = findViewById(R.id.rvOrderDetail);
         btnSubmit = findViewById(R.id.btnSubmit);
         tvNote = findViewById(R.id.tvNote);
+        btnEdit = findViewById(R.id.btnEdit) ;
+        btnBack = findViewById(R.id.btnBack) ;
+        btnBack.setOnClickListener(this);
         tvNote.setOnClickListener(this);
         btnSubmit.setOnClickListener(this);
+        btnEdit.setOnClickListener(this);
     }
 
     @Override
@@ -154,6 +160,12 @@ public class SubmitOrderActivity extends AppCompatActivity implements ViewSubmit
                 break;
             case R.id.tvNote:
                 showDialogEditNote();
+                break;
+            case R.id.btnEdit:
+                startEditActivity();
+                break;
+            case R.id.btnBack:
+                finish();
                 break;
         }
     }

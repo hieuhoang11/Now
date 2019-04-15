@@ -13,6 +13,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +43,8 @@ public class FragmentHistory extends Fragment implements ViewHistory, View.OnCli
     private RecyclerView rvOrder;
     private View viewNoData;
     private TextView edtStartDate, edtEndDate;
-    private SwipeRefreshLayout swipeRefreshLayout ;
+    private Button btnService;
+    private SwipeRefreshLayout swipeRefresh ;
     private final int[] statuses = {
             AppConstant.SUBMIT_ORDER_STATUS ,
             AppConstant.PROCESSING_ORDER_STATUS,
@@ -75,14 +77,16 @@ public class FragmentHistory extends Fragment implements ViewHistory, View.OnCli
         adapter.notifyDataSetChanged();
         viewNoData.setVisibility(View.GONE);
         rvOrder.setVisibility(View.VISIBLE);
-        swipeRefreshLayout.setRefreshing(false);
+        swipeRefresh.setVisibility(View.VISIBLE);
+        swipeRefresh.setRefreshing(false);
     }
 
     @Override
     public void noHasOrder() {
         rvOrder.setVisibility(View.GONE);
         viewNoData.setVisibility(View.VISIBLE);
-        swipeRefreshLayout.setRefreshing(false);
+        swipeRefresh.setVisibility(View.GONE);
+        swipeRefresh.setRefreshing(false);
     }
 
     @Override
@@ -96,14 +100,16 @@ public class FragmentHistory extends Fragment implements ViewHistory, View.OnCli
         viewNoData = view.findViewById(R.id.viewNoData);
         edtEndDate = view.findViewById(R.id.edtEndDate);
         edtStartDate = view.findViewById(R.id.edtStartDate);
-        swipeRefreshLayout = view.findViewById(R.id.swipeRefresh);
-        swipeRefreshLayout.setColorSchemeResources(R.color.colorSwipe) ;
+        btnService = view.findViewById(R.id.btnService) ;
+        swipeRefresh = view.findViewById(R.id.swipeRefresh);
+        swipeRefresh.setColorSchemeResources(R.color.colorSwipe) ;
     }
 
     private void addOnClick() {
+        btnService.setOnClickListener(this);
         edtEndDate.setOnClickListener(this);
         edtStartDate.setOnClickListener(this);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                onStart();

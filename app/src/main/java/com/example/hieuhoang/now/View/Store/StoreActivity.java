@@ -2,6 +2,8 @@ package com.example.hieuhoang.now.View.Store;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.BottomSheetDialog;
@@ -12,8 +14,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
@@ -54,7 +59,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
     private Product product;
     private Store store;
     private Order order;
-   // private SwipeRefreshLayout swipeRefresh;
+    // private SwipeRefreshLayout swipeRefresh;
     //sheet
     private ImageView imgBottomSheet, imgProductBottomSheet;
     private ImageButton btnSubtract, btnAdd, btnCloseBottomSheet;
@@ -83,13 +88,15 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
     String TAG = "kiemtra";
     private String idStore;
     private List<Fragment> fragmentList;
-    private boolean isInit = false ;
+    private boolean isInit = false;
+    private MenuItem itemMenu;
+    private boolean isFavorite = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store);
-        isInit = false ;
+        isInit = false;
         Mapping();
 
         addOnClick();
@@ -104,6 +111,15 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
         presenterStore = new PresenterLogicStore(this, getApplicationContext());
 
 
+        final Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Drawable drawable = getResources().getDrawable(R.drawable.round_arrow_back_24);
+        getSupportActionBar().setHomeAsUpIndicator(drawable);
+//        if (getSupportActionBar() != null) getSupportActionBar().setTitle("Parallax Tabs");
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 //        Toolbar toolbar = findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
 //        if (getSupportActionBar() != null) {
@@ -111,6 +127,13 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
 //            toolbar.setTitle(store.getStoreName());
 //        }
 
+//        int result = 0;
+//        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+//        if (resourceId > 0) {
+//            result = getResources().getDimensionPixelSize(resourceId);
+//        }
+//
+//        Log.i("kiemtra", "StatusBar Height= " + result + " , TitleBar Height = " + result);
 
     }
 
@@ -118,6 +141,32 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
     protected void onStart() {
         super.onStart();
         presenterStore.getStoreByID(idStore);
+        presenterStore.checkIsFavorite(idStore);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menuFavorite:
+                if (!isFavorite) {
+                    addFavorite();
+                } else removeFavorite();
+                return true;
+            case android.R.id.home:
+                onBackPressed();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        Log.i(TAG, "onCreateOptionsMenu: ");
+        getMenuInflater().inflate(R.menu.menu_store, menu);
+        itemMenu = menu.findItem(R.id.menuFavorite);
+        if (isFavorite) itemMenu.setTitle(getResources().getString(R.string.remove_favorite));
+        else itemMenu.setTitle(getResources().getString(R.string.favorite));
+        return true;
     }
 
     private void Mapping() {
@@ -162,6 +211,7 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
         viewDelivery = findViewById(R.id.viewDelivery);
         //cart detail
         bottom_sheet_cart_detail = findViewById(R.id.bottom_sheet_cart_detail);
+
         btnCloseSheetDetail = findViewById(R.id.btnCloseSheetDetail);
         tvResetDetail = findViewById(R.id.tvResetDetail);
         tvTotalItemsInCartDetail = findViewById(R.id.tvTotalItemsInCartDetail);
@@ -245,9 +295,9 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
 
         if (!isInit) {
             initTabs();
-            isInit = true ;
+            isInit = true;
         } else {
-            for(Fragment f : fragmentList) {
+            for (Fragment f : fragmentList) {
                 f.onStart();
             }
         }
@@ -350,6 +400,31 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
     }
 
     @Override
+    public void addFavoriteSuccess() {
+        isFavorite();
+        showMessage(getResources().getString(R.string.add_favorite_success));
+    }
+
+    @Override
+    public void removeFavoriteSuccess() {
+        itemMenu.setTitle(getResources().getString(R.string.favorite));
+        this.isFavorite = false;
+        showMessage(getResources().getString(R.string.remove_favorite_success));
+    }
+
+    @Override
+    public void showMessage(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void isFavorite() {
+        Log.i(TAG, "isFavorite: ");
+        if (itemMenu != null) itemMenu.setTitle(getResources().getString(R.string.remove_favorite));
+        this.isFavorite = true;
+    }
+
+    @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnCloseBottomSheet:
@@ -445,6 +520,14 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
         bottom_sheet.setVisibility(View.GONE);
 
         appBarLayout.animate().alpha((float) 1.0).start();
+    }
+
+    private void addFavorite() {
+        presenterStore.addFavorite(idStore);
+    }
+
+    private void removeFavorite() {
+        presenterStore.removeFavorite(idStore);
     }
 
     public Store getStore() {

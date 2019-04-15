@@ -15,4 +15,7 @@ public interface IPresenterStore {
     boolean isEnoughItems (String idOrder,String idProduct, int quantity) ;
     void updateNoteDetailOrder(String idOrder , String idProduct ,String note) ;
     void deleteOrderDetail (String idOrder , String idProduct ) ;
+    void addFavorite (String idStore);
+    void removeFavorite (String idStore);
+    void checkIsFavorite(String idStore) ;
 }

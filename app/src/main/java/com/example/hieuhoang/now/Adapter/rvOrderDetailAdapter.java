@@ -26,7 +26,7 @@ public class rvOrderDetailAdapter extends RecyclerView.Adapter<rvOrderDetailAdap
         this.detailList = detailList;
         this.context = context;
         map = new HashMap<>();
-        BACK_GROUND_COLOR_WARNING = context.getResources().getColor(R.color.colorWarning);
+        BACK_GROUND_COLOR_WARNING = Util.getIdColor(context,R.color.colorWarning);
     }
 
     @Override
@@ -55,7 +55,7 @@ public class rvOrderDetailAdapter extends RecyclerView.Adapter<rvOrderDetailAdap
             holder.tvNewPrice.setVisibility(View.GONE);
             holder.img.setVisibility(View.GONE);
             holder.tvOldPrice.setText(price);
-            holder.tvOldPrice.setTextColor(context.getResources().getColor(R.color.colorBlack));
+            holder.tvOldPrice.setTextColor(Util.getIdColor(context,R.color.colorBlack));
             totalMoney = detail.getQuantity() * detail.getProductPrice();
         }
         holder.tvTotalMoney.setText(Util.formatNumber(totalMoney));

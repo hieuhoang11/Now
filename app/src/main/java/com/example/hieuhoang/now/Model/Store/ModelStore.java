@@ -6,6 +6,7 @@ import com.example.hieuhoang.now.ConnectInternet.DownloadJSON;
 import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.ObjectClass.HotProduct;
 import com.example.hieuhoang.now.Model.ObjectClass.Store;
+import com.example.hieuhoang.now.Util.Util;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -77,23 +78,42 @@ public class ModelStore {
     public List<Store> getRecommendStore() {
         List<Store> list = new ArrayList<>();
 
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 4; i++) {
             Store store = new Store();
             store.setStoreName("Tên cửa hàng đó mà");
             store.setStoreAddress("địa chỉ cửa hàng nè");
+            store.setPriceProduct(0);
             list.add(store);
         }
         return list;
     }
 
-    public List<Store> getJustOrderStore() {
+    public List<Store> getJustOrderStore(String idService) {
         List<Store> list = new ArrayList<>();
+        String path = AppConstant.SERVER_NAME;
+        List<HashMap<String, String>> attrs = new ArrayList<>();
+        HashMap<String, String> hsFunction = new HashMap<>();
+        hsFunction.put(AppConstant.FUNCTION, AppConstant.FUNC_GET_JUST_ORDER);
+        HashMap<String, String> hsStats = new HashMap<>();
+        hsStats.put(AppConstant.ORDER_STATUS,String.valueOf( AppConstant.COMPLETE_ORDER_STATUS));
+        HashMap<String, String> hsIdService = new HashMap<>();
+        hsIdService.put(AppConstant.ID_SERVICE, idService);
+        attrs.add(hsFunction);
+        attrs.add(hsStats);
+        attrs.add(hsIdService);
 
-        for (int i = 0; i < 3; i++) {
-            Store store = new Store();
-            store.setStoreName("Tên cửa hàng đó mà");
-            store.setStoreAddress("địa chỉ cửa hàng nè");
-            list.add(store);
+        DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
+        downloadJSON.execute();
+        try {
+            String dataJson = downloadJSON.get();
+            Log.i(TAG, "getJustOrderStore: " + dataJson);
+            list = parseJSonStore(dataJson) ;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
         return list;
     }
@@ -105,6 +125,7 @@ public class ModelStore {
             Store store = new Store();
             store.setStoreName("Tên cửa hàng đó mà");
             store.setStoreAddress("địa chỉ cửa hàng nè");
+            store.setPriceProduct(0);
             list.add(store);
         }
         return list;
@@ -117,6 +138,7 @@ public class ModelStore {
             Store store = new Store();
             store.setStoreName("Tên cửa hàng đó mà");
             store.setStoreAddress("địa chỉ cửa hàng nè");
+            store.setPriceProduct(0);
             list.add(store);
         }
         return list;
@@ -129,7 +151,35 @@ public class ModelStore {
             Store store = new Store();
             store.setStoreName("Tên cửa hàng đó mà");
             store.setStoreAddress("địa chỉ cửa hàng nè");
+            store.setPriceProduct(0);
             list.add(store);
+        }
+        return list;
+    }
+
+    public List<Store> getListFavorite (String idCustomer) {
+        List<Store> list = new ArrayList<>();
+        String path = AppConstant.SERVER_NAME;
+        List<HashMap<String, String>> attrs = new ArrayList<>();
+        HashMap<String, String> hsFunction = new HashMap<>();
+        hsFunction.put(AppConstant.FUNCTION, AppConstant.FUNC_GET_LIST_FAVORITE);
+        HashMap<String, String> hsIdCustomer = new HashMap<>();
+        hsIdCustomer.put(AppConstant.ID_ACCOUNT, idCustomer);
+        attrs.add(hsFunction);
+        attrs.add(hsIdCustomer);
+
+        DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
+        downloadJSON.execute();
+        try {
+            String dataJson = downloadJSON.get();
+            Log.i(TAG, "getListFavorite: " +dataJson);
+            list = parseJSonStore(dataJson) ;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
         return list;
     }
@@ -172,7 +222,7 @@ public class ModelStore {
         return null;
     }
 
-    public List<Store> search(String idService, String condition , int start) {
+    public List<Store> search(String idService, String condition, int start) {
         List<Store> list = new ArrayList<>();
 
         String path = AppConstant.SERVER_NAME;
@@ -196,22 +246,7 @@ public class ModelStore {
         try {
             String dataJson = downloadJSON.get();
             Log.i(TAG, "search: " + dataJson);
-            JSONArray jsonArray = new JSONArray(dataJson);
-            int l = jsonArray.length();
-            for (int i = 0; i < l; i++) {
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
-                String idStore = jsonObject.getString(AppConstant.ID_STORE);
-                String storeName = jsonObject.getString(AppConstant.STORE_NAME);
-                String img = jsonObject.getString(AppConstant.IMAGE);
-                String address = jsonObject.getString(AppConstant.STORE_ADDRESS);
-
-                Store store = new Store();
-                store.setImage(img);
-                store.setStoreName(storeName);
-                store.setIdStore(idStore);
-                store.setStoreAddress(address);
-                list.add(store);
-            }
+            list = parseJSonStore(dataJson);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -222,4 +257,95 @@ public class ModelStore {
         return list;
     }
 
+    public List<Store> getListStoreByIdBrand(String idBrand) {
+        List<Store> list = new ArrayList<>();
+        String path = AppConstant.SERVER_NAME;
+        List<HashMap<String, String>> attrs = new ArrayList<>();
+        HashMap<String, String> hsFunction = new HashMap<>();
+        hsFunction.put(AppConstant.FUNCTION, AppConstant.FUNC_GET_LIST_STORE_BY_ID_BRAND);
+        HashMap<String, String> hsID = new HashMap<>();
+        hsID.put(AppConstant.ID_BRAND, idBrand);
+
+        attrs.add(hsFunction);
+        attrs.add(hsID);
+        DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
+        downloadJSON.execute();
+        try {
+            String dataJson = downloadJSON.get();
+            Log.i("kiemtra", "getListStoreByIdBrand: " + dataJson);
+            list = parseJSonStore(dataJson);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    private List<Store> parseJSonStore(String dataJson) throws JSONException {
+        List<Store> list = new ArrayList<>();
+        JSONArray jsonArray = new JSONArray(dataJson);
+        int l = jsonArray.length();
+        for (int i = 0; i < l; i++) {
+            JSONObject jsonObject = jsonArray.getJSONObject(i);
+            String idStore = jsonObject.getString(AppConstant.ID_STORE);
+            String storeName = jsonObject.getString(AppConstant.STORE_NAME);
+            String img = jsonObject.getString(AppConstant.IMAGE);
+            String address = jsonObject.getString(AppConstant.STORE_ADDRESS);
+            float price = (float) jsonObject.getDouble(AppConstant.PRODUCT_PRICE);
+            boolean promo = jsonObject.getBoolean(AppConstant.PROMO);
+            Store store = new Store();
+            store.setImage(img);
+            store.setStoreName(storeName);
+            store.setIdStore(idStore);
+            store.setStoreAddress(address);
+            store.setPriceProduct(price);
+            store.setPromo(promo);
+            list.add(store);
+        }
+        return list;
+    }
+
+    public boolean addFavorite(String idOrder, String idAccount) {
+        return handleFavorite(idOrder, idAccount, AppConstant.FUNC_ADD_FAVORITE);
+    }
+
+    public boolean removeFavorite(String idOrder, String idAccount) {
+        return handleFavorite(idOrder, idAccount, AppConstant.FUNC_REMOVE_FAVORITE);
+    }
+
+    public boolean isFavorite(String idOrder, String idAccount) {
+        return handleFavorite(idOrder, idAccount, AppConstant.FUNC_IS_FAVORITE);
+    }
+
+    private boolean handleFavorite(String idOrder, String idAccount, String function) {
+        String path = AppConstant.SERVER_NAME;
+        List<HashMap<String, String>> attrs = new ArrayList<>();
+        HashMap<String, String> hsFunction = new HashMap<>();
+        hsFunction.put(AppConstant.FUNCTION, function);
+        HashMap<String, String> hsIdStore = new HashMap<>();
+        hsIdStore.put(AppConstant.ID_STORE, idOrder);
+        HashMap<String, String> hsIdCus = new HashMap<>();
+        hsIdCus.put(AppConstant.ID_ACCOUNT, idAccount);
+        attrs.add(hsFunction);
+        attrs.add(hsIdStore);
+        attrs.add(hsIdCus);
+        DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
+        downloadJSON.execute();
+        try {
+            String dataJson = downloadJSON.get();
+            Log.i(TAG, "handleFavorite: " + function + " " + dataJson);
+            return Util.parseBooleanJson(dataJson);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

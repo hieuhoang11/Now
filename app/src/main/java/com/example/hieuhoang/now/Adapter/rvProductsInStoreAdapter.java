@@ -62,7 +62,7 @@ public class rvProductsInStoreAdapter extends RecyclerView.Adapter<rvProductsInS
         } else {
             holder.tvProductPrice.setText(Util.oldPriceFormat(price));
             holder.tvDisCount.setText(Util.formatNumber(product.getDiscount()));
-            holder.tvProductPrice.setTextColor(context.getResources().getColor(R.color.colorOldPrice));
+            holder.tvProductPrice.setTextColor(Util.getIdColor(context,R.color.colorOldPrice));
         }
 
         holder.btnSubtract.setVisibility(View.GONE);

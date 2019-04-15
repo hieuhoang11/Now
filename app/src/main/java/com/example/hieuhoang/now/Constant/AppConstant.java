@@ -1,7 +1,7 @@
 package com.example.hieuhoang.now.Constant;
 
 public class AppConstant {
-    private static final String LOCAL = "http://192.168.1.3:8080";
+    private static final String LOCAL = "http://192.168.1.12:8080";
     public static final String SERVER_NAME = LOCAL + "/webnow/getJSONData.php";
     public static final String SERVER_NAME_IMG = LOCAL + "/webnow/";
     public static final String EMAIL = "email";
@@ -10,6 +10,11 @@ public class AppConstant {
     public static final String FUNCTION = "function";
     public static final String FUNC_GET_STORE_BY_ID = "getStoreByID";
     public static final String FUNC_GET_LIST_STORE_BY_ID_BRAND = "getListStoreByIdBrand";
+    public static final String FUNC_ADD_FAVORITE = "addFavorite";
+    public static final String FUNC_GET_JUST_ORDER = "getJustOrder";
+    public static final String FUNC_GET_LIST_FAVORITE = "getListFavorite";
+    public static final String FUNC_REMOVE_FAVORITE = "removeFavorite";
+    public static final String FUNC_IS_FAVORITE = "isFavorite";
     public static final String GET_BRAND_NAME = "getBrandName";
     public static final String FUNC_SEARCH_STORE = "searchStore";
     public static final String COUNT_BRANCH = "countBranches";
@@ -31,6 +36,9 @@ public class AppConstant {
     public static final String GET_QUANTITY_PRODUCT_IN_DRAFT_ORDER = "getQuantityProductInDraftOrder";
     public static final String GET_QUANTITY_PRODUCT = "getQuantityProduct";
     public static final String UPDATE_QUANTITY_PRODUCT = "updateQuantityProduct";
+    public static final String UPDATE_QUANTITY_PRODUCT_CANCEL = "updateQuantityProductCancel";
+    public static final String FUNC_UPDATE_PROMO_PRODUCT = "updatePromoProduct";
+    public static final String FUNC_UPDATE_PROMO_PRODUCT_CANCEL = "updatePromoProductCancel";
     public static final String REGISTER_ACCOUNT = "registerAccount";
     public static final String CHECK_EMAIL_EXISTS = "checkEmailExists";
     public static final String FUNC_GET_LIST_DRAFT_ORDER = "getListDraftOrder";
@@ -49,6 +57,7 @@ public class AppConstant {
     public static final String DEFAULT_ID_ACCOUNT = "-1";
     public static final String PRODUCT_NAME = "product_name";
     public static final String PRODUCT_PRICE = "price";
+    public static final String PROMO = "promo";
     public static final String PRODUCT_DISCOUNT = "discount";
     public static final String QUANTITY_PURCHASED = "quantity_purchased";
     public static final String IMAGE = "image";
@@ -56,6 +65,10 @@ public class AppConstant {
     public static final String BRAND_NAME = "brand_name";
     public static final String ID_STORE = "id_store";
     public static final String ID_SERVICE = "id_service";
+    public static final String ID_SERVICE_FOOD = "1";
+    public static final String ID_SERVICE_DRINK = "2";
+    public static final String ID_SERVICE_LIQUOR = "3";
+    public static final String ID_SERVICE_FLOWER = "4";
     public static final String CONDITION = "condition";
     public static final String START = "start";
     public static final String STORE_NAME = "store_name";
@@ -90,4 +103,5 @@ public class AppConstant {
     public static final String START_DATE = "start_date";
     public static final String FINISH_DATE = "finish_date";
     public static final String ID_SERVICE_DEFAULT = "2";
+    public static final int DOT_SIZE = 20;
 }

@@ -58,18 +58,20 @@ public class FragmentAccount extends Fragment implements View.OnClickListener, G
         //end google
         return view;
     }
-private void Mapping(View view){
-    //Begin Mapping
-    btnLoginAccount = (Button) view.findViewById(R.id.btnLoginAccount);
-    btnLogoutAccount = (Button) view.findViewById(R.id.btnLogoutAccount);
-    btnImgAccount = (CircleImageView) view.findViewById(R.id.btnImgAccount);
 
-    //End Mapping
+    private void Mapping(View view) {
+        //Begin Mapping
+        btnLoginAccount = (Button) view.findViewById(R.id.btnLoginAccount);
+        btnLogoutAccount = (Button) view.findViewById(R.id.btnLogoutAccount);
+        btnImgAccount = (CircleImageView) view.findViewById(R.id.btnImgAccount);
 
-    btnLoginAccount.setOnClickListener(this);
-    btnLogoutAccount.setOnClickListener(this);
-    btnImgAccount.setOnClickListener(this);
-}
+        //End Mapping
+
+        btnLoginAccount.setOnClickListener(this);
+        btnLogoutAccount.setOnClickListener(this);
+        btnImgAccount.setOnClickListener(this);
+    }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -79,7 +81,7 @@ private void Mapping(View view){
         googleSignInResult = modelLogin.getInformationGoogle(googleApiClient);
         //get information Login
 
-        account = modelLogin.getAccountInformation();
+        account = modelLogin.getAccount();
 
         btnLogoutAccount.setVisibility(View.VISIBLE);
         if (account != null && !account.getFullName().equals("")) {
@@ -119,7 +121,7 @@ private void Mapping(View view){
     private boolean isLogged() {
         accessToken = modelLogin.getAccessTokenFacebook();
         googleSignInResult = modelLogin.getInformationGoogle(googleApiClient);
-        account = modelLogin.getAccountInformation();
+        account = modelLogin.getAccount();
         if (account != null && !account.getFullName().equals("")) {
             Log.i("kiemtra", "account name: " + account.getFullName());
             return true;
@@ -179,6 +181,7 @@ private void Mapping(View view){
         btnLoginAccount.setText(account.getFullName());
         btnImgAccount.setImageResource(R.drawable.icon_user_logged_32dp);
     }
+
     private void loadImageFromInternet(String path) {
         Picasso.with(getContext())
                 .load(path)//"https://graph.facebook.com/100010904478016/picture?type=normal")

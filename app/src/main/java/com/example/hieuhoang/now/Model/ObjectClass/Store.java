@@ -1,8 +1,13 @@
 package com.example.hieuhoang.now.Model.ObjectClass;
 
 public class Store {
-    String idStore , idBrand ;
-    String image , storeName ,storeAddress , price , khuyenMai ;
+    private String idStore;
+    private String idBrand;
+    private String image;
+    private String storeName;
+    private String storeAddress;
+    private float priceProduct;
+    private boolean promo;
 
     public Store() {
     }
@@ -45,5 +50,21 @@ public class Store {
 
     public void setStoreAddress(String storeAddress) {
         this.storeAddress = storeAddress;
+    }
+
+    public float getPriceProduct() {
+        return priceProduct;
+    }
+
+    public void setPriceProduct(float priceProduct) {
+        this.priceProduct = priceProduct;
+    }
+
+    public boolean isPromo() {
+        return promo;
+    }
+
+    public void setPromo(boolean promo) {
+        this.promo = promo;
     }
 }

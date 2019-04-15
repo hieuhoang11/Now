@@ -52,7 +52,7 @@ public class srvCartDetailAdapter extends RecyclerSwipeAdapter<srvCartDetailAdap
             holder.tvNewPrice.setVisibility(View.GONE);
             holder.img.setVisibility(View.GONE);
             holder.tvOldPrice.setText(price);
-            holder.tvOldPrice.setTextColor(context.getResources().getColor(R.color.colorBlack));
+            holder.tvOldPrice.setTextColor(Util.getIdColor(context,R.color.colorBlack));
             totalMoney = detail.getQuantity() * detail.getProductPrice();
         }
         holder.tvTotalMoney.setText(Util.formatNumber(totalMoney));

@@ -6,11 +6,22 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
     android:orientation="vertical"
-    tools:context="com.example.hieuhoang.now.View.SubmitOrder.EditInfo.EditInfoActivity">
+    tools:context=".View.EditInfo.EditInfoActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorWhite"
+        android:orientation="horizontal">
 
-    <TextView
-        style="@style/text_title_activity"
-        android:text="@string/edit_info" />
+        <ImageButton
+            android:id="@+id/btnBack"
+            style="@style/img_back" />
+
+        <TextView
+            style="@style/text_title_activity"
+            android:text="@string/edit_info" />
+    </LinearLayout>
+
 
     <View style="@style/horizontal_line" />
 
@@ -97,5 +108,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/done"
-        android:background="@drawable/bg_done"/>
+        android:background="@color/colorPrimary"/>
 </LinearLayout>

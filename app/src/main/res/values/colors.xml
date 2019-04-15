@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#2c39b6</color>
     <color name="colorTransparent">#00c640ff</color>
-    <color name="colorWhite">#FFF</color>
+    <color name="colorWhite">#FFFFFFFF</color>
     <color name="colorBlack">#000000</color>
     <color name="colorRed">#ec2327</color>
     <color name="colorText">#4b4242</color>
@@ -24,7 +24,7 @@
     <color name="colorTextRecommend">#73484444</color>
     <color name="colorMenuItem">#f3f7fb</color>
     <color name="colorGridView">#dddddd</color>
-    <color name="colorDisEnable">#9e9d9d</color>
+    <color name="colorDisEnable">#938e8e</color>
     <color name="colorBottomCircle">#49739d</color>
     <color name="colorMenu">#f9f9f9</color>
     <color name="colorTopOfBottomSheet">#0288ff</color>
@@ -35,5 +35,11 @@
     <color name="colorWarning">#caf41219</color>
     <color name="colorTextCircleInOrderStatus">#4df544</color>
     <color name="colorSwipe">#149fef</color>
+    <color name="colorBGFood">#149fef</color>
+    <color name="colorBGDrink">#149fef</color>
+    <color name="colorBGLiquor">#149fef</color>
+    <color name="colorBGFlower">#149fef</color>
+    <color name="colorDotActive">#FFFFFFFF</color>
+    <color name="colorDotInActive">#ebbeb7b7</color>
    <!--// 183651-->
 </resources>

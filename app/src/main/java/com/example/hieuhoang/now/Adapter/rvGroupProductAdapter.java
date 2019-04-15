@@ -7,12 +7,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.hieuhoang.now.Model.ObjectClass.GroupProduct;
 import com.example.hieuhoang.now.R;
+import com.example.hieuhoang.now.Util.Util;
 import com.example.hieuhoang.now.View.Store.StoreActivity;
 
 import java.util.List;
@@ -28,6 +31,7 @@ public class rvGroupProductAdapter extends RecyclerView.Adapter<rvGroupProductAd
     private boolean isGrid;
     private Map<String, Integer> map = null;
     private StoreActivity storeActivity;
+    private Animation anim_rotate_right ;
 
     public rvGroupProductAdapter(List<GroupProduct> mGroupProducts, Context context, StoreActivity storeActivity, boolean isGrid) {
         this.mGroupProducts = mGroupProducts;
@@ -35,6 +39,7 @@ public class rvGroupProductAdapter extends RecyclerView.Adapter<rvGroupProductAd
         this.context = context;
         this.isGrid = isGrid;
         this.storeActivity = storeActivity;
+        anim_rotate_right = AnimationUtils.loadAnimation(context,R.anim.anim_rotate_right) ;
     }
 
     @Override
@@ -59,7 +64,7 @@ public class rvGroupProductAdapter extends RecyclerView.Adapter<rvGroupProductAd
             holder.rvProductsInStore.setBackgroundColor(context.getResources().getColor(R.color.colorGridView));
         } else {
             layoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
-            holder.rvProductsInStore.setBackgroundColor(context.getResources().getColor(R.color.colorWhite));
+            holder.rvProductsInStore.setBackgroundColor(Util.getIdColor(context,R.color.colorWhite));
         }
         rvProductsInStoreAdapter adapter = new rvProductsInStoreAdapter(groupProduct.getListProducts(), context, storeActivity, isGrid, map);
         holder.rvProductsInStore.setAdapter(adapter);
@@ -68,13 +73,13 @@ public class rvGroupProductAdapter extends RecyclerView.Adapter<rvGroupProductAd
         holder.linearDanhMuc.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hideRecyclerView(holder.rvProductsInStore, holder.tvQualityProduct, holder.getAdapterPosition());
+                hideRecyclerView(holder.rvProductsInStore, holder.tvQualityProduct,holder.btnDanhmucStore ,holder.getAdapterPosition());
             }
         });
         holder.btnDanhmucStore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hideRecyclerView(holder.rvProductsInStore, holder.tvQualityProduct, holder.getAdapterPosition());
+                hideRecyclerView(holder.rvProductsInStore, holder.tvQualityProduct,holder.btnDanhmucStore, holder.getAdapterPosition());
             }
         });
         holder.rvProductsInStore.setVisibility(visible[position]);
@@ -102,17 +107,19 @@ public class rvGroupProductAdapter extends RecyclerView.Adapter<rvGroupProductAd
         }
     }
 
-    private void hideRecyclerView(RecyclerView recyclerView, TextView textView, int position) {
+    private void hideRecyclerView(RecyclerView recyclerView, TextView textView,ImageButton btnDanhmucStore ,int position) {
         if (recyclerView.getVisibility() == View.VISIBLE) {
             recyclerView.setVisibility(View.GONE);
             textView.setVisibility(View.VISIBLE);
             visible[position] = View.GONE;
             visibleText[position] = View.VISIBLE;
+            btnDanhmucStore.setImageResource(R.drawable.round_expand_more_24);
         } else {
             recyclerView.setVisibility(View.VISIBLE);
             textView.setVisibility(View.GONE);
             visible[position] = View.VISIBLE;
             visibleText[position] = View.GONE;
+            btnDanhmucStore.setImageResource(R.drawable.round_expand_less_24);
         }
     }
 

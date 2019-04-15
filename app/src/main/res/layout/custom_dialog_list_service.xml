@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorWhite"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
+    android:paddingBottom="100dp"
+    android:paddingTop="60dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/btnDrink"
+            style="@style/img_btn_drink" />
+
+        <TextView
+            style="@style/text_item_service"
+            android:text="@string/drinks" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/btnFood"
+            style="@style/img_btn_food" />
+
+        <TextView
+            style="@style/text_item_service"
+            android:text="@string/food"
+             />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/btnLiquor"
+            style="@style/img_btn_liquor" />
+
+        <TextView
+            style="@style/text_item_service"
+            android:text="@string/liquor"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/btnFlower"
+            style="@style/img_btn_flower" />
+
+        <TextView
+            style="@style/text_item_service"
+            android:text="@string/flowers"/>
+    </LinearLayout>
+
+
+</LinearLayout>

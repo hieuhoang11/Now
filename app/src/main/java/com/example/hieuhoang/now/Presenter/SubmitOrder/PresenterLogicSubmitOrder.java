@@ -79,31 +79,37 @@ public class PresenterLogicSubmitOrder implements IPresenterSubmitOrder {
 
     @Override
     public void submitOrder(Order order, List<OrderDetail> mDetailList) {
-        Map<String, Integer> mapQuantity = isEnoughQuantity(mDetailList) ;
-        if (mapQuantity.size() == mDetailList.size()) {
+        boolean isEnough = isEnoughQuantity(mDetailList) ;
+        if (isEnough) {
             boolean b = modelOrder.submitOrder(order.getIdOrder(), order.getCustomerAddress(), order.getNote());
             if (b) {
-                for(Map.Entry<String,Integer> values : mapQuantity.entrySet()){
-                    b = modelProduct.updateQuantityProduct(values.getKey(), String.valueOf(values.getValue()));
+//                for(Map.Entry<String,Integer> values : mapQuantity.entrySet()){
+//                    b = modelProduct.updateQuantityProduct(values.getKey(), String.valueOf(values.getValue()));
+//                }
+                for(OrderDetail detail :  mDetailList) {
+                    b = modelProduct.updateQuantityProduct(detail.getIdProduct(), String.valueOf(detail.getQuantity()));
+                    if(detail.getDisCount() > 0 ) {
+                        b = modelProduct.updatePromoProduct(detail.getIdProduct()) ;
+                    }
                 }
                 if (b) viewSubmitOrder.onSubmitSuccess();
             }
         }
     }
 
-    private Map<String, Integer> isEnoughQuantity(List<OrderDetail> mDetailList) {
+    private boolean isEnoughQuantity(List<OrderDetail> mDetailList) {
         boolean b = true;
-        Map<String, Integer> mapQuantity = new HashMap<>();
+        //Map<String, Integer> mapQuantity = new HashMap<>();
         Map<String, Integer> map = new HashMap<>();
         for (OrderDetail detail : mDetailList) {
             int q = modelProduct.getQuantityProduct(detail.getIdProduct());
             if (q < detail.getQuantity()) {
                 map.put(detail.getIdProduct(), q);
                 b = false;
-            } else mapQuantity.put(detail.getIdProduct(), q - detail.getQuantity());
+            } //else mapQuantity.put(detail.getIdProduct(), q - detail.getQuantity());
         }
         if (!b) viewSubmitOrder.noEnoughQuantity(map);
-        return mapQuantity;
+        return b;
     }
 
 }

@@ -1,14 +1,11 @@
 package com.example.hieuhoang.now.Model.Store.Info;
 
 
-import android.util.Log;
 
 import com.example.hieuhoang.now.ConnectInternet.DownloadJSON;
 import com.example.hieuhoang.now.Constant.AppConstant;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

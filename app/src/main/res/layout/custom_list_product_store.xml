@@ -7,7 +7,7 @@
     android:background="@color/colorWhite"
     android:orientation="horizontal"
     android:paddingBottom="13dp"
-    android:paddingRight="10dp">
+    android:paddingEnd="10dp">
 
     <android.support.v7.widget.CardView
         android:layout_width="70dp"
@@ -24,10 +24,10 @@
     </android.support.v7.widget.CardView>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="5dp"
+        android:layout_marginStart="5dp"
         android:layout_weight="1"
         android:orientation="vertical">
 
@@ -35,7 +35,6 @@
             android:id="@+id/tvNameProduct"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="tên món ăn"
             android:textColor="@color/colorBlack"
             android:textStyle="bold" />
 
@@ -48,18 +47,16 @@
                 android:id="@+id/tvProductPrice"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="gia"
                 android:textColor="@color/colorBlack" />
 
             <ImageView
                 android:id="@+id/imgDisCount"
-                style="@style/image_view_point_to_right" />
+                style="@style/img_price_old_to_new" />
 
             <TextView
                 android:id="@+id/tvDisCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="gia moi"
                 android:textColor="@color/colorNewPrice" />
         </LinearLayout>
 
@@ -73,10 +70,9 @@
 
             <TextView
                 android:id="@+id/tvNumberOfPurchases"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text=" 10+"
                 android:textColor="@color/colorBlack" />
         </LinearLayout>
 
@@ -91,7 +87,6 @@
 
     <TextView
         android:id="@+id/tvQualityProductInCraftOrder"
-        android:text="1"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         style="@style/text_view_quantity_product"

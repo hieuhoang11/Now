@@ -57,6 +57,8 @@ public class MapActivity extends AppCompatActivity implements GoogleApiClient.Co
     Button getLocation;
     private Location location;
     private GoogleApiClient gac;
+    private ModelLocation modelLocation;
+    String TAG = "kiemtra";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,16 +73,16 @@ public class MapActivity extends AppCompatActivity implements GoogleApiClient.Co
         latitude2 = findViewById(R.id.latitude2);
         kc = findViewById(R.id.kc);
         vitri2 = findViewById(R.id.vitri);
-        final ModelLocation modelLocation = new ModelLocation(this,getApplicationContext()) ;
+        //modelLocation = new ModelLocation(this,getApplicationContext()) ;
         getLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String add = modelLocation.getLocation() ;
-                if(add != null) {
-                    loca.setText(add);
-                }
-               // getLocation();
-               // calculateDistance();
+                //String add = modelLocation.getLocation() ;
+//                if(add != null) {
+//                    loca.setText(add);
+//                }
+                getLocation();
+                // calculateDistance();
             }
         });
         // Trước tiên chúng ta cần phải kiểm tra play services
@@ -163,6 +165,7 @@ public class MapActivity extends AppCompatActivity implements GoogleApiClient.Co
                     .addConnectionCallbacks(this)
                     .addOnConnectionFailedListener(this)
                     .addApi(LocationServices.API).build();
+            Log.i(TAG, "buildGoogleApiClient: ");
         }
     }
 
@@ -186,17 +189,19 @@ public class MapActivity extends AppCompatActivity implements GoogleApiClient.Co
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         // Đã kết nối với google api, lấy vị trí
-
-        //getLocation();
+        Log.i(TAG, "onConnected: ");
+        getLocation();
     }
 
     @Override
     public void onConnectionSuspended(int i) {
-        gac.connect();
+        Log.i(TAG, "onConnectionSuspended: ");
+        //gac.connect();
     }
 
     @Override
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.i(TAG, "onConnectionFailed: ");
         Toast.makeText(this, "Lỗi kết nối: " + connectionResult.getErrorMessage(), Toast.LENGTH_SHORT).show();
     }
 
@@ -206,7 +211,7 @@ public class MapActivity extends AppCompatActivity implements GoogleApiClient.Co
     }
 
     protected void onStop() {
-        gac.disconnect();
+        //gac.disconnect();
         super.onStop();
     }
 

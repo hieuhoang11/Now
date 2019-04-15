@@ -11,18 +11,19 @@ import com.example.hieuhoang.now.View.Brand.ViewBrand;
 import java.util.List;
 
 public class PresenterLogicBrand implements IPresenterBrand {
-    ViewBrand viewBrand;
-    ModelBrand modelBrand;
+    private ViewBrand viewBrand;
+    private ModelBrand modelBrand;
+    private ModelStore modelStore;
 
     public PresenterLogicBrand(ViewBrand viewBrand) {
         this.viewBrand = viewBrand;
         modelBrand = new ModelBrand();
+        modelStore = new ModelStore() ;
     }
 
     @Override
     public void getListStore(String idBrand) {
-        List<Store> list = modelBrand.getListStoreByIdBrand(idBrand);
-        Log.i("kiemtra", "getListStore: " + list.size());
+        List<Store> list = modelStore.getListStoreByIdBrand(idBrand);
         if (list.size() > 0) {
             viewBrand.loadListStore(list);
         }

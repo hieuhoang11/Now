@@ -5,32 +5,62 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.hieuhoang.now.View.Brand.BrandActivity"
+    android:fitsSystemWindows="true"
     android:background="@color/colorWhite">
 
-    <android.support.v7.widget.Toolbar
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp">
-        <TextView
-            android:id="@+id/tvBrandName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="ten thuong hieu"
-            android:textColor="@color/colorBlack"
-            android:gravity="center_horizontal"
-            android:textStyle="bold"
-            android:textSize="18sp"
-           />
-    </android.support.v7.widget.Toolbar>
-    <View
-        android:layout_marginTop="40dp"
-        style="@style/horizontal_line"/>
+        android:layout_height="wrap_content">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rvListStore"
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center_vertical">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:orientation="horizontal">
+                <ImageButton
+                    android:id="@+id/imgBack"
+                    style="@style/img_back"/>
+                <TextView
+                    android:id="@+id/tvBrandName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:text="ten thuong hieu"
+                    android:textColor="@color/colorBlack"
+                    android:gravity="center_horizontal"
+                    android:textStyle="bold"
+                    android:textSize="18sp"
+                    />
+            </LinearLayout>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+
+    </android.support.design.widget.AppBarLayout>
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="41dp">
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-    </android.support.v7.widget.RecyclerView>
+        <View
+            style="@style/horizontal_line"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rvListStore"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingEnd="10dp"
+            android:paddingStart="10dp">
+
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+
 
 </android.support.design.widget.CoordinatorLayout>

@@ -17,7 +17,7 @@
 
     <!--main-->
 
-    <style name="button_view_main" parent="@android:style/Widget.ImageButton" >
+    <style name="button_view_main" parent="@android:style/Widget.ImageButton">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:layout_weight">1</item>
@@ -30,7 +30,7 @@
     </style>
 
     <!--bill-->
-    <style name="button_in_bill" parent="@android:style/Widget.Button" >
+    <style name="button_in_bill" parent="@android:style/Widget.Button">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:gravity">center</item>
@@ -40,14 +40,14 @@
         <item name="android:textAllCaps">false</item>
     </style>
 
-    <style name="vertical_line_in_bill" parent="@android:style/Widget" >
+    <style name="vertical_line_in_bill" parent="@android:style/Widget">
         <item name="android:layout_width">1dp</item>
         <item name="android:layout_height">25dp</item>
         <item name="android:background">@color/colorBlack</item>
         <item name="android:layout_gravity">center_vertical</item>
     </style>
 
-    <style name="image_button_in_bill" parent="@android:style/Widget.ImageButton" >
+    <style name="image_button_search" parent="@android:style/Widget.ImageButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">match_parent</item>
         <item name="android:background">@color/colorTransparent</item>
@@ -102,6 +102,54 @@
         <item name="android:scaleType">centerCrop</item>
     </style>
 
+    <style name="img_btn_drink" parent="@android:style/Widget.ImageButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/custom_btn_drink</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:src">@drawable/round_local_drink_24</item>
+        <item name="android:contentDescription">@string/drinks</item>
+    </style>
+
+    <style name="img_btn_food" parent="@android:style/Widget.ImageButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/custom_btn_food</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:src">@drawable/round_fastfood_24</item>
+        <item name="android:contentDescription">@string/food</item>
+    </style>
+
+    <style name="img_btn_liquor" parent="@android:style/Widget.ImageButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/custom_btn_liquor</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:src">@drawable/icon_bottle_of_wine</item>
+        <item name="android:contentDescription">@string/liquor</item>
+    </style>
+
+    <style name="img_btn_flower" parent="@android:style/Widget.ImageButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/custom_btn_flower</item>
+        <item name="android:padding">12dp</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:src">@drawable/icon_flower</item>
+        <item name="android:contentDescription">@string/flowers</item>
+    </style>
+
+    <style name="text_item_service" parent="@android:style/Widget.TextView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:textColor">@color/colorBlack</item>
+    </style>
+
     <style name="text_view_quantity_product" parent="@android:style/Widget.TextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">30dp</item>
@@ -114,18 +162,28 @@
 
     <style name="horizontal_line" parent="@android:style/Widget">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">0.5dp</item>
+        <item name="android:layout_height">1dp</item>
         <item name="android:background">@color/colorGray</item>
     </style>
 
-    <style name="img_price_old_to_new" parent="@android:style/Widget" >
+    <style name="img_price_old_to_new" parent="@android:style/Widget">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:src">@drawable/icon_arrow_point_to_right</item>
+        <item name="android:src">@drawable/icon_arrow_right_black_18dp</item>
         <item name="android:layout_gravity">center_vertical</item>
     </style>
 
-    <style name="text_product_name" parent="@android:style/Widget.TextView" >
+    <style name="img_back" parent="@android:style/Widget.ImageButton">
+        <item name="android:src">@drawable/round_arrow_back_24</item>
+        <item name="android:scaleType">centerCrop</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/colorTransparent</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:layout_gravity">center_vertical</item>
+    </style>
+
+    <style name="text_product_name" parent="@android:style/Widget.TextView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:text">ten san pam</item>
@@ -133,12 +191,14 @@
         <item name="android:textSize">17sp</item>
         <item name="android:textStyle">bold</item>
     </style>
+
     <style name="text_old_price" parent="@android:style/Widget.TextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:text">12,000d</item>
         <item name="android:textColor">@color/colorOldPrice</item>
     </style>
+
     <style name="text_new_price" parent="@android:style/Widget.TextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -146,6 +206,7 @@
         <item name="android:textColor">@color/colorNewPrice</item>
         <item name="android:textStyle">bold</item>
     </style>
+
     <style name="text_total_money" parent="@android:style/Widget.TextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -153,9 +214,9 @@
         <item name="android:textColor">@color/colorBlack</item>
     </style>
     <!--<style name="text_txt" parent="@android:style/Widget.TextView">-->
-        <!--<item name="android:layout_width">match_parent</item>-->
-        <!--<item name="android:layout_height">wrap_content</item>-->
-        <!--<item name="android:textColor">@color/colorText</item>-->
+    <!--<item name="android:layout_width">match_parent</item>-->
+    <!--<item name="android:layout_height">wrap_content</item>-->
+    <!--<item name="android:textColor">@color/colorText</item>-->
     <!--</style>-->
     <style name="text_color_black" parent="@android:style/Widget.TextView">
         <item name="android:layout_width">wrap_content</item>
@@ -165,25 +226,22 @@
 
     <style name="text_title_activity" parent="@android:style/Widget.TextView">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_height">45dp</item>
         <item name="android:textColor">@color/colorBlack</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">15sp</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="clear_edit_text" parent="@android:style/Widget.TextView" >
+    <style name="clear_edit_text" parent="@android:style/Widget.TextView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/colorBlack</item>
-        <!--<item name="android:paddingStart">5dp</item>-->
         <item name="android:layout_marginLeft">5dp</item>
         <item name="android:layout_marginRight">5dp</item>
-        <!--<item name="android:textColorHint">@color/colorText</item>-->
-
     </style>
 
-    <style name="text_bg_order_status" parent="@android:style/Widget.TextView" >
+    <style name="text_bg_order_status" parent="@android:style/Widget.TextView">
         <item name="android:layout_width">30dp</item>
         <item name="android:layout_height">30dp</item>
         <item name="android:textColor">@color/colorWhite</item>
@@ -192,23 +250,24 @@
         <item name="android:background">@drawable/custom_text_in_order_status_negative</item>
     </style>
 
-    <style name="text_order_status" parent="@android:style/Widget.TextView" >
+    <style name="text_order_status" parent="@android:style/Widget.TextView">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/colorDisEnable</item>
         <item name="android:textSize">16sp</item>
         <item name="android:layout_marginLeft">20dp</item>
         <item name="android:gravity">center_vertical</item>
     </style>
-    <style name="text_time_order_status" parent="@android:style/Widget.TextView" >
+
+    <style name="text_time_order_status" parent="@android:style/Widget.TextView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/colorText</item>
         <item name="android:gravity">center_vertical|right</item>
     </style>
-    <style name="vertical_line_order_status" parent="@android:style/Widget" >
+
+    <style name="vertical_line_order_status" parent="@android:style/Widget">
         <item name="android:layout_marginStart">22.5dp</item>
         <item name="android:layout_width">1dp</item>
         <item name="android:layout_height">50dp</item>
@@ -216,17 +275,17 @@
     </style>
 
     <!--<style name="TextAppearance.App.TabLayout" parent="@android:style/TextAppearance">-->
-        <!--<item name="android:textColor">@color/colorTextTabAppearance</item>-->
+    <!--<item name="android:textColor">@color/colorTextTabAppearance</item>-->
     <!--</style>-->
 
 
     <!--<style name="android.support.design.widget.TabLayout" parent="">-->
-        <!--<item name="android:colorAccent">@color/colorPrimary</item>-->
+    <!--<item name="android:colorAccent">@color/colorPrimary</item>-->
     <!--</style>-->
 
-    <declare-styleable name="PasswordEditText" >
-        <attr name="useStrike" format="boolean"></attr>
-        <attr name="useValidate" format="boolean"></attr>
+    <declare-styleable name="PasswordEditText">
+        <attr name="useStrike" format="boolean" />
+        <attr name="useValidate" format="boolean" />
     </declare-styleable>
 
 </resources>

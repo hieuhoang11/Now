@@ -40,9 +40,9 @@
         <ImageButton
             android:id="@+id/btnDanhmucStore"
             android:layout_width="50dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:background="@color/colorTransparent"
-            android:src="@drawable/icon_arrow_back_black_24dp" />
+            android:src="@drawable/round_expand_less_24" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

@@ -16,19 +16,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 
 import com.example.hieuhoang.now.Presenter.Main.Bill.IPresenterBill;
 import com.example.hieuhoang.now.Presenter.Main.Bill.PresenterLogicBill;
 import com.example.hieuhoang.now.R;
+import com.example.hieuhoang.now.Util.Util;
 import com.example.hieuhoang.now.View.LoginRegister.LoginRegisterActivity;
 import com.example.hieuhoang.now.View.Main.Bill.DraftOrder.FragmentDraftOrder;
 import com.example.hieuhoang.now.View.Main.Bill.History.FragmentHistory;
 import com.example.hieuhoang.now.View.Main.Bill.OnGoing.FragmentOnGoing;
+import com.example.hieuhoang.now.View.Search.SearchActivity;
 
 import java.util.Collections;
 
 public class FragmentBill extends Fragment implements ViewBill, View.OnClickListener {
     private Button btnOnGoing, btnHistory, btnDraftOrder, btnLogin;
+    private ImageButton btnSearch ;
     private int colorNormal, colorTextIsChecked;
     private View viewLoginToContinue;
     private FrameLayout[] frameLayouts;
@@ -56,6 +60,7 @@ public class FragmentBill extends Fragment implements ViewBill, View.OnClickList
     }
 
     private void Mapping(View view) {
+        btnSearch = view.findViewById(R.id.btnSearch);
         btnOnGoing = view.findViewById(R.id.btnOnGoing);
         btnHistory = view.findViewById(R.id.btnHistory);
         btnDraftOrder = view.findViewById(R.id.btnDraftOrder);
@@ -76,6 +81,7 @@ public class FragmentBill extends Fragment implements ViewBill, View.OnClickList
         btnHistory.setOnClickListener(this);
         btnDraftOrder.setOnClickListener(this);
         btnLogin.setOnClickListener(this);
+        btnSearch.setOnClickListener(this);
     }
 
 
@@ -87,10 +93,10 @@ public class FragmentBill extends Fragment implements ViewBill, View.OnClickList
         buttons[1] = btnHistory;
         buttons[2] = btnDraftOrder;
 
-        colorNormal = context.getResources().getColor(R.color.colorBlack);
-        colorTextIsChecked = context.getResources().getColor(R.color.colorTextTabSelected);
+        colorNormal = Util.getIdColor(context,R.color.colorBlack);
+        colorTextIsChecked = Util.getIdColor(context,R.color.colorTextTabSelected);
 
-        fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager = getFragmentManager();
         fragments = new Fragment[3] ;
 
     }
@@ -100,6 +106,7 @@ public class FragmentBill extends Fragment implements ViewBill, View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnOnGoing:
+                if(tabSelected == -1) break;
                 if (fragments[0] == null) {
                     fragments[0] = new FragmentOnGoing();
                     setContent(fragments[0], 0);
@@ -108,6 +115,7 @@ public class FragmentBill extends Fragment implements ViewBill, View.OnClickList
                 visibleFragment(0);
                 break;
             case R.id.btnHistory:
+                if(tabSelected == -1) break;
                 if (fragments[1] == null) {
                     fragments[1] = new FragmentHistory();
                     setContent(fragments[1], 1);
@@ -116,6 +124,7 @@ public class FragmentBill extends Fragment implements ViewBill, View.OnClickList
                 visibleFragment(1);
                 break;
             case R.id.btnDraftOrder:
+                if(tabSelected == -1) break;
                 if (fragments[2] == null) {
                     fragments[2] = new FragmentDraftOrder();
                     setContent(fragments[2], 2);
@@ -126,6 +135,10 @@ public class FragmentBill extends Fragment implements ViewBill, View.OnClickList
             case R.id.btnLogin:
                 Intent iLogin = new Intent(getContext(), LoginRegisterActivity.class);
                 startActivity(iLogin);
+                break;
+            case R.id.btnSearch:
+                Intent iSearch = new Intent(getContext(), SearchActivity.class);
+                startActivity(iSearch);
                 break;
         }
     }
@@ -154,7 +167,7 @@ public class FragmentBill extends Fragment implements ViewBill, View.OnClickList
     }
 
     @Override
-    public void notLogIn() {
+    public void noLogged() {
         viewLoginToContinue.setVisibility(View.VISIBLE);
         viewContentBill.setVisibility(View.GONE);
     }

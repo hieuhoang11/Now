@@ -52,7 +52,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:gravity="right"
+                                android:gravity="end"
                                 android:text="@string/see_more"
                                 android:textColor="@color/colorBlack"
                                 android:textStyle="bold" />
@@ -64,9 +64,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/colorWhite"
-                            android:paddingBottom="13dp"
-                            android:paddingLeft="13dp"
-                            android:paddingTop="13dp">
+                            android:paddingBottom="10dp"
+                            android:paddingStart="10dp"
+                            android:paddingTop="10dp">
 
                         </android.support.v7.widget.RecyclerView>
 
@@ -76,8 +76,8 @@
                             android:layout_marginTop="10dp"
                             android:background="@color/colorWhite"
                             android:orientation="horizontal"
-                            android:paddingLeft="13dp"
-                            android:paddingRight="13dp"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
                             android:paddingTop="10dp">
 
                             <TextView
@@ -91,7 +91,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:gravity="right"
+                                android:gravity="end"
                                 android:text="@string/see_more"
                                 android:textColor="@color/colorBlack"
                                 android:textStyle="bold" />
@@ -104,7 +104,7 @@
                             android:layout_height="wrap_content"
                             android:background="@color/colorWhite"
                             android:paddingBottom="13dp"
-                            android:paddingLeft="13dp"
+                            android:paddingStart="13dp"
                             android:paddingTop="13dp">
 
                         </android.support.v7.widget.RecyclerView>
@@ -129,28 +129,35 @@
 
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="25dp"
                         android:orientation="horizontal"
                         android:paddingTop="5dp">
 
-                        <Button
+                        <ImageButton
                             android:id="@+id/btnBackService"
+                            style="@style/img_back"
+                            android:paddingEnd="5dp"/>
+
+                        <TextView
+                            android:id="@+id/tvService"
                             android:layout_width="wrap_content"
-                            android:layout_height="20dp"
+                            android:layout_height="match_parent"
                             android:background="@color/colorTransparent"
-                            android:drawableLeft="@drawable/icon_arrow_back_black_24dp"
-                            android:drawableRight="@drawable/icon_arrow_point_to_right"
-                            android:gravity="left|center_vertical"
-                            android:text="Đồ ăn"
+                            android:gravity="start|center_vertical"
                             android:textAllCaps="false"
                             android:textColor="@color/colorBlack"
-                            android:textStyle="bold" />
+                            android:textStyle="bold"
+                            android:text="@string/food"/>
 
+                        <ImageView
+                            android:paddingStart="5dp"
+                            android:paddingEnd="5dp"
+                            style="@style/img_price_old_to_new"/>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
-                            android:text="Giao tới"
+                            android:text="@string/your_location"
                             android:textColor="@color/colorText" />
 
                     </LinearLayout>
@@ -159,7 +166,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="35dp"
                         android:layout_marginBottom="5dp"
-                        android:layout_marginRight="10dp"
+                        android:layout_marginEnd="10dp"
                         android:layout_marginTop="5dp"
                         android:layout_weight="1"
                         android:background="@drawable/bgsearch"
@@ -176,12 +183,12 @@
                             android:layout_gravity="start"
                             android:layout_weight="3"
                             android:background="@drawable/buttonsearch"
-                            android:drawableLeft="@drawable/icon_search_24dp"
-                            android:text="Tìm món ăn, địa điểm,..."
+                            android:drawableStart="@drawable/icon_search_24dp"
+                            android:text="@string/find_dish_location"
                             android:textAlignment="textStart"
                             android:textAllCaps="false"
                             android:textColor="@color/colorTextSearch"
-                            android:textSize="11dp" />
+                            android:textSize="12sp" />
 
                         <Button
                             android:id="@+id/btnLocation"
@@ -267,6 +274,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="2dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
 
             android:background="@color/colorWhite">
 

@@ -68,7 +68,7 @@ public class ModelLogin {
     }
 
     public boolean isLogged() {
-        Account account = this.getAccountInformation();
+        Account account = this.getAccount();
         return !(account.getIdAccount().equals(AppConstant.DEFAULT_ID_ACCOUNT));
     }
 
@@ -117,7 +117,7 @@ public class ModelLogin {
         editor.apply();
     }
 
-    public Account getAccountInformation() {
+    public Account getAccount() {
 
         SharedPreferences sharedPreferences = context.getSharedPreferences(AppConstant.LOGIN_SHAREDPREFERENCES, Context.MODE_PRIVATE);
         if (sharedPreferences == null) {

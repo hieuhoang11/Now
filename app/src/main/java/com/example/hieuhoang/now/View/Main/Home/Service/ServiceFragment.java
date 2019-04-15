@@ -1,6 +1,7 @@
 package com.example.hieuhoang.now.View.Main.Home.Service;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,43 +12,36 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
-
 import com.example.hieuhoang.now.Adapter.rvHotAdapter;
 import com.example.hieuhoang.now.Adapter.rvStoreAdapter;
 import com.example.hieuhoang.now.Adapter.rvPreferentialAdapter;
+import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.ObjectClass.HotProduct;
 import com.example.hieuhoang.now.Model.ObjectClass.Store;
 import com.example.hieuhoang.now.Presenter.Service.PresenterLogicService;
 import com.example.hieuhoang.now.R;
-
+import com.example.hieuhoang.now.Util.Util;
+import com.example.hieuhoang.now.View.Search.SearchActivity;
 import java.util.List;
 
 
 public class ServiceFragment extends Fragment implements ViewService, View.OnClickListener {
     private RecyclerView rvPreferentialService, rvHotProductService, rvItemService;
-    private TextView txtNewItemService, txtNearbyItemService, txtJustOrderItemService, txtRecommendItemService;
-    Button btnBackService;
+    private TextView txtNewItemService, txtNearbyItemService, txtJustOrderItemService, txtRecommendItemService,tvService;
+    private Button btnSearch;
+    private ImageButton btnBackService ;
     private PresenterLogicService presenterLogicService;
-    LinearLayoutManager layoutManager;
     private rvStoreAdapter adapter;
+    private String idService;
 
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_fragment_service, container, false);
 
         Mapping(view);
-
-        layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        adapter = new rvStoreAdapter(null, getContext());
-        rvItemService.setAdapter(adapter);
-        rvItemService.setLayoutManager(layoutManager);
-
-        presenterLogicService = new PresenterLogicService(this);
-        presenterLogicService.loadHotProducts();
-        presenterLogicService.loadPreferential();
-        presenterLogicService.loadRecommendStores();
+        init();
 
         return view;
     }
@@ -61,13 +55,52 @@ public class ServiceFragment extends Fragment implements ViewService, View.OnCli
         txtJustOrderItemService = view.findViewById(R.id.txtJustOrderItemService);
         txtRecommendItemService = view.findViewById(R.id.txtRecommendItemService);
         btnBackService = view.findViewById(R.id.btnBackService);
+        btnSearch = view.findViewById(R.id.btnSearch) ;
+        tvService = view.findViewById(R.id.tvService) ;
 
+        btnSearch.setOnClickListener(this);
         btnBackService.setOnClickListener(this);
         txtRecommendItemService.setOnClickListener(this);
         txtJustOrderItemService.setOnClickListener(this);
         txtNewItemService.setOnClickListener(this);
         txtNearbyItemService.setOnClickListener(this);
-        txtRecommendItemService.setTextColor(getResources().getColor(R.color.colorTextTabSelected));
+        txtRecommendItemService.setTextColor(Util.getIdColor(getContext() , R.color.colorTextTabSelected));
+    }
+
+    private void init () {
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            idService = bundle.getString(AppConstant.ID_SERVICE);
+        }
+        if(idService == null)
+            idService = AppConstant.ID_SERVICE_DEFAULT ;
+        String serviceName ="";
+        switch(idService) {
+            case AppConstant.ID_SERVICE_FOOD :
+                serviceName = getResources().getString(R.string.food) ;
+                break;
+            case AppConstant.ID_SERVICE_DRINK :
+                serviceName = getResources().getString(R.string.drinks) ;
+                break;
+            case AppConstant.ID_SERVICE_FLOWER :
+                serviceName = getResources().getString(R.string.flowers) ;
+                break;
+            case AppConstant.ID_SERVICE_LIQUOR :
+                serviceName = getResources().getString(R.string.liquor) ;
+                break;
+        }
+
+        tvService.setText(serviceName) ;
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        adapter = new rvStoreAdapter(null, getContext());
+        rvItemService.setAdapter(adapter);
+        rvItemService.setLayoutManager(layoutManager);
+
+        presenterLogicService = new PresenterLogicService(this);
+        presenterLogicService.loadHotProducts();
+        presenterLogicService.loadPreferential();
+        presenterLogicService.loadRecommendStores();
     }
 
     @Override
@@ -117,7 +150,7 @@ public class ServiceFragment extends Fragment implements ViewService, View.OnCli
         switch (v.getId()) {
             case R.id.txtJustOrderItemService:
                 setTextColor(txtJustOrderItemService);
-                presenterLogicService.loadJustOrderStores();
+                presenterLogicService.loadJustOrderStores(idService);
                 break;
             case R.id.txtNewItemService:
                 setTextColor(txtNewItemService);
@@ -131,20 +164,26 @@ public class ServiceFragment extends Fragment implements ViewService, View.OnCli
                 setTextColor(txtRecommendItemService);
                 presenterLogicService.loadRecommendStores();
                 break;
-            case R.id.btnBackService :
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+            case R.id.btnBackService:
+                FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.remove(this);
                 fragmentTransaction.commit();
+                break;
+            case R.id.btnSearch:
+                Intent iSearch = new Intent(getContext(), SearchActivity.class) ;
+                iSearch.putExtra(AppConstant.ID_SERVICE , idService) ;
+                startActivity(iSearch);
                 break;
         }
     }
 
     public void setTextColor(TextView txtChecked) {
-        txtJustOrderItemService.setTextColor(getResources().getColor(R.color.colorBlack));
-        txtNewItemService.setTextColor(getResources().getColor(R.color.colorBlack));
-        txtNearbyItemService.setTextColor(getResources().getColor(R.color.colorBlack));
-        txtRecommendItemService.setTextColor(getResources().getColor(R.color.colorBlack));
-        txtChecked.setTextColor(getResources().getColor(R.color.colorTextTabSelected));
+        int colorBlack = Util.getIdColor(getContext(),R.color.colorBlack);
+        txtJustOrderItemService.setTextColor(colorBlack);
+        txtNewItemService.setTextColor(colorBlack);
+        txtNearbyItemService.setTextColor(colorBlack);
+        txtRecommendItemService.setTextColor(colorBlack);
+        txtChecked.setTextColor(Util.getIdColor(getContext(),R.color.colorTextTabSelected));
     }
 }

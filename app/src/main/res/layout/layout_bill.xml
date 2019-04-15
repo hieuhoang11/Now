@@ -14,7 +14,7 @@
         android:orientation="horizontal">
 
         <ImageButton
-            style="@style/image_button_in_bill"
+            style="@style/image_button_search"
             android:src="@drawable/icon_search_24dp"/>
         <LinearLayout
             android:layout_weight="1"
@@ -49,7 +49,8 @@
 
         </LinearLayout>
         <ImageButton
-            style="@style/image_button_in_bill"
+            android:id="@+id/btnSearch"
+            style="@style/image_button_search"
             android:src="@drawable/icon_search_24dp"/>
     </LinearLayout>
 

@@ -40,8 +40,8 @@ public class PresenterLogicService implements IPresenterService {
     }
 
     @Override
-    public void loadJustOrderStores() {
-        List<Store> list = modelProduct.getJustOrderStore();
+    public void loadJustOrderStores(String idService) {
+        List<Store> list = modelProduct.getJustOrderStore(idService);
         if(list.size() >0){
             viewService.loadJustOrderStore(list);
         }

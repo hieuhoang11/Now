@@ -5,6 +5,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hieuhoang.now.Adapter.rvStoreAdapter;
@@ -22,6 +26,7 @@ public class BrandActivity extends AppCompatActivity implements ViewBrand {
     private rvStoreAdapter adapter;
     private RecyclerView rvListStore;
     private TextView tvBrandName;
+    private ImageView imgBack ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +49,13 @@ public class BrandActivity extends AppCompatActivity implements ViewBrand {
     private void Mapping() {
         rvListStore = findViewById(R.id.rvListStore) ;
         tvBrandName = findViewById(R.id.tvBrandName) ;
+        imgBack = findViewById(R.id.imgBack);
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     @Override

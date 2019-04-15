@@ -65,6 +65,7 @@ public class FragmentOnGoing extends Fragment implements ViewOnGoing{
         viewNoData.setVisibility(View.GONE);
         viewQuantityOrder.setVisibility(View.VISIBLE);
         rvOrder.setVisibility(View.VISIBLE);
+        swipeRefresh.setVisibility(View.VISIBLE);
         tvTotalItem.setText(String.valueOf(mOrders.size()));
         adapter.setData(mOrders);
         adapter.notifyDataSetChanged();
@@ -75,6 +76,7 @@ public class FragmentOnGoing extends Fragment implements ViewOnGoing{
     public void noHasOrder() {
         viewQuantityOrder.setVisibility(View.GONE);
         rvOrder.setVisibility(View.GONE);
+        swipeRefresh.setVisibility(View.GONE);
         viewNoData.setVisibility(View.VISIBLE);
         swipeRefresh.setRefreshing(false);
     }

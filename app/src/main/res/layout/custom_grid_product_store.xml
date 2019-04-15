@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="10dp"
-    android:layout_marginRight="10dp"
+    android:layout_marginEnd="10dp"
     app:cardBackgroundColor="@color/colorWhite"
     app:cardCornerRadius="10dp">
 
@@ -28,24 +28,22 @@
             android:layout_height="wrap_content"
             android:paddingLeft="5dp"
             android:paddingRight="5dp"
-            android:text="tên món ăn"
             android:textColor="@color/colorBlack"
             android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_marginStart="5dp"
             android:orientation="horizontal">
 
             <ImageView style="@style/image_view_cart" />
 
             <TextView
                 android:id="@+id/tvNumberOfPurchases"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text=" 10+"
                 android:textColor="@color/colorBlack" />
         </LinearLayout>
 
@@ -55,7 +53,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="vertical">
@@ -64,16 +62,14 @@
                     android:id="@+id/tvProductPrice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="5dp"
-                    android:text="gia"
+                    android:paddingStart="5dp"
                     android:textColor="@color/colorBlack" />
 
                 <TextView
                     android:id="@+id/tvDisCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="5dp"
-                    android:text="gia moi"
+                    android:paddingStart="5dp"
                     android:textColor="@color/colorNewPrice" />
             </LinearLayout>
 
@@ -81,26 +77,26 @@
                 android:id="@+id/btnSubtract"
                 style="@style/button_circle_subtract"
                 android:layout_gravity="bottom"
-                android:layout_marginRight="5dp" />
+                android:layout_marginEnd="5dp" />
 
             <TextView
                 android:id="@+id/tvQualityProductInCraftOrder"
                 style="@style/text_view_quantity_product"
                 android:layout_gravity="bottom"
-                android:layout_marginRight="5dp"
-                android:text="1" />
+                android:layout_marginEnd="5dp"
+                />
 
             <ImageButton
                 android:id="@+id/btnPlus"
                 style="@style/button_circle_plus"
                 android:layout_gravity="bottom"
-                android:layout_marginRight="5dp" />
+                android:layout_marginEnd="5dp" />
 
             <TextView
                 android:id="@+id/tvOutOfStock"
                 style="@style/text_view_out_of_stock"
                 android:layout_gravity="bottom"
-                android:layout_marginRight="5dp" />
+                android:layout_marginEnd="5dp" />
         </LinearLayout>
 
     </LinearLayout>

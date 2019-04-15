@@ -13,7 +13,7 @@ import com.example.hieuhoang.now.R;
 import com.example.hieuhoang.now.View.Main.Account.FragmentAccount;
 import com.example.hieuhoang.now.View.Main.Bill.FragmentBill;
 import com.example.hieuhoang.now.View.Main.Home.FragmentHome;
-import com.example.hieuhoang.now.View.Main.Notification.FragmentNotification;
+import com.example.hieuhoang.now.View.Main.Favorite.FragmentFavorite;
 
 
 
@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private FragmentHome fragmentHome;
     private FragmentBill fragmentBill;
-    private FragmentNotification fragmentNotification;
+    private FragmentFavorite fragmentNotification;
     private FragmentAccount fragmentAccount;
     private int tabSelected = 0;
     private String TAG = "kiemtra";
@@ -55,6 +55,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addOnClick();
         //modelLocation = new ModelLocation(this,getApplicationContext());
         //modelLocation.Connect();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i(TAG, "onStart: Main");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i(TAG, "onResume: Main");
     }
 
     private void Mapping() {
@@ -113,7 +125,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btnNotification:
                 if (fragmentNotification == null) {
-                    fragmentNotification = new FragmentNotification();
+                    fragmentNotification = new FragmentFavorite();
                     setContent(fragmentNotification, 2);
                 } else visibleFragment(2);
                 break;
@@ -151,9 +163,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i(TAG, "onStop: Main ");
+    }
+
+    @Override
     protected void onDestroy() {
         super.onDestroy();
-        //modelLocation.disConnect () ;
+        Log.i(TAG, "onDestroy: ");
     }
     //    private ViewPager viewPager;
 //    private TabLayout tabLayout;
@@ -173,7 +191,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //
 //        List<Fragment> fragmentList = new ArrayList<>();
 //        fragmentList.add(new FragmentBill());
-//        fragmentList.add(new FragmentNotification());
+//        fragmentList.add(new FragmentFavorite());
 //        fragmentList.add(new FragmentAccount());
 //
 //        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(),fragmentList);

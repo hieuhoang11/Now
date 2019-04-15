@@ -87,23 +87,20 @@ public class ModelLocation implements GoogleApiClient.ConnectionCallbacks,
         return true;
     }
 
-    private void buildGoogleApiClient() {
+    private synchronized void buildGoogleApiClient() {
         if (gac == null) {
             Log.i("kiemtra", "null: ");
             gac = new GoogleApiClient.Builder(context)
                     .addConnectionCallbacks(this)
                     .addOnConnectionFailedListener(this)
                     .addApi(LocationServices.API).build();
-        } else  {
-            gac.connect();
-            Log.i("kiemtra", "connect: ");
         }
     }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
         Log.i("kiemtra", "onConnected: ");
-        gac.connect();
+        //gac.connect();
     }
 
     @Override

@@ -4,6 +4,8 @@ import android.content.Context;
 
 import android.location.Address;
 import android.location.Geocoder;
+import android.os.Build;
+import android.support.v4.content.ContextCompat;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.StrikethroughSpan;
@@ -30,7 +32,7 @@ import java.util.Locale;
 public class Util {
 
     // Mang cac ky tu goc co dau
-    private static char[] SOURCE_CHARACTERS = { 'À', 'Á', 'Â', 'Ã', 'È', 'É',
+    private static char[] SOURCE_CHARACTERS = {'À', 'Á', 'Â', 'Ã', 'È', 'É',
             'Ê', 'Ì', 'Í', 'Ò', 'Ó', 'Ô', 'Õ', 'Ù', 'Ú', 'Ý', 'à', 'á', 'â',
             'ã', 'è', 'é', 'ê', 'ì', 'í', 'ò', 'ó', 'ô', 'õ', 'ù', 'ú', 'ý',
             'Ă', 'ă', 'Đ', 'đ', 'Ĩ', 'ĩ', 'Ũ', 'ũ', 'Ơ', 'ơ', 'Ư', 'ư', 'Ạ',
@@ -40,10 +42,10 @@ public class Util {
             'Ỉ', 'ỉ', 'Ị', 'ị', 'Ọ', 'ọ', 'Ỏ', 'ỏ', 'Ố', 'ố', 'Ồ', 'ồ', 'Ổ',
             'ổ', 'Ỗ', 'ỗ', 'Ộ', 'ộ', 'Ớ', 'ớ', 'Ờ', 'ờ', 'Ở', 'ở', 'Ỡ', 'ỡ',
             'Ợ', 'ợ', 'Ụ', 'ụ', 'Ủ', 'ủ', 'Ứ', 'ứ', 'Ừ', 'ừ', 'Ử', 'ử', 'Ữ',
-            'ữ', 'Ự', 'ự', };
+            'ữ', 'Ự', 'ự',};
 
     // Mang cac ky tu thay the khong dau
-    private static char[] DESTINATION_CHARACTERS = { 'A', 'A', 'A', 'A', 'E',
+    private static char[] DESTINATION_CHARACTERS = {'A', 'A', 'A', 'A', 'E',
             'E', 'E', 'I', 'I', 'O', 'O', 'O', 'O', 'U', 'U', 'Y', 'a', 'a',
             'a', 'a', 'e', 'e', 'e', 'i', 'i', 'o', 'o', 'o', 'o', 'u', 'u',
             'y', 'A', 'a', 'D', 'd', 'I', 'i', 'U', 'u', 'O', 'o', 'U', 'u',
@@ -53,7 +55,7 @@ public class Util {
             'e', 'I', 'i', 'I', 'i', 'O', 'o', 'O', 'o', 'O', 'o', 'O', 'o',
             'O', 'o', 'O', 'o', 'O', 'o', 'O', 'o', 'O', 'o', 'O', 'o', 'O',
             'o', 'O', 'o', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u',
-            'U', 'u', 'U', 'u', };
+            'U', 'u', 'U', 'u',};
 
     public static void loadImageFromInternet(String path, Context context, ImageView imageView) {
         Picasso.with(context)
@@ -69,6 +71,10 @@ public class Util {
     public static String formatNumber(float number) {
         NumberFormat numberFormat = new DecimalFormat("###,###");
         return numberFormat.format(number) + "đ";
+    }
+
+    public static String formatPriceStore(float number) {
+        return String.valueOf((int) (number / 1000)) + "k";
     }
 
     public static SpannableStringBuilder oldPriceFormat(String oldPrice) {
@@ -123,9 +129,9 @@ public class Util {
 
     }
 
-   public static String formatDate (Date date) {
-       SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
-       return format.format(date) ;
+    public static String formatDate(Date date) {
+        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+        return format.format(date);
     }
 
     public static char removeAccent(char ch) {
@@ -149,30 +155,16 @@ public class Util {
         }
         return sb.toString();
     }
-    public static String standardizeString (String str){
+
+    public static String standardizeString(String str) {
         return str.trim().replaceAll("\\s+", " ");
     }
-    public static String createKey(String prefix) {
-//        String key = prefix;
-//        String[] partsDay;
-//            partsDay = DateTime.Now.ToShortDateString().Split('/');
-////Ví dụ 07/08/2009
-//        String d = String.Format("{0}{1}{2}", partsDay[0], partsDay[1], partsDay[2]);
-//            key = key + d;
-//        String[] partsTime;
-//            partsTime = DateTime.Now.ToLongTimeString().Split(':');
-////Ví dụ 7:08:03 PM hoặc 7:08:03 AM
-//            if( partsTime[2].Substring(3, 2) == "PM" )
-//                partsTime[0] = ConvertTimeTo24(partsTime[0]);
-//            if( partsTime[2].Substring(3, 2) == "AM" )
-//                if( partsTime[0].Length == 1 )
-//                    partsTime[0] = "0" + partsTime[0];
-////Xóa ký t trắng và PM hoặc AM
-//            partsTime[2] = partsTime[2].Remove(2, 3);
-//        String t;
-//            t= String.Format("_{0}{1}{2}", partsTime[0], partsTime[1], partsTime[2]);
-//            key = key + t;
-//            return key;
-        return "";
+
+    public static int getIdColor(Context context, int idColor) {
+        int color = 0;
+        if (Build.VERSION.SDK_INT > 21)
+            color = ContextCompat.getColor(context, idColor);
+        else color = context.getResources().getColor(idColor);
+        return color;
     }
 }

@@ -27,7 +27,7 @@ public class PresenterLogicDraftOrder implements IPresenterDraftOrder {
     @Override
     public void getListDraftOrder() {
         if(!modelLogin.isLogged()) return;
-        Account customer = modelLogin.getAccountInformation();
+        Account customer = modelLogin.getAccount();
         if (customer.getIdAccount().equals(AppConstant.DEFAULT_ID_ACCOUNT))
             return;
         List<Order> list = modelOrder.getListDraftOrder(customer.getIdAccount());
@@ -41,7 +41,7 @@ public class PresenterLogicDraftOrder implements IPresenterDraftOrder {
 
     @Override
     public void deleteAllDraftOrder() {
-        Account customer = modelLogin.getAccountInformation();
+        Account customer = modelLogin.getAccount();
         if (customer.getIdAccount().equals(AppConstant.DEFAULT_ID_ACCOUNT))
             return;
         boolean b = modelOrder.deleteAllDraftOrder(String.valueOf(customer.getIdAccount())) ;

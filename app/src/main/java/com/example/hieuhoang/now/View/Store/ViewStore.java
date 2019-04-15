@@ -28,4 +28,12 @@ public interface ViewStore {
     void showSheetEditNote (String idProduct  ,String note) ;
 
     void deleteItemOrderDetail (String idOrder , String idProduct);
+
+    void addFavoriteSuccess ();
+
+    void removeFavoriteSuccess ();
+
+    void showMessage (String message) ;
+
+    void isFavorite () ;
 }
