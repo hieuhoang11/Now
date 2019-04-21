@@ -593,7 +593,7 @@ public class ModelOrder {
         return list;
     }
 
-    public List<Order> getListHistoryOrder(String idCustomer , String startDate , String finishDate) {
+    public List<Order> getListHistoryOrder(String idCustomer , String startDate , String finishDate , String idService) {
         List<Order> list = new ArrayList<>();
         String path = AppConstant.SERVER_NAME;
         List<HashMap<String, String>> attrs = new ArrayList<>();
@@ -616,6 +616,9 @@ public class ModelOrder {
         HashMap<String, String> hsFinishDay = new HashMap<>();
         hsFinishDay.put(AppConstant.FINISH_DATE, finishDate);
 
+        HashMap<String, String> hsIdService = new HashMap<>();
+        hsIdService.put(AppConstant.ID_SERVICE, idService);
+
 
         attrs.add(hsFunction);
         attrs.add(hsIDCustomer);
@@ -623,12 +626,14 @@ public class ModelOrder {
         attrs.add(hsSubmitStatus);
         attrs.add(hsStartDay);
         attrs.add(hsFinishDay);
+        attrs.add(hsIdService);
 
         DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
         downloadJSON.execute();
 
         try {
             String dataJson = downloadJSON.get();
+            Log.i(TAG, "getListHistoryOrder: " + dataJson);
             list = parseListOrder(dataJson) ;
         } catch (InterruptedException e) {
             e.printStackTrace();

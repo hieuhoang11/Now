@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorApp"
+    android:background="@color/colorWhite"
     android:orientation="vertical"
     tools:context="com.example.hieuhoang.now.View.LoginRegister.LoginRegisterActivity">
 
@@ -17,7 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="13dp">
+            android:paddingBottom="20dp"
+            >
 
             <FrameLayout
 
@@ -32,7 +33,7 @@
                 android:layout_marginTop="20dp"
                 android:gravity="center"
                 android:text="@string/or_login_with"
-                android:textColor="@color/colorBlack" />
+                android:textColor="@color/colorPrimary" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -44,7 +45,8 @@
                     android:id="@+id/btnLoginFacebook"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_weight="1"
                     android:background="@drawable/vienfacebook"
                     android:drawableLeft="@drawable/facebook_logo"
@@ -57,11 +59,12 @@
                     android:id="@+id/btnLoginGoogle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:background="@drawable/viengoogle"
-                    android:drawableLeft="@drawable/google_plus"
-                    android:paddingLeft="10dp"
+                    android:drawableStart="@drawable/google_plus"
+                    android:paddingStart="10dp"
+                    android:layout_marginEnd="10dp"
                     android:text="Google"
                     android:textAllCaps="false"
                     android:textColor="@color/colorGoogle" />

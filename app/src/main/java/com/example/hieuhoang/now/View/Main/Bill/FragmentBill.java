@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 
+import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Presenter.Main.Bill.IPresenterBill;
 import com.example.hieuhoang.now.Presenter.Main.Bill.PresenterLogicBill;
 import com.example.hieuhoang.now.R;
@@ -32,12 +33,12 @@ import java.util.Collections;
 
 public class FragmentBill extends Fragment implements ViewBill, View.OnClickListener {
     private Button btnOnGoing, btnHistory, btnDraftOrder, btnLogin;
-    private ImageButton btnSearch ;
+    private ImageButton btnSearch;
     private int colorNormal, colorTextIsChecked;
     private View viewLoginToContinue;
     private FrameLayout[] frameLayouts;
-    private Fragment []fragments;
-    private int[] contents = {R.id.contentOngoing,R.id.contentHistory,R.id.contentDraft};
+    private Fragment[] fragments;
+    private int[] contents = {R.id.contentOngoing, R.id.contentHistory, R.id.contentDraft};
     private View viewContentBill;
     private FragmentManager fragmentManager;
     private int tabSelected = -1;
@@ -56,7 +57,7 @@ public class FragmentBill extends Fragment implements ViewBill, View.OnClickList
     @Override
     public void onStart() {
         super.onStart();
-        presenterLogicBill.checkLogin();
+
     }
 
     private void Mapping(View view) {
@@ -93,11 +94,21 @@ public class FragmentBill extends Fragment implements ViewBill, View.OnClickList
         buttons[1] = btnHistory;
         buttons[2] = btnDraftOrder;
 
-        colorNormal = Util.getIdColor(context,R.color.colorBlack);
-        colorTextIsChecked = Util.getIdColor(context,R.color.colorTextTabSelected);
+        colorNormal = Util.getIdColor(context, R.color.colorBlack);
+        colorTextIsChecked = Util.getIdColor(context, R.color.colorTextTabSelected);
 
         fragmentManager = getFragmentManager();
-        fragments = new Fragment[3] ;
+        fragments = new Fragment[3];
+
+        Bundle bundle = getArguments();
+        if (bundle != null)
+            tabSelected = bundle.getInt(AppConstant.TAB, -1);
+        if (tabSelected != -1) {
+            if (fragments[1] == null) {
+                fragments[1] = new FragmentHistory();
+                setContent(fragments[1], 1);
+            }
+        } else presenterLogicBill.checkLogin();
 
     }
 
@@ -106,7 +117,7 @@ public class FragmentBill extends Fragment implements ViewBill, View.OnClickList
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnOnGoing:
-                if(tabSelected == -1) break;
+                if (tabSelected == -1) break;
                 if (fragments[0] == null) {
                     fragments[0] = new FragmentOnGoing();
                     setContent(fragments[0], 0);
@@ -115,7 +126,7 @@ public class FragmentBill extends Fragment implements ViewBill, View.OnClickList
                 visibleFragment(0);
                 break;
             case R.id.btnHistory:
-                if(tabSelected == -1) break;
+                if (tabSelected == -1) break;
                 if (fragments[1] == null) {
                     fragments[1] = new FragmentHistory();
                     setContent(fragments[1], 1);
@@ -124,7 +135,7 @@ public class FragmentBill extends Fragment implements ViewBill, View.OnClickList
                 visibleFragment(1);
                 break;
             case R.id.btnDraftOrder:
-                if(tabSelected == -1) break;
+                if (tabSelected == -1) break;
                 if (fragments[2] == null) {
                     fragments[2] = new FragmentDraftOrder();
                     setContent(fragments[2], 2);
@@ -144,7 +155,7 @@ public class FragmentBill extends Fragment implements ViewBill, View.OnClickList
     }
 
     private void setContent(Fragment fragment, int index) {
-        addFragment(fragment,index);
+        addFragment(fragment, index);
         visibleFragment(index);
     }
 
@@ -160,7 +171,7 @@ public class FragmentBill extends Fragment implements ViewBill, View.OnClickList
         tabSelected = index;
     }
 
-    private void addFragment(Fragment fragment,int index) {
+    private void addFragment(Fragment fragment, int index) {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(contents[index], fragment);
         fragmentTransaction.commit();
@@ -176,11 +187,15 @@ public class FragmentBill extends Fragment implements ViewBill, View.OnClickList
     public void loadOrder() {
         viewContentBill.setVisibility(View.VISIBLE);
         viewLoginToContinue.setVisibility(View.GONE);
-        if(tabSelected == -1) {
-            tabSelected = 0 ;
+        if (tabSelected == -1) {
+            tabSelected = 0;
             fragments[0] = new FragmentOnGoing();
             setContent(fragments[0], 0);
-        }
-        else fragments[tabSelected].onStart();
+        } else fragments[tabSelected].onStart();
+    }
+
+    public void setFragmentChecked(int index) {
+        visibleFragment(index);
+        fragments[tabSelected].onStart();
     }
 }

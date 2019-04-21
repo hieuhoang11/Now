@@ -34,6 +34,7 @@ import com.example.hieuhoang.now.View.OrderDetail.OrderDetailActivity;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -53,7 +54,8 @@ public class FragmentHistory extends Fragment implements ViewHistory, View.OnCli
     };
     private BottomSheetDialog dialog;
     private Context context;
-
+    private String idService = AppConstant.ID_SERVICE_ALL;
+    private Map<String,String> services ;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -120,6 +122,13 @@ public class FragmentHistory extends Fragment implements ViewHistory, View.OnCli
 
     private void init() {
         context = getContext();
+
+        services = new HashMap<>( );
+        services.put(AppConstant.ID_SERVICE_ALL,getResources().getString(R.string.all_service)) ;
+        services.put(AppConstant.ID_SERVICE_DRINK,getResources().getString(R.string.drinks)) ;
+        services.put(AppConstant.ID_SERVICE_FOOD,getResources().getString(R.string.food)) ;
+        services.put(AppConstant.ID_SERVICE_LIQUOR,getResources().getString(R.string.liquor)) ;
+        services.put(AppConstant.ID_SERVICE_FLOWER,getResources().getString(R.string.flowers)) ;
         presenterLogic = new PresenterLogicHistoryOrder(context, this);
 
         initDate();
@@ -134,7 +143,7 @@ public class FragmentHistory extends Fragment implements ViewHistory, View.OnCli
     private void loadOrder () {
         String startDate = formatDate(edtStartDate.getText().toString());
         String endDate = formatDate(edtEndDate.getText().toString());
-        presenterLogic.getListOrder(startDate, endDate);
+        presenterLogic.getListOrder(startDate, endDate,idService);
     }
 
     private String formatDate(String date) {
@@ -252,6 +261,45 @@ public class FragmentHistory extends Fragment implements ViewHistory, View.OnCli
             case R.id.edtStartDate:
                 chooseDate(edtStartDate);
                 break;
+            case R.id.btnService :
+                dialogService() ;
+                break;
+            case R.id.btnFood:
+                changeService(AppConstant.ID_SERVICE_FOOD);
+                break;
+            case R.id.btnDrink:
+                changeService(AppConstant.ID_SERVICE_DRINK);
+                break;
+            case R.id.btnFlower:
+                changeService(AppConstant.ID_SERVICE_FLOWER);
+                break;
+            case R.id.btnLiquor:
+                changeService(AppConstant.ID_SERVICE_LIQUOR);
+                break;
+            case R.id.btnAllService:
+                changeService(AppConstant.ID_SERVICE_ALL);
+                break;
         }
+    }
+    private void changeService (String idService) {
+        if(!this.idService.equals(idService))
+        {
+            this.idService = idService ;
+            btnService.setText(services.get(idService) ) ;
+            loadOrder ();
+        }
+        dialog.dismiss();
+    }
+
+    private void dialogService() {
+        View view = getLayoutInflater().inflate(R.layout.custom_dialog_list_service, null);
+        dialog = new BottomSheetDialog(context);
+        (view.findViewById(R.id.btnFood)).setOnClickListener(this);
+        (view.findViewById(R.id.btnDrink)).setOnClickListener(this);
+        (view.findViewById(R.id.btnLiquor)).setOnClickListener(this);
+        (view.findViewById(R.id.btnFlower)).setOnClickListener(this);
+        (view.findViewById(R.id.btnAllService)).setOnClickListener(this);
+        dialog.setContentView(view);
+        dialog.show();
     }
 }

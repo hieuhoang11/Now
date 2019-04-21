@@ -7,6 +7,7 @@
     android:background="@color/colorWhite"
     android:orientation="vertical"
     tools:context=".View.EditInfo.EditInfoActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +28,7 @@
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_weight="1">
 
         <LinearLayout
@@ -37,56 +38,50 @@
 
 
             <!--<android.support.design.widget.TextInputLayout-->
-                <!--android:id="@+id/input_edtName"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_margin="5dp"-->
-                <!--android:textColorHint="@color/colorTextHint"-->
-                <!--app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">-->
+            <!--android:id="@+id/input_edtName"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_margin="5dp"-->
+            <!--android:textColorHint="@color/colorTextHint"-->
+            <!--app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">-->
 
-                <!--<com.example.hieuhoang.now.CustomView.ClearEditText-->
-                    <!--android:id="@+id/edEmailLogin"-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:hint="Địa chỉ Email"-->
-                    <!--android:textColor="@color/colorBlack" />-->
+            <!--<com.example.hieuhoang.now.CustomView.ClearEditText-->
+            <!--android:id="@+id/edEmailLogin"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:hint="Địa chỉ Email"-->
+            <!--android:textColor="@color/colorBlack" />-->
             <!--</android.support.design.widget.TextInputLayout>-->
             <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:textColorHint="@color/colorText"
-                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
-                >
+                style="@style/my_text_input_layout"
+                android:layout_margin="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
 
                 <com.example.hieuhoang.now.CustomView.ClearEditText
                     android:id="@+id/tvName"
-                    android:hint="@string/full_name"
                     style="@style/clear_edit_text"
-
-                    />
+                    android:hint="@string/full_name" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:textColorHint="@color/colorText"
-                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout"
-                >
+                style="@style/my_text_input_layout"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
 
                 <com.example.hieuhoang.now.CustomView.ClearEditText
                     android:id="@+id/tvPhone"
                     style="@style/clear_edit_text"
                     android:hint="@string/phone_number"
-                    android:inputType="number"/>
+                    android:inputType="number" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:textColorHint="@color/colorText"
+                style="@style/my_text_input_layout"
+                android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
                 app:hintTextAppearance="@style/TextAppearance.App.TextInputLayout">
 
                 <com.example.hieuhoang.now.CustomView.ClearEditText
@@ -97,16 +92,13 @@
         </LinearLayout>
 
 
-
-
     </android.support.v4.widget.NestedScrollView>
-
 
 
     <Button
         android:id="@+id/btnDone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/done"
-        android:background="@color/colorPrimary"/>
+        android:background="@color/colorPrimary"
+        android:text="@string/done" />
 </LinearLayout>

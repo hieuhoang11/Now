@@ -1,5 +1,6 @@
 package com.example.hieuhoang.now.Presenter.Main.Home;
 
+import com.example.hieuhoang.now.Model.Home.ModelHome;
 import com.example.hieuhoang.now.Model.ObjectClass.HotProduct;
 import com.example.hieuhoang.now.Model.ObjectClass.Store;
 import com.example.hieuhoang.now.Model.Store.ModelStore;
@@ -7,16 +8,14 @@ import com.example.hieuhoang.now.View.Main.Home.ViewHome;
 
 import java.util.List;
 
-/**
- * Created by Hieu Hoang on 24/02/2019.
- */
-
 public class PresenterLogicHome implements IPresenterHome {
     private ViewHome viewHome ;
+    private ModelHome modelHome ;
     private ModelStore modelProduct;
     public PresenterLogicHome(ViewHome viewHome) {
         this.viewHome = viewHome ;
         modelProduct = new ModelStore() ;
+        modelHome = new ModelHome() ;
     }
     @Override
     public void loadListHotProduct() {
@@ -32,5 +31,12 @@ public class PresenterLogicHome implements IPresenterHome {
         if(list.size()>0){
             viewHome.loadRecommendStores(list);
         }
+    }
+
+    @Override
+    public void loadBanner() {
+        List<String> list = modelHome.getListImageBanner() ;
+        if(list.size() > 0 ) viewHome.loadBanner(list);
+        else viewHome.disappearBanner();
     }
 }

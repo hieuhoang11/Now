@@ -17,7 +17,7 @@ public class ModelInfoStore {
         String path = AppConstant.SERVER_NAME;
         List<HashMap<String, String>> attrs = new ArrayList<>();
         HashMap<String, String> hsFunction = new HashMap<>();
-        hsFunction.put(AppConstant.FUNCTION, AppConstant.COUNT_BRANCH);
+        hsFunction.put(AppConstant.FUNCTION, AppConstant.FUNC_COUNT_BRANCH);
         HashMap<String, String> hsID = new HashMap<>();
         hsID.put(AppConstant.ID_BRAND, idBrand);
 

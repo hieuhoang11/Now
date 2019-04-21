@@ -8,7 +8,9 @@
     <color name="colorBlack">#000000</color>
     <color name="colorRed">#ec2327</color>
     <color name="colorText">#4b4242</color>
-    <color name="colorGray">#CCC</color>
+    <color name="colorGray">#BEBEBE</color>
+    <color name="colorDimGray">#696969</color>
+    <color name="colorLightGray">#D3D3D3</color>
     <color name="colorTextHint">#555558</color>
     <color name="colorBGSearch" >#f4f4f4</color>
     <color name="colorTextSearch" >#979797</color>
@@ -35,10 +37,11 @@
     <color name="colorWarning">#caf41219</color>
     <color name="colorTextCircleInOrderStatus">#4df544</color>
     <color name="colorSwipe">#149fef</color>
-    <color name="colorBGFood">#149fef</color>
-    <color name="colorBGDrink">#149fef</color>
-    <color name="colorBGLiquor">#149fef</color>
-    <color name="colorBGFlower">#149fef</color>
+    <color name="colorBGAllService">#59b269</color>
+    <color name="colorBGFood">#ebaa6e</color>
+    <color name="colorBGDrink">#75cce3</color>
+    <color name="colorBGLiquor">#d09582</color>
+    <color name="colorBGFlower">#ff9aa7</color>
     <color name="colorDotActive">#FFFFFFFF</color>
     <color name="colorDotInActive">#ebbeb7b7</color>
    <!--// 183651-->

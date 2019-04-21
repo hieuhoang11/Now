@@ -74,7 +74,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/delivery_to"
-                            android:textColor="@color/colorGray" />
+                            android:textColor="@color/colorLightGray" />
 
                         <Button
                             android:id="@+id/btnEdit"
@@ -95,7 +95,7 @@
                         android:id="@+id/tvCusInfo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="hoang minh hieu - 123456789"
+
                         android:textColor="@color/colorBlack" />
 
 
@@ -103,7 +103,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/address"
-                        android:textColor="@color/colorGray" />
+                        android:textColor="@color/colorLightGray" />
 
                     <TextView
                         android:id="@+id/tvLocation"
@@ -115,7 +115,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/distance"
-                        android:textColor="@color/colorGray" />
+                        android:textColor="@color/colorLightGray" />
 
                     <TextView
                         android:layout_width="match_parent"

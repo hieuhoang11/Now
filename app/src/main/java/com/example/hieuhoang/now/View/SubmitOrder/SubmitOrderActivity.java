@@ -1,17 +1,27 @@
 package com.example.hieuhoang.now.View.SubmitOrder;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +35,12 @@ import com.example.hieuhoang.now.Presenter.SubmitOrder.IPresenterSubmitOrder;
 import com.example.hieuhoang.now.Presenter.SubmitOrder.PresenterLogicSubmitOrder;
 import com.example.hieuhoang.now.R;
 import com.example.hieuhoang.now.View.EditInfo.EditInfoActivity;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -34,9 +50,11 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
-public class SubmitOrderActivity extends AppCompatActivity implements ViewSubmitOrder, OnMapReadyCallback, View.OnClickListener {
+public class SubmitOrderActivity extends AppCompatActivity implements ViewSubmitOrder, OnMapReadyCallback, View.OnClickListener,GoogleApiClient.ConnectionCallbacks,
+        GoogleApiClient.OnConnectionFailedListener {
     private final String TAG = "kiemtra";
     private TextView tvStoreName, tvQuantityItem, tvTotalMoney, tvCusInfo, tvLocation, tvNote;
     private RecyclerView rvOrderDetail;
@@ -49,6 +67,14 @@ public class SubmitOrderActivity extends AppCompatActivity implements ViewSubmit
     private Order order;
     private Account customer;
     private final int EDIT_INFO_CODE = 111;
+
+    private static final long UPDATE_INTERVAL = 5000;
+    private static final long FASTEST_INTERVAL = 5000;
+    private static final int REQUEST_LOCATION_PERMISSION = 100;
+
+    private GoogleApiClient mGoogleApiClient;
+    private LocationRequest mLocationRequest;
+    private Location mLastLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,9 +94,23 @@ public class SubmitOrderActivity extends AppCompatActivity implements ViewSubmit
         presenterLogicSubmitOrder = new PresenterLogicSubmitOrder(this, getApplicationContext(), this);
         presenterLogicSubmitOrder.getOrder(idOrder);
 
+        requestLocationPermissions();
+
+        if (isPlayServicesAvailable()) {
+            setUpLocationClientIfNeeded();
+            buildLocationRequest();
+        }
+
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+        if (mGoogleApiClient != null) {
+            mGoogleApiClient.connect();
+        }
     }
 
     private void Mapping() {
@@ -241,5 +281,91 @@ public class SubmitOrderActivity extends AppCompatActivity implements ViewSubmit
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(view);
         dialog.show();
+    }
+    private void requestLocationPermissions() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    REQUEST_LOCATION_PERMISSION);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(
+            int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case REQUEST_LOCATION_PERMISSION:
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+
+                } else {
+                    requestLocationPermissions();
+                }
+                break;
+            default:
+                break;
+        }
+    }
+
+    private boolean isPlayServicesAvailable() {
+        return GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this)
+                == ConnectionResult.SUCCESS;
+    }
+
+    private boolean isGpsOn() {
+        LocationManager manager = (LocationManager) getSystemService(LOCATION_SERVICE);
+        return manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+    }
+
+    private void setUpLocationClientIfNeeded() {
+        if (mGoogleApiClient == null) {
+            mGoogleApiClient = new GoogleApiClient.Builder(this)
+                    .addConnectionCallbacks(this)
+                    .addOnConnectionFailedListener(this)
+                    .addApi(LocationServices.API)
+                    .build();
+        }
+    }
+
+    private void buildLocationRequest() {
+        mLocationRequest = LocationRequest.create();
+        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+        mLocationRequest.setInterval(UPDATE_INTERVAL);
+        mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
+    }
+    private void updateUi () {
+        tvLocation.setText(Util.getAddress(getApplicationContext(),mLastLocation));
+    }
+    @Override
+    public void onConnected(Bundle bundle) {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+        if (lastLocation != null) {
+            mLastLocation = lastLocation;
+            updateUi();
+        }
+    }
+    @Override
+    public void onConnectionSuspended(int i) {
+        mGoogleApiClient.connect();
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+    }
+    @Override
+    public void onDestroy() {
+        if (mGoogleApiClient != null
+                && mGoogleApiClient.isConnected()) {
+            mGoogleApiClient.disconnect();
+            mGoogleApiClient = null;
+        }
+        Log.d(TAG, "onDestroy LocationService");
+        super.onDestroy();
     }
 }

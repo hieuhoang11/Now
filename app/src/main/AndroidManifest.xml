@@ -3,7 +3,7 @@
     package="com.example.hieuhoang.now">
 
     <uses-permission android:name="android.permission.INTERNET" />
-     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
@@ -43,7 +43,9 @@
         <activity android:name=".View.EditInfo.EditInfoActivity" />
         <activity android:name=".View.Location.LocationActivity" />
         <activity android:name=".View.OrderDetail.OrderDetailActivity" />
-        <activity android:name=".View.Search.SearchActivity"/>
+        <activity android:name=".View.Search.SearchActivity" />
+        <activity android:name=".View.Locate.LocateActivity" />
+        <activity android:name=".View.AccountInfo.AccountInfoActivity"></activity>
     </application>
 
 </manifest>

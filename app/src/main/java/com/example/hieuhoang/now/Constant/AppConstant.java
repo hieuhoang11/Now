@@ -1,9 +1,14 @@
 package com.example.hieuhoang.now.Constant;
 
 public class AppConstant {
-    private static final String LOCAL = "http://192.168.1.12:8080";
+
+    //    private static final String LOCAL = "http://myfirtwedsite.000webhostapp.com";
+//    public static final String SERVER_NAME = LOCAL + "/getJSONData.php";
+//    public static final String SERVER_NAME_IMG = LOCAL;
+    private static final String LOCAL = "http://192.168.1.2:8080";
     public static final String SERVER_NAME = LOCAL + "/webnow/getJSONData.php";
     public static final String SERVER_NAME_IMG = LOCAL + "/webnow/";
+
     public static final String EMAIL = "email";
     public static final String PASSWORD = "password";
     public static final String PERMISSION_FACEBOOK = "public_profile";
@@ -17,9 +22,9 @@ public class AppConstant {
     public static final String FUNC_IS_FAVORITE = "isFavorite";
     public static final String GET_BRAND_NAME = "getBrandName";
     public static final String FUNC_SEARCH_STORE = "searchStore";
-    public static final String COUNT_BRANCH = "countBranches";
-    public static final String GET_STORE_HAS_PROMO_PRODUCT= "getStoreHasPromoProduct";
-    public static final String GET_ALL_STORE_HAS_PROMO_PRODUCT= "getAllStoreHasPromoProduct";
+    public static final String FUNC_COUNT_BRANCH = "countBranches";
+    public static final String GET_STORE_HAS_PROMO_PRODUCT = "getStoreHasPromoProduct";
+    public static final String GET_ALL_STORE_HAS_PROMO_PRODUCT = "getAllStoreHasPromoProduct";
     public static final String GET_PRODUCTS_BY_ID_STORE = "getProductsInStore";
     public static final String ADD_ORDER = "addOrder";
     public static final String GET_DRAFT_ORDER = "getDraftOrder";
@@ -41,6 +46,7 @@ public class AppConstant {
     public static final String FUNC_UPDATE_PROMO_PRODUCT_CANCEL = "updatePromoProductCancel";
     public static final String REGISTER_ACCOUNT = "registerAccount";
     public static final String CHECK_EMAIL_EXISTS = "checkEmailExists";
+    public static final String FUNC_CHANGE_PASSWORD = "changePassword";
     public static final String FUNC_GET_LIST_DRAFT_ORDER = "getListDraftOrder";
     public static final String FUNC_GET_LIST_ON_GOING_ORDER = "getListOnGoingOrder";
     public static final String FUNC_GET_LIST_HISTORY_ORDER = "getListHistoryOrder";
@@ -49,6 +55,7 @@ public class AppConstant {
     public static final String FUNC_CANCEL_ORDER = "cancelOrder";
     public static final String CHECK_LOGIN = "checkLogin";
     public static final String GET_ACCOUNT_BY_ID = "getAccountByID";
+    public static final String FUNC_GET_BANNER = "getBanner";
     public static final String FUNC_UPDATE_ACC_INFO = "updateAccountInfo";
     public static final String FULL_NAME = "fullname";
     public static final String PHONE = "phone";
@@ -65,15 +72,20 @@ public class AppConstant {
     public static final String BRAND_NAME = "brand_name";
     public static final String ID_STORE = "id_store";
     public static final String ID_SERVICE = "id_service";
+    public static final String ID_SERVICE_ALL = "0";
     public static final String ID_SERVICE_FOOD = "1";
     public static final String ID_SERVICE_DRINK = "2";
     public static final String ID_SERVICE_LIQUOR = "3";
     public static final String ID_SERVICE_FLOWER = "4";
     public static final String CONDITION = "condition";
     public static final String START = "start";
+    public static final String LIMIT = "limit";
+    public static final int LIMIT_ROW = 20;
     public static final String STORE_NAME = "store_name";
     public static final String STORE_ADDRESS = "store_address";
     public static final String ADDRESS = "address";
+    public static final String LONGITUDE = "longitude";
+    public static final String LATITUDE = "latitude";
     public static final String ID_BRAND = "id_brand";
     public static final String ID_PRODUCT = "id_product";
     public static final String ID_ORDER = "id_order";
@@ -103,5 +115,5 @@ public class AppConstant {
     public static final String START_DATE = "start_date";
     public static final String FINISH_DATE = "finish_date";
     public static final String ID_SERVICE_DEFAULT = "2";
-    public static final int DOT_SIZE = 20;
+    public static final String TAB = "tab";
 }

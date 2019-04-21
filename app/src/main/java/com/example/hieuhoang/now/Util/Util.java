@@ -4,11 +4,15 @@ import android.content.Context;
 
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
 import android.os.Build;
 import android.support.v4.content.ContextCompat;
+import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.StrikethroughSpan;
+import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.example.hieuhoang.now.Constant.AppConstant;
@@ -110,6 +114,12 @@ public class Util {
         return " 0";
     }
 
+//    public static SpannableString  underlined (String string) {
+//        SpannableString noidungspanned = new SpannableString(string);
+//        noidungspanned.setSpan(new UnderlineSpan(), 24, 33, 0);
+//        return  noidungspanned ;
+//    }
+
     public static LatLng getCoordinates(Context context, String address) {
         Geocoder geocoder = new Geocoder(context, Locale.getDefault());
         try {
@@ -166,5 +176,39 @@ public class Util {
             color = ContextCompat.getColor(context, idColor);
         else color = context.getResources().getColor(idColor);
         return color;
+    }
+
+    public static String getAddress(Context context, Location location) {
+        if (location == null) {
+            return null;
+        }
+        return getAddress(context,location.getLatitude(),location.getLongitude()) ;
+    }
+
+    public static String getAddress(Context context, Double latitude, Double longitude) {
+
+        Geocoder geoCoder = new Geocoder(
+                context, Locale.getDefault());
+        List<Address> addresses = null;
+        try {
+            addresses = geoCoder.getFromLocation(
+                    latitude,
+                    longitude, 1);
+
+            if (addresses.size() > 0) {
+                Address address = addresses.get(0);
+                String data[] = address.getAddressLine(0).split(",");
+                String add = "";
+                for (int i = 0; i < data.length - 2; i++) {
+                    add += data[i] + ",";
+                }
+                add += data[data.length - 1] ;
+                return add;
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+
+        }
+        return null;
     }
 }

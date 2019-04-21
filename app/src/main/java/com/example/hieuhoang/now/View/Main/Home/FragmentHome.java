@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
@@ -30,6 +31,7 @@ import com.example.hieuhoang.now.Presenter.Main.Home.IPresenterHome;
 import com.example.hieuhoang.now.Presenter.Main.Home.PresenterLogicHome;
 import com.example.hieuhoang.now.R;
 import com.example.hieuhoang.now.Util.Util;
+import com.example.hieuhoang.now.View.Locate.LocateActivity;
 import com.example.hieuhoang.now.View.Location.LocationActivity;
 import com.example.hieuhoang.now.View.Main.Home.Service.ServiceFragment;
 import com.example.hieuhoang.now.View.HotProduct.HotProductsActivity;
@@ -39,13 +41,20 @@ import com.example.hieuhoang.now.View.Search.SearchActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FragmentHome extends Fragment implements ViewHome, View.OnClickListener, ViewPager.OnPageChangeListener {
+import ss.com.bannerslider.banners.Banner;
+import ss.com.bannerslider.banners.RemoteBanner;
+import ss.com.bannerslider.views.BannerSlider;
+
+import static android.app.Activity.RESULT_OK;
+
+public class FragmentHome extends Fragment implements ViewHome, View.OnClickListener {
     private RecyclerView rvHotProductList, rvRecommendProductList;
-    private TextView tvReadMoreHot, tvHot, tvDots[];
+    private TextView tvReadMoreHot, tvHot;
     private ImageButton btnFood, btnDrink, btnLiquor, btnFlower;
     private Button btnLocation, btnSearch;
-    private LinearLayout layoutDots;
-    private ViewPager slider;
+    private CardView cardViewBanner;
+    //private LinearLayout layoutDots;
+    //private ViewPager slider;
     private IPresenterHome presenterHome;
     private LinearLayout linearHot;
     private String TAG = "kiemtra";
@@ -54,6 +63,9 @@ public class FragmentHome extends Fragment implements ViewHome, View.OnClickList
     private final int REQUEST_CODE_LOCATION = 111;
     private FragmentManager fragmentManager;
     private ArrayList<Fragment> listFragment;
+    private BannerSlider bannerSlider;
+    private final int REQUEST_CODE_LOCATE = 112;
+    private String idService;
 
     @Nullable
     @Override
@@ -74,28 +86,30 @@ public class FragmentHome extends Fragment implements ViewHome, View.OnClickList
         rvRecommendProductList.setAdapter(recommendAdapter);
         rvRecommendProductList.setLayoutManager(recommendManager);
 
+        presenterHome.loadBanner();
         presenterHome.loadListRecommendProduct();
         presenterHome.loadListHotProduct();
 
-        String[] str = {"anhcuahang/images3.jpg", "anhcuahang/images35.jpg", "anhcuahang/images30.jpg", "anhcuahang/images39.jpg", "anhcuahang/images39.jpg"};
-        loadSlider(str);
-        addDotsSlider(0);
+        //String[] str = {"anhcuahang/images3.jpg", "anhcuahang/images35.jpg", "anhcuahang/images30.jpg", "anhcuahang/images39.jpg", "anhcuahang/images39.jpg"};
+//        loadSlider(str);
+//        addDotsSlider(0);
         return view;
     }
 
     private void Mapping(View view) {
-
+        bannerSlider = view.findViewById(R.id.banner_slider);
         btnLocation = view.findViewById(R.id.btnLocation);
         btnSearch = view.findViewById(R.id.btnSearch);
-        slider = view.findViewById(R.id.slider);
-        slider.addOnPageChangeListener(this);
+//        slider = view.findViewById(R.id.slider);
+//        slider.addOnPageChangeListener(this);
         rvHotProductList = view.findViewById(R.id.rvHotProductList);
         rvRecommendProductList = view.findViewById(R.id.rvRecommend);
         btnFood = view.findViewById(R.id.btnFood);
         btnDrink = view.findViewById(R.id.btnDrink);
         btnLiquor = view.findViewById(R.id.btnLiquor);
         btnFlower = view.findViewById(R.id.btnFlower);
-        layoutDots = view.findViewById(R.id.layoutDots);
+        cardViewBanner = view.findViewById(R.id.cardViewBanner);
+        //layoutDots = view.findViewById(R.id.layoutDots);
         //  linearHot = view.findViewById(R.id.linearHot);
         //  linearHot.setVisibility(View.GONE);
 //        tvHot  = view.findViewById(R.id.tvHot);
@@ -147,14 +161,35 @@ public class FragmentHome extends Fragment implements ViewHome, View.OnClickList
     }
 
     private void addServiceFragment(String idService) {
+        if (ModelLocation.isPlayServicesAvailable(getContext()) && ModelLocation.isGpsOn(getContext())) {
+            this.idService = idService;
+            Intent iLocate = new Intent(getContext(), LocateActivity.class);
+            startActivityForResult(iLocate, REQUEST_CODE_LOCATE);
+        } else addServiceFragment(idService,-1,-1) ;
+
+    }
+
+    private void addServiceFragment(String idService , double longitude , double latitude) {
         Bundle bundle = new Bundle();
         bundle.putString(AppConstant.ID_SERVICE, idService);
+        bundle.putDouble(AppConstant.LONGITUDE, longitude);
+        bundle.putDouble(AppConstant.LATITUDE, latitude);
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         ServiceFragment fragment = new ServiceFragment();
         fragment.setArguments(bundle);
         fragmentTransaction.add(R.id.Home, fragment);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE_LOCATE && resultCode == RESULT_OK && data != null) {
+            double longitude = data.getDoubleExtra(AppConstant.LONGITUDE,-1) ;
+            double latitude = data.getDoubleExtra(AppConstant.LATITUDE,-1) ;
+            addServiceFragment(idService,longitude,latitude);
+        }
     }
 
     @Override
@@ -173,50 +208,38 @@ public class FragmentHome extends Fragment implements ViewHome, View.OnClickList
     }
 
     @Override
-    public void loadSlider(String[] images) {
-        listFragment = new ArrayList<>();
+    public void loadBanner(List<String> images) {
+        cardViewBanner.setVisibility(View.VISIBLE);
+        List<Banner> banners = new ArrayList<>();
 
-        for (int i = 0; i < images.length; i++) {
-            Fragment fragment = new FragmentSlider();
-            Bundle bundle = new Bundle();
-            bundle.putString(AppConstant.IMAGE, images[i]);
-            // bundle.putInt("rr",i);
-            fragment.setArguments(bundle);
-            listFragment.add(fragment);
-
+        //add banner using image url
+        for (String s : images) {
+            banners.add(new RemoteBanner(AppConstant.SERVER_NAME_IMG + s));
         }
+        //add banner using resource drawable
+        //banners.add(new DrawableBanner(R.drawable.yourDrawable));
 
-        rvSliderAdapter adapter = new rvSliderAdapter(getFragmentManager(), listFragment);
-        slider.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-    }
-
-    private void addDotsSlider(int index) {
-        layoutDots.removeAllViews();
-        tvDots = new TextView[listFragment.size()];
-        for (int i = 0; i < listFragment.size(); i++) {
-            tvDots[i].setTextSize(20);
-            tvDots[i] = new TextView(getContext());
-            tvDots[i].setText(Html.fromHtml("&#8226;"));
-            tvDots[i].setTextColor(Util.getIdColor(getContext(), R.color.colorDotInActive));
-            tvDots[i].setTextSize(AppConstant.DOT_SIZE);
-            layoutDots.addView(tvDots[i]);
-        }
-        tvDots[index].setTextColor(Util.getIdColor(getContext(), R.color.colorDotActive));
+        bannerSlider.setBanners(banners);
     }
 
     @Override
-    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+    public void disappearBanner() {
+        cardViewBanner.setVisibility(View.GONE);
     }
 
-    @Override
-    public void onPageSelected(int position) {
-        addDotsSlider(position);
-    }
+//    private void addDotsSlider(int index) {
+//        layoutDots.removeAllViews();
+//        tvDots = new TextView[listFragment.size()];
+//        for (int i = 0; i < listFragment.size(); i++) {
+//            tvDots[i] = new TextView(getContext());
+//            tvDots[i].setTextSize(20);
+//            tvDots[i].setText(Html.fromHtml("&#8226;"));
+//            tvDots[i].setTextColor(Util.getIdColor(getContext(), R.color.colorDotInActive));
+//            tvDots[i].setTextSize(AppConstant.DOT_SIZE);
+//            layoutDots.addView(tvDots[i]);
+//        }
+//        tvDots[index].setTextColor(Util.getIdColor(getContext(), R.color.colorDotActive));
+//    }
 
-    @Override
-    public void onPageScrollStateChanged(int state) {
 
-    }
 }

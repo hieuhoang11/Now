@@ -90,6 +90,7 @@ public class SearchActivity extends AppCompatActivity implements ViewSearch, Vie
         rvSearch.setLayoutManager(layoutManager);
 
         services = new HashMap<>( );
+        services.put(AppConstant.ID_SERVICE_ALL,getResources().getString(R.string.all_service)) ;
         services.put(AppConstant.ID_SERVICE_DRINK,getResources().getString(R.string.drinks)) ;
         services.put(AppConstant.ID_SERVICE_FOOD,getResources().getString(R.string.food)) ;
         services.put(AppConstant.ID_SERVICE_LIQUOR,getResources().getString(R.string.liquor)) ;
@@ -115,6 +116,7 @@ public class SearchActivity extends AppCompatActivity implements ViewSearch, Vie
     private void search(List<Store> list, int start) {
         String condition = edtSearch.getText().toString().trim();
         if (condition.equals("")) {
+            swipeRefresh.setRefreshing(false);
             return;
         }
         condition = Util.standardizeString(condition);
@@ -192,6 +194,9 @@ public class SearchActivity extends AppCompatActivity implements ViewSearch, Vie
             case R.id.btnLiquor:
                 changeService(AppConstant.ID_SERVICE_LIQUOR);
                 break;
+            case R.id.btnAllService:
+                changeService(AppConstant.ID_SERVICE_ALL);
+                break;
         }
     }
 
@@ -202,6 +207,7 @@ public class SearchActivity extends AppCompatActivity implements ViewSearch, Vie
         (view.findViewById(R.id.btnDrink)).setOnClickListener(this);
         (view.findViewById(R.id.btnLiquor)).setOnClickListener(this);
         (view.findViewById(R.id.btnFlower)).setOnClickListener(this);
+        (view.findViewById(R.id.btnAllService)).setOnClickListener(this);
         dialog.setContentView(view);
         dialog.show();
     }

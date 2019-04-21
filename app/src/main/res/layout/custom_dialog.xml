@@ -28,6 +28,8 @@
             android:textColor="@color/colorText"
             android:gravity="center"/>
 
+        <View
+            style="@style/horizontal_line" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_weight="1"
-                android:text="Delete All"
+                android:text="@string/option_yes"
                 android:textAllCaps="false"
                 android:textColor="@color/colorBlack"
                 android:background="@color/colorTransparent"/>
@@ -54,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:layout_weight="1"
-                android:text="Close"
+                android:text="@string/close"
                 android:textAllCaps="false"
                 android:textColor="@color/colorBlack"
                 android:background="@color/colorTransparent"/>

@@ -235,11 +235,14 @@ public class ModelStore {
         hsCondition.put(AppConstant.CONDITION, condition);
         HashMap<String, String> hsStart = new HashMap<>();
         hsStart.put(AppConstant.START, String.valueOf(start));
+        HashMap<String, String> hsLimit = new HashMap<>();
+        hsLimit.put(AppConstant.LIMIT, String.valueOf(AppConstant.LIMIT_ROW));
 
         attrs.add(hsFunction);
         attrs.add(hsId);
         attrs.add(hsCondition);
         attrs.add(hsStart);
+        attrs.add(hsLimit);
 
         DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
         downloadJSON.execute();

@@ -22,7 +22,7 @@
             android:layout_height="match_parent"
             android:background="@color/colorTransparent"
             android:drawableEnd="@drawable/baseline_arrow_drop_down_black_24dp"
-            android:text="@string/all"
+            android:text="@string/all_service"
             android:textAllCaps="false"
             android:textColor="@color/colorText"
             android:textSize="13sp"

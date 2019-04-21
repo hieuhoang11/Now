@@ -31,10 +31,10 @@ public class PresenterLogicHistoryOrder implements IPresenterHistoryOrder{
     }
 
     @Override
-    public void getListOrder(String startDate , String finishDate) {
+    public void getListOrder(String startDate , String finishDate,String idService) {
         if(!modelLogin.isLogged()) return;
         Account customer = modelLogin.getAccount();
-        List<Order> list = modelOrder.getListHistoryOrder(customer.getIdAccount(),startDate,finishDate);
+        List<Order> list = modelOrder.getListHistoryOrder(customer.getIdAccount(),startDate,finishDate,idService);
         if (list.size() > 0) {
             viewHistory.loadListOrder(list);
         } else viewHistory.noHasOrder();

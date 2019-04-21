@@ -10,5 +10,6 @@ public interface ViewHome {
 
     void loadHotProducts(List<HotProduct> list);
     void loadRecommendStores(List<Store> list);
-    void loadSlider(String [] images) ;
+    void loadBanner(List<String> images) ;
+    void disappearBanner () ;
 }

@@ -65,8 +65,8 @@ public class rvProductsInStoreAdapter extends RecyclerView.Adapter<rvProductsInS
             holder.tvProductPrice.setTextColor(Util.getIdColor(context,R.color.colorOldPrice));
         }
 
-        holder.btnSubtract.setVisibility(View.GONE);
-        holder.tvQualityProductInCraftOrder.setVisibility(View.GONE);
+        holder.btnSubtract.setVisibility(View.INVISIBLE);
+        holder.tvQualityProductInCraftOrder.setVisibility(View.INVISIBLE);
 
         if (product.getQuantity() > 0) {
             holder.tvOutOfStock.setVisibility(View.GONE);

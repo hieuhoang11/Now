@@ -57,7 +57,7 @@
 
         <TextView
             android:id="@+id/tvSubmittedNumber"
-            style="@style/text_bg_order_status"
+            style="@style/text_number_order_status"
             android:background="@drawable/custom_text_in_order_status_positive"
             android:text="1" />
 
@@ -100,7 +100,7 @@
 
         <TextView
             android:id="@+id/tvProcessedNumber"
-            style="@style/text_bg_order_status"
+            style="@style/text_number_order_status"
             android:text="2" />
 
         <TextView
@@ -127,7 +127,7 @@
 
         <TextView
             android:id="@+id/tvOnGoingNumber"
-            style="@style/text_bg_order_status"
+            style="@style/text_number_order_status"
             android:text="3" />
 
         <TextView
@@ -154,7 +154,7 @@
 
         <TextView
             android:id="@+id/tvCompletedNumber"
-            style="@style/text_bg_order_status"
+            style="@style/text_number_order_status"
             android:text="4" />
 
         <TextView

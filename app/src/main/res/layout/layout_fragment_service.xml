@@ -154,6 +154,7 @@
                             android:paddingEnd="5dp"
                             style="@style/img_price_old_to_new"/>
                         <TextView
+                            android:id="@+id/tvAddress"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical"
@@ -188,7 +189,9 @@
                             android:textAlignment="textStart"
                             android:textAllCaps="false"
                             android:textColor="@color/colorTextSearch"
-                            android:textSize="12sp" />
+                            android:textSize="12sp"
+                            android:maxLines="1"
+                            />
 
                         <Button
                             android:id="@+id/btnLocation"
@@ -197,13 +200,13 @@
                             android:layout_gravity="end"
                             android:layout_weight="5"
                             android:background="@color/colorBGSearch"
-                            android:drawableRight="@drawable/baseline_arrow_drop_down_black_24dp"
+                            android:drawableEnd="@drawable/baseline_arrow_drop_down_black_24dp"
                             android:padding="0dp"
                             android:text="Hải Phòng"
                             android:textAlignment="textEnd"
                             android:textAllCaps="false"
                             android:textColor="@color/colorTextSearch"
-                            android:textSize="11dp"
+                            android:textSize="11sp"
                             android:textStyle="bold" />
 
                     </LinearLayout>
@@ -223,6 +226,8 @@
         android:orientation="vertical"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <View
+           style="@style/horizontal_line" />
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

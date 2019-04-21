@@ -20,47 +20,95 @@
             android:paddingStart="10dp">
 
             <LinearLayout
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="35dp"
-                android:layout_marginTop="6dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="5dp"
                 android:layout_weight="1"
                 android:background="@drawable/bgsearch"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:weightSum="8"
+                >
 
                 <Button
                     android:id="@+id/btnSearch"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
+                    android:layout_weight="3"
                     android:background="@drawable/buttonsearch"
                     android:drawableStart="@drawable/icon_search_24dp"
-                    android:maxLines="1"
                     android:text="@string/find_dish_location"
                     android:textAlignment="textStart"
                     android:textAllCaps="false"
                     android:textColor="@color/colorTextSearch"
-                    android:textSize="13sp" />
-
+                    android:textSize="12sp"
+                    android:maxLines="1"/>
 
                 <Button
                     android:id="@+id/btnLocation"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="end"
-                    android:layout_marginEnd="10dp"
+                    android:layout_weight="5"
                     android:background="@color/colorBGSearch"
                     android:drawableEnd="@drawable/baseline_arrow_drop_down_black_24dp"
                     android:padding="0dp"
-                    android:text="@string/ha_noi"
+                    android:text="Hải Phòng"
                     android:textAlignment="textEnd"
                     android:textAllCaps="false"
                     android:textColor="@color/colorTextSearch"
-                    android:textSize="13sp"
+                    android:textSize="12sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
+
+
+            <!--<LinearLayout-->
+                <!--android:layout_width="0dp"-->
+                <!--android:layout_height="35dp"-->
+                <!--android:layout_marginTop="6dp"-->
+                <!--android:layout_weight="1"-->
+                <!--android:background="@drawable/bgsearch"-->
+                <!--android:orientation="horizontal">-->
+
+                <!--<Button-->
+                    <!--android:id="@+id/btnSearch"-->
+                    <!--android:layout_width="0dp"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="start"-->
+                    <!--android:layout_marginStart="10dp"-->
+                    <!--android:layout_weight="1"-->
+                    <!--android:background="@drawable/buttonsearch"-->
+                    <!--android:drawableStart="@drawable/icon_search_24dp"-->
+                    <!--android:maxLines="1"-->
+                    <!--android:text="@string/find_dish_location"-->
+                    <!--android:textAlignment="textStart"-->
+                    <!--android:textAllCaps="false"-->
+                    <!--android:textColor="@color/colorTextSearch"-->
+                    <!--android:textSize="12sp" />-->
+
+
+                <!--<Button-->
+                    <!--android:id="@+id/btnLocation"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="end"-->
+                    <!--android:layout_marginEnd="10dp"-->
+                    <!--android:background="@color/colorBGSearch"-->
+                    <!--android:drawableEnd="@drawable/baseline_arrow_drop_down_black_24dp"-->
+                    <!--android:padding="0dp"-->
+                    <!--android:text="@string/ha_noi"-->
+                    <!--android:textAlignment="textEnd"-->
+                    <!--android:textAllCaps="false"-->
+                    <!--android:textColor="@color/colorTextSearch"-->
+                    <!--android:textSize="12sp"-->
+                    <!--android:textStyle="bold" />-->
+
+            <!--</LinearLayout>-->
 
 
             <ImageButton
@@ -85,16 +133,29 @@
 
             <!--slider-->
             <android.support.v7.widget.CardView
+                android:id="@+id/cardViewBanner"
                 app:cardCornerRadius="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="180dp">
+                android:layout_height="220dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp">
 
-                <android.support.v4.view.ViewPager
-                    android:id="@+id/slider"
+                <ss.com.bannerslider.views.BannerSlider
+                    android:id="@+id/banner_slider"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    app:interval="3000"
+                    app:loopSlides="true"
+                    app:defaultIndicators="circle"
+                    app:indicatorSize="5dp"
+                    app:animateIndicators="true"
+                    />
+                <!--<android.support.v4.view.ViewPager-->
+                    <!--android:id="@+id/slider"-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="match_parent">-->
 
-                </android.support.v4.view.ViewPager>
+                <!--</android.support.v4.view.ViewPager>-->
                 <LinearLayout
                     android:id="@+id/layoutDots"
                     android:layout_width="match_parent"
@@ -182,15 +243,15 @@
                     android:layout_weight="1"
                     android:text="@string/fast_delivery"
                     android:textAllCaps="true"
-                    android:textColor="@color/colorTextSearch"
-                    android:textSize="18sp" />
+                    android:textColor="@color/colorDimGray"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="end|bottom"
                     android:text="8 Dịch vụ"
-                    android:textColor="@color/colorTextSearch"
+                    android:textColor="@color/colorDimGray"
                     android:textSize="12sp" />
 
             </LinearLayout>
@@ -200,8 +261,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/bg_radius_10dp"
                 android:orientation="horizontal"
-                android:paddingBottom="15dp"
-                android:paddingTop="15dp"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp"
                 android:weightSum="4">
 
                 <LinearLayout
@@ -286,15 +347,15 @@
                     android:layout_weight="1"
                     android:text="@string/recommend"
                     android:textAllCaps="true"
-                    android:textColor="@color/colorTextSearch"
-                    android:textSize="18sp" />
+                    android:textColor="@color/colorDimGray"
+                    android:textSize="16sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="bottom"
                     android:text="@string/see_more"
-                    android:textColor="@color/colorTextSearch"
+                    android:textColor="@color/colorDimGray"
                     android:textSize="12sp" />
 
             </LinearLayout>

@@ -1,6 +1,7 @@
 package com.example.hieuhoang.now.View.Main.Account;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,12 +13,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.LoginRegister.ModelLogin;
 import com.example.hieuhoang.now.Model.ObjectClass.Account;
 import com.example.hieuhoang.now.R;
+import com.example.hieuhoang.now.View.AccountInfo.AccountInfoActivity;
 import com.example.hieuhoang.now.View.LoginRegister.LoginRegisterActivity;
+import com.example.hieuhoang.now.View.Main.MainActivity;
+import com.example.hieuhoang.now.View.Search.SearchActivity;
 import com.facebook.AccessToken;
 import com.facebook.GraphRequest;
 import com.facebook.GraphResponse;
@@ -35,14 +42,17 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class FragmentAccount extends Fragment implements View.OnClickListener, GoogleApiClient.OnConnectionFailedListener {
-    Button btnLoginAccount, btnLogoutAccount;
-    CircleImageView btnImgAccount;
+    private Button btnLoginAccount, btnLogoutAccount, btnHistory, btnFavorite, btnInfo;
+    private ImageButton btnSearch;
+    private CircleImageView btnImgAccount;
     private final int REQUEST_CODE_LOGIN = 123;
-    AccessToken accessToken;
-    GoogleApiClient googleApiClient;
-    GoogleSignInResult googleSignInResult;
-    ModelLogin modelLogin;
-    Account account;
+    private AccessToken accessToken;
+    private GoogleApiClient googleApiClient;
+    private GoogleSignInResult googleSignInResult;
+    private ModelLogin modelLogin;
+    private Account account;
+    private MainActivity mainActivity;
+    private Context context;
 
     @Nullable
     @Override
@@ -51,25 +61,32 @@ public class FragmentAccount extends Fragment implements View.OnClickListener, G
         modelLogin = new ModelLogin(getContext());
 
         Mapping(view);
-
+        mainActivity = (MainActivity) getActivity();
+        this.context = getContext();
         //begin google
         if (googleApiClient == null)
-            googleApiClient = modelLogin.getGoogleApiClient(getActivity(), this);
+            googleApiClient = modelLogin.getGoogleApiClient(mainActivity, this);
         //end google
         return view;
     }
 
     private void Mapping(View view) {
         //Begin Mapping
-        btnLoginAccount = (Button) view.findViewById(R.id.btnLoginAccount);
-        btnLogoutAccount = (Button) view.findViewById(R.id.btnLogoutAccount);
-        btnImgAccount = (CircleImageView) view.findViewById(R.id.btnImgAccount);
-
+        btnLoginAccount = view.findViewById(R.id.btnLoginAccount);
+        btnLogoutAccount = view.findViewById(R.id.btnLogoutAccount);
+        btnImgAccount = view.findViewById(R.id.btnImgAccount);
+        btnSearch = view.findViewById(R.id.btnSearch);
+        btnHistory = view.findViewById(R.id.btnHistory);
+        btnFavorite = view.findViewById(R.id.btnFavorite);
+        btnInfo = view.findViewById(R.id.btnInfo);
         //End Mapping
-
+        btnInfo.setOnClickListener(this);
         btnLoginAccount.setOnClickListener(this);
         btnLogoutAccount.setOnClickListener(this);
         btnImgAccount.setOnClickListener(this);
+        btnSearch.setOnClickListener(this);
+        btnHistory.setOnClickListener(this);
+        btnFavorite.setOnClickListener(this);
     }
 
     @Override
@@ -114,6 +131,30 @@ public class FragmentAccount extends Fragment implements View.OnClickListener, G
                 break;
             case R.id.btnLogoutAccount:
                 dialogConfirmLogout();
+                break;
+            case R.id.btnSearch:
+                Intent iSearch = new Intent(getContext(), SearchActivity.class);
+                startActivity(iSearch);
+                break;
+            case R.id.btnFavorite:
+                if (isLogged())
+                    mainActivity.setFragmentChecked(2);
+                else
+                    Toast.makeText(context, getResources().getString(R.string.you_need_login), Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.btnHistory:
+                if (isLogged())
+                    mainActivity.setFragmentChecked(1);
+                else
+                    Toast.makeText(context, getResources().getString(R.string.you_need_login), Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.btnInfo:
+                if (isLogged()) {
+                    Intent iInfo = new Intent(context, AccountInfoActivity.class);
+                    iInfo.putExtra(AppConstant.ID_ACCOUNT, account.getIdAccount());
+                    startActivity(iInfo);
+                } else
+                    Toast.makeText(context, getResources().getString(R.string.you_need_login), Toast.LENGTH_SHORT).show();
                 break;
         }
     }
@@ -190,8 +231,8 @@ public class FragmentAccount extends Fragment implements View.OnClickListener, G
     }
 
     private void dialogConfirmLogout() {
-        final Dialog dialog = new Dialog(getContext());
-        View view = LayoutInflater.from(getContext()).inflate(R.layout.custom_dialog, null);
+        final Dialog dialog = new Dialog(this.context);
+        View view = LayoutInflater.from(this.context).inflate(R.layout.custom_dialog, null);
         TextView tvContentDialog = view.findViewById(R.id.tvContentDialog);
         Button btnYes = view.findViewById(R.id.btnYes);
         Button btnCancel = view.findViewById(R.id.btnCancel);

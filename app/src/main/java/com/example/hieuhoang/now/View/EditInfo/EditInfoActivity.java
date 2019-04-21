@@ -112,4 +112,6 @@ public class EditInfoActivity extends AppCompatActivity implements ViewEditInfo,
         setResult(RESULT_OK, iResult);
         finish();
     }
+
+
 }

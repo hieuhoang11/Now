@@ -15,10 +15,11 @@
 
         <ImageButton
             style="@style/image_button_search"
-            android:src="@drawable/icon_search_24dp"/>
+            android:src="@drawable/icon_search_24dp"
+            android:visibility="invisible"/>
         <LinearLayout
             android:layout_weight="1"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:weightSum="3"
             android:background="@drawable/vienden"

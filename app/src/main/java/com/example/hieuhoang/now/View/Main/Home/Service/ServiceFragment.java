@@ -30,7 +30,7 @@ import java.util.List;
 
 public class ServiceFragment extends Fragment implements ViewService, View.OnClickListener {
     private RecyclerView rvPreferentialService, rvHotProductService, rvItemService;
-    private TextView txtNewItemService, txtNearbyItemService, txtJustOrderItemService, txtRecommendItemService,tvService;
+    private TextView txtNewItemService, txtNearbyItemService, txtJustOrderItemService, txtRecommendItemService,tvService,tvAddress;
     private Button btnSearch;
     private ImageButton btnBackService ;
     private PresenterLogicService presenterLogicService;
@@ -57,7 +57,7 @@ public class ServiceFragment extends Fragment implements ViewService, View.OnCli
         btnBackService = view.findViewById(R.id.btnBackService);
         btnSearch = view.findViewById(R.id.btnSearch) ;
         tvService = view.findViewById(R.id.tvService) ;
-
+        tvAddress = view.findViewById(R.id.tvAddress) ;
         btnSearch.setOnClickListener(this);
         btnBackService.setOnClickListener(this);
         txtRecommendItemService.setOnClickListener(this);
@@ -71,6 +71,9 @@ public class ServiceFragment extends Fragment implements ViewService, View.OnCli
         Bundle bundle = getArguments();
         if (bundle != null) {
             idService = bundle.getString(AppConstant.ID_SERVICE);
+            double longitude = bundle.getDouble(AppConstant.LONGITUDE) ;
+            double latitude = bundle.getDouble(AppConstant.LATITUDE) ;
+            if (longitude != -1 && latitude != -1) tvAddress.setText(Util.getAddress(getContext(),latitude,longitude));
         }
         if(idService == null)
             idService = AppConstant.ID_SERVICE_DEFAULT ;

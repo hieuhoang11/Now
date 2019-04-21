@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+
+import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.R;
 import com.example.hieuhoang.now.View.Main.Account.FragmentAccount;
 import com.example.hieuhoang.now.View.Main.Bill.FragmentBill;
@@ -21,27 +23,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private FragmentHome fragmentHome;
     private FragmentBill fragmentBill;
-    private FragmentFavorite fragmentNotification;
+    private FragmentFavorite fragmentFavorite;
     private FragmentAccount fragmentAccount;
     private int tabSelected = 0;
     private String TAG = "kiemtra";
-    private int[] content = {R.id.Home, R.id.Bill, R.id.Notification, R.id.Account};
+    private int[] content = {R.id.Home, R.id.Bill, R.id.Favorite, R.id.Account};
     private View[] views;
     private ImageButton[] buttons;
     //public static ModelLocation modelLocation ;
 
-    // private String [] tag = {"home" , "bill" ,"notification" , "account"} ;
-
     private int[] tabIconsUnselected = {
             R.drawable.icon_home_24dp,
             R.drawable.icon_bill_24dp,
-            R.drawable.icon_notifications_24dp,
+            R.drawable.icon_favorite_in_active_24dp,
             R.drawable.icon_user_24dp
     };
     private int[] tabIconsSelected = {
             R.drawable.icon_home_actived_24dp,
             R.drawable.icon_bill_actived_24dp,
-            R.drawable.icon_notifications_actived_24dp,
+            R.drawable.icon_favorite_active_24dp,
             R.drawable.icon_user_actived_24dp
     };
     private FragmentManager fragmentManager;
@@ -73,18 +73,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         buttons = new ImageButton[4];
         buttons[0] = findViewById(R.id.btnHome);
         buttons[1] = findViewById(R.id.btnBill);
-        buttons[2] = findViewById(R.id.btnNotification);
+        buttons[2] = findViewById(R.id.btnFavorite);
         buttons[3] = findViewById(R.id.btnAccount);
 
         views = new View[4];
-        views[0] = findViewById(R.id.Home);
-        views[1] = findViewById(R.id.Bill);
-        views[2] = findViewById(R.id.Notification);
-        views[3] = findViewById(R.id.Account);
+        for (int i = 0 ; i< content.length ;i++) {
+            views[i] = findViewById(content[i]);
+            views[i].setVisibility(View.GONE);
+        }
+        views[0].setVisibility(View.VISIBLE);
 
-        views[1].setVisibility(View.GONE);
-        views[2].setVisibility(View.GONE);
-        views[3].setVisibility(View.GONE);
     }
 
     private void addOnClick() {
@@ -123,10 +121,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     fragmentBill.onStart();
                 }
                 break;
-            case R.id.btnNotification:
-                if (fragmentNotification == null) {
-                    fragmentNotification = new FragmentFavorite();
-                    setContent(fragmentNotification, 2);
+            case R.id.btnFavorite:
+                if (fragmentFavorite == null) {
+                    fragmentFavorite = new FragmentFavorite();
+                    setContent(fragmentFavorite, 2);
                 } else visibleFragment(2);
                 break;
             case R.id.btnAccount:
@@ -162,6 +160,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         fragmentTransaction.commit();
     }
 
+    public void setFragmentChecked (int index){
+        if (index == 1) {
+            if (fragmentBill == null) {
+                fragmentBill = new FragmentBill();
+                Bundle bundle = new Bundle();
+                bundle.putInt(AppConstant.TAB,1);
+                fragmentBill.setArguments(bundle);
+                setContent(fragmentBill, 1);
+            } else  {
+                visibleFragment(1);
+                fragmentBill.setFragmentChecked(1);
+            }
+        }
+        else if (index == 2) {
+            if (fragmentFavorite == null) {
+                fragmentFavorite = new FragmentFavorite();
+                setContent(fragmentFavorite, 2);
+            } else visibleFragment(2);
+        }
+    }
+
     @Override
     protected void onStop() {
         super.onStop();
@@ -173,84 +192,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onDestroy();
         Log.i(TAG, "onDestroy: ");
     }
-    //    private ViewPager viewPager;
-//    private TabLayout tabLayout;
-//
 
-//
-//    private final int tabDefault = 0 ;
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//
-//        Mapping();
-//
-////        Start tabLayout
-//
-//        List<Fragment> fragmentList = new ArrayList<>();
-//        fragmentList.add(new FragmentBill());
-//        fragmentList.add(new FragmentFavorite());
-//        fragmentList.add(new FragmentAccount());
-//
-//        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager(),fragmentList);
-//        viewPager.setAdapter(adapter);
-//        viewPager.setCurrentItem(tabDefault);
-//        viewPager.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                return true;
-//            }
-//        });
-//        viewPager.setOnDragListener(new View.OnDragListener() {
-//            @Override
-//            public boolean onDrag(View v, DragEvent event) {
-//                return true;
-//            }
-//        });
-//
-//        tabLayout.setupWithViewPager(viewPager);
-//        setupTabIcons();
-//        tabLayout.getTabAt(tabDefault).setIcon(tabIconsSelected[tabDefault]);
-//
-//        tabLayout.setOnTabSelectedListener(
-//                new TabLayout.ViewPagerOnTabSelectedListener(viewPager) {
-//
-//                    @Override
-//                    public void onTabSelected(TabLayout.Tab tab) {
-//                        super.onTabSelected(tab);
-//                            tab.setIcon(tabIconsSelected[tab.getPosition()]);
-//                    }
-//
-//                    @Override
-//                    public void onTabUnselected(TabLayout.Tab tab) {
-//                        super.onTabUnselected(tab);
-//                        tab.setIcon(tabIconsUnselected[tab.getPosition()]);
-//                    }
-//
-//                    @Override
-//                    public void onTabReselected(TabLayout.Tab tab) {
-//                        super.onTabReselected(tab);
-//
-//                    }
-//                }
-//        );
-//
-//        // End tabLayout
-//    }
-//
-//
-//    private void Mapping() {
-//        viewPager = (ViewPager) findViewById(R.id.viewPager);
-//        tabLayout = (TabLayout) findViewById(R.id.tabLayoutMain);
-//    }
-//
-//    private void setupTabIcons() {
-//        tabLayout.getTabAt(0).setIcon(tabIconsUnselected[0]);
-//        tabLayout.getTabAt(1).setIcon(tabIconsUnselected[1]);
-//        tabLayout.getTabAt(2).setIcon(tabIconsUnselected[2]);
-//        tabLayout.getTabAt(3).setIcon(tabIconsUnselected[3]);
-//    }
 
 }

@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.example.hieuhoang.now.Presenter.LoginRegister.Login.IPresenterLogin;
 import com.example.hieuhoang.now.Presenter.LoginRegister.Login.PresenterLogicLogin;
 import com.example.hieuhoang.now.R;
+import com.example.hieuhoang.now.Util.Util;
 import com.example.hieuhoang.now.View.LoginRegister.Register.FragmentRegister;
 
 
@@ -64,9 +65,10 @@ public class FragmentLogin extends Fragment implements ViewLogin, View.OnClickLi
                 getActivity().finish();
                 break;
             case R.id.txtRegister:
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                FragmentManager fragmentManager = getFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.add(R.id.container_login_register, new FragmentRegister(), null);
+                fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
                 break;
         }

@@ -1,9 +1,13 @@
 package com.example.hieuhoang.now.View.LoginRegister.Register;
+
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Patterns;
@@ -12,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.hieuhoang.now.Constant.AppConstant;
@@ -20,29 +25,33 @@ import com.example.hieuhoang.now.Presenter.LoginRegister.Register.PresenterLogic
 import com.example.hieuhoang.now.R;
 
 
-public class FragmentRegister extends Fragment implements ViewRegister , View.OnClickListener ,View.OnFocusChangeListener {
+public class FragmentRegister extends Fragment implements ViewRegister, View.OnClickListener, View.OnFocusChangeListener {
     private TextInputLayout input_edtFullName, input_edtEmail, input_edtPassword, input_edtRepeatPassword;
     private EditText edtFullName, edtEmail, edtPassword, edtRepeatPassword;
-    private Button  btnRegisterAccount;
+    private Button btnRegisterAccount;
+    private ImageButton btnBackRegister;
+    private Activity activity ;
 
     private PresenterLogicRegister presenterLogicRegister;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.layout_fragment_register, container, false);
+        activity = getActivity() ;
+        presenterLogicRegister = new PresenterLogicRegister(this, getContext());
 
-        presenterLogicRegister = new PresenterLogicRegister(this,getContext());
-
-        btnRegisterAccount = (Button) view.findViewById(R.id.btnRegisterAccount);
-        input_edtFullName = (TextInputLayout) view.findViewById(R.id.input_edtFullName);
-        input_edtEmail = (TextInputLayout) view.findViewById(R.id.input_edtEmail);
-        input_edtPassword = (TextInputLayout) view.findViewById(R.id.input_edtPassword);
-        input_edtRepeatPassword = (TextInputLayout) view.findViewById(R.id.input_edtRepeatPassword);
-        edtFullName = (EditText) view.findViewById(R.id.edtFullName);
-        edtEmail = (EditText) view.findViewById(R.id.edtEmail);
-        edtPassword = (EditText) view.findViewById(R.id.edtPassword);
-        edtRepeatPassword = (EditText) view.findViewById(R.id.edtRepeatPassword);
-
+        btnRegisterAccount = view.findViewById(R.id.btnRegisterAccount);
+        input_edtFullName = view.findViewById(R.id.input_edtFullName);
+        input_edtEmail = view.findViewById(R.id.input_edtEmail);
+        input_edtPassword = view.findViewById(R.id.input_edtPassword);
+        input_edtRepeatPassword = view.findViewById(R.id.input_edtRepeatPassword);
+        edtFullName = view.findViewById(R.id.edtFullName);
+        edtEmail = view.findViewById(R.id.edtEmail);
+        edtPassword = view.findViewById(R.id.edtPassword);
+        edtRepeatPassword = view.findViewById(R.id.edtRepeatPassword);
+        btnBackRegister= view.findViewById(R.id.btnBackRegister);
+        btnBackRegister.setOnClickListener(this);
         btnRegisterAccount.setOnClickListener(this);
 
         edtFullName.setOnFocusChangeListener(this);
@@ -56,11 +65,11 @@ public class FragmentRegister extends Fragment implements ViewRegister , View.On
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(input_edtRepeatPassword.getError() == null)
+                if (input_edtRepeatPassword.getError() == null)
                     return;
-                if( input_edtRepeatPassword.getError().equals(""))
+                if (input_edtRepeatPassword.getError().equals(""))
                     return;
-                if(s.toString().equals(edtPassword.getText().toString().trim())) {
+                if (s.toString().equals(edtPassword.getText().toString().trim())) {
                     input_edtRepeatPassword.setErrorEnabled(false);
                     input_edtRepeatPassword.setError("");
                 }
@@ -82,16 +91,21 @@ public class FragmentRegister extends Fragment implements ViewRegister , View.On
             case R.id.btnRegisterAccount:
                 registerAccount();
                 break;
+            case R.id.btnBackRegister:
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.remove(this);
+                fragmentTransaction.commit();
+                break;
         }
 
     }
 
     private void registerAccount() {
 
-        if(!checkFullName() | !checkEmail() | !checkPassword() | !checkRepeatPassword())
+        if (!checkFullName() | !checkEmail() | !checkPassword() | !checkRepeatPassword())
             return;
-        if(input_edtPassword.isErrorEnabled()) return;
-
+        if (input_edtPassword.isErrorEnabled()) return;
 
 
         Account account = new Account();
@@ -187,14 +201,14 @@ public class FragmentRegister extends Fragment implements ViewRegister , View.On
 
     @Override
     public void onRegisterSuccess() {
-        Toast.makeText(getContext(),R.string.register_success ,Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), R.string.register_success, Toast.LENGTH_LONG).show();
 
-        getActivity().finish();
+        activity.finish();
     }
 
     @Override
     public void onRegisterFail() {
-        Toast.makeText(getContext(),R.string.register_fail ,Toast.LENGTH_LONG).show();
+        Toast.makeText(getContext(), R.string.register_fail, Toast.LENGTH_LONG).show();
     }
 
     @Override

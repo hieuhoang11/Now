@@ -38,7 +38,10 @@ dependencies {
     implementation 'com.daimajia.swipelayout:library:1.2.0@aar'
     implementation 'com.google.android.gms:play-services-location:16.0.0'
     implementation 'com.google.android.gms:play-services-maps:16.1.0'
+    compile 'com.ss.bannerslider:bannerslider:1.8.0'
 }
+
+
 
 
 
