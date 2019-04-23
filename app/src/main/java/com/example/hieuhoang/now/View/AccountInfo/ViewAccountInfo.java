@@ -14,4 +14,6 @@ public interface ViewAccountInfo {
     void oldPasswordIncorrect () ;
 
     void oldPasswordCorrect () ;
+
+    void onUpdateInfoSuccess() ;
 }

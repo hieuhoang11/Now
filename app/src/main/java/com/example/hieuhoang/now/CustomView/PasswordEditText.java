@@ -25,7 +25,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 @SuppressLint("AppCompatCustomView")
-public class PasswordEditText extends EditText implements TextWatcher{
+public class PasswordEditText extends EditText implements TextWatcher {
 
     private Drawable eye, eyeStrike;
     private Boolean useStrike = false;
@@ -77,16 +77,20 @@ public class PasswordEditText extends EditText implements TextWatcher{
         super.onFocusChanged(focused, direction, previouslyFocusedRect);
         if (this.validate) {
             if (!focused) {
-                String string = getText().toString().trim();
                 TextInputLayout textInputLayout = (TextInputLayout) this.getParent().getParent();
-                        matcher = pattern.matcher(string);
-                        if(!matcher.matches()) {
-                            textInputLayout.setErrorEnabled(true);
-                            textInputLayout.setError("Mật khẩu phải ít nhất 6 kí tự, số và 1 kí tự hoa");
-                        }
-                       else {
-                            textInputLayout.setErrorEnabled(false);
-                        }
+                String string = getText().toString().trim();
+                if (string.equals("")) {
+                    textInputLayout.setErrorEnabled(true);
+                    textInputLayout.setError("");
+                    return;
+                }
+                matcher = pattern.matcher(string);
+                if (!matcher.matches()) {
+                    textInputLayout.setErrorEnabled(true);
+                    textInputLayout.setError("Mật khẩu phải ít nhất 6 kí tự, số và 1 kí tự hoa");
+                } else {
+                    textInputLayout.setErrorEnabled(false);
+                }
             }
         }
     }
@@ -117,14 +121,14 @@ public class PasswordEditText extends EditText implements TextWatcher{
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        TextInputLayout textInputLayout ;
-        if(this.getParent() == null)
+        TextInputLayout textInputLayout;
+        if (this.getParent() == null)
             return;
         textInputLayout = (TextInputLayout) this.getParent().getParent();
-        if(textInputLayout.getError() == null)
+        if (textInputLayout.getError() == null)
             return;
         matcher = pattern.matcher(s.toString().trim());
-        if(matcher.matches()) {
+        if (matcher.matches()) {
             textInputLayout.setErrorEnabled(false);
         }
     }

@@ -3,6 +3,8 @@
     <string name="map_api_key">AIzaSyCGvf-HbfwdoqDOggHeLJUU4YI0jv_qbuE</string>
     <string name="facebook_app_id">809871782682457</string>
     <string name="you_need_enter_password">Bạn cần nhập mật khẩu!</string>
+    <string name="new_password_must_be_difference_current_password">Mật khẩu mới phải khác mật khẩu hiện tại !!!</string>
+    <string name="you_need_enter_current_password">Bạn cần nhập mật khẩu hiện tại !!!</string>
     <string name="login_success">Đăng nhập thành công</string>
     <string name="login_fail">Tài khoản hoặc mặt khẩu không chính xác</string>
     <string name="login_account">Đăng nhập tài khoản</string>
@@ -16,6 +18,7 @@
     <string name="no_data_to_display">Không có dữ liệu !!!</string>
     <string name="no_on_going_order">Không có đơn hàng đang tới !!!</string>
     <string name="do_you_want_to_logout">Bạn có muốn đăng xuất không?</string>
+    <string name="do_you_want_to_change_password">Bạn có muốn đổi mật khẩu không?</string>
     <string name="do_you_want_to_cancel_order">Bạn có muốn hủy đơn hàng không?</string>
     <string name="please_complete_all_info">Vui lòng điền đầy đủ thông tin</string>
     <string name="agree">Đồng ý</string>
@@ -59,8 +62,10 @@
     <string name="done">Xong</string>
     <string name="information">Thông tin</string>
     <string name="edit_info">Thay đổi thông tin</string>
+    <string name="edit_account_info_success">Thay đổi thông tin tài khoản thành công !!!</string>
     <string name="edit">Sửa</string>
     <string name="change_password">Đổi mật khẩu</string>
+    <string name="change_info">Đổi thông tin</string>
     <string name="add_to_cart">Thêm vào giỏ hàng</string>
     <string name="out_of_stock">Hết hàng</string>
     <string name="add_note">Thêm ghi chú</string>
@@ -104,7 +109,8 @@
     <string name="old_password">Mật khẩu hiện tại</string>
     <string name="change_password_success">Thay đổi mật khẩu thành công !!!</string>
     <string name="current_password_incorrect">Mật khẩu hiện tại không đúng !!!</string>
-    <string name="change_password_fail">Thay đổi mật khẩu thất bại</string>
+    <string name="change_password_fail">Thay đổi mật khẩu thất bại !!!</string>
+    <string name="password_not_match">Mật khẩu không trùng khớp !!!</string>
     <string name="repeat_password">Lặp lại mật khẩu</string>
     <string name="forgot_password">Quên mật khẩu ?</string>
     <string name="require_password">Mật khẩu ít nhất 6 kí tự và 1 kí tự hoa</string>

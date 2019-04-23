@@ -5,7 +5,7 @@ public class AppConstant {
     //    private static final String LOCAL = "http://myfirtwedsite.000webhostapp.com";
 //    public static final String SERVER_NAME = LOCAL + "/getJSONData.php";
 //    public static final String SERVER_NAME_IMG = LOCAL;
-    private static final String LOCAL = "http://192.168.1.2:8080";
+    private static final String LOCAL = "http://192.168.1.9:8080";
     public static final String SERVER_NAME = LOCAL + "/webnow/getJSONData.php";
     public static final String SERVER_NAME_IMG = LOCAL + "/webnow/";
 

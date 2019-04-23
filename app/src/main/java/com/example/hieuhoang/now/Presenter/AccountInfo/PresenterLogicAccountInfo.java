@@ -47,5 +47,13 @@ public class PresenterLogicAccountInfo implements IPresenterAccountInfo {
 
     }
 
+    @Override
+    public void changeInfo(Account account) {
+        boolean b = modelAccount.updateAccountInfo(account);
+        if(b) {
+            viewAccountInfo.onUpdateInfoSuccess();
+        }
+    }
+
 
 }

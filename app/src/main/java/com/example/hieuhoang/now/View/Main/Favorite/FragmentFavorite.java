@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ import java.util.List;
 
 public class FragmentFavorite extends Fragment implements ViewFavorite, View.OnClickListener {
     private Button btnLogin;
+    private SwipeRefreshLayout swipeRefresh;
     private ImageButton btnSearch;
     private RecyclerView rvFavorite;
     private View viewLoginToContinue, viewNoData;
@@ -56,6 +58,14 @@ public class FragmentFavorite extends Fragment implements ViewFavorite, View.OnC
         viewLoginToContinue = view.findViewById(R.id.viewLoginToContinue);
         viewNoData = view.findViewById(R.id.viewNoData);
         btnSearch = view.findViewById(R.id.btnSearch);
+        swipeRefresh = view.findViewById(R.id.swipeRefresh) ;
+        swipeRefresh.setColorSchemeResources(R.color.colorSwipe) ;
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                onStart();
+            }
+        });
         btnLogin.setOnClickListener(this);
         btnSearch.setOnClickListener(this);
     }
@@ -79,6 +89,8 @@ public class FragmentFavorite extends Fragment implements ViewFavorite, View.OnC
         viewLoginToContinue.setVisibility(View.VISIBLE);
         rvFavorite.setVisibility(View.GONE);
         viewNoData.setVisibility(View.GONE);
+        swipeRefresh.setVisibility(View.GONE);
+        swipeRefresh.setRefreshing(false);
     }
 
     @Override
@@ -88,6 +100,8 @@ public class FragmentFavorite extends Fragment implements ViewFavorite, View.OnC
         viewNoData.setVisibility(View.VISIBLE);
         adapter.setData(list);
         adapter.notifyDataSetChanged();
+        swipeRefresh.setVisibility(View.VISIBLE);
+        swipeRefresh.setRefreshing(false);
     }
 
     @Override
@@ -95,5 +109,7 @@ public class FragmentFavorite extends Fragment implements ViewFavorite, View.OnC
         viewLoginToContinue.setVisibility(View.GONE);
         rvFavorite.setVisibility(View.GONE);
         viewNoData.setVisibility(View.VISIBLE);
+        swipeRefresh.setVisibility(View.GONE);
+        swipeRefresh.setRefreshing(false);
     }
 }
