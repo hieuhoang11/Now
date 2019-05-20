@@ -24,6 +24,9 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
@@ -120,18 +123,7 @@ public class Util {
 //        return  noidungspanned ;
 //    }
 
-    public static LatLng getCoordinates(Context context, String address) {
-        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
-        try {
-            List<Address> addresses = geocoder.getFromLocationName(address, 5);
-            if (addresses.size() > 0) {
-                return new LatLng(addresses.get(0).getLatitude(), addresses.get(0).getLongitude());
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+
 
     public static boolean parseBooleanJson(String dataJson) throws JSONException {
         JSONObject jsonObject = new JSONObject(dataJson);
@@ -144,7 +136,7 @@ public class Util {
         return format.format(date);
     }
 
-    public static char removeAccent(char ch) {
+    private static char removeAccent(char ch) {
         int index = Arrays.binarySearch(SOURCE_CHARACTERS, ch);
         if (index >= 0) {
             ch = DESTINATION_CHARACTERS[index];
@@ -182,7 +174,7 @@ public class Util {
         if (location == null) {
             return null;
         }
-        return getAddress(context,location.getLatitude(),location.getLongitude()) ;
+        return getAddress(context, location.getLatitude(), location.getLongitude());
     }
 
     public static String getAddress(Context context, Double latitude, Double longitude) {
@@ -202,7 +194,7 @@ public class Util {
                 for (int i = 0; i < data.length - 2; i++) {
                     add += data[i] + ",";
                 }
-                add += data[data.length - 1] ;
+                add += data[data.length - 1];
                 return add;
             }
         } catch (IOException e) {
@@ -210,5 +202,47 @@ public class Util {
 
         }
         return null;
+    }
+
+    public static String distance(Location location, LatLng latLng) {
+        float result[] = new float[1];
+        Location.distanceBetween(location.getLatitude(), location.getLongitude(), latLng.latitude, latLng.longitude, result);
+        return result[0] + " ";
+    }
+    public static String distance(Context context,Location location, String address) {
+        LatLng latLng = getCoordinates(context,address);
+        return distance(location,latLng);
+    }
+    public static LatLng getCoordinates(Context context, String address) {
+        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+        try {
+            List<Address> addresses = geocoder.getFromLocationName(address, 5);
+            if (addresses.size() > 0) {
+                return new LatLng(addresses.get(0).getLatitude(), addresses.get(0).getLongitude());
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    private static String convertByteToHex1(byte[] data) {
+        BigInteger number = new BigInteger(1, data);
+        String hashtext = number.toString(16);
+        // Now we need to zero pad it if you actually want the full 32 chars.
+        while (hashtext.length() < 32) {
+            hashtext = "0" + hashtext;
+        }
+        return hashtext;
+    }
+
+    public static String getMD5(String input) {
+        try {
+            MessageDigest md = MessageDigest.getInstance("MD5");
+            byte[] messageDigest = md.digest(input.getBytes());
+            return convertByteToHex1(messageDigest);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

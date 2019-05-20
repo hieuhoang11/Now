@@ -1,155 +1,113 @@
 package com.example.hieuhoang.now.Model.Location;
 
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
-import android.content.pm.PackageManager;
-import android.location.Address;
-import android.location.Geocoder;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import com.example.hieuhoang.now.Util.Util;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.common.api.GoogleApiClient;
-import com.google.android.gms.location.LocationListener;
-import com.google.android.gms.location.LocationRequest;
-import com.google.android.gms.location.LocationServices;
-
-import java.io.IOException;
-import java.util.List;
-import java.util.Locale;
 
 import static android.content.Context.LOCATION_SERVICE;
 
-public class ModelLocation implements GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener {
-    public static final String TAG = "kiemtra";
-    private static final long UPDATE_INTERVAL = 5000;
-    private static final long FASTEST_INTERVAL = 5000;
+public class ModelLocation implements android.location.LocationListener {
 
-    private GoogleApiClient mGoogleApiClient;
-    private LocationRequest mLocationRequest;
-    private Location mLastLocation;
+    private static final String MYTAG = "MYTAG";
+
     private Context context;
 
     public ModelLocation(Context context) {
         this.context = context;
-        if (isPlayServicesAvailable()) {
-            setUpLocationClientIfNeeded();
-            buildLocationRequest();
-        } else {
-            Log.i(TAG, "Device does not support Google Play services");
-        }
     }
 
-    public Location getLastLocation() {
-        return mLastLocation;
-    }
+    private String getEnabledLocationProvider() {
+        LocationManager locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
 
-    @Override
-    public void onConnected(@Nullable Bundle bundle) {
-        if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(context,
-                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if (lastLocation != null) {
-            mLastLocation = lastLocation;
-        }
-    }
+        // Tiêu chí để tìm một nhà cung cấp vị trí.
+        Criteria criteria = new Criteria();
 
-    @Override
-    public void onConnectionSuspended(int i) {
-        mGoogleApiClient.connect();
-    }
+        // Tìm một nhà cung vị trí hiện thời tốt nhất theo tiêu chí trên.
+        // ==> "gps", "network",...
+        String bestProvider = locationManager.getBestProvider(criteria, true);
 
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        boolean enabled = locationManager.isProviderEnabled(bestProvider);
 
-    }
-
-    private boolean isPlayServicesAvailable() {
-        return isPlayServicesAvailable(context);
-    }
-
-    private boolean isGpsOn() {
-        return isGpsOn(context);
-    }
-
-    public static boolean isPlayServicesAvailable(Context context) {
-        return GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(context)
-                == ConnectionResult.SUCCESS;
-    }
-
-    public static boolean isGpsOn(Context context) {
-        LocationManager manager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
-        return manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-    }
-
-    private void setUpLocationClientIfNeeded() {
-        if (mGoogleApiClient == null) {
-            mGoogleApiClient = new GoogleApiClient.Builder(context)
-                    .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this)
-                    .addApi(LocationServices.API)
-                    .build();
-        }
-    }
-
-    private void buildLocationRequest() {
-        mLocationRequest = LocationRequest.create();
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        mLocationRequest.setInterval(UPDATE_INTERVAL);
-        mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
-    }
-
-    public void desTroy() {
-        if (mGoogleApiClient != null
-                && mGoogleApiClient.isConnected()) {
-            //stopLocationUpdates();
-            mGoogleApiClient.disconnect();
-            mGoogleApiClient = null;
-        }
-        Log.d(TAG, "onDestroy LocationService");
-    }
-
-    public String getAddress() {
-        return getAddress(this.mLastLocation) ;
-    }
-
-    public String getAddress(Location location) {
-        if (location == null) {
-            Log.i(TAG, "getAddress: null");
+        if (!enabled) {
+            Log.i(MYTAG, "No location provider enabled!");
             return null;
         }
-        Geocoder geoCoder = new Geocoder(
-                context, Locale.getDefault());
-        List<Address> addresses = null;
-        try {
-            addresses = geoCoder.getFromLocation(
-                    location.getLatitude(),
-                    location.getLongitude(), 1);
-
-            if (addresses.size() > 0) {
-                Address address = addresses.get(0);
-                return address.getAddressLine(0);
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-
-        }
-        return null;
+        return bestProvider;
     }
+
+    // Chỉ gọi phương thức này khi đã có quyền xem vị trí người dùng.
+    public Location getMyLocation() {
+        String address = null;
+        LocationManager locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
+
+        String locationProvider = this.getEnabledLocationProvider();
+
+        if (locationProvider == null) {
+            return null;
+        }
+
+        // Millisecond
+        final long MIN_TIME_BW_UPDATES = 1000;
+        // Met
+        final float MIN_DISTANCE_CHANGE_FOR_UPDATES = 1;
+
+        Location location = null;
+        try {
+
+            // Đoạn code nay cần người dùng cho phép (Hỏi ở trên ***).
+            locationManager.requestLocationUpdates(
+                    locationProvider,
+                    MIN_TIME_BW_UPDATES,
+                    MIN_DISTANCE_CHANGE_FOR_UPDATES, (android.location.LocationListener) this);
+
+            // Lấy ra vị trí.
+            location = locationManager
+                    .getLastKnownLocation(locationProvider);
+        }
+        // Với Android API >= 23 phải catch SecurityException.
+        catch (SecurityException e) {
+            Log.e(MYTAG, "Show My myLocation Error:" + e.getMessage());
+            e.printStackTrace();
+            return null;
+        }
+
+        if (location != null) {
+            address = Util.getAddress(context, location);
+            Log.i(MYTAG, "showMyLocation: " + location.getLatitude() + " " + location.getLongitude());
+            Log.i(MYTAG, "showMyLocation: " + address);
+        } else {
+
+            Log.i(MYTAG, "myLocation not found");
+        }
+
+        return location;
+    }
+
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
+    }
+
 }

@@ -4,8 +4,10 @@ import com.example.hieuhoang.now.Util.Util;
 import com.example.hieuhoang.now.ConnectInternet.DownloadJSON;
 import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.ObjectClass.Account;
+
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +33,8 @@ public class ModelAccount {
 
             String fullName = jsonObject.getString(AppConstant.FULL_NAME).trim();
             String phone = jsonObject.getString(AppConstant.PHONE).trim();
-            String email = jsonObject.getString(AppConstant.EMAIL).trim() ;
+            String email = jsonObject.getString(AppConstant.EMAIL).trim();
+            if(phone.toLowerCase().equals("null")) phone = "";
             Account account = new Account();
             account.setIdAccount(idAccount);
             account.setPhoneNumber(phone);
@@ -78,7 +81,7 @@ public class ModelAccount {
         return false;
     }
 
-    public boolean changePassword (String idAccount , String newPassword) {
+    public boolean changePassword(String idAccount, String newPassword) {
         String path = AppConstant.SERVER_NAME;
         List<HashMap<String, String>> attrs = new ArrayList<>();
         HashMap<String, String> hsFunction = new HashMap<>();
@@ -86,8 +89,7 @@ public class ModelAccount {
         HashMap<String, String> hsID = new HashMap<>();
         hsID.put(AppConstant.ID_ACCOUNT, idAccount);
         HashMap<String, String> hsPassword = new HashMap<>();
-        hsPassword.put(AppConstant.PASSWORD, newPassword);
-       ;
+        hsPassword.put(AppConstant.PASSWORD, Util.getMD5(newPassword));
         attrs.add(hsFunction);
         attrs.add(hsID);
         attrs.add(hsPassword);
@@ -96,7 +98,7 @@ public class ModelAccount {
         downloadJSON.execute();
         try {
             String dataJson = downloadJSON.get();
-            return Util.parseBooleanJson(dataJson) ;
+            return Util.parseBooleanJson(dataJson);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
@@ -104,6 +106,31 @@ public class ModelAccount {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return false ;
+        return false;
+    }
+
+    public String getIdByEmail (String email) {
+        String path = AppConstant.SERVER_NAME;
+        List<HashMap<String, String>> attrs = new ArrayList<>();
+        HashMap<String, String> hsFunction = new HashMap<>();
+        hsFunction.put(AppConstant.FUNCTION, AppConstant.FUNC_GET_ID_BY_EMAIL);
+        HashMap<String, String> hsEmail = new HashMap<>();
+        hsEmail.put(AppConstant.EMAIL, email);
+        attrs.add(hsFunction);
+        attrs.add(hsEmail);
+        DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
+        downloadJSON.execute();
+        try {
+            String dataJson = downloadJSON.get();
+            JSONObject jsonObject = new JSONObject(dataJson);
+            return  jsonObject.getString(AppConstant.ID_ACCOUNT);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

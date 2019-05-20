@@ -109,9 +109,9 @@ public class FragmentRegister extends Fragment implements ViewRegister, View.OnC
 
 
         Account account = new Account();
-        account.setFullName(edtFullName.getText().toString());
-        account.setEmail(edtEmail.getText().toString());
-        account.setPassword(edtPassword.getText().toString());
+        account.setFullName(edtFullName.getText().toString().trim());
+        account.setEmail(edtEmail.getText().toString().trim());
+        account.setPassword(edtPassword.getText().toString().trim());
         account.setAccountType(AppConstant.ACCOUNT_TYPE_CUSTOMER);
         presenterLogicRegister.RegisterAccount(account);
     }
@@ -141,7 +141,7 @@ public class FragmentRegister extends Fragment implements ViewRegister, View.OnC
         String fullName = edtFullName.getText().toString().trim();
         if (fullName.equals("")) {
             input_edtFullName.setErrorEnabled(true);
-            input_edtFullName.setError("Bạn cần nhập họ tên!");
+            input_edtFullName.setError(getResources().getString(R.string.you_need_enter_your_full_name));
             return false;
         }
         input_edtFullName.setErrorEnabled(false);
@@ -154,13 +154,13 @@ public class FragmentRegister extends Fragment implements ViewRegister, View.OnC
         String email = edtEmail.getText().toString().trim();
         if (email.equals("")) {
             input_edtEmail.setErrorEnabled(true);
-            input_edtEmail.setError("Bạn cần nhập email!");
+            input_edtEmail.setError(getResources().getString(R.string.you_need_enter_email));
             return false;
         }
         Boolean checkEmail = Patterns.EMAIL_ADDRESS.matcher(email).matches();
         if (!checkEmail) {
             input_edtEmail.setErrorEnabled(true);
-            input_edtEmail.setError("Sai định dạng email!");
+            input_edtEmail.setError(getResources().getString(R.string.wrong_email_format));
             return false;
         }
         input_edtEmail.setErrorEnabled(false);
@@ -172,7 +172,7 @@ public class FragmentRegister extends Fragment implements ViewRegister, View.OnC
         String password = edtPassword.getText().toString().trim();
         if (password.equals("")) {
             input_edtPassword.setErrorEnabled(true);
-            input_edtPassword.setError("Bạn cần nhập mật khẩu!");
+            input_edtPassword.setError(getResources().getString(R.string.you_need_enter_password));
             return false;
         }
         input_edtPassword.setErrorEnabled(false);
@@ -184,13 +184,13 @@ public class FragmentRegister extends Fragment implements ViewRegister, View.OnC
         String repeatPassword = edtRepeatPassword.getText().toString().trim();
         if (repeatPassword.equals("")) {
             input_edtRepeatPassword.setErrorEnabled(true);
-            input_edtRepeatPassword.setError("Nhập lại mật khẩu!");
+            input_edtRepeatPassword.setError(getResources().getString(R.string.repeat_password));
             return false;
         }
         String password = edtPassword.getText().toString().trim();
         if (!repeatPassword.equals(password)) {
             input_edtRepeatPassword.setErrorEnabled(true);
-            input_edtRepeatPassword.setError("Mật khẩu không trùng khớp!");
+            input_edtRepeatPassword.setError(getResources().getString(R.string.password_not_match));
             return false;
         }
         input_edtRepeatPassword.setErrorEnabled(false);
@@ -214,7 +214,7 @@ public class FragmentRegister extends Fragment implements ViewRegister, View.OnC
     @Override
     public void onEmailExists() {
         input_edtEmail.setErrorEnabled(true);
-        input_edtEmail.setError("địa chỉ email đã tồn tại");
+        input_edtEmail.setError(getResources().getString(R.string.email_exists));
     }
 
 }

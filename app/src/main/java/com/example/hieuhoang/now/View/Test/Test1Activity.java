@@ -7,21 +7,9 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
-
-import com.example.hieuhoang.now.Constant.AppConstant;
-import com.example.hieuhoang.now.Model.Common;
 import com.example.hieuhoang.now.Model.Location.ModelLocation;
 import com.example.hieuhoang.now.R;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import ss.com.bannerslider.banners.Banner;
-import ss.com.bannerslider.banners.DrawableBanner;
-import ss.com.bannerslider.banners.RemoteBanner;
-import ss.com.bannerslider.views.BannerSlider;
 
 public class Test1Activity extends AppCompatActivity {
     private String TAG = "kiemtra" ;
@@ -32,9 +20,9 @@ public class Test1Activity extends AppCompatActivity {
         setContentView(R.layout.activity_test1);
         requestLocationPermissions();
         ModelLocation modelLocation = new ModelLocation(getApplicationContext()) ;
-        Log.i(TAG, "vi tri: " + modelLocation.getAddress());
-        Common.mLocation = modelLocation.getLastLocation();
-        Log.i(TAG, "vi tri: " + modelLocation.getAddress(Common.mLocation));
+//        Log.i(TAG, "vi tri: " + modelLocation.getAddress());
+//        Common.mLocation = modelLocation.getLastLocation();
+//        Log.i(TAG, "vi tri: " + modelLocation.getAddress(Common.mLocation));
     }
 
     private void requestLocationPermissions() {

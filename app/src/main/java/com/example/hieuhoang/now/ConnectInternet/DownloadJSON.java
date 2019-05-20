@@ -33,7 +33,7 @@ public class DownloadJSON extends AsyncTask<String, Void, String> {
     public DownloadJSON(String path, List<HashMap<String, String>> attrs) {
         this.path = path;
         this.attrs = attrs;
-        method = false ;
+        method = false;
     }
 
     @Override
@@ -41,19 +41,18 @@ public class DownloadJSON extends AsyncTask<String, Void, String> {
         try {
             URL url = new URL(path);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-            if(!method)
+            if (!method)
                 return methodPost(connection);
             else
                 return methodGet(connection);
         } catch (MalformedURLException e) {
             e.printStackTrace();
-        }
-        catch (IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
         return null;
-}
+    }
 
     private String methodGet(HttpURLConnection httpURLConnection) {
         String re = "";

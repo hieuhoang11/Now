@@ -197,6 +197,8 @@ public class FragmentAccount extends Fragment implements View.OnClickListener, G
                             GraphResponse response) {
                         try {
                             btnLoginAccount.setText(object.getString("name"));
+                            Log.i("kiemtra", "onCompleted: " + object.getString("email"));
+                            Log.i("kiemtra", "onCompleted: " + object.getString("name"));
                             loadImageFromInternet("https://graph.facebook.com/" + object.getString("id") + "/picture?type=normal");
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -204,13 +206,14 @@ public class FragmentAccount extends Fragment implements View.OnClickListener, G
                     }
                 });
         Bundle parameters = new Bundle();
-        parameters.putString("fields", "name,id");
+        parameters.putString("fields", "name,id,email");
         request.setParameters(parameters);
         request.executeAsync();
     }
 
     private void getInformationGoogle() {
         btnLoginAccount.setText(googleSignInResult.getSignInAccount().getDisplayName());
+        Log.i("kiemtra", "getInformationGoogle: " + googleSignInResult.getSignInAccount().getEmail());
         if (googleSignInResult.getSignInAccount().getPhotoUrl() != null) {
             loadImageFromInternet(googleSignInResult.getSignInAccount().getPhotoUrl().toString());
             Log.i("img", googleSignInResult.getSignInAccount().getPhotoUrl().toString());

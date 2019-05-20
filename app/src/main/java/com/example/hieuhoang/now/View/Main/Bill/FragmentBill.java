@@ -196,6 +196,11 @@ public class FragmentBill extends Fragment implements ViewBill, View.OnClickList
 
     public void setFragmentChecked(int index) {
         visibleFragment(index);
-        fragments[tabSelected].onStart();
+        if (fragments[1] == null)
+        {
+            fragments[1] = new FragmentHistory();
+            setContent(fragments[1], 1);
+        }
+        else fragments[tabSelected].onStart();
     }
 }

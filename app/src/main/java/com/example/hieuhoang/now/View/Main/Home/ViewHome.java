@@ -10,6 +10,6 @@ public interface ViewHome {
 
     void loadHotProducts(List<HotProduct> list);
     void loadRecommendStores(List<Store> list);
-    void loadBanner(List<String> images) ;
+    void loadBanner(List<Store> mStores) ;
     void disappearBanner () ;
 }

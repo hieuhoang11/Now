@@ -131,15 +131,31 @@ public class ModelStore {
         return list;
     }
 
-    public List<Store> getNewStore() {
+    public List<Store> getNewStore(String idService) {
         List<Store> list = new ArrayList<>();
+        String path = AppConstant.SERVER_NAME;
+        List<HashMap<String, String>> attrs = new ArrayList<>();
+        HashMap<String, String> hsFunction = new HashMap<>();
+        hsFunction.put(AppConstant.FUNCTION, AppConstant.FUNC_GET_NEW_PRODUCT);
 
-        for (int i = 0; i < 23; i++) {
-            Store store = new Store();
-            store.setStoreName("Tên cửa hàng đó mà");
-            store.setStoreAddress("địa chỉ cửa hàng nè");
-            store.setPriceProduct(0);
-            list.add(store);
+        HashMap<String, String> hsIdService = new HashMap<>();
+        hsIdService.put(AppConstant.ID_SERVICE, idService);
+        attrs.add(hsFunction);
+
+        attrs.add(hsIdService);
+
+        DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
+        downloadJSON.execute();
+        try {
+            String dataJson = downloadJSON.get();
+            Log.i(TAG, "getNewStore: " + dataJson);
+            list = parseJSonStore(dataJson) ;
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
         return list;
     }

@@ -1,6 +1,7 @@
 package com.example.hieuhoang.now.View.LoginRegister.Login;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -29,15 +30,16 @@ public class FragmentLogin extends Fragment implements ViewLogin, View.OnClickLi
     private TextView txtRegister;
     private EditText edEmailLogin, edPasswordLogin;
     private Button btnLogin;
-    TextInputLayout input_edtEmail, input_edtPassword;
+    private TextInputLayout input_edtEmail, input_edtPassword;
     private IPresenterLogin presenterLogicLogin;
+    private Activity activity;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.layout_fragment_login, container, false);
-
+        this.activity = getActivity();
         presenterLogicLogin = new PresenterLogicLogin(this, getContext());
         btnLogin = view.findViewById(R.id.btnLogin);
         btnBackLogin = view.findViewById(R.id.btnBackLoginRegister);
@@ -62,7 +64,7 @@ public class FragmentLogin extends Fragment implements ViewLogin, View.OnClickLi
                 presenterLogicLogin.loginAccount(email, password);
                 break;
             case R.id.btnBackLoginRegister:
-                getActivity().finish();
+                this.activity.finish();
                 break;
             case R.id.txtRegister:
                 FragmentManager fragmentManager = getFragmentManager();
@@ -77,7 +79,7 @@ public class FragmentLogin extends Fragment implements ViewLogin, View.OnClickLi
     @Override
     public void onLoginSuccess() {
         Toast.makeText(getContext(), R.string.login_success, Toast.LENGTH_SHORT).show();
-        getActivity().finish();
+        this.activity.finish();
     }
 
     @Override

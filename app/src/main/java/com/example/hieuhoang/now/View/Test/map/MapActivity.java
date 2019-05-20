@@ -79,7 +79,7 @@ public class MapActivity extends AppCompatActivity implements GoogleApiClient.Co
 //    TextView longitude, latitude, loca, longitude2, latitude2, kc;
 //    EditText vitri2;
 //    Button getLocation;
-//    private Location location;
+//    private myLocation location;
 //    private GoogleApiClient gac;
 //    private ModelLocation modelLocation;
 //    String TAG = "kiemtra";
@@ -126,7 +126,7 @@ public class MapActivity extends AppCompatActivity implements GoogleApiClient.Co
 //                float[] re = new float[1];
 //
 //                // String kc = getDistance(location.getLatitude(),location.getLongitude(),addresses.get(0).getLatitude(),addresses.get(0).getLongitude());
-//                Location.distanceBetween(location.getLatitude(), location.getLongitude(), addresses.get(0).getLatitude(), addresses.get(0).getLongitude(), re);
+//                myLocation.distanceBetween(location.getLatitude(), location.getLongitude(), addresses.get(0).getLatitude(), addresses.get(0).getLongitude(), re);
 //                this.latitude2.setText("latitude 2 : " + addresses.get(0).getLatitude());
 //                this.longitude2.setText("longitude 2 : " + addresses.get(0).getLongitude());
 //                this.kc.setText("khoang cach :" + re[0]);

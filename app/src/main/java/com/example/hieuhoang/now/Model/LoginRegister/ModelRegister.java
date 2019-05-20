@@ -1,6 +1,7 @@
 package com.example.hieuhoang.now.Model.LoginRegister;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.example.hieuhoang.now.Util.Util;
 import com.example.hieuhoang.now.ConnectInternet.DownloadJSON;
@@ -17,7 +18,7 @@ import java.util.concurrent.ExecutionException;
 
 public class ModelRegister {
 
-    ModelLogin modelLogin;
+    private ModelLogin modelLogin;
 
     public ModelRegister(Context context) {
         modelLogin = new ModelLogin(context);
@@ -64,7 +65,7 @@ public class ModelRegister {
         hsEmail.put(AppConstant.EMAIL, account.getEmail());
 
         HashMap<String, String> hsPassword = new HashMap<>();
-        hsPassword.put(AppConstant.PASSWORD, account.getPassword());
+        hsPassword.put(AppConstant.PASSWORD, Util.getMD5(account.getPassword()));
 
         HashMap<String, String> hsAccount_type = new HashMap<>();
         hsAccount_type.put(AppConstant.ACCOUNT_TYPE, String.valueOf(account.getAccountType()));
@@ -93,6 +94,10 @@ public class ModelRegister {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+        return false;
+    }
+
+    public boolean registerGoogle (String email,String name) {
         return false;
     }
 }

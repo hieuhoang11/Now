@@ -56,8 +56,8 @@ public class PresenterLogicService implements IPresenterService {
     }
 
     @Override
-    public void loadNewStores() {
-        List<Store> list = modelProduct.getNewStore();
+    public void loadNewStores(String idService) {
+        List<Store> list = modelProduct.getNewStore(idService);
         if(list.size() >0){
             viewService.loadNewStore(list);
         }

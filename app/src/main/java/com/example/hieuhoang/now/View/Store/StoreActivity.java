@@ -269,7 +269,6 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {
                         super.onTabSelected(tab);
-
                         if (tab.getPosition() != 0) {
                             closeCartAndCartDetail();
                         } else if (order != null) showCart(order);
@@ -472,6 +471,8 @@ public class StoreActivity extends AppCompatActivity implements ViewStore, View.
             case R.id.viewDelivery:
                 Intent iSubmitOrder = new Intent(StoreActivity.this, SubmitOrderActivity.class);
                 iSubmitOrder.putExtra(AppConstant.ID_ORDER, this.order.getIdOrder());
+                iSubmitOrder.putExtra(AppConstant.STORE_NAME, this.store.getStoreName());
+                iSubmitOrder.putExtra(AppConstant.STORE_ADDRESS, this.store.getStoreAddress());
                 startActivity(iSubmitOrder);
                 break;
             case R.id.btnCloseSheetDetail:

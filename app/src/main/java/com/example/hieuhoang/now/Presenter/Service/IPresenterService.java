@@ -6,5 +6,5 @@ public interface IPresenterService {
     void loadRecommendStores();
     void loadJustOrderStores(String idService);
     void loadNearbyStores();
-    void loadNewStores();
+    void loadNewStores(String idService);
 }

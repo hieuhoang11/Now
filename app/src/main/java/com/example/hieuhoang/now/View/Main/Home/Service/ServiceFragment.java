@@ -15,24 +15,29 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
 import com.example.hieuhoang.now.Adapter.rvHotAdapter;
 import com.example.hieuhoang.now.Adapter.rvStoreAdapter;
 import com.example.hieuhoang.now.Adapter.rvPreferentialAdapter;
 import com.example.hieuhoang.now.Constant.AppConstant;
+import com.example.hieuhoang.now.Model.Location.ModelLocation;
+import com.example.hieuhoang.now.Model.LoginRegister.ModelLogin;
 import com.example.hieuhoang.now.Model.ObjectClass.HotProduct;
+import com.example.hieuhoang.now.Model.ObjectClass.myLocation;
 import com.example.hieuhoang.now.Model.ObjectClass.Store;
 import com.example.hieuhoang.now.Presenter.Service.PresenterLogicService;
 import com.example.hieuhoang.now.R;
 import com.example.hieuhoang.now.Util.Util;
 import com.example.hieuhoang.now.View.Search.SearchActivity;
+
 import java.util.List;
 
 
 public class ServiceFragment extends Fragment implements ViewService, View.OnClickListener {
     private RecyclerView rvPreferentialService, rvHotProductService, rvItemService;
-    private TextView txtNewItemService, txtNearbyItemService, txtJustOrderItemService, txtRecommendItemService,tvService,tvAddress;
+    private TextView txtNewItemService, txtNearbyItemService, txtJustOrderItemService, txtRecommendItemService, tvService, tvAddress;
     private Button btnSearch;
-    private ImageButton btnBackService ;
+    private ImageButton btnBackService;
     private PresenterLogicService presenterLogicService;
     private rvStoreAdapter adapter;
     private String idService;
@@ -55,45 +60,45 @@ public class ServiceFragment extends Fragment implements ViewService, View.OnCli
         txtJustOrderItemService = view.findViewById(R.id.txtJustOrderItemService);
         txtRecommendItemService = view.findViewById(R.id.txtRecommendItemService);
         btnBackService = view.findViewById(R.id.btnBackService);
-        btnSearch = view.findViewById(R.id.btnSearch) ;
-        tvService = view.findViewById(R.id.tvService) ;
-        tvAddress = view.findViewById(R.id.tvAddress) ;
+        btnSearch = view.findViewById(R.id.btnSearch);
+        tvService = view.findViewById(R.id.tvService);
+        tvAddress = view.findViewById(R.id.tvAddress);
         btnSearch.setOnClickListener(this);
         btnBackService.setOnClickListener(this);
         txtRecommendItemService.setOnClickListener(this);
         txtJustOrderItemService.setOnClickListener(this);
         txtNewItemService.setOnClickListener(this);
         txtNearbyItemService.setOnClickListener(this);
-        txtRecommendItemService.setTextColor(Util.getIdColor(getContext() , R.color.colorTextTabSelected));
+        txtRecommendItemService.setTextColor(Util.getIdColor(getContext(), R.color.colorTextTabSelected));
     }
 
-    private void init () {
+    private void init() {
         Bundle bundle = getArguments();
         if (bundle != null) {
             idService = bundle.getString(AppConstant.ID_SERVICE);
-            double longitude = bundle.getDouble(AppConstant.LONGITUDE) ;
-            double latitude = bundle.getDouble(AppConstant.LATITUDE) ;
-            if (longitude != -1 && latitude != -1) tvAddress.setText(Util.getAddress(getContext(),latitude,longitude));
+//            double longitude = bundle.getDouble(AppConstant.LONGITUDE) ;
+//            double latitude = bundle.getDouble(AppConstant.LATITUDE) ;
+//            if (longitude != -1 && latitude != -1) tvAddress.setText(Util.getAddress(getContext(),latitude,longitude));
         }
-        if(idService == null)
-            idService = AppConstant.ID_SERVICE_DEFAULT ;
-        String serviceName ="";
-        switch(idService) {
-            case AppConstant.ID_SERVICE_FOOD :
-                serviceName = getResources().getString(R.string.food) ;
+        if (idService == null)
+            idService = AppConstant.ID_SERVICE_DEFAULT;
+        String serviceName = "";
+        switch (idService) {
+            case AppConstant.ID_SERVICE_FOOD:
+                serviceName = getResources().getString(R.string.food);
                 break;
-            case AppConstant.ID_SERVICE_DRINK :
-                serviceName = getResources().getString(R.string.drinks) ;
+            case AppConstant.ID_SERVICE_DRINK:
+                serviceName = getResources().getString(R.string.drinks);
                 break;
-            case AppConstant.ID_SERVICE_FLOWER :
-                serviceName = getResources().getString(R.string.flowers) ;
+            case AppConstant.ID_SERVICE_FLOWER:
+                serviceName = getResources().getString(R.string.flowers);
                 break;
-            case AppConstant.ID_SERVICE_LIQUOR :
-                serviceName = getResources().getString(R.string.liquor) ;
+            case AppConstant.ID_SERVICE_LIQUOR:
+                serviceName = getResources().getString(R.string.liquor);
                 break;
         }
 
-        tvService.setText(serviceName) ;
+        tvService.setText(serviceName);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         adapter = new rvStoreAdapter(null, getContext());
@@ -104,6 +109,17 @@ public class ServiceFragment extends Fragment implements ViewService, View.OnCli
         presenterLogicService.loadHotProducts();
         presenterLogicService.loadPreferential();
         presenterLogicService.loadRecommendStores();
+
+        if (myLocation.myAddress != null) {
+            tvAddress.setText(myLocation.myAddress);
+        } else {
+            ModelLocation modelLocation = new ModelLocation(getContext());
+            myLocation.location = modelLocation.getMyLocation();
+            if (myLocation.location != null) {
+                myLocation.myAddress = Util.getAddress(getContext(), myLocation.location);
+                tvAddress.setText(myLocation.myAddress);
+            }
+        }
     }
 
     @Override
@@ -157,7 +173,7 @@ public class ServiceFragment extends Fragment implements ViewService, View.OnCli
                 break;
             case R.id.txtNewItemService:
                 setTextColor(txtNewItemService);
-                presenterLogicService.loadNewStores();
+                presenterLogicService.loadNewStores(idService);
                 break;
             case R.id.txtNearbyItemService:
                 setTextColor(txtNearbyItemService);
@@ -174,19 +190,19 @@ public class ServiceFragment extends Fragment implements ViewService, View.OnCli
                 fragmentTransaction.commit();
                 break;
             case R.id.btnSearch:
-                Intent iSearch = new Intent(getContext(), SearchActivity.class) ;
-                iSearch.putExtra(AppConstant.ID_SERVICE , idService) ;
+                Intent iSearch = new Intent(getContext(), SearchActivity.class);
+                iSearch.putExtra(AppConstant.ID_SERVICE, idService);
                 startActivity(iSearch);
                 break;
         }
     }
 
     public void setTextColor(TextView txtChecked) {
-        int colorBlack = Util.getIdColor(getContext(),R.color.colorBlack);
+        int colorBlack = Util.getIdColor(getContext(), R.color.colorBlack);
         txtJustOrderItemService.setTextColor(colorBlack);
         txtNewItemService.setTextColor(colorBlack);
         txtNearbyItemService.setTextColor(colorBlack);
         txtRecommendItemService.setTextColor(colorBlack);
-        txtChecked.setTextColor(Util.getIdColor(getContext(),R.color.colorTextTabSelected));
+        txtChecked.setTextColor(Util.getIdColor(getContext(), R.color.colorTextTabSelected));
     }
 }

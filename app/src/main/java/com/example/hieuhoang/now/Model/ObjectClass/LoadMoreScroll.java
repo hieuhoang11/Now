@@ -6,7 +6,7 @@ import android.util.Log;
 public class LoadMoreScroll extends RecyclerView.OnScrollListener{
     private int sumItem = 0 ;
     private int firstItem = 0 ;
-    private int itemLoad = 9 ;
+    private int itemLoad = 5 ;
     RecyclerView.LayoutManager layoutManager ;
     private ILoadMore iLoadMore ;
     public LoadMoreScroll (RecyclerView.LayoutManager layoutManager, ILoadMore iLoadMore) {

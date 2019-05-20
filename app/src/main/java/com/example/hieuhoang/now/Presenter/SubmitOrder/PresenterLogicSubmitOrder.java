@@ -25,20 +25,12 @@ public class PresenterLogicSubmitOrder implements IPresenterSubmitOrder {
     private ViewSubmitOrder viewSubmitOrder;
     String TAG = "kiemtra";
 
-    public PresenterLogicSubmitOrder(Activity activity, Context context, ViewSubmitOrder viewSubmitOrder) {
+    public PresenterLogicSubmitOrder( ViewSubmitOrder viewSubmitOrder) {
         modelStore = new ModelStore();
         modelOrder = new ModelOrder();
         modelProduct = new ModelProduct();
         modelAccount = new ModelAccount();
         this.viewSubmitOrder = viewSubmitOrder;
-    }
-
-    @Override
-    public void getLocation() {
-//        String address = MainActivity.modelLocation.getLocation();
-//        if (address != null) {
-//            viewSubmitOrder.addMarker(address);
-//        }
     }
 
 
@@ -50,7 +42,7 @@ public class PresenterLogicSubmitOrder implements IPresenterSubmitOrder {
 
         getOrderDetail(idOrder);
 
-        getStoreName(order.getIdStore());
+       // getStoreName(order.getIdStore());
         getCustomerInfo(order.getIdCustomer());
     }
 
@@ -62,13 +54,13 @@ public class PresenterLogicSubmitOrder implements IPresenterSubmitOrder {
         }
     }
 
-    @Override
-    public void getStoreName(String idStore) {
-        Store store = modelStore.getStoreByID(idStore);
-        if (store != null) {
-            viewSubmitOrder.setStoreName(store.getStoreName());
-        }
-    }
+//    @Override
+//    public void getStoreName(String idStore) {
+//        Store store = modelStore.getStoreByID(idStore);
+//        if (store != null) {
+//            viewSubmitOrder.setStoreName(store.getStoreName());
+//        }
+//    }
 
     @Override
     public void getCustomerInfo(String idCustomer) {

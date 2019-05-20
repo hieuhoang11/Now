@@ -35,7 +35,7 @@ public class PresenterLogicHome implements IPresenterHome {
 
     @Override
     public void loadBanner() {
-        List<String> list = modelHome.getListImageBanner() ;
+        List<Store> list = modelHome.getListImageBanner() ;
         if(list.size() > 0 ) viewHome.loadBanner(list);
         else viewHome.disappearBanner();
     }

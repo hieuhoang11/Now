@@ -9,7 +9,6 @@ import java.util.Map;
 
 public interface ViewSubmitOrder {
     void addMarker (String address) ;
-    void setStoreName (String storeName) ;
     void setInfoOrder (Order order) ;
     void setCustomerInfo (Account account) ;
     void loadOrderDetail (List<OrderDetail> mDetailList) ;

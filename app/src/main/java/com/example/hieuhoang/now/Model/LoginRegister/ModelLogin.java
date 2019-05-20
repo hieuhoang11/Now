@@ -8,6 +8,7 @@ import android.util.Log;
 import com.example.hieuhoang.now.ConnectInternet.DownloadJSON;
 import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.ObjectClass.Account;
+import com.example.hieuhoang.now.Util.Util;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.google.android.gms.auth.api.Auth;
@@ -40,23 +41,24 @@ public class ModelLogin {
         hsFunction.put(AppConstant.FUNCTION, AppConstant.CHECK_LOGIN);
         HashMap<String, String> hsEmail = new HashMap<>();
         hsEmail.put(AppConstant.EMAIL, email);
-        HashMap<String, String> hsPassword = new HashMap<>();
-        hsPassword.put(AppConstant.PASSWORD, password);
         attrs.add(hsFunction);
         attrs.add(hsEmail);
-        attrs.add(hsPassword);
         DownloadJSON downloadJSON = new DownloadJSON(path, attrs);
         downloadJSON.execute();
         try {
             String dataJSON = downloadJSON.get();
             JSONObject jsonObject = new JSONObject(dataJSON);
-            String fullName = jsonObject.getString(AppConstant.FULL_NAME);
-            String id = jsonObject.getString(AppConstant.ID_ACCOUNT);
-            Account account = new Account();
-            account.setFullName(fullName);
-            account.setIdAccount(id);
-            setCacheLogin(account);
-            return true ;
+            Log.i("kiemtra", "checkLogin: " + dataJSON);
+            if(Util.getMD5(password).equals(jsonObject.getString(AppConstant.PASSWORD))){
+                String fullName = jsonObject.getString(AppConstant.FULL_NAME);
+                String id = jsonObject.getString(AppConstant.ID_ACCOUNT);
+                Account account = new Account();
+                account.setFullName(fullName);
+                account.setIdAccount(id);
+                setCacheLogin(account);
+                return true ;
+            }
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

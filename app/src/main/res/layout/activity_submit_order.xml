@@ -74,7 +74,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="@string/delivery_to"
-                            android:textColor="@color/colorLightGray" />
+                            android:textColor="@color/colorDimGray" />
 
                         <Button
                             android:id="@+id/btnEdit"
@@ -103,7 +103,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/address"
-                        android:textColor="@color/colorLightGray" />
+                        android:textColor="@color/colorDimGray" />
 
                     <TextView
                         android:id="@+id/tvLocation"
@@ -115,12 +115,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/distance"
-                        android:textColor="@color/colorLightGray" />
+                        android:textColor="@color/colorDimGray" />
 
                     <TextView
+                        android:id="@+id/tvDistance"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="0,1km"
                         android:textColor="@color/colorBlack" />
 
 

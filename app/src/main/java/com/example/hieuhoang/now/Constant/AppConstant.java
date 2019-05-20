@@ -5,7 +5,7 @@ public class AppConstant {
     //    private static final String LOCAL = "http://myfirtwedsite.000webhostapp.com";
 //    public static final String SERVER_NAME = LOCAL + "/getJSONData.php";
 //    public static final String SERVER_NAME_IMG = LOCAL;
-    private static final String LOCAL = "http://192.168.1.9:8080";
+    private static final String LOCAL = "http://192.168.1.2:8080";
     public static final String SERVER_NAME = LOCAL + "/webnow/getJSONData.php";
     public static final String SERVER_NAME_IMG = LOCAL + "/webnow/";
 
@@ -17,6 +17,7 @@ public class AppConstant {
     public static final String FUNC_GET_LIST_STORE_BY_ID_BRAND = "getListStoreByIdBrand";
     public static final String FUNC_ADD_FAVORITE = "addFavorite";
     public static final String FUNC_GET_JUST_ORDER = "getJustOrder";
+    public static final String FUNC_GET_NEW_PRODUCT = "getNewProduct";
     public static final String FUNC_GET_LIST_FAVORITE = "getListFavorite";
     public static final String FUNC_REMOVE_FAVORITE = "removeFavorite";
     public static final String FUNC_IS_FAVORITE = "isFavorite";
@@ -47,6 +48,7 @@ public class AppConstant {
     public static final String REGISTER_ACCOUNT = "registerAccount";
     public static final String CHECK_EMAIL_EXISTS = "checkEmailExists";
     public static final String FUNC_CHANGE_PASSWORD = "changePassword";
+    public static final String FUNC_GET_ID_BY_EMAIL = "getIdByEmail";
     public static final String FUNC_GET_LIST_DRAFT_ORDER = "getListDraftOrder";
     public static final String FUNC_GET_LIST_ON_GOING_ORDER = "getListOnGoingOrder";
     public static final String FUNC_GET_LIST_HISTORY_ORDER = "getListHistoryOrder";

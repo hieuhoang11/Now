@@ -26,6 +26,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hieuhoang.now.Adapter.rvOrderDetailAdapter;
+import com.example.hieuhoang.now.Model.Location.ModelLocation;
+import com.example.hieuhoang.now.Model.ObjectClass.myLocation;
 import com.example.hieuhoang.now.Util.Util;
 import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.ObjectClass.Account;
@@ -53,13 +55,12 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class SubmitOrderActivity extends AppCompatActivity implements ViewSubmitOrder, OnMapReadyCallback, View.OnClickListener,GoogleApiClient.ConnectionCallbacks,
-        GoogleApiClient.OnConnectionFailedListener {
+public class SubmitOrderActivity extends AppCompatActivity implements ViewSubmitOrder, OnMapReadyCallback, View.OnClickListener {
     private final String TAG = "kiemtra";
-    private TextView tvStoreName, tvQuantityItem, tvTotalMoney, tvCusInfo, tvLocation, tvNote;
+    private TextView tvStoreName, tvQuantityItem, tvTotalMoney, tvCusInfo, tvLocation, tvNote, tvDistance;
     private RecyclerView rvOrderDetail;
-    private Button btnSubmit,btnEdit;
-    private ImageButton btnBack ;
+    private Button btnSubmit, btnEdit;
+    private ImageButton btnBack;
     private GoogleMap map;
     private IPresenterSubmitOrder presenterLogicSubmitOrder;
     private rvOrderDetailAdapter adapter;
@@ -68,49 +69,47 @@ public class SubmitOrderActivity extends AppCompatActivity implements ViewSubmit
     private Account customer;
     private final int EDIT_INFO_CODE = 111;
 
-    private static final long UPDATE_INTERVAL = 5000;
-    private static final long FASTEST_INTERVAL = 5000;
-    private static final int REQUEST_LOCATION_PERMISSION = 100;
-
-    private GoogleApiClient mGoogleApiClient;
-    private LocationRequest mLocationRequest;
-    private Location mLastLocation;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_submit_order);
 
         Mapping();
-
         Intent intent = getIntent();
         String idOrder = intent.getStringExtra(AppConstant.ID_ORDER);
+        String storeName = intent.getStringExtra(AppConstant.STORE_NAME);
+        tvStoreName.setText(storeName);
+        if (myLocation.myAddress != null) {
+            tvLocation.setText(myLocation.myAddress);
+        } else {
+            ModelLocation modelLocation = new ModelLocation(getApplicationContext());
+            myLocation.location = modelLocation.getMyLocation();
+            if (myLocation.location != null) {
+                myLocation.myAddress = Util.getAddress(getApplicationContext(), myLocation.location);
+                tvLocation.setText(myLocation.myAddress);
+            }
+        }
+        String storeAddress = intent.getStringExtra(AppConstant.STORE_ADDRESS);
+        if (myLocation.location != null) {
+            tvDistance.setText(Util.distance(getApplicationContext(), myLocation.location, storeAddress));
+        }
 
         adapter = new rvOrderDetailAdapter(new ArrayList<OrderDetail>(), getApplicationContext());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false);
         rvOrderDetail.setLayoutManager(layoutManager);
         rvOrderDetail.setAdapter(adapter);
 
-        presenterLogicSubmitOrder = new PresenterLogicSubmitOrder(this, getApplicationContext(), this);
+        presenterLogicSubmitOrder = new PresenterLogicSubmitOrder(this);
         presenterLogicSubmitOrder.getOrder(idOrder);
-
-        requestLocationPermissions();
-
-        if (isPlayServicesAvailable()) {
-            setUpLocationClientIfNeeded();
-            buildLocationRequest();
-        }
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
     }
+
     @Override
     protected void onStart() {
         super.onStart();
-        if (mGoogleApiClient != null) {
-            mGoogleApiClient.connect();
-        }
     }
 
     private void Mapping() {
@@ -122,8 +121,9 @@ public class SubmitOrderActivity extends AppCompatActivity implements ViewSubmit
         rvOrderDetail = findViewById(R.id.rvOrderDetail);
         btnSubmit = findViewById(R.id.btnSubmit);
         tvNote = findViewById(R.id.tvNote);
-        btnEdit = findViewById(R.id.btnEdit) ;
-        btnBack = findViewById(R.id.btnBack) ;
+        btnEdit = findViewById(R.id.btnEdit);
+        btnBack = findViewById(R.id.btnBack);
+        tvDistance = findViewById(R.id.tvDistance);
         btnBack.setOnClickListener(this);
         tvNote.setOnClickListener(this);
         btnSubmit.setOnClickListener(this);
@@ -133,7 +133,6 @@ public class SubmitOrderActivity extends AppCompatActivity implements ViewSubmit
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
-        presenterLogicSubmitOrder.getLocation();
     }
 
     @Override
@@ -146,10 +145,6 @@ public class SubmitOrderActivity extends AppCompatActivity implements ViewSubmit
         map.addMarker(new MarkerOptions().position(location));
     }
 
-    @Override
-    public void setStoreName(String storeName) {
-        tvStoreName.setText(storeName);
-    }
 
     @Override
     public void setInfoOrder(Order order) {
@@ -177,7 +172,7 @@ public class SubmitOrderActivity extends AppCompatActivity implements ViewSubmit
     @Override
     public void noEnoughQuantity(Map<String, Integer> map) {
         Toast.makeText(SubmitOrderActivity.this, getResources().getString(R.string.msg_out_of_stock), Toast.LENGTH_SHORT).show();
-        adapter.setMap (map) ;
+        adapter.setMap(map);
         adapter.notifyDataSetChanged();
     }
 
@@ -216,8 +211,8 @@ public class SubmitOrderActivity extends AppCompatActivity implements ViewSubmit
         if (requestCode == EDIT_INFO_CODE && resultCode == RESULT_OK && data != null) {
             Bundle bundle = data.getBundleExtra(AppConstant.DATA);
             String phone = bundle.getString(AppConstant.PHONE);
-            String fullName = bundle.getString(AppConstant.FULL_NAME) ;
-            String cus = fullName + " - " + phone ;
+            String fullName = bundle.getString(AppConstant.FULL_NAME);
+            String cus = fullName + " - " + phone;
             tvCusInfo.setText(cus);
             tvLocation.setText(bundle.getString(AppConstant.ADDRESS));
             customer.setPhoneNumber(phone);
@@ -282,90 +277,10 @@ public class SubmitOrderActivity extends AppCompatActivity implements ViewSubmit
         dialog.setContentView(view);
         dialog.show();
     }
-    private void requestLocationPermissions() {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                    REQUEST_LOCATION_PERMISSION);
-        }
-    }
 
-    @Override
-    public void onRequestPermissionsResult(
-            int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        switch (requestCode) {
-            case REQUEST_LOCATION_PERMISSION:
-                if (grantResults.length > 0
-                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                } else {
-                    requestLocationPermissions();
-                }
-                break;
-            default:
-                break;
-        }
-    }
-
-    private boolean isPlayServicesAvailable() {
-        return GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(this)
-                == ConnectionResult.SUCCESS;
-    }
-
-    private boolean isGpsOn() {
-        LocationManager manager = (LocationManager) getSystemService(LOCATION_SERVICE);
-        return manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-    }
-
-    private void setUpLocationClientIfNeeded() {
-        if (mGoogleApiClient == null) {
-            mGoogleApiClient = new GoogleApiClient.Builder(this)
-                    .addConnectionCallbacks(this)
-                    .addOnConnectionFailedListener(this)
-                    .addApi(LocationServices.API)
-                    .build();
-        }
-    }
-
-    private void buildLocationRequest() {
-        mLocationRequest = LocationRequest.create();
-        mLocationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
-        mLocationRequest.setInterval(UPDATE_INTERVAL);
-        mLocationRequest.setFastestInterval(FASTEST_INTERVAL);
-    }
-    private void updateUi () {
-        tvLocation.setText(Util.getAddress(getApplicationContext(),mLastLocation));
-    }
-    @Override
-    public void onConnected(Bundle bundle) {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
-                != PackageManager.PERMISSION_GRANTED && ContextCompat.checkSelfPermission(this,
-                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        Location lastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-        if (lastLocation != null) {
-            mLastLocation = lastLocation;
-            updateUi();
-        }
-    }
-    @Override
-    public void onConnectionSuspended(int i) {
-        mGoogleApiClient.connect();
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-    }
     @Override
     public void onDestroy() {
-        if (mGoogleApiClient != null
-                && mGoogleApiClient.isConnected()) {
-            mGoogleApiClient.disconnect();
-            mGoogleApiClient = null;
-        }
-        Log.d(TAG, "onDestroy LocationService");
+
         super.onDestroy();
     }
 }
