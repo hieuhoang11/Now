@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.hieuhoang.now.Model.ObjectClass.myLocation;
 import com.example.hieuhoang.now.Util.Util;
 import com.example.hieuhoang.now.Constant.AppConstant;
 import com.example.hieuhoang.now.Model.ObjectClass.Store;
@@ -46,13 +47,19 @@ public class rvStoreAdapter extends RecyclerView.Adapter<rvStoreAdapter.ItemServ
         final Store store = mStores.get(position);
         holder.tvName.setText(store.getStoreName());
         holder.tvAddress.setText(store.getStoreAddress());
+//        String distance = "";
+//        if (myLocation.location != null) {
+//                distance = Util.distance(context, myLocation.location, store.getStoreAddress());
+//            }
+//        holder.tvDistance.setText(distance);
         String price = context.getResources().getString(R.string.price);
-        price += " " ;
+        price += " ";
         price += Util.formatPriceStore(store.getPriceProduct());
-        holder.tvPrice.setText( price );
-        if(store.isPromo())
+        holder.tvPrice.setText(price);
+        if (store.isPromo())
             holder.tvPromo.setVisibility(View.VISIBLE);
-        Util.loadImageFromServer(store.getImage(),context,holder.imgStore);
+        else holder.tvPromo.setVisibility(View.GONE);
+        Util.loadImageStore(store.getImage(), context, holder.imgStore);
         holder.viewItemStore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -75,6 +82,7 @@ public class rvStoreAdapter extends RecyclerView.Adapter<rvStoreAdapter.ItemServ
         private TextView tvAddress;
         private TextView tvPromo;
         private TextView tvPrice;
+        private TextView tvDistance;
         private View viewItemStore;
 
         private ItemServiceViewHolder(View itemView) {
@@ -84,6 +92,7 @@ public class rvStoreAdapter extends RecyclerView.Adapter<rvStoreAdapter.ItemServ
             tvAddress = itemView.findViewById(R.id.tvAddressStoreItemService);
             tvPromo = itemView.findViewById(R.id.tvPromotionStoreItemService);
             tvPrice = itemView.findViewById(R.id.tvPriceStoreItemService);
+            tvDistance = itemView.findViewById(R.id.tvDistance);
             viewItemStore = itemView.findViewById(R.id.viewItemStore);
         }
     }

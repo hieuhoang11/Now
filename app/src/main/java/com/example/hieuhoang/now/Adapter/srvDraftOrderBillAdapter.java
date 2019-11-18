@@ -91,7 +91,7 @@ public class srvDraftOrderBillAdapter extends RecyclerSwipeAdapter<srvDraftOrder
             }
         });
 
-        Util.loadImageFromServer(order.getStoreImage() , context , holder.imgStore);
+        Util.loadImageStore(order.getStoreImage() , context , holder.imgStore);
         holder.tvStoreName.setText(order.getStoreName());
         holder.tvStoreAddress.setText(order.getStoreAddress());
         holder.tvQuantity.setText(String.valueOf(order.getQuantityProduct()));

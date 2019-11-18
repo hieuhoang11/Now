@@ -53,7 +53,7 @@ public class rvProductsInStoreAdapter extends RecyclerView.Adapter<rvProductsInS
         final Product product = mProducts.get(position);
         holder.tvNameProduct.setText(product.getProductName());
         holder.tvNumberOfPurchases.setText(Util.qualityPurchased(product.getQuantityPurchase()));
-        Util.loadImageFromServer(product.getImage(), context, holder.imgProduct);
+        Util.loadImageProduct(product.getImage(), context, holder.imgProduct);
         final String price = Util.formatNumber(product.getPrice());
         if (product.getDiscount() == 0) {
             holder.tvProductPrice.setText(price);

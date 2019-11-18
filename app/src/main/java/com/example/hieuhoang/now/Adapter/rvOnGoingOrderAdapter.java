@@ -37,7 +37,7 @@ public class rvOnGoingOrderAdapter extends RecyclerView.Adapter<rvOnGoingOrderAd
     @Override
     public void onBindViewHolder(OrderViewHolder holder, int position) {
         final Order order = mOrders.get(position);
-        Util.loadImageFromServer(order.getStoreImage(), context, holder.imgStore);
+        Util.loadImageStore(order.getStoreImage(), context, holder.imgStore);
         holder.tvStoreName.setText(order.getStoreName());
         holder.tvStoreAddress.setText(order.getStoreAddress());
         holder.tvQuantity.setText(String.valueOf(order.getQuantityProduct()));

@@ -31,7 +31,7 @@ public class rvGroupProductAdapter extends RecyclerView.Adapter<rvGroupProductAd
     private boolean isGrid;
     private Map<String, Integer> map = null;
     private StoreActivity storeActivity;
-    private Animation anim_rotate_right ;
+    //private Animation anim_rotate_right ;
 
     public rvGroupProductAdapter(List<GroupProduct> mGroupProducts, Context context, StoreActivity storeActivity, boolean isGrid) {
         this.mGroupProducts = mGroupProducts;
@@ -39,7 +39,7 @@ public class rvGroupProductAdapter extends RecyclerView.Adapter<rvGroupProductAd
         this.context = context;
         this.isGrid = isGrid;
         this.storeActivity = storeActivity;
-        anim_rotate_right = AnimationUtils.loadAnimation(context,R.anim.anim_rotate_right) ;
+        //anim_rotate_right = AnimationUtils.loadAnimation(context,R.anim.anim_rotate_right) ;
     }
 
     @Override
